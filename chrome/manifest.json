@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+
+	"name": "Spoiler Blocker",
+	"description": "Blocks spoilers on your Facebook feed.",
+	"version": "0.1",
+
+	"browser_action": {
+		"default_title": "Spoiler Blocker",
+		"default_icon": "img/icon.png",
+		"default_popup": "popup.html"
+	},
+
+	"permissions": ["tabs", "storage"],
+
+	"content_scripts": [
+		{
+			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],
+			"js": ["jquery.js", "fb.js"]
+		}
+	]
+}
