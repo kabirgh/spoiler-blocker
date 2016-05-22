@@ -7,17 +7,18 @@ $(document).ready(function () {
 	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 	
-	var feedObserver = new MutationObserver( function(mutations) {
-		console.log("checking for feed...");
+	// var feedObserver = new MutationObserver( function(mutations) {
+	// 	console.log("checking for feed...");
 
-		mutations.forEach( function(mutation) {
-			$(mutation.addedNodes).each( function() {
-				console.log(this);
-			});
+	// 	mutations.forEach( function(mutation) {
+	// 		$(mutation.addedNodes).each( function() {
+	// 			console.log(this);
+	// 		});
 			
-		});	
-	});
+	// 	});	
+	// });
 
+	// Find new streams
 	var streamObserver = new MutationObserver( function(mutations) {
 		$(mutations.addedNodes)
 		.filter("div[id^='substream']")
@@ -41,6 +42,7 @@ $(document).ready(function () {
 			}
 			else {
 				target = streams[0];
+				console.log("target ID is " + $(target).attr("id") + " and class is " +  $(target).attr("class"));
 			}
 		});
 		// console.log("target undefined");
@@ -59,16 +61,15 @@ $(document).ready(function () {
 
 	// If feed_stream has been found, check the feed for new substreams
 	else if (target !== undefined && initialCheck === true) {
-		console.log("target is " +$(target).attr("id"));
+		console.log("target defined");
+		console.log("target ID is " + $(target).attr("id"));
 		// Observe children of feed
 		streamObserver.observe(target, {
 			childList: true
 		});
 		// Only call streamObserver.observe once
 		initialCheck = false;
-		feedObserver.disconnect();
-		// // Stop checking for feed
-		// $(document).unbindArrive();
+		// feedObserver.disconnect();
 	}
 
 
