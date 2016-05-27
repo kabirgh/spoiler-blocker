@@ -3,107 +3,66 @@ $(document).ready(function () {
 
 	var spoilersArr = ["the", "a"];
 	var streamId = "substream_0";
-	var target = undefined;
 	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-	
-	// var feedObserver = new MutationObserver( function(mutations) {
-	// 	console.log("checking for feed...");
-
-	// 	mutations.forEach( function(mutation) {
-	// 		$(mutation.addedNodes).each( function() {
-	// 			console.log(this);
-	// 		});
-			
-	// 	});	
-	// });
 
 	// Find new streams
 	var streamObserver = new MutationObserver( function(mutations) {
-		$(mutations.addedNodes)
-		.filter("div[id^='substream']")
-		.each( function() {
-			console.log("new substream added: " + $(this).attr("id"));
-			findPosts( $(this).attr("id") );
+		console.log("observing");
+
+		mutations.forEach( function(mutation) {
+			$(mutation.addedNodes).filter("div[id^='substream']")
+			.each( function() {
+				var streamID = $(this).attr("id");
+				$("div[id='" + streamID + "']")
+				.find("div[id^='hyperfeed_story']")
+				.each( function() {
+					console.log("each ID " + $(this).attr("id"));
+					$(this).attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+				});
+			});
 		});
+		
 	});
 
-	var initialCheck = true;
-
 	// Check for feed_stream's existence
-	if (target === undefined) {
-		document.addEventListener("DOMNodeInserted", function() {
-			// check all new substreams for spoiler posts
-			var streams = $("div[id^='feed_stream']");
+	document.addEventListener("DOMNodeInserted", findFeed);
 
-			if ( $(streams).length === 0 ) {
-				console.log("no streams");
-				findPosts(streamId);
-			}
-			else {
-				target = streams[0];
-				console.log("target ID is " + $(target).attr("id") + " and class is " +  $(target).attr("class"));
-			}
-		});
-		// console.log("target undefined");
+	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation observer
+	function findFeed() {
+		var feed = $("div[id^='feed_stream']");
 
-		// feedObserver.observe(document.body, {
-		// 	childList: true,
-		// 	subtree: true
-		// });
+		// if no feed is found
+		if ( $(feed).length === 0 ) {
+			console.log("no streams");
+		}
 
-		// $(window).arrive("div[id^='feed_stream']", function() {
-		// 	// 'this' refers to the newly created element
-		// 	target = this;
-		// 	console.log("found feed: " + $(this).attr("id"));
-		// });
-	}
+		// if the feed is found
+		else {
+			console.log("target ID is " + $(feed[0]).attr("id"));
 
-	// If feed_stream has been found, check the feed for new substreams
-	else if (target !== undefined && initialCheck === true) {
-		console.log("target defined");
-		console.log("target ID is " + $(target).attr("id"));
-		// Observe children of feed
-		streamObserver.observe(target, {
-			childList: true
-		});
-		// Only call streamObserver.observe once
-		initialCheck = false;
-		// feedObserver.disconnect();
+			// Observe children of feed
+			streamObserver.observe(feed[0], {
+				childList: true
+			});
+
+			document.removeEventListener("DOMNodeInserted", findFeed);
+			console.log("event removed");
+		}
 	}
 
 
-	// document.addEventListener("DOMNodeInserted", function() {
-	// 	// check all new substreams for spoiler posts
-	// 	var streams = $("div[id='" + streamId + "']").nextAll("div[id^='substream']");
-
-	// 	// if there is <=1 stream (substream_0 or none)
-	// 	if ( $(streams).length === 0 ) {
-	// 		console.log("no streams");
-	// 		findPosts(streamId);
-	// 	}
-
-	// 	// if there is >1 substream
-	// 	else {
-	// 		$(streams).each( function() {
-	// 			streamId = $(this).attr("id");
-	// 			findPosts(streamId);
-			
-	// 			console.log("this stream is " + streamId);
-	// 		});
-	// 	}
-	// });
-
-
-	// Applies the attribute long-string-..." to elements containing spoilers in descendants of root
+	// Applies the attribute "long-string-..." to elements containing spoilers in descendants of root
 	function findPosts(parentId) {
+		console.log("parent ID " + parentId);
+
 		// Find all <div> elements with attr id beginning with hyperfeed_story
 		// that have <p> elements as descendants
 		// which contain any of the spoilers in spoilersArr.
 		// Give these elements the "long-string-..." attribute.
 		var posts = $("div[id^='" + parentId + "']").find("div[id^='hyperfeed_story']")
+						.attr("story", "yesitiszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
 						.has( containsAny("p", spoilersArr) )
-						.attr("long-string-for-easy-inspection-spoil-block", "block");
+						.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 	}
 
 
