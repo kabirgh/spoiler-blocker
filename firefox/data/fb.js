@@ -10,16 +10,9 @@ $(document).ready(function () {
 		console.log("observing");
 
 		mutations.forEach( function(mutation) {
-			$(mutation.addedNodes).filter("div[id^='substream']")
-			.each( function() {
-				var streamID = $(this).attr("id");
-				$("div[id='" + streamID + "']")
-				.find("div[id^='hyperfeed_story']")
-				.each( function() {
-					console.log("each ID " + $(this).attr("id"));
-					$(this).attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-				});
-			});
+			$(mutation.addedNodes)
+			.filter("div[id^='substream']")
+			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		});
 		
 	});

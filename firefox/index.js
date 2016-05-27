@@ -9,7 +9,15 @@ pageMod.PageMod({
 	contentScriptFile: ["./jquery.js", "./fb.js"]
 });
 
-// Attach a panel to a button on the toolbar
+
+// Store data across sessions
+var ss = require("sdk/simple-storage").storage;
+if (!ss.tagArrs) {
+	ss.tagArrs = {};
+}
+
+
+// Create a button on the toolbar
 var { ToggleButton } = require("sdk/ui/button/toggle");
 var button = ToggleButton({
 	id: "sb-button",
@@ -19,15 +27,10 @@ var button = ToggleButton({
 	    "32": "./icon-32.png",
 	    "64": "./icon-64.png"
   	},
-  onChange: handleChange
+  onChange: handleButtonChange,
 });
 
-var panel = require("sdk/panel").Panel({
-	contentURL: "./panel.html",
-	onHide: handleHide
-});
-
-function handleChange(state) {
+function handleButtonChange(state) {
   if (state.checked) {
     panel.show({
       position: button
@@ -35,6 +38,19 @@ function handleChange(state) {
   }
 }
 
-function handleHide() {
+
+// Attach a panel to the button
+var panel = require("sdk/panel").Panel({
+	contentURL: "./panel.html",
+	contentScriptFile: "./panel-script.js",
+	onHide: handlePanelHide
+});
+
+function handlePanelHide() {
   button.state('window', {checked: false});
 }
+
+// Listen to messages from script with tag "new-list"
+panel.port.on("new-list", function(tagObj) {
+	console.log(JSON.stringify(tagObj));
+});
