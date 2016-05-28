@@ -42,7 +42,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel.html",
-	contentScriptFile: "./panel-script.js",
+	// contentScriptFile: "./panel-script.js",
 	onHide: handlePanelHide
 });
 
