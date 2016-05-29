@@ -35,6 +35,8 @@ function handleButtonChange(state) {
     panel.show({
       position: button
     });
+
+    panel.port.emit("panel-visible", "true");
   }
 }
 
@@ -42,7 +44,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel.html",
-	// contentScriptFile: "./panel-script.js",
+	contentScriptFile: "./panel-script.js",
 	onHide: handlePanelHide
 });
 
@@ -50,7 +52,13 @@ function handlePanelHide() {
   button.state('window', {checked: false});
 }
 
-// Listen to messages from script with tag "new-list"
+// Listen to messages from panel-script.js with tag "new-list" and store them 
+// in the persisten tagArrs object. Key:value is title:array.
 panel.port.on("new-list", function(tagObj) {
-	console.log(JSON.stringify(tagObj));
+	if (ss.tagArrs[tagObj["title"]]) {
+		alert("A list with this title already exists.");
+	}
+	else {
+		ss.tagArrs[tagObj["title"]] = tagObj["tags"];
+	}
 });

@@ -1,14 +1,18 @@
-var tags = ["the", "a"];
+// When add-on toolbar button is pressed
+self.port.on("panel-visible", function() {
+	var button = document.getElementById("title-button");
+	button.onclick = getInput;
+});
 
-console.log("panelscript")
+// Send the list of spoilers entered to index.js
+function getInput() {
+	var title = document.getElementById("title-input").value.trim();
+	var tags = document.getElementById("tags-input").value;
 
-var titleButton = document.getElementById("title-button");
-titleButton.onclick = function() {
-    var title = document.getElementById("title-input")
-    			.value.replace(/(\r\n|\n|\r)/gm,"");
+	var tagArr = tags.split(",");
+	for (var i=0; i<tagArr.length; i++) {
+		tagArr[i] = tagArr[i].trim();
+	}
 
-    console.log(title);
-
-    self.port.emit("new-list", {"title": title, "tags": tags});
-    titleButton.value = '';
+	self.port.emit("new-list", {"title": title, "tags": tagArr});
 }
