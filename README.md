@@ -6,3 +6,22 @@ The extension can be installed from the Firefox Add-ons library and Chrome Web S
 
 ## License
 This project is MIT licensed.
+
+## Minimum Viable Product
+An extension that allows users to select certain words that they wish blocked, and these are then hidden.
+
+## Plan for remaining time
+<ol>
+  <li>
+    Make an extension that blocks pre-defined words
+  </li>
+  <li>
+    Extend this to allow users to enter their own words
+  </li>
+  <li>
+    Add a feature which comprises of a list of a few popular shows for which there exist pre-defined spoiler words so that users do not have to enter individual words
+  </li>
+  <li>
+    Allow users to curate lists of spoilers, so that these are available to anyone who uses the extension
+  </li>
+</ol>
