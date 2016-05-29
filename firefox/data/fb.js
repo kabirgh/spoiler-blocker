@@ -17,7 +17,7 @@ $(document).ready(function () {
 	observer.observe(document, { subtree: true, characterData: true });
 
 	// Find new streams
-	var streamObserver = new MutationObserver(function(mutations, blah) {
+	var streamObserver = new MutationObserver(function(mutations) {
 		console.log("observing");
 		console.log(mutations.type);
 		console.log(blah.type);
