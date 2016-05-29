@@ -12,9 +12,10 @@ $(document).ready(function () {
 		mutations.forEach( function(mutation) {
 			$(mutation.addedNodes)
 			.filter("div[id^='substream']")
-			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+			.each( function() {
+				console.log("stream ID " + $(this).attr("id"));
+			});
 		});
-		
 	});
 
 	// Check for feed_stream's existence
