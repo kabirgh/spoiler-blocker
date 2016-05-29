@@ -5,16 +5,29 @@ $(document).ready(function () {
 	var streamId = "substream_0";
 	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-	// Find new streams
-	var streamObserver = new MutationObserver( function(mutations) {
-		console.log("observing");
+	var insertedNodes = [];
+	var observer = new MutationObserver(function(mutations) {
+	 mutations.forEach(function(mutation) {
+	   for (var i = 0; i < mutation.addedNodes.length; i++)
+	     insertedNodes.push(mutation.addedNodes[i]);
+			 console.log("Hi");
+			 console.log(insertedNodes);
+	 })
+	});
+	observer.observe(document, { subtree: true, characterData: true });
 
-		mutations.forEach( function(mutation) {
+	// Find new streams
+	var streamObserver = new MutationObserver(function(mutations, blah) {
+		console.log("observing");
+		console.log(mutations.type);
+		console.log(blah.type);
+
+		mutations.forEach(function(mutation) {
 			$(mutation.addedNodes)
 			.filter("div[id^='substream']")
 			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		});
-		
+
 	});
 
 	// Check for feed_stream's existence
@@ -71,6 +84,3 @@ $(document).ready(function () {
 		return stringOutput;
 	}
 });
-
-
-
