@@ -8,21 +8,21 @@ The extension can be installed from the Firefox Add-ons library and Chrome Web S
 This project is MIT licensed.
 
 ## Minimum Viable Product
-An extension that allows users to select certain words that they wish blocked, and these are then hidden.
+Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden.
 
 ## Features
 <ol>
   <li>
-    An extension that blocks pre-defined words
+    Blocks posts using pre-defined lists of words that indicate the posts may spoil the TV show
   </li>
   <li>
-    Extend this to allow users to enter their own words
+    Allow users to create their own lists of spoiler tags
   </li>
   <li>
-    Display a list of a few popular shows for which there exist pre-defined spoiler words so that users do not have to enter individual words
+    Have a curated section of (possibly community-submitted) spoiler lists for common TV shows. Users can select these rather than creating their own
   </li>
   <li>
-    Allow users to curate lists of spoilers, so that these are available to anyone who uses the extension
+    Allow users to submit lists of spoilers to a public community portal for anyone's use
   </li>
 </ol>
 
@@ -33,4 +33,4 @@ We plan to implement the features in the order given above.
 Project Gemini
 
 ## Audience
-This project caters to all people who watch TV shows.
+This project caters to all people who watch TV shows (and don't want them spoiled).
