@@ -6,7 +6,7 @@ var pageMod = require("sdk/page-mod");
 pageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./fb.js"]
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"]
 });
 
 
