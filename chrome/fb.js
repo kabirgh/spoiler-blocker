@@ -12,10 +12,21 @@ $(document).ready(function () {
 	// Using a timeout of 500ms since the descendants are not added immediately
 	function mutationObjectCallback(mutationRecordsList) {
 	  console.log("mutationObjectCallback invoked.");
+		console.log(mutationRecordsList);
 
 	  mutationRecordsList.forEach(function(mutationRecord) {
-			setTimeout(findSpoilers, 500, mutationRecord.addedNodes[0]);
+			// setTimeout(findSpoilers, 500, mutationRecord.addedNodes[0]);
+			// console.log(mutationRecord);
+			var obs = new MutationObserver(callback);
+			obs.observe(mutationRecord.addedNodes[0], {
+				childList : true
+			})
 	  });
+	}
+
+	function callback(mutations) {
+		console.log("callback");
+		console.log(mutations);
 	}
 
 	// Takes a node
@@ -38,7 +49,7 @@ $(document).ready(function () {
 		});
 	}
 
-	
+
 	document.addEventListener("DOMNodeInserted", findFeed);
 
 	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation observer
