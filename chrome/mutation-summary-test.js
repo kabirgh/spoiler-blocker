@@ -3,9 +3,8 @@ $(document).ready(function () {
   var patt = /hyperfeed_story*/
 
   function callbackFun (summaries) {
-    summaries[0].added.forEach(function(node) {
-      console.log($(node).filter("div[id^='hyperfeed_story']"));
-    })
+    filtered = $(summaries[0].added).filter("div[id^='hyperfeed_story']").filter("div[class^='_']");
+    if (filtered.length != 0) console.log(filtered);
   }
 
   document.addEventListener("DOMNodeInserted", findFeed);
