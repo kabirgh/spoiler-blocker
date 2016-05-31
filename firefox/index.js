@@ -35,8 +35,6 @@ function handleButtonChange(state) {
     panel.show({
       position: button
     });
-
-    panel.port.emit("panel-visible", "true");
   }
 }
 
@@ -45,6 +43,7 @@ function handleButtonChange(state) {
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel.html",
 	contentScriptFile: "./panel-script.js",
+	contentStyleFile: "./panel-style.css",
 	onHide: handlePanelHide
 });
 

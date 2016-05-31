@@ -1,8 +1,5 @@
-// When add-on toolbar button is pressed
-self.port.on("panel-visible", function() {
-	var button = document.getElementById("title-button");
-	button.onclick = getInput;
-});
+var button = document.getElementById("title-button");
+button.onclick = getInput;
 
 // Send the list of spoilers entered to index.js
 function getInput() {
