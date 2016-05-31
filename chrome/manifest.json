@@ -16,7 +16,7 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],
-			"js": ["jquery.js", "fb.js"]
+			"js": ["jquery.js", "mutation-summary.js", "mutation-summary-test.js"]
 		}
 	]
 }

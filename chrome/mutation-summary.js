@@ -1664,4 +1664,4 @@ var MutationSummary = (function () {
     return MutationSummary;
 })();
 
-module.exports = MutationSummary
+(window.module || {}).exports = MutationSummary
