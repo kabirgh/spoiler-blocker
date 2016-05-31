@@ -17,17 +17,15 @@ $(document).ready(function () {
 	observer.observe(document, { subtree: true, characterData: true });
 
 	// Find new streams
-	var streamObserver = new MutationObserver(function(mutations) {
 		console.log("observing");
 		console.log(mutations.type);
-		console.log(blah.type);
 
 		mutations.forEach(function(mutation) {
 			$(mutation.addedNodes)
-			.filter("div[id^='substream']")
-			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+			.each( function() {
+				console.log("node ID " + $(this).attr("id"));
+			});
 		});
-
 	});
 
 	// Check for feed_stream's existence
@@ -47,8 +45,9 @@ $(document).ready(function () {
 			console.log("target ID is " + $(feed[0]).attr("id"));
 
 			// Observe children of feed
-			streamObserver.observe(feed[0], {
-				childList: true
+			feedObserver.observe(feed[0], {
+				childList:true,
+				subtree:true
 			});
 
 			document.removeEventListener("DOMNodeInserted", findFeed);
