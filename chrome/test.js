@@ -1,7 +1,7 @@
 jQuery(document).ready( function($) {
 	console.log("START");
 
-	var spoilersArr = ["would"];
+	var spoilersArr = ["the"];
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);

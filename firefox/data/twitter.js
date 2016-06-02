@@ -23,7 +23,7 @@ jQuery(document).ready( function($) {
 			}
 		}
 
-		// Get tweets loaded on scroll
+		// Get all tweets loaded on scroll
 		var tweetObs = new MutationSummary({
 			callback: newTweetsCallback,
 			rootNode: target[0],

@@ -2,7 +2,7 @@ jQuery(document).ready( function($) {
 	console.log("START");
 
 	var spoilersArr = ["the", "here"];
-	var target = $("#substream_0");
+	var target = $("div[id^='feed_stream']");
 
 	if (target.length > 0) {
 
@@ -13,7 +13,7 @@ jQuery(document).ready( function($) {
 		}
 
 		function hidePost(postNode) {
-			var postText = $(postNode).find("p").text();
+			var postText = $(postNode).find("div[id^='hyperfeed']").find("p").text();
 
 			for (var i=0; i<spoilersArr.length; i++) {
 				// if post text contains a spoiler
@@ -28,13 +28,13 @@ jQuery(document).ready( function($) {
 			callback: newPostsCallback,
 			rootNode: target[0],
 			queries: [{
-				element: "li[data-item-type]"
+				element: "div"
 			}]
 		});
 
 		function newPostsCallback(summaries) {
 			summaries[0].added.forEach( function(node) {
-				hidepost(node);
+				hidePost(node);
 			});
 		}
 	}

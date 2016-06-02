@@ -2,11 +2,18 @@
 // require("sdk/self").data.url("filename")
 
 // Run content script when user is browsing facebook
-var pageMod = require("sdk/page-mod");
-pageMod.PageMod({
+var fbPageMod = require("sdk/page-mod");
+fbPageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
 	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"]
+});
+
+var twitterPageMod = require("sdk/page-mod");
+twitterPageMod.PageMod({
+	include: "*.twitter.com",
+	contentScriptWhen: "ready",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"]
 });
 
 
