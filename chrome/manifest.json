@@ -16,7 +16,11 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],
-			"js": ["jquery.js", "mutation-summary.js", "mutation-summary-test.js"]
+			"js": ["jquery.js", "mutation-summary.js", "test.js"]
+		},
+		{
+			"matches": ["*://*.twitter.com/*", "*://twitter.com/*"],
+			"js": ["jquery.js", "mutation-summary.js", "twitter.js"]
 		}
 	]
 }

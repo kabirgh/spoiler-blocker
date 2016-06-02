@@ -1,26 +1,23 @@
 $(document).ready(function () {
 	console.log("START");
 
-	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 	var spoilersArr = ["the", "a"];
-
-	// // Find new streams
-	// var feedObserver = new MutationObserver( function(mutations) {
-	// 	console.log("observing");
-	// 	console.log(mutations.type);
-
-	// 	mutations.forEach(function(mutation) {
-	// 		$(mutation.addedNodes)
-	// 		.each( function() {
-	// 			console.log("node ID " + $(this).attr("id"));
-	// 		});
-	// 	});
-	// });
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 
-	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation observer
+	var contentObserver = new MutationSummary({
+		callback: contentObsCallback,
+		queries: [{
+			element: "div[id='stream_pagelet']"
+		}]
+	});
+
+	function contentObsCallback(summaries) {
+		console.log(summaries[0]);
+	}
+
+	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
 		var feed = $("div[id^='feed_stream']");
 
@@ -33,44 +30,31 @@ $(document).ready(function () {
 		else {
 			console.log("target ID is " + $(feed[0]).attr("id"));
 
-			var feedObserver = new MutationSummary({
-				callback: feedLogger,
+			// look for new div elements
+			var postObserver = new MutationSummary({
+				callback: hidePosts,
+				rootNode: feed[0],
 				queries: [{
 					element: "div"
 				}]
 			});
 
-			// // Observe children of feed
-			// feedObserver.observe(feed[0], {
-			// 	childList:true,
-			// 	subtree:true
-			// });
-
 			document.removeEventListener("DOMNodeInserted", findFeed);
-			console.log("event removed");
+			console.log("DOMNodeInserted listener removed");
 		}
 	}
 
 
-	function feedLogger(summaries) {
-		summaries[0].added.forEach( function(elem) {
-			console.log($(elem).attr("id"));
-		})
-	}
-
-
-	// Applies the attribute "long-string-..." to elements containing spoilers in descendants of root
-	function findPosts(parentId) {
-		console.log("parent ID " + parentId);
-
-		// Find all <div> elements with attr id beginning with hyperfeed_story
+	function hidePosts(summaries) {
+		// Filter all <div> elements with attr id beginning with hyperfeed
 		// that have <p> elements as descendants
 		// which contain any of the spoilers in spoilersArr.
 		// Give these elements the "long-string-..." attribute.
-		var posts = $("div[id^='" + parentId + "']").find("div[id^='hyperfeed_story']")
-		.attr("story", "yesitiszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
-		.has( containsAny("p", spoilersArr) )
-		.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+		summaries[0].added.forEach( function(node) {
+			$(node).filter("div[id^='hyperfeed']")
+			// .has( containsAny("p", spoilersArr) )
+			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");;
+		})
 	}
 
 
