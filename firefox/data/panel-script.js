@@ -3,9 +3,6 @@ self.port.on("sending-spoilers", function(allTags) {
 
 });
 
-var button = document.getElementById("title-button");
-button.onclick = getInput;
-
 // Send the list of spoilers entered to index.js
 function getInput() {
 	var title = document.getElementById("title-input").value.trim();

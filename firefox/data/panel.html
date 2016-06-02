@@ -1,14 +1,20 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<h1>
+	<link rel="stylesheet" href="paper-theme-bootstrap.css">
+	<link rel="stylesheet" href="panel-style.css">
+	<h4>
 		Heading
-	</h1>
+	</h4>
 </head>
 <body>
-	<input id="title-input" type="text" placeholder="List title"></input>
-	<br>
-	<input id="tags-input" type="text" placeholder="Enter tags seperated by commas"></input>
-	<button id="title-button" type="button">Submit</button>
+	<div class="container">
+		<input id="title-input" type="text" placeholder="List title"></input>
+		<br>
+		<input id="tags-input" type="text" placeholder="Enter comma seperated tags"></input>
+		<br>
+		<br>
+		<button type="button" class="btn" style="display:block" onclick="getInput()">Submit</button>
+	</div>
 </body>
 </html>
