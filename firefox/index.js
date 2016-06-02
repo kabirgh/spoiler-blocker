@@ -9,20 +9,25 @@ fbPageMod.PageMod({
 	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"]
 });
 
+
 var twitterPageMod = require("sdk/page-mod");
 twitterPageMod.PageMod({
 	include: "*.twitter.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"]
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
+	onAttach: function(worker) {
+		worker.port.on("get-spoilers", function() {
+			worker.port.emit("sending-spoilers", ss.allTags);
+		});
+	}
 });
-
 
 // Store data across sessions
 var ss = require("sdk/simple-storage").storage;
-if (!ss.tagArrs) {
-	ss.tagArrs = {};
+if (!ss.allTags) {
+	// Will look like {"spoiler-list-name":["tag1", "tag2"], "another-name":["arr2", "abb"], ...}
+	ss.allTags = {"spoiler-list-name":["tag1", "tag2"], "another-name":["arr2", "abb"]};
 }
-
 
 // Create a button on the toolbar
 var { ToggleButton } = require("sdk/ui/button/toggle");
@@ -31,18 +36,18 @@ var button = ToggleButton({
 	label: "Spoiler Blocker",
 	icon: {
 		"16": "./icon-16.png",
-	    "32": "./icon-32.png",
-	    "64": "./icon-64.png"
-  	},
-  onChange: handleButtonChange,
+		"32": "./icon-32.png",
+		"64": "./icon-64.png"
+	},
+	onChange: handleButtonChange,
 });
 
 function handleButtonChange(state) {
-  if (state.checked) {
-    panel.show({
-      position: button
-    });
-  }
+	if (state.checked) {
+		panel.show({
+			position: button
+		});
+	}
 }
 
 
@@ -55,16 +60,21 @@ var panel = require("sdk/panel").Panel({
 });
 
 function handlePanelHide() {
-  button.state('window', {checked: false});
+	button.state('window', {checked: false});
 }
 
+// When requested, send all tags to the panel for display
+panel.port.on("get-spoilers", function() {
+	panel.port.emit("sending-spoilers", ss.allTags);
+});
+
 // Listen to messages from panel-script.js with tag "new-list" and store them 
-// in the persisten tagArrs object. Key:value is title:array.
+// in the persisten allTags object. Key:value is title:array.
 panel.port.on("new-list", function(tagObj) {
-	if (ss.tagArrs[tagObj["title"]]) {
+	if (ss.allTags[tagObj["title"]]) {
 		alert("A list with this title already exists.");
 	}
 	else {
-		ss.tagArrs[tagObj["title"]] = tagObj["tags"];
+		ss.allTags[tagObj["title"]] = tagObj["tags"];
 	}
 });
