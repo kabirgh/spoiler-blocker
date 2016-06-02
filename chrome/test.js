@@ -32,7 +32,7 @@ jQuery(document).ready( function($) {
 
 			// look for new div elements
 			var postObserver = new MutationSummary({
-				callback: hidePosts,
+				callback: observeHyperFeed,
 				rootNode: feed[0],
 				queries: [{
 					element: "div"
@@ -45,19 +45,33 @@ jQuery(document).ready( function($) {
 	}
 
 
-	function hidePosts(summaries) {
+	function observeHyperFeed(summaries) {
 		// Filter all <div> elements with attr id beginning with hyperfeed
 		// that have <p> elements as descendants
 		// which contain any of the spoilers in spoilersArr.
 		// Give these elements the "long-string-..." attribute.
 		summaries[0].added.forEach( function(node) {
-			var elem = $(node).filter("[id^='hyperfeed_story']").toArray();
+			elem = $(node).filter("[id^='hyperfeed_story']");
+
 			if (elem.length > 0) {
-				console.log(elem);
+				new MutationSummary({
+					callback: hidePosts,
+					rootNode: elem[0],
+					queries: [{
+						element: "div"
+					}]
+				})
 			}
 			// .has("p:contains('would')")
-			// .attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");			
+			// .attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		});
+	}
+
+	function hidePosts(summaries) {
+		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+		if (elem.length > 0) {
+			console.log(elem.text());
+		}
 	}
 
 
