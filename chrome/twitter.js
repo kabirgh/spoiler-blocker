@@ -39,7 +39,8 @@ jQuery(document).ready( function($) {
 					'background-color': 'white',
 					'width': '100%',
 					'height': '99%',
-					'z-index': 1
+					'z-index': 1,
+					'cursor': 'pointer'
 				});
 
 				lineHeight = tweetNode.height() * 0.9;
