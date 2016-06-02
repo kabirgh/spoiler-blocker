@@ -1,28 +1,28 @@
-$(document).ready(function () {
+jQuery(document).ready( function($) {
 	console.log("START");
 
-	var spoilersArr = ["the", "a"];
+	var spoilersArr = ["the"];
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 
-	var contentObserver = new MutationSummary({
-		callback: contentObsCallback,
-		queries: [{
-			element: "div[id='stream_pagelet']"
-		}]
-	});
+	// var contentObserver = new MutationSummary({
+	// 	callback: contentObsCallback,
+	// 	queries: [{
+	// 		element: "div[id='stream_pagelet']"
+	// 	}]
+	// });
 
-	function contentObsCallback(summaries) {
-		console.log(summaries[0]);
-	}
+	// function contentObsCallback(summaries) {
+	// 	console.log(summaries[0]);
+	// }
 
 	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
 		var feed = $("div[id^='feed_stream']");
 
 		// if no feed is found
-		if ( $(feed).length === 0 ) {
+		if ( feed.length === 0 ) {
 			console.log("no streams");
 		}
 
@@ -51,22 +51,26 @@ $(document).ready(function () {
 		// which contain any of the spoilers in spoilersArr.
 		// Give these elements the "long-string-..." attribute.
 		summaries[0].added.forEach( function(node) {
-			$(node).filter("div[id^='hyperfeed']")
-			// .has( containsAny("p", spoilersArr) )
-			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");;
-		})
+			var elem = $(node).filter("[id^='hyperfeed_story']").toArray();
+			if (elem.length > 0) {
+				console.log(elem);
+			}
+			// .has("p:contains('would')")
+			// .attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");			
+		});
 	}
 
 
 	// Return string output for jQuery selector to check if element with the
 	// specified tag contains any of the text in stringArr.
 	function containsAny(tag, stringArr) {
-		var stringOutput = tag + ":contains(' " + stringArr[0] + " ')";
+		var stringOutput = tag + ":contains('" + stringArr[0] + "')";
 
 		for (var i=1; i<stringArr.length; i++) {
-			stringOutput += ", " + tag + ":contains(' " + stringArr[i] + " ')";
+			stringOutput += ", " + tag + ":contains('" + stringArr[i] + "')";
 		}
 
+		console.log("string output " + stringOutput);
 		return stringOutput;
 	}
 });
