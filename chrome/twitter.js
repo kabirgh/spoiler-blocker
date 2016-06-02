@@ -19,6 +19,12 @@ jQuery(document).ready( function($) {
 				// if tweet text contains a spoiler
 				if (tweetText.indexOf( spoilersArr[i] ) > -1) {
 					console.log(tweetText);
+
+					// $(tweetNode).css({"position":"relative"});
+
+					// $(tweetNode).wrapInner("<div class='sb-overlay'></div>").children(".sb-overlay")
+					// .css({"position":"absolute", "top":"0", "left":"0", "right":"0", "bottom":"0", 
+					// 	"backgroundColor":"white", "z-index":"1000"});
 				}
 			}
 		}
