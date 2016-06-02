@@ -1,3 +1,8 @@
+self.port.emit("get-spoilers", "true");
+self.port.on("sending-spoilers", function(allTags) {
+
+});
+
 var button = document.getElementById("title-button");
 button.onclick = getInput;
 
