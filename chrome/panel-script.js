@@ -8,8 +8,8 @@ function getInput() {
 		tagArr[i] = tagArr[i].trim();
 	}
 
-	chrome.storage.local.get("lists", function(listObj) {
-		setLists(listObj.lists);
+	chrome.storage.sync.get("allTags", function(listObj) {
+		setLists(listObj.allTags);
 	})
 
 	function setLists(oldArr) {
@@ -18,16 +18,16 @@ function getInput() {
 		var newList = {"title": title, "tags": tagArr};
 		oldArr.push(newList);
 
-		chrome.storage.local.set({"lists": oldArr});
+		chrome.storage.sync.set({"allTags": oldArr});
 
-		chrome.storage.local.get("lists", function(listObj) {
+		chrome.storage.sync.get("allTags", function(listObj) {
 			console.log(listObj);
 		})
 	}
 }
 
 function resetAll() {
-	chrome.storage.local.clear();
+	chrome.storage.sync.clear();
 }
 
 $(document).ready(function() {

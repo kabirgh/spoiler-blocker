@@ -5,7 +5,6 @@ chrome.storage.sync.get("allTags", function(allTags) {
 		for (var key in allTags) {
 			spoilerList = spoilerList.concat(allTags[key]);
 		}
-		console.log(spoilerList);
 	}
 	else {
 		console.log("runtime error");
