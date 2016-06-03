@@ -42,14 +42,15 @@ function inspectPage (spoilersArr) {
 
 			var tweetText = tweetNode.find("p").text();
 
-			toHide = false;
-			// listTitle =
+			var toHide = false;
+			var listTitle = null
 			for (var i = 0; i < spoilersArr.length; i++) {
 				// if tweet text contains a spoiler
 				for (var j = 0; j < spoilersArr[i].tags.length; j++) {
 					if (tweetText.indexOf( spoilersArr[i].tags[j] ) > -1) {
 						// tweetNode should be hidden
 						toHide = true;
+						listTitle = spoilersArr[i].title;
 						break;
 					}
 				}
@@ -59,7 +60,7 @@ function inspectPage (spoilersArr) {
 				// Spoiler overlay
 				var hgt = '99%';
 
-				newDiv = $(document.createElement("div")).text('Spoiler!').css({
+				newDiv = $(document.createElement("div")).css({
 					'position': 'absolute',
 					'top': 0,
 					'left': 0,
@@ -67,14 +68,17 @@ function inspectPage (spoilersArr) {
 					'display': 'flex',
 					'justify-content': 'center',
 					'align-items': 'center',
+					'text-align': 'center',
 					'width': '100%',
 					'height': hgt,
 					'z-index': 1,
 					'cursor': 'pointer',
-					'font-size': 40,
+					'font-size': 30,
 					'font-family': 'Copperplate',
 					'color': 'red'
 				});
+
+				newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
 				// Absolutely positioned element needs a positioned ancestor
 				// This does not break any of twitter's formatting (far as I have seen)
