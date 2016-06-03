@@ -3,6 +3,7 @@ var spoilerLists = [];
 // Get all tags in js object from index.js
 self.port.emit("get-spoilers", "true");
 self.port.on("sending-spoilers", function(allTags) {
+	// Put all tags in array
 	for (var key in allTags) {
 		spoilerLists = spoilerLists.concat(allTags[key]);
 	}
@@ -14,23 +15,12 @@ jQuery(document).ready( function($) {
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 
-	var contentObserver = new MutationSummary({
-		callback: contentObsCallback,
-		queries: [{
-			element: "div[id='stream_pagelet']"
-		}]
-	});
-
-	function contentObsCallback(summaries) {
-		console.log(summaries[0]);
-	}
-
 	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
 		var feed = $("div[id^='feed_stream']");
 
 		// if no feed is found
-		if ( $(feed).length === 0 ) {
+		if ( feed.length === 0 ) {
 			console.log("no streams");
 		}
 
@@ -40,7 +30,7 @@ jQuery(document).ready( function($) {
 
 			// look for new div elements
 			var postObserver = new MutationSummary({
-				callback: hidePosts,
+				callback: observeHyperFeed,
 				rootNode: feed[0],
 				queries: [{
 					element: "div"
@@ -53,28 +43,86 @@ jQuery(document).ready( function($) {
 	}
 
 
-	function hidePosts(summaries) {
+	function observeHyperFeed(summaries) {
 		// Filter all <div> elements with attr id beginning with hyperfeed
 		// that have <p> elements as descendants
-		// which contain any of the spoilers in spoilersArr.
+		// which contain any of the spoilers in spoilerLists.
 		// Give these elements the "long-string-..." attribute.
 		summaries[0].added.forEach( function(node) {
-			$(node).filter("div[id^='hyperfeed']")
-			// .has( containsAny("p", spoilersArr) )
-			.attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");;
-		})
+			elem = $(node).filter("[id^='hyperfeed_story']");
+
+			if (elem.length > 0) {
+				new MutationSummary({
+					callback: hidePosts,
+					rootNode: elem[0],
+					queries: [{
+						element: "div"
+					}]
+				})
+			}
+		});
 	}
 
+	function hidePosts(summaries) {
+		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+		if (elem.length > 0) {
+			postText = elem.text();
+			toHide = false;
+			for (var i=0; i<spoilerLists.length; i++) {
+				// if post text contains a spoiler
+				if (postText.indexOf( spoilerLists[i] ) > -1) {
+					// post node should be hidden
+					toHide = true;
+					break;
+				}
+			}
 
-	// Return string output for jQuery selector to check if element with the
-	// specified tag contains any of the text in stringArr.
-	function containsAny(tag, stringArr) {
-		var stringOutput = tag + ":contains(' " + stringArr[0] + " ')";
+			if (toHide) {
+				elem = $(elem[0]);
+				console.log(elem.text());
 
-		for (var i=1; i<stringArr.length; i++) {
-			stringOutput += ", " + tag + ":contains(' " + stringArr[i] + " ')";
+				newDiv = $(document.createElement("div")).css({
+					'position': 'absolute',
+					'top': 0,
+					'left': 0,
+					'background-color': 'white',
+					'width': '100%',
+					'height': '99%',
+					'z-index': 7,
+					'cursor': 'pointer'
+				});
+
+				lineHeight = elem.height() * 0.9;
+
+				// Spoiler text
+				newDiv.append($('<p/>').text('Spoiler!').css({
+					'position': 'absolute',
+					'top': 0,
+					'left': 0,
+					'background-color': 'white',
+					'width': '100%',
+					'height': '100%',
+					'font-size': 40,
+					'text-align': 'center',
+					'line-height': lineHeight.toString() + 'px',
+					'font-family': 'Copperplate',
+					'color': 'red',
+					'margin': '0px'
+				}));
+
+				// Absolutely positioned element needs a positioned ancestor
+				// This does not break formatting (far as I have seen)
+				elem.css({
+					'position': 'relative'
+				})
+
+				newDiv.click(function() {
+					$(this).hide()
+				});
+
+				elem.append(newDiv);
+			}
 		}
-
-		return stringOutput;
 	}
+
 });

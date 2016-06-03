@@ -1,3 +1,18 @@
+var spoilerList = [];
+
+chrome.storage.sync.get("allTags", function(allTags) {
+	if (!chrome.runtime.error) {
+		for (var key in allTags) {
+			spoilerList = spoilerList.concat(allTags[key]);
+		}
+		console.log(spoilerList);
+	}
+	else {
+		console.log("runtime error");
+	}
+});
+
+
 jQuery(document).ready( function($) {
 	console.log("START");
 
@@ -65,12 +80,14 @@ jQuery(document).ready( function($) {
 			postText = elem.text();
 			toHide = false;
 			for (var i=0; i<spoilersArr.length; i++) {
-				// if tweet text contains a spoiler
-				for (var j = 0; j < spoilersArr[i].tags; j++)
-					if (postText.indexOf(spoilersArr[i].tags[j]) > -1) {
-						// tweetNode should be hidden
-						toHide = true;
-					}
+
+				// if post text contains a spoiler
+				if (postText.indexOf( spoilersArr[i] ) > -1) {
+					// post node should be hidden
+					toHide = true;
+					break;
+				}
+				
 			}
 
 			if (toHide) {
@@ -109,7 +126,7 @@ jQuery(document).ready( function($) {
 				}));
 
 				// Absolutely positioned element needs a positioned ancestor
-				// This does not break any of twitter's formatting (far as I have seen)
+				// This does not break formatting (far as I have seen)
 				elem.css({
 					'position': 'relative'
 				})
