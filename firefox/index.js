@@ -1,15 +1,20 @@
 // "./filename" is a shortcut for 
 // require("sdk/self").data.url("filename")
 
-// Run content script when user is browsing facebook
+// Run content scripts when user is browsing facebook
 var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"]
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
+	onAttach: function(worker) {
+		worker.port.on("get-spoilers", function() {
+			worker.port.emit("sending-spoilers", ss.allTags);
+		});
+	}
 });
 
-
+// Twitter scripts
 var twitterPageMod = require("sdk/page-mod");
 twitterPageMod.PageMod({
 	include: "*.twitter.com",
@@ -35,9 +40,9 @@ var button = ToggleButton({
 	id: "sb-button",
 	label: "Spoiler Blocker",
 	icon: {
-		"16": "./icon-16.png",
-		"32": "./icon-32.png",
-		"64": "./icon-64.png"
+		"16": "./img/icon-16.png",
+		"32": "./img/icon-32.png",
+		"64": "./img/icon-64.png"
 	},
 	onChange: handleButtonChange,
 });
@@ -53,9 +58,9 @@ function handleButtonChange(state) {
 
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
-	contentURL: "./panel.html",
-	contentScriptFile: "./panel-script.js",
-	contentStyleFile: "./panel-style.css",
+	contentURL: "./panel/panel.html",
+	contentScriptFile: "./panel/panel-script.js",
+	contentStyleFile: "./panel/panel-style.css",
 	onHide: handlePanelHide
 });
 

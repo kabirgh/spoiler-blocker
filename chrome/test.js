@@ -1,3 +1,18 @@
+var spoilerList = [];
+
+chrome.storage.sync.get("allTags", function(allTags) {
+	if (!chrome.runtime.error) {
+		for (var key in allTags) {
+			spoilerList = spoilerList.concat(allTags[key]);
+		}
+		console.log(spoilerList);
+	}
+	else {
+		console.log("runtime error");
+	}
+});
+
+
 jQuery(document).ready( function($) {
 	console.log("START");
 
@@ -5,17 +20,6 @@ jQuery(document).ready( function($) {
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
-
-	// var contentObserver = new MutationSummary({
-	// 	callback: contentObsCallback,
-	// 	queries: [{
-	// 		element: "div[id='stream_pagelet']"
-	// 	}]
-	// });
-
-	// function contentObsCallback(summaries) {
-	// 	console.log(summaries[0]);
-	// }
 
 	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
@@ -62,8 +66,6 @@ jQuery(document).ready( function($) {
 					}]
 				})
 			}
-			// .has("p:contains('would')")
-			// .attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		});
 	}
 
@@ -73,10 +75,11 @@ jQuery(document).ready( function($) {
 			postText = elem.text();
 			toHide = false;
 			for (var i=0; i<spoilersArr.length; i++) {
-				// if tweet text contains a spoiler
+				// if post text contains a spoiler
 				if (postText.indexOf( spoilersArr[i] ) > -1) {
-					// tweetNode should be hidden
+					// post node should be hidden
 					toHide = true;
+					break;
 				}
 			}
 
@@ -114,7 +117,7 @@ jQuery(document).ready( function($) {
 				}));
 
 				// Absolutely positioned element needs a positioned ancestor
-				// This does not break any of twitter's formatting (far as I have seen)
+				// This does not break formatting (far as I have seen)
 				elem.css({
 					'position': 'relative'
 				})

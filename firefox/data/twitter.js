@@ -1,10 +1,10 @@
-var spoilerLists = [];
+var spoilerList = [];
 
 // Get all tags in js object from index.js
 self.port.emit("get-spoilers", "true");
 self.port.on("sending-spoilers", function(allTags) {
 	for (var key in allTags) {
-		spoilerLists = spoilerLists.concat(allTags[key]);
+		spoilerList = spoilerList.concat(allTags[key]);
 	}
 });
 
@@ -31,11 +31,12 @@ jQuery(document).ready( function($) {
 			var tweetText = tweetNode.find("p").text();
 
 			toHide = false;
-			for (var i=0; i<spoilerLists.length; i++) {
+			for (var i=0; i<spoilerList.length; i++) {
 				// if tweet text contains a spoiler
-				if (tweetText.indexOf( spoilerLists[i] ) > -1) {
+				if (tweetText.indexOf( spoilerList[i] ) > -1) {
 					// tweetNode should be hidden
 					toHide = true;
+					break;
 				}
 			}
 
