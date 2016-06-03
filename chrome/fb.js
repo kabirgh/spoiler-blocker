@@ -1,63 +1,37 @@
+var spoilerList = [];
+
+chrome.storage.sync.get("allTags", function(allTags) {
+	if (!chrome.runtime.error) {
+		for (var key in allTags) {
+			spoilerList = spoilerList.concat(allTags[key]);
+		}
+		console.log(spoilerList);
+	}
+	else {
+		console.log("runtime error");
+	}
+});
+
+
 jQuery(document).ready( function($) {
 	console.log("START");
 
-	var spoilersArr = ["the", "a"];
-	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+	var spoilersArr = [];
 
-	// MutationObserver object
-	var observerObject = new MutationObserver(mutationObjectCallback);
+	chrome.storage.local.get("lists", function(listObj) {
+		spoilersArr = listObj.lists;
+		console.log(spoilersArr);
+	})
 
-	// Passes first element of each mutation record to findSpoilers
-	// First element because by observation is the only one needed... can use filter for more generalised results
-	// Using a timeout of 500ms since the descendants are not added immediately
-	function mutationObjectCallback(mutationRecordsList) {
-	  console.log("mutationObjectCallback invoked.");
-		console.log(mutationRecordsList);
-
-	  mutationRecordsList.forEach(function(mutationRecord) {
-			// setTimeout(findSpoilers, 500, mutationRecord.addedNodes[0]);
-			// console.log(mutationRecord);
-			var obs = new MutationObserver(callback);
-			obs.observe(mutationRecord.addedNodes[0], {
-				childList : true
-			})
-	  });
-	}
-
-	function callback(mutations) {
-		console.log("callback");
-		console.log(mutations);
-	}
-
-	// Takes a node
-	// Should add the spoiler overlay... have not implemented that yet
-	function findSpoilers(addedNode) {
-		console.log($(addedNode).find("div[id^='hyperfeed_story']").find("a, p").text()
-			// .addClass('spoiler_overlay')
-		);
-
-		$(".spoiler_overlay")
-		.css({
-			'opacity' : 0.4,
-			'position': 'absolute',
-			'top': 0,
-			'left': 0,
-			'background-color': 'white',
-			'width': '50px',
-			'height': '50px',
-			'z-index': 5000
-		});
-	}
-
-
+	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 
-	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation observer
+	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
 		var feed = $("div[id^='feed_stream']");
 
 		// if no feed is found
-		if ( $(feed).length === 0 ) {
+		if ( feed.length === 0 ) {
 			console.log("no streams");
 		}
 
@@ -65,13 +39,117 @@ jQuery(document).ready( function($) {
 		else {
 			console.log("target ID is " + $(feed[0]).attr("id"));
 
-			// Observe children of feed
-			observerObject.observe(feed[0], {
-				childList: true
+			// look for new div elements
+			var postObserver = new MutationSummary({
+				callback: observeHyperFeed,
+				rootNode: feed[0],
+				queries: [{
+					element: "div"
+				}]
 			});
 
 			document.removeEventListener("DOMNodeInserted", findFeed);
-			console.log("event removed");
+			console.log("DOMNodeInserted listener removed");
 		}
+	}
+
+
+	function observeHyperFeed(summaries) {
+		// Filter all <div> elements with attr id beginning with hyperfeed
+		// that have <p> elements as descendants
+		// which contain any of the spoilers in spoilersArr.
+		// Give these elements the "long-string-..." attribute.
+		summaries[0].added.forEach( function(node) {
+			elem = $(node).filter("[id^='hyperfeed_story']");
+
+			if (elem.length > 0) {
+				new MutationSummary({
+					callback: hidePosts,
+					rootNode: elem[0],
+					queries: [{
+						element: "div"
+					}]
+				})
+			}
+		});
+	}
+
+	function hidePosts(summaries) {
+		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+		if (elem.length > 0) {
+			postText = elem.text();
+			toHide = false;
+			for (var i=0; i<spoilersArr.length; i++) {
+
+				// if post text contains a spoiler
+				if (postText.indexOf( spoilersArr[i] ) > -1) {
+					// post node should be hidden
+					toHide = true;
+					break;
+				}
+
+			}
+
+			if (toHide) {
+				elem = $(elem[0]);
+				console.log('Hi');
+				console.log(spoilersArr);
+				console.log(elem.text());
+				var hgt = '100%';
+
+				newDiv = $(document.createElement("div")).css({
+					'position': 'absolute',
+					'top': 0,
+					'left': 0,
+					'background-color': 'white',
+					'width': '100%',
+					'height': hgt,
+					'z-index': 7,
+					'cursor': 'pointer'
+				});
+
+				// Spoiler text
+				newDiv.append($('<p/>').text('Spoiler!').css({
+					'position': 'absolute',
+					'top': 0,
+					'left': 0,
+					'background-color': 'white',
+					'width': '100%',
+					'height': '100%',
+					'font-size': 40,
+					'text-align': 'center',
+					'line-height': hgt,
+					'font-family': 'Copperplate',
+					'color': 'red',
+					'margin': '0px'
+				}));
+
+				// Absolutely positioned element needs a positioned ancestor
+				// This does not break formatting (far as I have seen)
+				elem.css({
+					'position': 'relative'
+				})
+
+				newDiv.click(function() {
+					$(this).hide()
+				});
+
+				elem.append(newDiv);
+			}
+		}
+	}
+
+
+	// Return string output for jQuery selector to check if element with the
+	// specified tag contains any of the text in stringArr.
+	function containsAny(tag, stringArr) {
+		var stringOutput = tag + ":contains('" + stringArr[0] + "')";
+
+		for (var i=1; i<stringArr.length; i++) {
+			stringOutput += ", " + tag + ":contains('" + stringArr[i] + "')";
+		}
+
+		console.log("string output " + stringOutput);
+		return stringOutput;
 	}
 });
