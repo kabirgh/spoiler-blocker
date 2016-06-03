@@ -1,22 +1,28 @@
 var spoilerList = [];
 
-chrome.storage.sync.get("allTags", function(allTags) {
-	if (!chrome.runtime.error) {
-		for (var key in allTags) {
-			spoilerList = spoilerList.concat(allTags[key]);
+// Promise for async get tags
+var p1 = new Promise(function(resolve, reject) {
+	chrome.storage.sync.get("allTags", function(allTags) {
+		if (!chrome.runtime.error) {
+			resolve(allTags);
 		}
-	}
-	else {
-		console.log("runtime error");
-	}
+		else {
+			reject("runtime error");
+		}
+	});
 });
 
-
-jQuery(document).ready( function($) {
+// hide document until code is run
+document.documentElement.style.visibility = 'hidden';
+document.addEventListener('DOMContentLoaded', function() {
 	console.log("START");
 
-	var spoilersArr = ["the", "here", "li"];
+	p1.then(function (allTags) {
+		inspectPage(allTags.allTags);
+	})
+});
 
+function inspectPage (spoilersArr) {
 	var target = $(".stream");
 
 	if (target.length > 0) {
@@ -31,50 +37,44 @@ jQuery(document).ready( function($) {
 			tweetNode = $(tweetNode);
 
 			// Adblocker was hiding 'tweets', but program was detecting spoilers within
-			// These 'tweets' had height 0, so this weeds those out
+			// These 'tweets' had very small heights, so this weeds those out
 			if (tweetNode.height() <= 2) return;
 
 			var tweetText = tweetNode.find("p").text();
 
 			toHide = false;
-			for (var i=0; i<spoilersArr.length; i++) {
+			// listTitle =
+			for (var i = 0; i < spoilersArr.length; i++) {
 				// if tweet text contains a spoiler
-				if (tweetText.indexOf( spoilersArr[i] ) > -1) {
-					// tweetNode should be hidden
-					toHide = true;
-					break;
+				for (var j = 0; j < spoilersArr[i].tags.length; j++) {
+					if (tweetText.indexOf( spoilersArr[i].tags[j] ) > -1) {
+						// tweetNode should be hidden
+						toHide = true;
+						break;
+					}
 				}
 			}
 
 			if (toHide) {
 				// Spoiler overlay
-				// var hgt = tweetNode.css('height');
-				var hgt = '100%';
-				newDiv = $(document.createElement("div")).css({
+				var hgt = '99%';
+
+				newDiv = $(document.createElement("div")).text('Spoiler!').css({
 					'position': 'absolute',
 					'top': 0,
 					'left': 0,
 					'background-color': 'white',
+					'display': 'flex',
+					'justify-content': 'center',
+					'align-items': 'center',
 					'width': '100%',
 					'height': hgt,
 					'z-index': 1,
-					'cursor': 'pointer'
-				});
-
-				// Spoiler text
-				newDiv.append($('<p/>').text('Spoiler!').css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '100%',
+					'cursor': 'pointer',
 					'font-size': 40,
-					'text-align': 'center',
-					'line-height': hgt,
 					'font-family': 'Copperplate',
 					'color': 'red'
-				}));
+				});
 
 				// Absolutely positioned element needs a positioned ancestor
 				// This does not break any of twitter's formatting (far as I have seen)
@@ -89,6 +89,9 @@ jQuery(document).ready( function($) {
 				tweetNode.append(newDiv);
 			}
 		}
+
+		// All tweets on page have been checked, make document visible
+		document.documentElement.style.visibility = '';
 
 		// Get tweets loaded on scroll
 		var tweetObs = new MutationSummary({
@@ -105,5 +108,4 @@ jQuery(document).ready( function($) {
 			});
 		}
 	}
-
-});
+}

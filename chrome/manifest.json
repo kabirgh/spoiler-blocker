@@ -20,7 +20,8 @@
 		},
 		{
 			"matches": ["*://*.twitter.com/*", "*://twitter.com/*"],
-			"js": ["jquery.js", "mutation-summary.js", "twitter.js"]
+			"js": ["jquery.js", "mutation-summary.js", "twitter.js"],
+			"run_at": "document_start"
 		}
 	]
 }
