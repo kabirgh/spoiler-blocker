@@ -87,7 +87,7 @@ jQuery(document).ready( function($) {
 					toHide = true;
 					break;
 				}
-				
+
 			}
 
 			if (toHide) {
@@ -95,6 +95,7 @@ jQuery(document).ready( function($) {
 				console.log('Hi');
 				console.log(spoilersArr);
 				console.log(elem.text());
+				var hgt = '100%';
 
 				newDiv = $(document.createElement("div")).css({
 					'position': 'absolute',
@@ -102,12 +103,10 @@ jQuery(document).ready( function($) {
 					'left': 0,
 					'background-color': 'white',
 					'width': '100%',
-					'height': '99%',
+					'height': hgt,
 					'z-index': 7,
 					'cursor': 'pointer'
 				});
-
-				lineHeight = elem.height() * 0.9;
 
 				// Spoiler text
 				newDiv.append($('<p/>').text('Spoiler!').css({
@@ -119,7 +118,7 @@ jQuery(document).ready( function($) {
 					'height': '100%',
 					'font-size': 40,
 					'text-align': 'center',
-					'line-height': lineHeight.toString() + 'px',
+					'line-height': hgt,
 					'font-family': 'Copperplate',
 					'color': 'red',
 					'margin': '0px'
