@@ -1,21 +1,15 @@
 jQuery(document).ready( function($) {
 	console.log("START");
 
-	var spoilersArr = ["the"];
+	var spoilersArr = [];
+
+	chrome.storage.local.get("lists", function(listObj) {
+		spoilersArr = listObj.lists;
+		console.log(spoilersArr);
+	})
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
-
-	// var contentObserver = new MutationSummary({
-	// 	callback: contentObsCallback,
-	// 	queries: [{
-	// 		element: "div[id='stream_pagelet']"
-	// 	}]
-	// });
-
-	// function contentObsCallback(summaries) {
-	// 	console.log(summaries[0]);
-	// }
 
 	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
 	function findFeed() {
@@ -62,8 +56,6 @@ jQuery(document).ready( function($) {
 					}]
 				})
 			}
-			// .has("p:contains('would')")
-			// .attr("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		});
 	}
 
@@ -74,14 +66,17 @@ jQuery(document).ready( function($) {
 			toHide = false;
 			for (var i=0; i<spoilersArr.length; i++) {
 				// if tweet text contains a spoiler
-				if (postText.indexOf( spoilersArr[i] ) > -1) {
-					// tweetNode should be hidden
-					toHide = true;
-				}
+				for (var j = 0; j < spoilersArr[i].tags; j++)
+					if (postText.indexOf(spoilersArr[i].tags[j]) > -1) {
+						// tweetNode should be hidden
+						toHide = true;
+					}
 			}
 
 			if (toHide) {
 				elem = $(elem[0]);
+				console.log('Hi');
+				console.log(spoilersArr);
 				console.log(elem.text());
 
 				newDiv = $(document.createElement("div")).css({
