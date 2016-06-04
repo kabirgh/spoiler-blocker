@@ -57,7 +57,7 @@ app.controller('panelController', function($scope) {
 
 			$scope.$apply(function () {
 				$scope.allTags = oldArr;
-				$scope.displayTitles.push(false);
+				$scope.displayTags.push(false);
 			})
 		}
 	}
