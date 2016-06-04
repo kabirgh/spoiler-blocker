@@ -18,16 +18,26 @@
 		<br>
 		<button type="button" class="btn btn-primary" style="display:block" ng-click="getInput()">Submit</button>
 		<br>
-		<button type="button" class="btn btn-primary" style="display:block" ng-click="resetAll()">Clear All Lists</button>
+		<button type="button" class="btn btn-danger" style="display:block" ng-click="resetAll()">Clear All Lists</button>
 		<br>
-		<button type="button" class="btn btn-primary" style="display:block" ng-click="displayTags = !displayTags">
+		<button type="button" class="btn btn-warning" style="display:block" ng-click="displayTitles = !displayTitles">
 			See Lists
-			<span class="caret"></span>
+			<span class="glyphicon glyphicon-chevron-right" ng-show="!displayTitles"></span>
+			<span class="glyphicon glyphicon-chevron-down" ng-show="displayTitles"></span>
 		</button>
 		<br>
-		<ul class="list-group" ng-show="displayTags">
-			<li class="list-group-item" ng-repeat="tag in allTags">
-				{{ tag.title }}
+		<ul class="list-group" ng-show="displayTitles">
+			<li class="list-group-item" ng-repeat="list in allTags track by $index" ng-click="showTags($index)">
+				<p style="cursor: pointer; margin: 0px">
+					{{ list.title }}
+			  	<span class="glyphicon glyphicon-triangle-right" ng-show="!displayTags[$index]" style="font-size: 10px"></span>
+					<span class="glyphicon glyphicon-triangle-bottom" ng-show="displayTags[$index]" style="font-size: 10px"></span>
+				</p>
+				<ul class="list-group" ng-show="displayTags[$index]" style="margin-bottom: 0px; margin-top: 3px">
+					<li class="list-group-item" ng-repeat="tag in list.tags" style="height: 30px; padding: 3px 15px;">
+						{{ tag }}
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</div>
