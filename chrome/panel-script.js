@@ -1,7 +1,7 @@
 // Send the list of spoilers entered to index.js
-function getInput() {
-	var title = document.getElementById("title-input").value.trim();
-	var tags = document.getElementById("tags-input").value;
+function processInput(title, tags) {
+	title = title.trim();
+	console.log(title, tags);
 
 	var tagArr = tags.split(",");
 	for (var i=0; i<tagArr.length; i++) {
@@ -30,7 +30,12 @@ function resetAll() {
 	chrome.storage.sync.clear();
 }
 
-$(document).ready(function() {
-	document.getElementById('submit-btn').addEventListener('click', getInput);
-	document.getElementById('reset-all-btn').addEventListener('click', resetAll);
+var app = angular.module('panelApp', [])
+app.controller('panelController', function($scope) {
+	$scope.titleString = "";
+	$scope.tagString = "";
+	$scope.getInput = function () {
+		processInput($scope.titleString, $scope.tagString);
+	}
+	$scope.resetAll = resetAll;
 })

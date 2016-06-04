@@ -18,7 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	console.log("START");
 
 	p1.then(function (allTags) {
-		inspectPage(allTags.allTags);
+		if (!$.isEmptyObject(allTags)) {
+			inspectPage(allTags.allTags);
+		}
+		else {
+			inspectPage([]);
+		}
 	})
 });
 
@@ -43,7 +48,7 @@ function inspectPage (spoilersArr) {
 			var tweetText = tweetNode.find("p").text();
 
 			var toHide = false;
-			var listTitle = null
+			var listTitle = null;
 			for (var i = 0; i < spoilersArr.length; i++) {
 				// if tweet text contains a spoiler
 				for (var j = 0; j < spoilersArr[i].tags.length; j++) {
