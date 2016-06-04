@@ -30,8 +30,8 @@
 			<li class="list-group-item" ng-repeat="list in allTags track by $index" ng-click="showTags($index)">
 				<p style="cursor: pointer; margin: 0px">
 					{{ list.title }}
-			  	<span class="glyphicon glyphicon-triangle-right" ng-show="!displayTags[$index]" style="font-size: 10px"></span>
-					<span class="glyphicon glyphicon-triangle-bottom" ng-show="displayTags[$index]" style="font-size: 10px"></span>
+			  	<span class="glyphicon glyphicon-triangle-right" ng-show="!displayTags[$index]" style="font-size: 10px; float: right; line-height: 23px"></span>
+					<span class="glyphicon glyphicon-triangle-bottom" ng-show="displayTags[$index]" style="font-size: 10px; float: right; line-height: 23px"></span>
 				</p>
 				<ul class="list-group" ng-show="displayTags[$index]" style="margin-bottom: 0px; margin-top: 3px">
 					<li class="list-group-item" ng-repeat="tag in list.tags" style="height: 30px; padding: 3px 15px;">
