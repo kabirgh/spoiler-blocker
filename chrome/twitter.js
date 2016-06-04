@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	console.log("START");
 
 	p1.then(function (allTags) {
-		if (!$.isEmptyObject(allTags)) {
+		if (allTags.allTags != null) {
 			inspectPage(allTags.allTags);
 		}
 		else {

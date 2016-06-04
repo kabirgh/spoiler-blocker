@@ -12,14 +12,24 @@
 </head>
 <body ng-app = "panelApp">
 	<div class="container" ng-controller = "panelController">
-		<input id="title-input" type="text" class="form-control input-txt" placeholder="List title" ng-model="titleString"></input>
+		<input type="text" class="form-control input-txt" placeholder="List title" ng-model="titleString"></input>
 		<br>
-		<input id="tags-input" type="text" class="form-control input-txt" placeholder="Enter comma seperated tags" ng-model="tagString"></input>
+		<input type="text" class="form-control input-txt" placeholder="Enter comma seperated tags" ng-model="tagString"></input>
 		<br>
-		<button id="submit-btn" type="button" class="btn btn-primary" style="display:block" ng-click="getInput()">Submit</button>
+		<button type="button" class="btn btn-primary" style="display:block" ng-click="getInput()">Submit</button>
 		<br>
-		<button id="reset-all-btn" type="button" class="btn btn-primary" style="display:block" ng-click="resetAll()">Clear All Lists</button>
+		<button type="button" class="btn btn-primary" style="display:block" ng-click="resetAll()">Clear All Lists</button>
 		<br>
+		<button type="button" class="btn btn-primary" style="display:block" ng-click="displayTags = !displayTags">
+			See Lists
+			<span class="caret"></span>
+		</button>
+		<br>
+		<ul class="list-group" ng-show="displayTags">
+			<li class="list-group-item" ng-repeat="tag in allTags">
+				{{ tag.title }}
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
