@@ -1,29 +1,47 @@
 var app = angular.module('panelApp', [])
+
 app.controller('panelController', function($scope) {
 	$scope.titleString = "";
 	$scope.tagString = "";
+
+	// Form : [
+	//         {
+	//          list: {title:__, tags:[__,__]} ,
+	//          display: true|false
+	//         }
+	//        ]
 	$scope.allTags = [];
+
+	// Display all the list titles
 	$scope.displayTitles = false;
-	$scope.displayTags = [];
 
 	chrome.storage.sync.get("allTags", function(listObj) {
-		if (listObj.allTags != null)
-			$scope.allTags = listObj.allTags;
-			for (var i = 0; i < $scope.allTags.length; i++) {
-				$scope.displayTags[i] = false;
+		if (listObj.allTags != null) {
+			// Does exist in storage
+			for (var i = 0; i < listObj.allTags.length; i++) {
+				$scope.allTags[i] = {
+					list: listObj.allTags[i],
+					display: false
+				}
 			}
+		}
+		else {
+			console.log("Something went wrong with getting lists from storage");
+		}
 	})
 
 	$scope.getInput = processInput;
 
-	$scope.resetAll = resetAll;
+	$scope.clearAll = clearAll;
 
+	// Show tags when title is clicked in panel
 	$scope.showTags = function(idx) {
-		for (var i = 0; i < $scope.displayTags.length; i++) {
+		for (var i = 0; i < $scope.allTags.length; i++) {
+			// Toggle this tag list, and close all others
 			if (i != idx)
-				$scope.displayTags[i] = false;
+				$scope.allTags[i].display = false;
 			else
-				$scope.displayTags[i] = !$scope.displayTags[i];
+				$scope.allTags[i].display = !$scope.allTags[i].display;
 		}
 	}
 
@@ -33,38 +51,28 @@ app.controller('panelController', function($scope) {
 		$scope.titleString = "";
 		$scope.tagString = "";
 
+		// Split tags on commas and trim
 		var tagArr = tags.split(",");
 		for (var i=0; i<tagArr.length; i++) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		chrome.storage.sync.get("allTags", function(listObj) {
-			if (!chrome.runtime.error) {
-				setLists(listObj.allTags);
-			}
-			else {
-				console.log("Bummer");
-			}
-		})
+		// Get old array of lists from $scope.allTags
+		var oldArr = $scope.allTags.map(function(elem) {return elem.list});
 
-		function setLists(oldArr) {
-			if (oldArr == null) oldArr = [];
+		var newList = {"title": title, "tags": tagArr};
+		oldArr.push(newList);
 
-			var newList = {"title": title, "tags": tagArr};
-			oldArr.push(newList);
-
-			chrome.storage.sync.set({"allTags": oldArr});
-
-			$scope.$apply(function () {
-				$scope.allTags = oldArr;
-				$scope.displayTags.push(false);
-			})
-		}
+		// Update the lists in storage
+		chrome.storage.sync.set({"allTags": oldArr});
+		// Update local lists
+		$scope.allTags.push({display: false, list: newList});
 	}
 
-	function resetAll() {
+	// Clear all lists from storage
+	function clearAll() {
 		$scope.allTags = [];
-		$scope.displayTitles = [];
-		chrome.storage.sync.clear();
+		$scope.displayTitles = false;
+		chrome.storage.sync.set({"allTags": []});
 	}
 })

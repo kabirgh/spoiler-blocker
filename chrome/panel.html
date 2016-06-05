@@ -12,15 +12,19 @@
 </head>
 <body ng-app = "panelApp">
 	<div class="container" ng-controller = "panelController">
-		<input type="text" class="form-control input-txt" placeholder="List title" ng-model="titleString"></input>
+		<form role="form" ng-submit="getInput()">
+		  <div class="form-group">
+		    <input type="text" class="form-control input-txt" placeholder="List title" ng-model="titleString"></input>
+		  </div>
+		  <div class="form-group">
+		    <input type="text" class="form-control input-txt" placeholder="Enter comma seperated tags" ng-model="tagString"></input>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
 		<br>
-		<input type="text" class="form-control input-txt" placeholder="Enter comma seperated tags" ng-model="tagString"></input>
+		<button type="button" class="btn btn-danger panel-btn" ng-click="clearAll()">Clear All Lists</button>
 		<br>
-		<button type="button" class="btn btn-primary" style="display:block" ng-click="getInput()">Submit</button>
-		<br>
-		<button type="button" class="btn btn-danger" style="display:block" ng-click="resetAll()">Clear All Lists</button>
-		<br>
-		<button type="button" class="btn btn-warning" style="display:block" ng-click="displayTitles = !displayTitles">
+		<button type="button" class="btn btn-warning panel-btn" ng-click="displayTitles = !displayTitles">
 			See Lists
 			<span class="glyphicon glyphicon-chevron-right" ng-show="!displayTitles"></span>
 			<span class="glyphicon glyphicon-chevron-down" ng-show="displayTitles"></span>
@@ -28,13 +32,13 @@
 		<br>
 		<ul class="list-group" ng-show="displayTitles">
 			<li class="list-group-item" ng-repeat="list in allTags track by $index" ng-click="showTags($index)">
-				<p style="cursor: pointer; margin: 0px">
-					{{ list.title }}
-			  	<span class="glyphicon glyphicon-triangle-right" ng-show="!displayTags[$index]" style="font-size: 10px; float: right; line-height: 23px"></span>
-					<span class="glyphicon glyphicon-triangle-bottom" ng-show="displayTags[$index]" style="font-size: 10px; float: right; line-height: 23px"></span>
+				<p class="list-title">
+					{{ list.list.title }}
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!list.display"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="list.display"></span>
 				</p>
-				<ul class="list-group" ng-show="displayTags[$index]" style="margin-bottom: 0px; margin-top: 3px">
-					<li class="list-group-item" ng-repeat="tag in list.tags" style="height: 30px; padding: 3px 15px;">
+				<ul class="list-group list-tag-list" ng-show="list.display">
+					<li class="list-group-item list-tag-item" ng-repeat="tag in list.list.tags track by $index">
 						{{ tag }}
 					</li>
 				</ul>
