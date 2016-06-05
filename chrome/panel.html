@@ -31,15 +31,19 @@
 		</button>
 		<br>
 		<ul class="list-group" ng-show="displayTitles">
-			<li class="list-group-item" ng-repeat="list in allTags track by $index" ng-click="showTags($index)">
+			<li class="list-group-item" ng-repeat="list in allTags track by $index">
 				<p class="list-title">
 					{{ list.list.title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!list.display"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="list.display"></span>
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!list.display" ng-click="showTags($index)"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="list.display" ng-click="showTags($index)"></span>
+					<span class="glyphicon glyphicon-trash list-title-arrow" style="margin-right: 20px; color: red"></span>
+					<span class="glyphicon glyphicon-pencil list-title-arrow" style="margin-right: 20px; color: blue"></span>
 				</p>
 				<ul class="list-group list-tag-list" ng-show="list.display">
 					<li class="list-group-item list-tag-item" ng-repeat="tag in list.list.tags track by $index">
-						{{ tag }}
+						<p style="margin: 0px; display: inline-block">{{ tag }}</p>
+						<span class="glyphicon glyphicon-trash list-title-arrow" style="color: red"></span>
+						<span class="glyphicon glyphicon-pencil list-title-arrow" style="color: blue; margin-right: 15px"></span>
 					</li>
 				</ul>
 			</li>

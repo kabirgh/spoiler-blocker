@@ -7,14 +7,14 @@
 }
 
 .list-title {
-  cursor: pointer;
   margin: 0px;
 }
 
 .list-title-arrow {
-  font-size: 10px;
+  font-size: 12px;
   float: right;
   line-height: 23px;
+  cursor: pointer;
 }
 
 .list-tag-list {
