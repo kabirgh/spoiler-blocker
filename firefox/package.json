@@ -14,8 +14,8 @@
 		"spoiler", "spoilers", "block", "blocker"
 	],
 	"preferences": [{
-		"name": "postHandler",
-		"title": "Handle the post containing the spoiler",
+		"name": "hideOptions",
+		"title": "Hide Options",
 		"description": "Overlay the post or remove it entirely",
 		"type": "radio",
 		"value": "N",
