@@ -1,16 +1,40 @@
 {
-  "title": "Spoiler Blocker",
-  "name": "spoilerblocker",
-  "version": "0.0.1",
-  "description": "A basic add-on",
-  "main": "index.js",
-  "author": "Kabir",
-  "engines": {
-    "firefox": ">=38.0a1",
-    "fennec": ">=38.0a1"
-  },
-  "license": "MIT",
-  "keywords": [
-    "spoiler", "spoilers", "block", "blocker"
-  ]
+	"title": "Spoiler Blocker",
+	"name": "spoilerblocker",
+	"version": "0.0.1",
+	"description": "A basic add-on",
+	"main": "index.js",
+	"author": "Kabir",
+	"engines": {
+		"firefox": ">=38.0a1",
+		"fennec": ">=38.0a1"
+	},
+	"license": "MIT",
+	"keywords": [
+		"spoiler", "spoilers", "block", "blocker"
+	],
+	"preferences": [{
+		"name": "postHandler",
+		"title": "Handle the post containing the spoiler",
+		"description": "Overlay the post or remove it entirely",
+		"type": "radio",
+		"value": "N",
+		"options": [
+			{
+				"value": "O",
+				"label": "Overlay"
+			},
+			{
+				"value": "R",
+				"label": "Remove"
+			}
+		]
+	},
+	{
+		"description": "How many of them we have.",
+		"name": "myInteger",
+		"type": "integer",
+		"value": 8,
+		"title": "How Many?"
+	}]
 }

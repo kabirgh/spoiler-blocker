@@ -30,8 +30,21 @@ twitterPageMod.PageMod({
 // Store data across sessions
 var ss = require("sdk/simple-storage").storage;
 if (!ss.allTags) {
-	// Will look like {"spoiler-list-name":["tag1", "tag2"], "another-name":["arr2", "abb"], ...}
-	ss.allTags = {"spoiler-list-name":["tag1", "tag2"], "another-name":["arr2", "abb"]};
+
+	ss.allTags = 
+	{
+		"spoiler-list-name":
+		{
+			"active": true, 
+			"tags": ["tag1", "tag2"]
+		},
+		"another-name":
+		{
+			"active": false, 
+			"tags": ["arr2", "abb"]
+		}
+	};
+
 }
 
 // Create a button on the toolbar
@@ -74,12 +87,12 @@ panel.port.on("get-spoilers", function() {
 });
 
 // Listen to messages from panel-script.js with tag "new-list" and store them 
-// in the persisten allTags object. Key:value is title:array.
+// in the persistent allTags object. See ss initialisation for object structure.
 panel.port.on("new-list", function(tagObj) {
 	if (ss.allTags[tagObj["title"]]) {
 		alert("A list with this title already exists.");
 	}
 	else {
-		ss.allTags[tagObj["title"]] = tagObj["tags"];
+		ss.allTags[tagObj["title"]] = {"active":true, "tags":tagObj["tags"]};
 	}
 });

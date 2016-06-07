@@ -17,14 +17,14 @@ document.documentElement.style.visibility = 'hidden';
 document.addEventListener('DOMContentLoaded', function() {
 	console.log("START");
 
-	p1.then(function (allTags) {
+	p1.then( function(allTags) {
 		if (allTags.allTags != null) {
 			inspectPage(allTags.allTags);
 		}
 		else {
 			inspectPage([]);
 		}
-	})
+	});
 });
 
 function inspectPage (spoilersArr) {

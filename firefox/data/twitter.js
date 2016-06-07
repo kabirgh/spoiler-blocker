@@ -3,8 +3,11 @@ var spoilerList = [];
 // Get all tags in js object from index.js
 self.port.emit("get-spoilers", "true");
 self.port.on("sending-spoilers", function(allTags) {
+	// Put all tags of active lists in array
 	for (var key in allTags) {
-		spoilerList = spoilerList.concat(allTags[key]);
+		if (allTags[key]["active"] === true) {
+			spoilerLists = spoilerLists.concat(allTags[key]["tags"]);
+		}
 	}
 });
 
