@@ -43,52 +43,13 @@ jQuery(document).ready( function($) {
 				if (tweetText.indexOf( spoilersArr[i] ) > -1) {
 					// tweetNode should be hidden
 					toHide = true;
+					console.log(tweetText);
+					tweetNode.remove();
 					break;
 				}
 			}
 
-			if (toHide) {
-				// Spoiler overlay
-				newDiv = $(document.createElement("div")).css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '99%',
-					'z-index': 1,
-					'cursor': 'pointer'
-				});
-
-				lineHeight = tweetNode.height() * 0.9;
-
-				// Spoiler text
-				newDiv.append($('<p/>').text('Spoiler!').css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '100%',
-					'font-size': 40,
-					'text-align': 'center',
-					'line-height': lineHeight.toString() + 'px',
-					'font-family': 'Copperplate',
-					'color': 'red'
-				}));
-
-				// Absolutely positioned element needs a positioned ancestor
-				// This does not break any of twitter's formatting (far as I have seen)
-				tweetNode.css({
-					'position': 'relative'
-				})
-
-				newDiv.click(function() {
-					$(this).hide()
-				});
-
-				tweetNode.append(newDiv);
-			}
+			
 		}
 
 		// Get tweets loaded on scroll

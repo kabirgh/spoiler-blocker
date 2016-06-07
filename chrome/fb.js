@@ -3,7 +3,9 @@ var spoilerList = [];
 chrome.storage.sync.get("allTags", function(allTags) {
 	if (!chrome.runtime.error) {
 		for (var key in allTags) {
-			spoilerList = spoilerList.concat(allTags[key]);
+			if (allTags[key]["active"] === true) {
+				spoilerLists = spoilerLists.concat(allTags[key]["tags"]);
+			}
 		}
 		console.log(spoilerList);
 	}
