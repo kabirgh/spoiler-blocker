@@ -55,6 +55,14 @@
   color: green;
 }
 
+.glyphicon-ok {
+  color: green;
+}
+
+.glyphicon-remove {
+  color: red;
+}
+
 .nav-glyphs {
   line-height:64px;
   float:right;
@@ -70,4 +78,32 @@
 
 .nav-children {
   height: 64px;
+}
+
+.editing-title {
+  width: 100px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.editing-txt {
+  width: 190px;
+  font-size: 13px;
+}
+
+.editing-glyph {
+  font-size: 12px;
+  float: right;
+  line-height: 37px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.hidden-submit {
+    border: 0 none;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }

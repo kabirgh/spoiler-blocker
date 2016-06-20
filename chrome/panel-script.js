@@ -8,13 +8,18 @@ app.controller('panelController', function($scope) {
 	//            title: {
 	//              tags: [tag1, tag2, ...],
 	//              display: true|false,
-	//              active: true|false
+	//              active: true|false,
+	// 							editing: true|false
 	//            }
 	//           }
 	$scope.allTags = {}
 
 	// Display form for new lists
 	$scope.showNewForm = false;
+
+	// Title and tags being currently edited
+	$scope.editingTitle = "";
+	$scope.editingTags = ""
 
 	chrome.storage.sync.get("allTags", function(listObj) {
 		if (listObj.allTags != null) { // Does exist in storage
@@ -29,15 +34,27 @@ app.controller('panelController', function($scope) {
 		}
 	})
 
-	$scope.getInput = processInput;
-
+	$scope.getInput = getInput;
 	$scope.clearAll = clearAll;
+	$scope.editList = editList;
+	$scope.editListSubmit = editListSubmit;
+	$scope.editListCancel = editListCancel;
+	$scope.deleteList = deleteList;
 
-	function processInput() {
-		var title = $scope.titleString.trim();
-		var tags = $scope.tagString;
+	function getInput() {
+		processInput($scope.titleString, $scope.tagString);
 		$scope.titleString = "";
 		$scope.tagString = "";
+
+		// Update the lists in storage
+		chrome.storage.sync.set({"allTags": $scope.allTags});
+
+		$scope.showNewForm = false;
+	}
+
+	function processInput(inputTitle, inputTags) {
+		var title = inputTitle.trim();
+		var tags = inputTags;
 
 		// Split tags on commas and trim
 		var tagArr = tags.split(",");
@@ -45,15 +62,15 @@ app.controller('panelController', function($scope) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		// Update local lists
+		updateLocal(title, tagArr);
+	}
+
+	function updateLocal(title, tags) {
 		$scope.allTags[title] = {
-			"tags": tagArr,
-			"display": false,
+			"tags": tags,
+			"display": true,
 			"active": true
 		};
-
-		// Update the lists in storage
-		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
 	// Clear all lists from storage
@@ -61,5 +78,37 @@ app.controller('panelController', function($scope) {
 		$scope.allTags = [];
 		$scope.displayTitles = false;
 		chrome.storage.sync.set({"allTags": []});
+	}
+
+	function editList(title) {
+		oldList = $scope.allTags[title];
+		oldList.newTitle = title;
+		oldList.newTags = oldList.tags.join(', ');
+		oldList.editing = true;
+	}
+
+	function editListSubmit(title) {
+		var newTitle = $scope.allTags[title].newTitle;
+		var newTags = $scope.allTags[title].newTags;
+
+		// Remove old list
+		delete $scope.allTags[title];
+
+		processInput(newTitle, newTags);
+
+		// Update the lists in storage
+		chrome.storage.sync.set({"allTags": $scope.allTags});
+	}
+
+	function editListCancel(title) {
+		list = $scope.allTags[title];
+		delete list.newTitle;
+		delete list.newTags;
+		delete list.editing;
+	}
+
+	function deleteList(title) {
+		delete $scope.allTags[title];
+		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 })
