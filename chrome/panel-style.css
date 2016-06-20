@@ -107,3 +107,11 @@
     margin: 0;
     overflow: hidden;
 }
+
+.activated {
+  color: green;
+}
+
+.deactivated {
+  color: grey;
+}

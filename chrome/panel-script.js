@@ -7,26 +7,41 @@ app.controller('panelController', function($scope) {
 	// allTags : {
 	//            title: {
 	//              tags: [tag1, tag2, ...],
-	//              display: true|false,
 	//              active: true|false,
-	// 							editing: true|false
 	//            }
 	//           }
-	$scope.allTags = {}
+	$scope.allTags = {};
+
+	// tagOptions : {
+	//               title: {
+	//                 display: true|false,
+	// 							   editing: true|false
+	//               }
+	//              }
+	$scope.tagOptions = {};
 
 	// Display form for new lists
 	$scope.showNewForm = false;
-
-	// Title and tags being currently edited
-	$scope.editingTitle = "";
-	$scope.editingTags = ""
 
 	chrome.storage.sync.get("allTags", function(listObj) {
 		if (listObj.allTags != null) { // Does exist in storage
 			// Need to explicitly call apply since angular does not automatically
 			// apply async changes
 			$scope.$apply(function () {
-				$scope.allTags = listObj.allTags
+				if (!(listObj.allTags.length == 0)) {
+					$scope.allTags = listObj.allTags;
+					for (var title in $scope.allTags) {
+					    if (!$scope.allTags.hasOwnProperty(title)) {
+					        continue;
+					    }
+					    $scope.tagOptions[title] = {
+								display: false,
+								editing: false,
+								newTitle: "",
+								newTags: ""
+							}
+					}
+				}
 			})
 		}
 		else {
@@ -40,19 +55,20 @@ app.controller('panelController', function($scope) {
 	$scope.editListSubmit = editListSubmit;
 	$scope.editListCancel = editListCancel;
 	$scope.deleteList = deleteList;
+	$scope.toggleActivate = toggleActivate;
 
 	function getInput() {
-		processInput($scope.titleString, $scope.tagString);
+		processInput($scope.titleString, $scope.tagString, true);
 		$scope.titleString = "";
 		$scope.tagString = "";
 
 		// Update the lists in storage
-		chrome.storage.sync.set({"allTags": $scope.allTags});
+		updateChromeStorage();
 
 		$scope.showNewForm = false;
 	}
 
-	function processInput(inputTitle, inputTags) {
+	function processInput(inputTitle, inputTags, active) {
 		var title = inputTitle.trim();
 		var tags = inputTags;
 
@@ -62,53 +78,73 @@ app.controller('panelController', function($scope) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		updateLocal(title, tagArr);
+		updateLocal(title, tagArr, active);
 	}
 
-	function updateLocal(title, tags) {
+	function updateLocal(title, tags, active) {
 		$scope.allTags[title] = {
-			"tags": tags,
-			"display": true,
-			"active": true
+			tags: tags,
+			active: active
 		};
+
+		$scope.tagOptions[title] = {
+			display: true,
+			editing: false,
+			newTitle: "",
+			newTags: ""
+		}
+	}
+
+	function updateChromeStorage() {
+		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
 	// Clear all lists from storage
 	function clearAll() {
-		$scope.allTags = [];
-		$scope.displayTitles = false;
-		chrome.storage.sync.set({"allTags": []});
+		$scope.allTags = {};
+		$scope.tagOptions = {};
+		updateChromeStorage();
 	}
 
 	function editList(title) {
-		oldList = $scope.allTags[title];
-		oldList.newTitle = title;
-		oldList.newTags = oldList.tags.join(', ');
-		oldList.editing = true;
+		var options = $scope.tagOptions[title];
+		options.newTitle = title;
+		options.newTags = $scope.allTags[title].tags.join(', ');
+		options.editing = true;
 	}
 
 	function editListSubmit(title) {
-		var newTitle = $scope.allTags[title].newTitle;
-		var newTags = $scope.allTags[title].newTags;
+		var newTitle = $scope.tagOptions[title].newTitle;
+		var newTags = $scope.tagOptions[title].newTags;
+		var active = $scope.allTags[title].active;
 
 		// Remove old list
 		delete $scope.allTags[title];
+		delete $scope.tagOptions[title];
 
-		processInput(newTitle, newTags);
+		processInput(newTitle, newTags, active);
 
 		// Update the lists in storage
-		chrome.storage.sync.set({"allTags": $scope.allTags});
+		updateChromeStorage();
 	}
 
 	function editListCancel(title) {
-		list = $scope.allTags[title];
-		delete list.newTitle;
-		delete list.newTags;
-		delete list.editing;
+		$scope.tagOptions[title] = {
+			display: true,
+			editing: false,
+			newTitle: "",
+			newTags: ""
+		}
 	}
 
 	function deleteList(title) {
 		delete $scope.allTags[title];
-		chrome.storage.sync.set({"allTags": $scope.allTags});
+		delete $scope.tagOptions[title];
+		updateChromeStorage();
+	}
+
+	function toggleActivate(title) {
+		$scope.allTags[title].active = !$scope.allTags[title].active;
+		updateChromeStorage();
 	}
 })

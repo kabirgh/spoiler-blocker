@@ -33,24 +33,25 @@
 		<h5>Active lists</h5>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="(title, list) in allTags track by $index" ng-if="list.active">
-				<h6 class="list-title" ng-show="!list.editing">
+				<h6 class="list-title" ng-show="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!list.display" ng-click="list.display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="list.display" ng-click="list.display = false"></span>
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
 					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other" ng-click="deleteList(title)"></span>
 					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other" ng-click="editList(title)"></span>
+					<span class="glyphicon glyphicon-off list-title-arrow list-title-other activated" ng-click="toggleActivate(title)"></span>
 				</h6>
-				<p class="list-text" ng-if="list.display && !list.editing">
+				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
 				</p>
-				<form role="form" ng-if="list.editing" ng-submit="editListSubmit(title)">
+				<form role="form" ng-if="tagOptions[title].editing" ng-submit="editListSubmit(title)">
 				  <div class="form-group">
-				    <input type="text" class="form-control editing-title" ng-model="list.newTitle"></input>
+				    <input type="text" class="form-control editing-title" ng-model="tagOptions[title].newTitle"></input>
 						<span class="glyphicon glyphicon-remove editing-glyph" ng-click="editListCancel(title)"></span>
 						<span class="glyphicon glyphicon-ok editing-glyph" ng-click="editListSubmit(title)"></span>
 				  </div>
 				  <div class="form-group">
-				    <input type="text" class="form-control editing-txt" ng-model="list.newTags"></input>
+				    <input type="text" class="form-control editing-txt" ng-model="tagOptions[title].newTags"></input>
 				  </div>
 					<div class="hidden-submit"><input type="submit" tabindex="-1"/></div>
 				</form>
@@ -60,7 +61,28 @@
 		<h5>Inactive lists</h5>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="(title, list) in allTags track by $index" ng-if="!list.active">
-				<!-- TODO -->
+				<h6 class="list-title" ng-show="!tagOptions[title].editing">
+					{{ title }}
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
+					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other" ng-click="deleteList(title)"></span>
+					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other" ng-click="editList(title)"></span>
+					<span class="glyphicon glyphicon-off list-title-arrow list-title-other deactivated" ng-click="toggleActivate(title)"></span>
+				</h6>
+				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
+					{{ list.tags.join(', ') }}
+				</p>
+				<form role="form" ng-if="tagOptions[title].editing" ng-submit="editListSubmit(title)">
+				  <div class="form-group">
+				    <input type="text" class="form-control editing-title" ng-model="tagOptions[title].newTitle"></input>
+						<span class="glyphicon glyphicon-remove editing-glyph" ng-click="editListCancel(title)"></span>
+						<span class="glyphicon glyphicon-ok editing-glyph" ng-click="editListSubmit(title)"></span>
+				  </div>
+				  <div class="form-group">
+				    <input type="text" class="form-control editing-txt" ng-model="tagOptions[title].newTags"></input>
+				  </div>
+					<div class="hidden-submit"><input type="submit" tabindex="-1"/></div>
+				</form>
 			</li>
 		</ul>
 		<hr>
