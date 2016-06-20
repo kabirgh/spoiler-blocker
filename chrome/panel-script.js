@@ -4,16 +4,18 @@ app.controller('panelController', function($scope) {
 	$scope.titleString = "";
 	$scope.tagString = "";
 
-	// Form : [
-	//         {
-	//          list: {title:__, tags:[__,__]} ,
+	// Form : {
+	//         title: {
+	//          list: {tags:[__,__]} ,
 	//          display: true|false
 	//         }
-	//        ]
+	//        }
 	$scope.allTags = [];
 
 	// Display all the list titles
 	$scope.displayTitles = false;
+	// Display form for new lists
+	$scope.showNewForm = false;
 
 	chrome.storage.sync.get("allTags", function(listObj) {
 		if (listObj.allTags != null) {

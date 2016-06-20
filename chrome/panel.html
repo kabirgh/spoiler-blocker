@@ -6,12 +6,19 @@
 	<script src="jquery.js"></script>
 	<script src="angular.min.js"></script>
 	<script src="panel-script.js"></script>
-	<h4>
-		Heading
-	</h4>
 </head>
-<body ng-app = "panelApp">
-	<div class="container" ng-controller = "panelController">
+<body ng-app = "panelApp" ng-controller = "panelController">
+	<nav class="navbar navbar-default" id="navbar" style="width:260px; height: 30px; margin: 0px">
+		<div class="container-fluid" style="height: 64px">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header" style="height: 64px">
+				<span class="glyphicon glyphicon-cog" style="line-height:64px; float:right; font-size: 15px; padding-right: 15px"></span>
+				<span class="glyphicon glyphicon-plus" style="line-height:64px; float:right; font-size: 15px; padding-right: 10px; color: green" ng-click="showNewForm = !showNewForm; console.log(showNewForm)"></span>
+	      <p class="navbar-brand" href="#">Spoiler Blocker</p>
+	    </div>
+		</div>
+	</nav>
+	<div class="container" ng-show="showNewForm">
 		<form role="form" ng-submit="getInput()">
 		  <div class="form-group">
 		    <input type="text" class="form-control input-txt" placeholder="List title" ng-model="titleString"></input>
@@ -21,10 +28,12 @@
 		  </div>
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
+	</div>
+	<hr ng-show="showNewForm">
+	<div class="container">
+		<button type="button" class="btn btn-primary panel-btn" ng-click="clearAll()">Clear All Lists</button>
 		<br>
-		<button type="button" class="btn btn-danger panel-btn" ng-click="clearAll()">Clear All Lists</button>
-		<br>
-		<button type="button" class="btn btn-warning panel-btn" ng-click="displayTitles = !displayTitles">
+		<button type="button" class="btn btn-primary panel-btn" ng-click="displayTitles = !displayTitles">
 			See Lists
 			<span class="glyphicon glyphicon-chevron-right" ng-show="!displayTitles"></span>
 			<span class="glyphicon glyphicon-chevron-down" ng-show="displayTitles"></span>
