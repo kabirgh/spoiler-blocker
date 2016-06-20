@@ -7,7 +7,14 @@
 }
 
 .list-title {
+  height: 23px;
+  line-height: 23px;
   margin: 0px;
+}
+
+.list-text {
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 .list-title-arrow {
@@ -15,6 +22,10 @@
   float: right;
   line-height: 23px;
   cursor: pointer;
+}
+
+.list-title-other {
+  margin-right: 20px;
 }
 
 .list-tag-list {
@@ -25,4 +36,38 @@
 .list-tag-item {
   height: 30px;
   padding: 3px 15px;
+}
+
+.glyphicon-trash {
+  color: red;
+}
+
+.glyphicon-pencil {
+  color: blue;
+}
+
+.glyphicon-cog {
+  padding-right: 15px;
+}
+
+.glyphicon-plus {
+  padding-right: 10px;
+  color: green;
+}
+
+.nav-glyphs {
+  line-height:64px;
+  float:right;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.navbar {
+  width:260px;
+  height: 30px;
+  margin: 0px;
+}
+
+.nav-children {
+  height: 64px;
 }

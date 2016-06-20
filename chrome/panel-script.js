@@ -4,28 +4,25 @@ app.controller('panelController', function($scope) {
 	$scope.titleString = "";
 	$scope.tagString = "";
 
-	// Form : {
-	//         title: {
-	//          list: {tags:[__,__]} ,
-	//          display: true|false
-	//         }
-	//        }
-	$scope.allTags = [];
+	// allTags : {
+	//            title: {
+	//              tags: [tag1, tag2, ...],
+	//              display: true|false,
+	//              active: true|false
+	//            }
+	//           }
+	$scope.allTags = {}
 
-	// Display all the list titles
-	$scope.displayTitles = false;
 	// Display form for new lists
 	$scope.showNewForm = false;
 
 	chrome.storage.sync.get("allTags", function(listObj) {
-		if (listObj.allTags != null) {
-			// Does exist in storage
-			for (var i = 0; i < listObj.allTags.length; i++) {
-				$scope.allTags[i] = {
-					list: listObj.allTags[i],
-					display: false
-				}
-			}
+		if (listObj.allTags != null) { // Does exist in storage
+			// Need to explicitly call apply since angular does not automatically
+			// apply async changes
+			$scope.$apply(function () {
+				$scope.allTags = listObj.allTags
+			})
 		}
 		else {
 			console.log("Something went wrong with getting lists from storage");
@@ -35,17 +32,6 @@ app.controller('panelController', function($scope) {
 	$scope.getInput = processInput;
 
 	$scope.clearAll = clearAll;
-
-	// Show tags when title is clicked in panel
-	$scope.showTags = function(idx) {
-		for (var i = 0; i < $scope.allTags.length; i++) {
-			// Toggle this tag list, and close all others
-			if (i != idx)
-				$scope.allTags[i].display = false;
-			else
-				$scope.allTags[i].display = !$scope.allTags[i].display;
-		}
-	}
 
 	function processInput() {
 		var title = $scope.titleString.trim();
@@ -59,16 +45,15 @@ app.controller('panelController', function($scope) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		// Get old array of lists from $scope.allTags
-		var oldArr = $scope.allTags.map(function(elem) {return elem.list});
-
-		var newList = {"title": title, "tags": tagArr};
-		oldArr.push(newList);
+		// Update local lists
+		$scope.allTags[title] = {
+			"tags": tagArr,
+			"display": false,
+			"active": true
+		};
 
 		// Update the lists in storage
-		chrome.storage.sync.set({"allTags": oldArr});
-		// Update local lists
-		$scope.allTags.push({display: false, list: newList});
+		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
 	// Clear all lists from storage
