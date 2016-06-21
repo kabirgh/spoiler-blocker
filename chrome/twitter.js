@@ -1,5 +1,3 @@
-var spoilerList = [];
-
 // Promise for async get tags
 var p1 = new Promise(function(resolve, reject) {
 	chrome.storage.sync.get("allTags", function(allTags) {
@@ -15,19 +13,20 @@ var p1 = new Promise(function(resolve, reject) {
 // hide document until code is run
 document.documentElement.style.visibility = 'hidden';
 document.addEventListener('DOMContentLoaded', function() {
+	// No need to remove this listener since only fires once
 	console.log("START");
 
-	p1.then( function(allTags) {
+	p1.then(function(allTags) {
 		if (allTags.allTags != null) {
 			inspectPage(allTags.allTags);
 		}
 		else {
-			inspectPage([]);
+			inspectPage({});
 		}
 	});
 });
 
-function inspectPage (spoilersArr) {
+function inspectPage (spoilersObj) {
 	var target = $(".stream");
 
 	if (target.length > 0) {
@@ -49,13 +48,22 @@ function inspectPage (spoilersArr) {
 
 			var toHide = false;
 			var listTitle = null;
-			for (var i = 0; i < spoilersArr.length; i++) {
+			for (var title in spoilersObj) {
+				if (!spoilersObj.hasOwnProperty(title)) {
+					// Not actually a list
+					continue;
+				}
+				if (!spoilersObj[title].active) {
+					// List is not active
+					continue;
+				}
+
 				// if tweet text contains a spoiler
-				for (var j = 0; j < spoilersArr[i].tags.length; j++) {
-					if (tweetText.indexOf( spoilersArr[i].tags[j] ) > -1) {
+				for (var j = 0; j < spoilersObj[title].tags.length; j++) {
+					if (tweetText.indexOf(spoilersObj[title].tags[j]) > -1) {
 						// tweetNode should be hidden
 						toHide = true;
-						listTitle = spoilersArr[i].title;
+						listTitle = title;
 						break;
 					}
 				}

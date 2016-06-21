@@ -1,29 +1,21 @@
-var spoilerList = [];
+var spoilersObj = {};
 
 chrome.storage.sync.get("allTags", function(allTags) {
 	if (!chrome.runtime.error) {
-		for (var key in allTags) {
-			if (allTags[key]["active"] === true) {
-				spoilerLists = spoilerLists.concat(allTags[key]["tags"]);
-			}
+		if (allTags.allTags != null) {
+			spoilersObj = allTags.allTags;
 		}
-		console.log(spoilerList);
+		else {
+			spoilersObj = {};
+		}
 	}
 	else {
 		console.log("runtime error");
 	}
 });
 
-
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 	console.log("START");
-
-	var spoilersArr = [];
-
-	chrome.storage.local.get("lists", function(listObj) {
-		spoilersArr = listObj.lists;
-		console.log(spoilersArr);
-	})
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
@@ -78,25 +70,37 @@ jQuery(document).ready( function($) {
 
 	function hidePosts(summaries) {
 		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+
+		var toHide = false;
+		var listTitle = null;
 		if (elem.length > 0) {
 			postText = elem.text();
+			console.log(postText);
 			toHide = false;
-			for (var i=0; i<spoilersArr.length; i++) {
-
-				// if post text contains a spoiler
-				if (postText.indexOf( spoilersArr[i] ) > -1) {
-					// post node should be hidden
-					toHide = true;
-					break;
+			for (var title in spoilersObj) {
+				if (!spoilersObj.hasOwnProperty(title)) {
+					// Not actually a list
+					continue;
+				}
+				if (!spoilersObj[title].active) {
+					// List is not active
+					continue;
 				}
 
+				// if tweet text contains a spoiler
+				for (var j = 0; j < spoilersObj[title].tags.length; j++) {
+					if (postText.indexOf(spoilersObj[title].tags[j]) > -1) {
+						// tweetNode should be hidden
+						toHide = true;
+						listTitle = title;
+						break;
+					}
+				}
 			}
 
 			if (toHide) {
 				elem = $(elem[0]);
-				console.log('Hi');
-				console.log(spoilersArr);
-				console.log(elem.text());
+
 				var hgt = '100%';
 
 				newDiv = $(document.createElement("div")).css({
@@ -104,33 +108,55 @@ jQuery(document).ready( function($) {
 					'top': 0,
 					'left': 0,
 					'background-color': 'white',
+					'display': 'flex',
+					'justify-content': 'center',
+					'align-items': 'center',
+					'text-align': 'center',
 					'width': '100%',
 					'height': hgt,
 					'z-index': 7,
-					'cursor': 'pointer'
+					'cursor': 'pointer',
+					'font-size': 30,
+					'font-family': 'Copperplate',
+					'color': 'red'
 				});
 
-				// Spoiler text
-				newDiv.append($('<p/>').text('Spoiler!').css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '100%',
-					'font-size': 40,
-					'text-align': 'center',
-					'line-height': hgt,
-					'font-family': 'Copperplate',
-					'color': 'red',
-					'margin': '0px'
-				}));
+				newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+
+				// var hgt = '100%';
+				//
+				// newDiv = $(document.createElement("div")).css({
+				// 	'position': 'absolute',
+				// 	'top': 0,
+				// 	'left': 0,
+				// 	'background-color': 'white',
+				// 	'width': '100%',
+				// 	'height': hgt,
+				// 	'z-index': 7,
+				// 	'cursor': 'pointer'
+				// });
+				//
+				// // Spoiler text
+				// newDiv.append($('<p/>').text('Spoiler!').css({
+				// 	'position': 'absolute',
+				// 	'top': 0,
+				// 	'left': 0,
+				// 	'background-color': 'white',
+				// 	'width': '100%',
+				// 	'height': '100%',
+				// 	'font-size': 40,
+				// 	'text-align': 'center',
+				// 	'line-height': hgt,
+				// 	'font-family': 'Copperplate',
+				// 	'color': 'red',
+				// 	'margin': '0px'
+				// }));
 
 				// Absolutely positioned element needs a positioned ancestor
 				// This does not break formatting (far as I have seen)
 				elem.css({
 					'position': 'relative'
-				})
+				});
 
 				newDiv.click(function() {
 					$(this).hide()
@@ -151,7 +177,6 @@ jQuery(document).ready( function($) {
 			stringOutput += ", " + tag + ":contains('" + stringArr[i] + "')";
 		}
 
-		console.log("string output " + stringOutput);
 		return stringOutput;
 	}
 });

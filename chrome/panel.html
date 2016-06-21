@@ -13,7 +13,7 @@
 	    <div class="navbar-header nav-children">
 				<span class="glyphicon glyphicon-cog nav-glyphs clickable"></span>
 				<span class="glyphicon glyphicon-plus nav-glyphs clickable" ng-click="showNewForm = true"></span>
-	      <p class="navbar-brand" data-toggle="modal" data-target="#myModal">Spoiler Blocker</p>
+	      <p class="navbar-brand">Spoiler Blocker</p>
 	    </div>
 		</div>
 	</nav>
@@ -92,7 +92,6 @@
 		<p ng-show="!seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See More</u></p>
 		<p ng-show="seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See Less</u></p>
 		<hr>
-		<button type="button" class="btn btn-primary panel-btn" ng-click="clearAll()">Clear All Lists</button>
 		<br>
 	</div>
 </body>

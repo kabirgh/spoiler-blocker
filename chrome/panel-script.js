@@ -42,22 +42,22 @@ app.controller('panelController', function($scope) {
 				if (!(listObj.allTags.length == 0)) {
 					$scope.allTags = listObj.allTags;
 					for (var title in $scope.allTags) {
-					    if (!$scope.allTags.hasOwnProperty(title)) {
-					        continue;
-					    }
-							if ($scope.allTags[title].active) {
-								$scope.active[title] = $scope.allTags[title];
-								$scope.numActive++;
-							} else {
-								$scope.inactive[title] = $scope.allTags[title];
-								$scope.numInactive++;
-							}
-					    $scope.tagOptions[title] = {
-								display: false,
-								editing: false,
-								newTitle: "",
-								newTags: ""
-							}
+				    if (!$scope.allTags.hasOwnProperty(title)) {
+				      continue;
+				    }
+						if ($scope.allTags[title].active) {
+							$scope.active[title] = $scope.allTags[title];
+							$scope.numActive++;
+						} else {
+							$scope.inactive[title] = $scope.allTags[title];
+							$scope.numInactive++;
+						}
+				    $scope.tagOptions[title] = {
+							display: false,
+							editing: false,
+							newTitle: "",
+							newTags: ""
+						}
 					}
 				}
 			})
@@ -68,7 +68,6 @@ app.controller('panelController', function($scope) {
 	})
 
 	$scope.getInput = getInput;
-	$scope.clearAll = clearAll;
 	$scope.editList = editList;
 	$scope.editListSubmit = editListSubmit;
 	$scope.editListCancel = editListCancel;
@@ -125,15 +124,6 @@ app.controller('panelController', function($scope) {
 
 	function updateChromeStorage() {
 		chrome.storage.sync.set({"allTags": $scope.allTags});
-	}
-
-	// Clear all lists from storage
-	function clearAll() {
-		$scope.allTags = {};
-		$scope.tagOptions = {};
-		$scope.active[title] = {};
-		$scope.inactive[title] = {};
-		updateChromeStorage();
 	}
 
 	function editList(title) {
