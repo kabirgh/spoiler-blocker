@@ -11,8 +11,8 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid nav-children">
 	    <div class="navbar-header nav-children">
-				<span class="glyphicon glyphicon-cog nav-glyphs"></span>
-				<span class="glyphicon glyphicon-plus nav-glyphs" ng-click="showNewForm = !showNewForm"></span>
+				<span class="glyphicon glyphicon-cog nav-glyphs clickable"></span>
+				<span class="glyphicon glyphicon-plus nav-glyphs clickable" ng-click="showNewForm = !showNewForm"></span>
 	      <p class="navbar-brand">Spoiler Blocker</p>
 	    </div>
 		</div>
@@ -32,14 +32,14 @@
 	<div class="container">
 		<h5>Active lists</h5>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="(title, list) in allTags track by $index" ng-if="list.active">
-				<h6 class="list-title" ng-show="!tagOptions[title].editing">
+			<li class="list-group-item" ng-repeat="(title, list) in active track by $index" ng-if="$index < 2 || seeMoreActive">
+				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other activated" ng-click="toggleActivate(title)"></span>
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
+					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
+					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
+					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable activated" ng-click="toggleActivate(title)"></span>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
@@ -47,8 +47,8 @@
 				<form role="form" ng-if="tagOptions[title].editing" ng-submit="editListSubmit(title)">
 				  <div class="form-group">
 				    <input type="text" class="form-control editing-title" ng-model="tagOptions[title].newTitle"></input>
-						<span class="glyphicon glyphicon-remove editing-glyph" ng-click="editListCancel(title)"></span>
-						<span class="glyphicon glyphicon-ok editing-glyph" ng-click="editListSubmit(title)"></span>
+						<span class="glyphicon glyphicon-remove editing-glyph clickable" ng-click="editListCancel(title)"></span>
+						<span class="glyphicon glyphicon-ok editing-glyph clickable" ng-click="editListSubmit(title)"></span>
 				  </div>
 				  <div class="form-group">
 				    <input type="text" class="form-control editing-txt" ng-model="tagOptions[title].newTags"></input>
@@ -57,17 +57,19 @@
 				</form>
 			</li>
 		</ul>
+		<p ng-show="!seeMoreActive && numActive > 2"><u class="clickable" ng-click="toggleSeeMoreActive()">See More</u></p>
+		<p ng-show="seeMoreActive && numActive > 2"><u class="clickable" ng-click="toggleSeeMoreActive()">See Less</u></p>
 		<hr>
 		<h5>Inactive lists</h5>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="(title, list) in allTags track by $index" ng-if="!list.active">
-				<h6 class="list-title" ng-show="!tagOptions[title].editing">
+			<li class="list-group-item" ng-repeat="(title, list) in inactive track by $index" ng-if="$index < 2 || seeMoreInactive">
+				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other deactivated" ng-click="toggleActivate(title)"></span>
+			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
+					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
+					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
+					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
+					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable deactivated" ng-click="toggleActivate(title)"></span>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
@@ -75,8 +77,8 @@
 				<form role="form" ng-if="tagOptions[title].editing" ng-submit="editListSubmit(title)">
 				  <div class="form-group">
 				    <input type="text" class="form-control editing-title" ng-model="tagOptions[title].newTitle"></input>
-						<span class="glyphicon glyphicon-remove editing-glyph" ng-click="editListCancel(title)"></span>
-						<span class="glyphicon glyphicon-ok editing-glyph" ng-click="editListSubmit(title)"></span>
+						<span class="glyphicon glyphicon-remove editing-glyph clickable" ng-click="editListCancel(title)"></span>
+						<span class="glyphicon glyphicon-ok editing-glyph clickable" ng-click="editListSubmit(title)"></span>
 				  </div>
 				  <div class="form-group">
 				    <input type="text" class="form-control editing-txt" ng-model="tagOptions[title].newTags"></input>
@@ -85,6 +87,8 @@
 				</form>
 			</li>
 		</ul>
+		<p ng-show="!seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See More</u></p>
+		<p ng-show="seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See Less</u></p>
 		<hr>
 		<button type="button" class="btn btn-primary panel-btn" ng-click="clearAll()">Clear All Lists</button>
 		<br>

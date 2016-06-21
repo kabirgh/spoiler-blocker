@@ -23,6 +23,17 @@ app.controller('panelController', function($scope) {
 	// Display form for new lists
 	$scope.showNewForm = false;
 
+	// Active and Inactive lists
+	$scope.active = {};
+	$scope.inactive = {};
+	$scope.numActive = 0;
+	$scope.numInactive = 0;
+
+	// Whether to display all activated/deactivated lists
+	$scope.seeMoreActive = false;
+	$scope.seeMoreInactive = false;
+
+
 	chrome.storage.sync.get("allTags", function(listObj) {
 		if (listObj.allTags != null) { // Does exist in storage
 			// Need to explicitly call apply since angular does not automatically
@@ -34,6 +45,13 @@ app.controller('panelController', function($scope) {
 					    if (!$scope.allTags.hasOwnProperty(title)) {
 					        continue;
 					    }
+							if ($scope.allTags[title].active) {
+								$scope.active[title] = $scope.allTags[title];
+								$scope.numActive++;
+							} else {
+								$scope.inactive[title] = $scope.allTags[title];
+								$scope.numInactive++;
+							}
 					    $scope.tagOptions[title] = {
 								display: false,
 								editing: false,
@@ -56,6 +74,8 @@ app.controller('panelController', function($scope) {
 	$scope.editListCancel = editListCancel;
 	$scope.deleteList = deleteList;
 	$scope.toggleActivate = toggleActivate;
+	$scope.toggleSeeMoreActive = toggleSeeMoreActive;
+	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
 
 	function getInput() {
 		processInput($scope.titleString, $scope.tagString, true);
@@ -87,6 +107,14 @@ app.controller('panelController', function($scope) {
 			active: active
 		};
 
+		if (active) {
+			$scope.active[title] = $scope.allTags[title];
+			$scope.numActive++;
+		} else {
+			$scope.inactive[title] = $scope.allTags[title];
+			$scope.numInactive++;
+		}
+
 		$scope.tagOptions[title] = {
 			display: true,
 			editing: false,
@@ -103,6 +131,8 @@ app.controller('panelController', function($scope) {
 	function clearAll() {
 		$scope.allTags = {};
 		$scope.tagOptions = {};
+		$scope.active[title] = {};
+		$scope.inactive[title] = {};
 		updateChromeStorage();
 	}
 
@@ -122,6 +152,14 @@ app.controller('panelController', function($scope) {
 		delete $scope.allTags[title];
 		delete $scope.tagOptions[title];
 
+		if (active) {
+			delete $scope.active[title];
+			$scope.numActive--;
+		} else {
+			delete $scope.inactive[title];
+			$scope.numInactive--;
+		}
+
 		processInput(newTitle, newTags, active);
 
 		// Update the lists in storage
@@ -138,6 +176,14 @@ app.controller('panelController', function($scope) {
 	}
 
 	function deleteList(title) {
+		if ($scope.allTags[title].active) {
+			delete $scope.active[title];
+			$scope.numActive--;
+		} else {
+			delete $scope.inactive[title];
+			$scope.numInactive--;
+		}
+
 		delete $scope.allTags[title];
 		delete $scope.tagOptions[title];
 		updateChromeStorage();
@@ -145,6 +191,25 @@ app.controller('panelController', function($scope) {
 
 	function toggleActivate(title) {
 		$scope.allTags[title].active = !$scope.allTags[title].active;
+		if ($scope.allTags[title].active) {
+			$scope.active[title] = $scope.allTags[title];
+			delete $scope.inactive[title];
+			$scope.numActive++;
+			$scope.numInactive--;
+		} else {
+			delete $scope.active[title];
+			$scope.inactive[title] = $scope.allTags[title];
+			$scope.numActive--;
+			$scope.numInactive++;
+		}
 		updateChromeStorage();
+	}
+
+	function toggleSeeMoreActive() {
+		$scope.seeMoreActive = !$scope.seeMoreActive;
+	}
+
+	function toggleSeeMoreInactive() {
+		$scope.seeMoreInactive = !$scope.seeMoreInactive;
 	}
 })
