@@ -12,8 +12,8 @@
 		<div class="container-fluid nav-children">
 	    <div class="navbar-header nav-children">
 				<span class="glyphicon glyphicon-cog nav-glyphs clickable"></span>
-				<span class="glyphicon glyphicon-plus nav-glyphs clickable" ng-click="showNewForm = !showNewForm"></span>
-	      <p class="navbar-brand">Spoiler Blocker</p>
+				<span class="glyphicon glyphicon-plus nav-glyphs clickable" ng-click="showNewForm = true"></span>
+	      <p class="navbar-brand" data-toggle="modal" data-target="#myModal">Spoiler Blocker</p>
 	    </div>
 		</div>
 	</nav>
@@ -26,6 +26,8 @@
 		    <input type="text" class="form-control input-txt" placeholder="Enter comma seperated tags" ng-model="tagString"></input>
 		  </div>
 		  <button type="submit" class="btn btn-primary">Submit</button>
+			<span class="btn-spacer"></span>
+			<button ng-click="showNewForm = false" type="button" class="btn btn-danger">Cancel</button>
 		</form>
 	</div>
 	<hr ng-show="showNewForm">

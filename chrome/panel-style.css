@@ -2,6 +2,12 @@
   width: 230px
 }
 
+.btn-spacer {
+  width: 60px;
+  height: 1px;
+  display: inline-block;
+}
+
 .panel-btn {
   display: block;
 }
