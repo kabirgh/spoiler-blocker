@@ -1,31 +1,9 @@
 // "./filename" is a shortcut for 
 // require("sdk/self").data.url("filename")
 
-// Run content scripts when user is browsing facebook
-var fbPageMod = require("sdk/page-mod");
-fbPageMod.PageMod({
-	include: "*.facebook.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
-	onAttach: function(worker) {
-		worker.port.on("get-spoilers", function() {
-			worker.port.emit("sending-spoilers", ss.allTags);
-		});
-	}
-});
+// Access user preferences
+var prefs = require("sdk/simple-prefs").prefs
 
-// Twitter scripts
-var twitterPageMod = require("sdk/page-mod");
-twitterPageMod.PageMod({
-	include: "*.twitter.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
-	onAttach: function(worker) {
-		worker.port.on("get-spoilers", function() {
-			worker.port.emit("sending-spoilers", ss.allTags);
-		});
-	}
-});
 
 // Store data across sessions
 var ss = require("sdk/simple-storage").storage;
@@ -46,6 +24,32 @@ if (!ss.allTags) {
 	};
 
 }
+
+
+// Run content scripts when user is browsing facebook
+var fbPageMod = require("sdk/page-mod");
+fbPageMod.PageMod({
+	include: "*.facebook.com",
+	contentScriptWhen: "ready",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
+	onAttach: function(worker) {
+		worker.port.emit("spoilers", ss.allTags);
+		worker.port.emit("prefs", prefs);
+	}
+});
+
+// Twitter scripts
+var twitterPageMod = require("sdk/page-mod");
+twitterPageMod.PageMod({
+	include: "*.twitter.com",
+	contentScriptWhen: "ready",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
+	onAttach: function(worker) {
+		worker.port.emit("spoilers", ss.allTags);
+		worker.port.emit("prefs", prefs);
+	}
+});
+
 
 // Create a button on the toolbar
 var { ToggleButton } = require("sdk/ui/button/toggle");
