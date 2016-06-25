@@ -14,6 +14,12 @@ chrome.storage.sync.get("allTags", function(allTags) {
 	}
 });
 
+var hidePref;
+chrome.storage.sync.get("prefs", function(prefs) {
+	hidePref = prefs["hide"];
+	console.log(hidePref);
+});
+
 jQuery(document).ready(function($) {
 	console.log("START");
 
@@ -97,7 +103,7 @@ jQuery(document).ready(function($) {
 		if (elem.length > 0) {
 			postText = elem.text();
 			console.log(postText);
-			toHide = false;
+
 			for (var title in spoilersObj) {
 				if (!spoilersObj.hasOwnProperty(title)) {
 					// Not actually a list
@@ -112,82 +118,57 @@ jQuery(document).ready(function($) {
 				for (var j = 0; j < spoilersObj[title].tags.length; j++) {
 					if (postText.indexOf(spoilersObj[title].tags[j]) > -1) {
 						// tweetNode should be hidden
-						toHide = true;
-						listTitle = title;
+						if (hidePref === "remove") {
+							$(elem).remove();
+						}
+						else if (hidePref === "overlay") {
+							overlay(elem, title);
+						}
 						break;
 					}
 				}
 			}
-
-			if (toHide) {
-				elem = $(elem[0]);
-
-				var hgt = '100%';
-
-				newDiv = $(document.createElement("div")).css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'display': 'flex',
-					'justify-content': 'center',
-					'align-items': 'center',
-					'text-align': 'center',
-					'width': '100%',
-					'height': hgt,
-					'z-index': 7,
-					'cursor': 'pointer',
-					'font-size': 30,
-					'font-family': 'Copperplate',
-					'color': 'red'
-				});
-
-				newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
-
-				// var hgt = '100%';
-				//
-				// newDiv = $(document.createElement("div")).css({
-				// 	'position': 'absolute',
-				// 	'top': 0,
-				// 	'left': 0,
-				// 	'background-color': 'white',
-				// 	'width': '100%',
-				// 	'height': hgt,
-				// 	'z-index': 7,
-				// 	'cursor': 'pointer'
-				// });
-				//
-				// // Spoiler text
-				// newDiv.append($('<p/>').text('Spoiler!').css({
-				// 	'position': 'absolute',
-				// 	'top': 0,
-				// 	'left': 0,
-				// 	'background-color': 'white',
-				// 	'width': '100%',
-				// 	'height': '100%',
-				// 	'font-size': 40,
-				// 	'text-align': 'center',
-				// 	'line-height': hgt,
-				// 	'font-family': 'Copperplate',
-				// 	'color': 'red',
-				// 	'margin': '0px'
-				// }));
-
-				// Absolutely positioned element needs a positioned ancestor
-				// This does not break formatting (far as I have seen)
-				elem.css({
-					'position': 'relative'
-				});
-
-				newDiv.click(function() {
-					$(this).hide()
-				});
-
-				elem.append(newDiv);
-			}
 		}
 	}
 
+
+	function overlay(postElem, listTitle) {
+		elem = $(elem[0]);
+
+		var hgt = '100%';
+
+		newDiv = $(document.createElement("div")).css({
+			'position': 'absolute',
+			'top': 0,
+			'left': 0,
+			'background-color': 'white',
+			'display': 'flex',
+			'justify-content': 'center',
+			'align-items': 'center',
+			'text-align': 'center',
+			'width': '100%',
+			'height': hgt,
+			'z-index': 7,
+			'cursor': 'pointer',
+			'font-size': 30,
+			'font-family': 'Copperplate',
+			'color': 'red'
+		});
+
+		newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+
+		// Absolutely positioned element needs a positioned ancestor
+		// This does not break formatting (far as I have seen)
+		elem.css({
+			'position': 'relative'
+		});
+
+		newDiv.click(function() {
+			$(this).hide()
+		});
+
+		elem.append(newDiv);
+	}
 
 	// Return string output for jQuery selector to check if element with the
 	// specified tag contains any of the text in stringArr.
