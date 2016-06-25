@@ -38,8 +38,9 @@ app.controller('panelController', function($scope) {
 		if (listObj.allTags != null) { // Does exist in storage
 			// Need to explicitly call apply since angular does not automatically
 			// apply async changes
+			console.log(listObj)
 			$scope.$apply(function () {
-				if (!(listObj.allTags.length == 0)) {
+				if (!(listObj.allTags.length == 0)) { 
 					$scope.allTags = listObj.allTags;
 					for (var title in $scope.allTags) {
 				    if (!$scope.allTags.hasOwnProperty(title)) {
@@ -63,6 +64,7 @@ app.controller('panelController', function($scope) {
 			})
 		}
 		else {
+			// chrome.storage.sync.set({'allTags': {}})
 			console.log("Something went wrong with getting lists from storage");
 		}
 	})

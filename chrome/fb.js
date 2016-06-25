@@ -44,6 +44,24 @@ jQuery(document).ready(function($) {
 
 			document.removeEventListener("DOMNodeInserted", findFeed);
 			console.log("DOMNodeInserted listener removed");
+
+			// var sub0 = new MutationSummary({
+			// 	callback: observeHyperFeed,
+			// 	rootNode: $("div[id='substream_0']"),
+			// 	queries: [{
+			// 		element: "div"
+			// 	}]
+			// });
+			// var sub1 = new MutationSummary({
+			// 	callback: observeHyperFeed,
+			// 	rootNode: $("div[id='substream_1']"),
+			// 	queries: [{
+			// 		element: "div"
+			// 	}]
+			// });
+
+			hidePosts( $("div[id='substream_0']") );
+			hidePosts( $("div[id='substream_1']") );
 		}
 	}
 
@@ -58,7 +76,7 @@ jQuery(document).ready(function($) {
 
 			if (elem.length > 0) {
 				new MutationSummary({
-					callback: hidePosts,
+					callback: hidePostsSummary,
 					rootNode: elem[0],
 					queries: [{
 						element: "div"
@@ -68,9 +86,12 @@ jQuery(document).ready(function($) {
 		});
 	}
 
-	function hidePosts(summaries) {
+	function hidePostsSummary(summaries) {
 		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+		hidePosts(elem);
+	}
 
+	function hidePosts(elem) {
 		var toHide = false;
 		var listTitle = null;
 		if (elem.length > 0) {
