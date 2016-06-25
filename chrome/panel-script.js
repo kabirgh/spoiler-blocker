@@ -33,6 +33,12 @@ app.controller('panelController', function($scope) {
 	$scope.seeMoreActive = false;
 	$scope.seeMoreInactive = false;
 
+	// Options
+	// {
+	//   hide: overlay|remove
+	// }
+	$scope.prefs = {};
+
 
 	chrome.storage.sync.get("allTags", function(listObj) {
 		if (listObj.allTags != null) { // Does exist in storage
@@ -40,7 +46,7 @@ app.controller('panelController', function($scope) {
 			// apply async changes
 			console.log(listObj)
 			$scope.$apply(function () {
-				if (!(listObj.allTags.length == 0)) { 
+				if (!(listObj.allTags.length == 0)) {
 					$scope.allTags = listObj.allTags;
 					for (var title in $scope.allTags) {
 				    if (!$scope.allTags.hasOwnProperty(title)) {
@@ -67,6 +73,18 @@ app.controller('panelController', function($scope) {
 			// chrome.storage.sync.set({'allTags': {}})
 			console.log("Something went wrong with getting lists from storage");
 		}
+
+		chrome.storage.sync.get("prefs", function(prefs) {
+			if (prefs.prefs != null) { // Does exist in storage
+				$scope.prefs = prefs.prefs;
+			}
+			else {
+				$scope.prefs["hide"] = "overlay";
+				storeOptions();
+				console.log("Something went wrong with getting preferences from storage");
+			}
+			$scope.$apply();
+		})
 	})
 
 	$scope.getInput = getInput;
@@ -77,6 +95,7 @@ app.controller('panelController', function($scope) {
 	$scope.toggleActivate = toggleActivate;
 	$scope.toggleSeeMoreActive = toggleSeeMoreActive;
 	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
+	$scope.storeOptions = storeOptions;
 
 	function getInput() {
 		processInput($scope.titleString, $scope.tagString, true);
@@ -203,5 +222,9 @@ app.controller('panelController', function($scope) {
 
 	function toggleSeeMoreInactive() {
 		$scope.seeMoreInactive = !$scope.seeMoreInactive;
+	}
+
+	function storeOptions() {
+		chrome.storage.sync.set({prefs: $scope.prefs});
 	}
 })

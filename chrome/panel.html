@@ -92,6 +92,20 @@
 		<p ng-show="!seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See More</u></p>
 		<p ng-show="seeMoreInactive && numInactive > 2"><u class="clickable" ng-click="toggleSeeMoreInactive()">See Less</u></p>
 		<hr>
+		<div class="form-group">
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" ng-model="prefs.hide" value="overlay"  ng-change="storeOptions()" checked="checked" >
+          Overlay
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" ng-model="prefs.hide" value="remove" ng-change="storeOptions()">
+          Remove
+        </label>
+      </div>
+    </div>
 		<br>
 	</div>
 </body>
