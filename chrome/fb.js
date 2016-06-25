@@ -98,7 +98,6 @@ jQuery(document).ready(function($) {
 	}
 
 	function hidePosts(elem) {
-		var toHide = false;
 		var listTitle = null;
 		if (elem.length > 0) {
 			postText = elem.text();
@@ -132,7 +131,7 @@ jQuery(document).ready(function($) {
 	}
 
 
-	function overlay(postElem, listTitle) {
+	function overlay(elem, listTitle) {
 		elem = $(elem[0]);
 
 		var hgt = '100%';

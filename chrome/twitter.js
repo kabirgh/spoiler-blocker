@@ -10,6 +10,12 @@ var p1 = new Promise(function(resolve, reject) {
 	});
 });
 
+var hidePref;
+chrome.storage.sync.get("prefs", function(prefs) {
+	hidePref = prefs["hide"];
+	console.log(hidePref);
+});
+
 // hide document until code is run
 document.documentElement.style.visibility = 'hidden';
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,50 +68,54 @@ function inspectPage (spoilersObj) {
 				for (var j = 0; j < spoilersObj[title].tags.length; j++) {
 					if (tweetText.indexOf(spoilersObj[title].tags[j]) > -1) {
 						// tweetNode should be hidden
-						toHide = true;
-						listTitle = title;
+						if (hidePref === "remove") {
+							$(tweetNode).remove();
+						}
+						else if (hidePref === "overlay") {
+							overlay(tweetNode, title);
+						}
 						break;
 					}
 				}
 			}
-
-			if (toHide) {
-				// Spoiler overlay
-				var hgt = '99%';
-
-				newDiv = $(document.createElement("div")).css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'display': 'flex',
-					'justify-content': 'center',
-					'align-items': 'center',
-					'text-align': 'center',
-					'width': '100%',
-					'height': hgt,
-					'z-index': 1,
-					'cursor': 'pointer',
-					'font-size': 30,
-					'font-family': 'Copperplate',
-					'color': 'red'
-				});
-
-				newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
-
-				// Absolutely positioned element needs a positioned ancestor
-				// This does not break any of twitter's formatting (far as I have seen)
-				tweetNode.css({
-					'position': 'relative'
-				})
-
-				newDiv.click(function() {
-					$(this).hide()
-				});
-
-				tweetNode.append(newDiv);
-			}
 		}
+
+		function overlay(elem, listTitle) {
+			var hgt = '99%';
+
+			newDiv = $(document.createElement("div")).css({
+				'position': 'absolute',
+				'top': 0,
+				'left': 0,
+				'background-color': 'white',
+				'display': 'flex',
+				'justify-content': 'center',
+				'align-items': 'center',
+				'text-align': 'center',
+				'width': '100%',
+				'height': hgt,
+				'z-index': 7,
+				'cursor': 'pointer',
+				'font-size': 30,
+				'font-family': 'Copperplate',
+				'color': 'red'
+			});
+
+			newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+
+			// Absolutely positioned element needs a positioned ancestor
+			// This does not break formatting (far as I have seen)
+			elem.css({
+				'position': 'relative'
+			});
+
+			newDiv.click(function() {
+				$(this).hide()
+			});
+
+			elem.append(newDiv);
+		}
+
 
 		// All tweets on page have been checked, make document visible
 		document.documentElement.style.visibility = '';
