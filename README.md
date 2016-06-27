@@ -40,6 +40,9 @@ Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For
   <li>
     Allow users to submit lists of spoilers to a public community portal for anyone's use
   </li>
+  <li>
+    Explore further uses of the addon as a keyword censor.
+  </li>
 </ol>
 
 ## Level of achievement
