@@ -26,13 +26,13 @@ Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For
 ## Features for next sprint
 <ol>
   <li>
-    Improve on UI
+    Improve UI
   </li>
   <li>
     Reduce lag time for loading addon panel (when button on toolbar is clicked)
   </li>
   <li>
-    Have a curated section of (possibly community-submitted) spoiler lists for common TV shows. Users can select these rather than creating their own. This will probably take the form of a website
+    Have a curated website of (possibly community-submitted) spoiler lists for common TV shows. Users can select these rather than creating their own
   </li>
   <li>
     Allow users to submit lists of spoilers to a public community portal for anyone's use
