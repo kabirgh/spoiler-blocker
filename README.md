@@ -4,6 +4,7 @@ Spoiler blocker is an open-source browser extension that removes Facebook and Tw
 ## Installation
 The extension can be installed from the Firefox Add-ons library and Chrome Web Store.
 To install from source, clone this repo and follow the instructions at  https://developer.chrome.com/extensions/getstarted#unpacked. When prompted to select the extension, choose the 'chrome' folder.
+
 Note: The addon is not yet working in firefox.
 
 ## License
