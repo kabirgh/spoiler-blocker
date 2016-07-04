@@ -2,7 +2,7 @@
 // require("sdk/self").data.url("filename")
 
 // Access user preferences
-var prefs = require("sdk/simple-prefs").prefs
+var prefs = require("sdk/simple-prefs").prefs;
 
 
 // Store data across sessions
@@ -21,7 +21,7 @@ if (!ss.allTags) {
 			"active": false, 
 			"tags": ["arr2", "abb"]
 		}
-	};
+	}
 
 }
 
@@ -57,9 +57,9 @@ var button = ToggleButton({
 	id: "sb-button",
 	label: "Spoiler Blocker",
 	icon: {
-		"16": "./img/icon-16.png",
-		"32": "./img/icon-32.png",
-		"64": "./img/icon-64.png"
+		"16": "./img/s_icon16.png",
+		"32": "./img/s_icon32.png",
+		"64": "./img/s_icon64.png"
 	},
 	onChange: handleButtonChange,
 });
@@ -76,7 +76,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel/panel.html",
-	contentScriptFile: "./panel/panel-script.js",
+	contentScriptFile: ["./jquery.js", "./panel/panel-script.js"],
 	contentStyleFile: "./panel/panel-style.css",
 	onHide: handlePanelHide
 });

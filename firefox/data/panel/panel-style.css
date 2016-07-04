@@ -1,3 +1,9 @@
 input {
-  width: 250px
+	width: 250px;
 }
+
+button:focus {
+	outline:none !important;
+}
+
+
