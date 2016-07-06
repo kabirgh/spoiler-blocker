@@ -16,12 +16,12 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],
-			"js": ["jquery.js", "mutation-summary.js", "fb.js"],
+			"js": ["jquery.js", "mutation-summary.js", "fb-dev.js"],
 			"run_at": "document_start"
 		},
 		{
 			"matches": ["*://*.twitter.com/*", "*://twitter.com/*"],
-			"js": ["jquery.js", "mutation-summary.js", "twitter.js"],
+			"js": ["jquery.js", "mutation-summary.js", "twitter-dev.js"],
 			"run_at": "document_start"
 		}
 	]

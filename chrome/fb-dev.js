@@ -50,7 +50,7 @@ function addDomListener() {
 }
 
 
-// Set mutationobserver on <body> element. Changes to class attribute
+// Set mutationobserver on <body> element. Changes to its class attribute
 // indicate new fb webpage has been loaded
 function observeBody() {
 	// Look for feed using domlistener
@@ -114,35 +114,37 @@ function observeHyperFeed(summaries) {
 }
 
 
-function hidePosts($elem) {
-	if ($elem.length > 0) {
-		// Get all text from the post, including author, comments and content
-		postText = $elem.text();
-		console.log(postText);
+function hidePosts(elem) {
+	$elem = $(elem);
 
-		for (var title in spoilersObj) {
-			if (!spoilersObj.hasOwnProperty(title) || !spoilersObj[title]["active"]) {
-				// Not actually a list or list is inactive
-				continue;
-			}
+	if ($elem.length === 0) return;
 
-			for (var j = 0; j < spoilersObj[title]["tags"].length; j++) {
-				// if post text contains a spoiler
-				if (postText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
-					// hide post
-					if (hidePref === "remove") {
-						$($elem).remove();
-					}
-					else if (hidePref === "overlay") {
-						overlay($elem, title);
-					}
-					else {
-						console.log("Error in loading hide preference. Found " + 
-							hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
-						overlay($elem, title);
-					}
-					break;
+	// Get all text from the post, including author, comments and content
+	postText = $elem.text();
+	console.log(postText);
+
+	for (var title in spoilersObj) {
+		if (!spoilersObj.hasOwnProperty(title) || !spoilersObj[title]["active"]) {
+			// Not actually a list or list is inactive
+			continue;
+		}
+
+		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
+			// if post text contains a spoiler
+			if (postText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
+				// hide post
+				if (hidePref === "remove") {
+					$($elem).remove();
 				}
+				else if (hidePref === "overlay") {
+					overlay($elem, title);
+				}
+				else {
+					console.log("Error in loading hide preference. Found " + 
+						hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
+					overlay($elem, title);
+				}
+				break;
 			}
 		}
 	}
@@ -157,7 +159,7 @@ function overlay($elem, listTitle) {
 		'top': 0,
 		'left': 0,
 		'background-color': 'white',
-		'opacity': 0.98,
+		'opacity': 0.975,
 		'display': 'flex',
 		'justify-content': 'center',
 		'align-items': 'center',
