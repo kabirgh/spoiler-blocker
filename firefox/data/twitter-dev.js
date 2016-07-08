@@ -17,12 +17,13 @@ self.port.on("prefs", function(preferences) {
 
 // On page load
 jQuery(document).ready( function($) {
-	inspectPage();
+	findStream();
+	observeBody();
 });
 
 
 // Hide all tweets that were loaded when documentready fired
-function inspectPage() {
+function findStream() {
 	var target = $(".stream");
 
 	if (target.length > 0) {
@@ -44,6 +45,24 @@ function inspectPage() {
 			}]
 		});
 	}
+}
+
+
+// Set mutationobserver on <body> element. Changes to its class attribute
+// indicate new twitter webpage has been loaded
+function observeBody() {
+	// Look for feed
+	var bodyObserver = new MutationObserver( function(mutationRecord) {
+		mutationRecord.forEach( function() {
+			console.log("finding stream");
+			findStream();
+		});
+	});
+
+	// trigger callback if body class changes 
+	bodyObserver.observe($("body")[0], {
+		attributeFilter: ["class"]
+	});
 }
 
 
