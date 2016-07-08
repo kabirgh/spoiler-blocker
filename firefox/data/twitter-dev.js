@@ -1,3 +1,5 @@
+/* global self, MutationSummary */
+
 var spoilersObj = {};
 var hidePref;
 
@@ -8,7 +10,6 @@ self.port.on("spoilers", function(allTags) {
 });
 
 // Get user preferences
-var prefs;
 self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
@@ -57,7 +58,7 @@ function newTweetsCallback(summaries) {
 // Hides tweets by overlaying or removing them, if text contains a case-sensitive keyword
 // listed in the global spoilers object (only active lists)
 function hideTweet(elem) {
-	$elem = $(elem);
+	var $elem = $(elem);
 
 	// Adblocker was hiding 'tweets', but program was detecting spoilers within
 	// These 'tweets' had very small heights, so this weeds those out
@@ -71,8 +72,21 @@ function hideTweet(elem) {
 			// Not actually a list or list is inactive
 			continue;
 		}
+
+		// Check case-sensitivity option for this list. If false (insensitive),
+		// convert both tag and tweet text to lower case before indexOf
+		var caseSens = spoilersObj[title]["case-sensitive"];
+		if (caseSens === true) {
+			tweetText = tweetText.toLowerCase();
+		}
 		
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
+
+			var tag = spoilersObj[title]["tags"][j];
+			if (caseSens === true) {
+				tag = tag.toLowerCase();
+			}
+
 			// if tweet text contains a spoiler
 			if (tweetText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
 				// hide tweet
@@ -93,10 +107,17 @@ function hideTweet(elem) {
 	}
 }
 
+
+// Adds a white, 97.5% opaque div on top of a given elem
 function overlay($elem, listTitle) {
+	// Add overlay only once
+	if ($elem.children().hasClass("spoiler-overlay") === true) {
+		return;
+	}
+
 	var hgt = '99%';
 
-	$newDiv = $(document.createElement("div")).css({
+	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
 		'top': 0,
 		'left': 0,
@@ -117,6 +138,8 @@ function overlay($elem, listTitle) {
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
+	$newDiv.addClass("spoiler-overlay");
+	
 	// Absolutely positioned element needs a positioned ancestor
 	$elem.css({
 		'position': 'relative'

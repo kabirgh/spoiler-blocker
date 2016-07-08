@@ -13,12 +13,14 @@ if (!ss.allTags) {
 	{
 		"spoiler-list-name":
 		{
-			"active": true, 
+			"active": true,
+			"case-sensitive": true,
 			"tags": ["tag1", "tag2"]
 		},
 		"another-name":
 		{
-			"active": false, 
+			"active": false,
+			"case-sensitive": false,
 			"tags": ["arr2", "abb"]
 		}
 	}

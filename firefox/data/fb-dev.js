@@ -1,6 +1,7 @@
+/* global self, MutationSummary */
+
 var spoilersObj = {};
 var hidePref;
-// var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var domListenerRemoved = false;
 
 // Get all tags json object from index.js
@@ -10,11 +11,9 @@ self.port.on("spoilers", function(allTags) {
 });
 
 // Get user preferences
-var prefs;
 self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
-
 
 // On page load
 jQuery(document).ready( function($) {
@@ -49,7 +48,7 @@ function addDomListener() {
 function observeBody() {
 	// Look for feed using domlistener
 	var bodyObserver = new MutationObserver( function(mutationRecord) {
-		mutationRecord.forEach( function(mutation) {
+		mutationRecord.forEach( function() {
 			addDomListener();
 		});
 	});
@@ -99,7 +98,7 @@ function findFeed() {
 function observeHyperFeed(summaries) {
 	// Filter all <div> elements with attr id beginning with userContentWrapper
 	summaries[0].added.forEach( function(node) {
-		$elem = $(node).filter("[class^='userContentWrapper']");
+		var $elem = $(node).filter("[class^='userContentWrapper']");
 		// if the element is not a nested content wrapper
 		if ($elem.parent().closest("[class^='userContentWrapper']").length === 0) {
 			hidePosts($elem);
@@ -111,12 +110,12 @@ function observeHyperFeed(summaries) {
 // Hides posts by overlaying or removing them, if text contains a case-sensitive keyword
 // listed in the global spoilers object (only active lists)
 function hidePosts(elem) {
-	$elem = $(elem);
+	var $elem = $(elem);
 
 	if ($elem.length === 0) return;
 
 	// Get all text from the post, including author, comments and content
-	postText = $elem.text();
+	var postText = $elem.text();
 	console.log(postText);
 
 	for (var title in spoilersObj) {
@@ -125,9 +124,22 @@ function hidePosts(elem) {
 			continue;
 		}
 
+		// Check case-sensitivity option for this list. If false (insensitive),
+		// convert both tag and tweet text to lower case before indexOf
+		var caseSens = spoilersObj[title]["case-sensitive"];
+		if (caseSens === true) {
+			postText = postText.toLowerCase();
+		}
+
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
+			
+			var tag = spoilersObj[title]["tags"][j];
+			if (caseSens === true) {
+				tag = tag.toLowerCase();
+			}
+			
 			// if post text contains a spoiler
-			if (postText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
+			if (postText.indexOf(tag) > -1) {
 				// hide post
 				if (hidePref === "remove") {
 					$($elem).remove();
@@ -147,10 +159,16 @@ function hidePosts(elem) {
 }
 
 
+// Adds a white, 97.5% opaque div on top of a given elem
 function overlay($elem, listTitle) {
+	// Add overlay only once
+	if ($elem.children().hasClass("spoiler-overlay") === true) {
+		return;
+	}
+
 	var hgt = '100%';
 
-	$newDiv = $(document.createElement("div")).css({
+	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
 		'top': 0,
 		'left': 0,
@@ -170,6 +188,8 @@ function overlay($elem, listTitle) {
 	});
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+
+	$newDiv.addClass("spoiler-overlay");
 
 	// Absolutely positioned element needs a relatively positioned ancestor
 	$elem.css({

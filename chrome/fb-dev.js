@@ -1,6 +1,7 @@
+/* global chrome, MutationSummary */
+
 var spoilersObj = {};
 var hidePref;
-var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var domListenerRemoved = false;
 
 // Get list of tags from persistent storage
@@ -58,7 +59,7 @@ function addDomListener() {
 function observeBody() {
 	// Look for feed using domlistener
 	var bodyObserver = new MutationObserver( function(mutationRecord) {
-		mutationRecord.forEach( function(mutation) {
+		mutationRecord.forEach( function() {
 			addDomListener();
 		});
 	});
@@ -108,7 +109,7 @@ function findFeed() {
 function observeHyperFeed(summaries) {
 	// Filter all <div> elements with attr id beginning with userContentWrapper
 	summaries[0].added.forEach( function(node) {
-		$elem = $(node).filter("[class^='userContentWrapper']");
+		var $elem = $(node).filter("[class^='userContentWrapper']");
 		// if the element is not a nested content wrapper
 		if ($elem.parent().closest("[class^='userContentWrapper']").length === 0) {
 			hidePosts($elem);
@@ -120,12 +121,12 @@ function observeHyperFeed(summaries) {
 // Hides posts by overlaying or removing them, if text contains a case-sensitive keyword
 // listed in the global spoilers object (only active lists)
 function hidePosts(elem) {
-	$elem = $(elem);
+	var $elem = $(elem);
 
 	if ($elem.length === 0) return;
 
 	// Get all text from the post, including author, comments and content
-	postText = $elem.text();
+	var postText = $elem.text();
 	console.log(postText);
 
 	for (var title in spoilersObj) {
@@ -156,10 +157,16 @@ function hidePosts(elem) {
 }
 
 
+// Adds a white, 97.5% opaque div on top of a given elem
 function overlay($elem, listTitle) {
+	// Add overlay only once
+	if ($elem.children().hasClass("spoiler-overlay") === true) {
+		return;
+	}
+
 	var hgt = '100%';
 
-	$newDiv = $(document.createElement("div")).css({
+	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
 		'top': 0,
 		'left': 0,
@@ -180,6 +187,8 @@ function overlay($elem, listTitle) {
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
+	$newDiv.addClass("spoiler-overlay");
+	
 	// Absolutely positioned element needs a relatively positioned ancestor
 	$elem.css({
 		'position': 'relative'
