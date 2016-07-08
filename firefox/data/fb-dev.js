@@ -1,27 +1,18 @@
 var spoilersObj = {};
 var hidePref;
-var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+// var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var domListenerRemoved = false;
 
-// Get list of tags from persistent storage
-chrome.storage.sync.get("allTags", function(allTags) {
-	if (!chrome.runtime.error) {
-		if (allTags.allTags != null) {
-			spoilersObj = allTags.allTags;
-		}
-		else {
-			spoilersObj = {};
-		}
-	}
-	else {
-		console.log("runtime error");
-	}
+// Get all tags json object from index.js
+self.port.on("spoilers", function(allTags) {
+	// Put all tags of active lists in array
+	spoilersObj = allTags;
 });
 
 // Get user preferences
-chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
-	console.log("hide pref: " + hidePref);
+var prefs;
+self.port.on("prefs", function(preferences) {
+	hidePref = preferences["hide"];
 });
 
 

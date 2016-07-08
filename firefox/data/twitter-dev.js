@@ -1,42 +1,22 @@
 var spoilersObj = {};
 var hidePref;
 
-// Promise for async get tags
-var p1 = new Promise(function(resolve, reject) {
-	// Get list of tags from persistent storage
-	chrome.storage.sync.get("allTags", function(allTags) {
-		if (!chrome.runtime.error) {
-			resolve(allTags);
-		}
-		else {
-			reject("runtime error");
-		}
-	});
+// Get all tags in js object from index.js
+self.port.on("spoilers", function(allTags) {
+	// Put all tags of active lists in array
+	spoilersObj = allTags;
 });
 
 // Get user preferences
-chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
-	console.log("hide pref: " + hidePref);
+var prefs;
+self.port.on("prefs", function(preferences) {
+	hidePref = preferences["hide"];
 });
 
 
-// Hide page until alltags object is retrieved
-document.documentElement.style.visibility = 'hidden';
-
-// Call rest of code when document is ready and promise has been fulfilled
+// On page load
 jQuery(document).ready( function($) {
-	p1.then( function(allTags) {
-		if (allTags.allTags != null) {
-			spoilersObj = allTags.allTags;
-		}
-		else {
-			spoilersObj = {};
-		}
-
-		console.log("START");
-		inspectPage();
-	});
+	inspectPage();
 });
 
 
@@ -137,7 +117,7 @@ function overlay($elem, listTitle) {
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
-	// Absolutely positioned element needs a relatively positioned ancestor
+	// Absolutely positioned element needs a positioned ancestor
 	$elem.css({
 		'position': 'relative'
 	});

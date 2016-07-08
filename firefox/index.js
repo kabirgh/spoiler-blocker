@@ -31,7 +31,8 @@ var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb-dev.js"],
+	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
 		worker.port.emit("prefs", prefs);
@@ -43,7 +44,8 @@ var twitterPageMod = require("sdk/page-mod");
 twitterPageMod.PageMod({
 	include: "*.twitter.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter-dev.js"],
+	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
 		worker.port.emit("prefs", prefs);
