@@ -46,12 +46,12 @@ app.controller('panelController', function($scope) {
 			// apply async changes
 			console.log(listObj)
 			$scope.$apply(function () {
-				if (!(listObj.allTags.length == 0)) {
+				if (listObj.allTags.length !== 0) {
 					$scope.allTags = listObj.allTags;
 					for (var title in $scope.allTags) {
-				    if (!$scope.allTags.hasOwnProperty(title)) {
-				      continue;
-				    }
+						if (!$scope.allTags.hasOwnProperty(title)) {
+						  continue;
+						}
 						if ($scope.allTags[title].active) {
 							$scope.active[title] = $scope.allTags[title];
 							$scope.numActive++;
@@ -59,7 +59,7 @@ app.controller('panelController', function($scope) {
 							$scope.inactive[title] = $scope.allTags[title];
 							$scope.numInactive++;
 						}
-				    $scope.tagOptions[title] = {
+					$scope.tagOptions[title] = {
 							display: false,
 							editing: false,
 							newTitle: "",

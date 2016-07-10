@@ -1,130 +1,153 @@
-var spoilerLists = [];
-
 // Get all tags in js object from index.js
-self.port.emit("get-spoilers", "true");
-self.port.on("sending-spoilers", function(allTags) {
+var spoilersObj = {};
+self.port.on("spoilers", function(allTags) {
 	// Put all tags of active lists in array
-	for (var key in allTags) {
-		if (allTags[key]["active"] === true) {
-			spoilerLists = spoilerLists.concat(allTags[key]["tags"]);
-		}
-	}
+	spoilersObj = allTags;
 });
 
+var prefs;
+self.port.on("prefs", function(preferences) {
+	prefs = preferences;
+});
+
+
+// On page load
 jQuery(document).ready( function($) {
 	console.log("START");
 
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
+});
 
-	// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
-	function findFeed() {
-		var feed = $("div[id^='feed_stream']");
 
-		// if no feed is found
-		if ( feed.length === 0 ) {
-			console.log("no streams");
-		}
+// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
+function findFeed() {
+	var feed = $("div[id^='feed_stream']");
 
-		// if the feed is found
-		else {
-			console.log("target ID is " + $(feed[0]).attr("id"));
+	// if no feed is found
+	if ( feed.length === 0 ) {
+		console.log("no streams");
+	}
 
-			// look for new div elements
-			var postObserver = new MutationSummary({
-				callback: observeHyperFeed,
-				rootNode: feed[0],
+	// if the feed is found
+	else {
+		console.log("target ID is " + $(feed[0]).attr("id"));
+
+		// look for new div elements
+		var postObserver = new MutationSummary({
+			callback: observeHyperFeed,
+			rootNode: feed[0],
+			queries: [{
+				element: "div"
+			}]
+		});
+
+		document.removeEventListener("DOMNodeInserted", findFeed);
+		console.log("DOMNodeInserted listener removed");
+
+		// Hide the posts that were loaded on document ready - mutation summary won't detect these
+		hidePosts( $("div[id='substream_0']") );
+		hidePosts( $("div[id='substream_1']") );
+	}
+}
+
+
+function observeHyperFeed(summaries) {
+	// Filter all <div> elements with attr id beginning with hyperfeed
+	// that have <p> elements as descendants
+	// which contain any of the spoilers in spoilerList.
+	// Give these elements the "long-string-..." attribute.
+	summaries[0].added.forEach( function(node) {
+		elem = $(node).filter("[id^='hyperfeed_story']");
+
+		if (elem.length > 0) {
+			new MutationSummary({
+				callback: hidePostsSummary,
+				rootNode: elem[0],
 				queries: [{
 					element: "div"
 				}]
-			});
-
-			document.removeEventListener("DOMNodeInserted", findFeed);
-			console.log("DOMNodeInserted listener removed");
+			})
 		}
-	}
+	});
+}
 
+function hidePostsSummary(summaries) {
+	elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
+	hidePosts(elem);
+}
 
-	function observeHyperFeed(summaries) {
-		// Filter all <div> elements with attr id beginning with hyperfeed
-		// that have <p> elements as descendants
-		// which contain any of the spoilers in spoilerLists.
-		// Give these elements the "long-string-..." attribute.
-		summaries[0].added.forEach( function(node) {
-			elem = $(node).filter("[id^='hyperfeed_story']");
+function hidePosts(elem) {
+	var listTitle = null;
+	if (elem.length > 0) {
+		postText = elem.text();
+		console.log(postText);
 
-			if (elem.length > 0) {
-				new MutationSummary({
-					callback: hidePosts,
-					rootNode: elem[0],
-					queries: [{
-						element: "div"
-					}]
-				})
+		for (var title in spoilersObj) {
+			if (!spoilersObj.hasOwnProperty(title)) {
+				// Not actually a list
+				continue;
 			}
-		});
-	}
+			if (!spoilersObj[title].active) {
+				// List is not active
+				continue;
+			}
 
-	function hidePosts(summaries) {
-		elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
-		if (elem.length > 0) {
-			postText = elem.text();
-			toHide = false;
-			for (var i=0; i<spoilerLists.length; i++) {
-				// if post text contains a spoiler
-				if (postText.indexOf( spoilerLists[i] ) > -1) {
-					// post node should be hidden
-					toHide = true;
+			// if tweet text contains a spoiler
+			for (var j = 0; j < spoilersObj[title].tags.length; j++) {
+				if (postText.indexOf(spoilersObj[title].tags[j]) > -1) {
+					// tweetNode should be hidden
+					if (prefs["hidePref"] === "remove") {
+						$(elem).remove();
+					}
+					else if (prefs["hidePref"] === "overlay") {
+						overlay(elem, title);
+					}
+					else {
+						console.log("Error in loading hide preference")
+					}
 					break;
 				}
 			}
-
-			if (toHide) {
-				elem = $(elem[0]);
-				console.log(elem.text());
-
-				newDiv = $(document.createElement("div")).css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '99%',
-					'z-index': 7,
-					'cursor': 'pointer'
-				});
-
-				lineHeight = elem.height() * 0.9;
-
-				// Spoiler text
-				newDiv.append($('<p/>').text('Spoiler!').css({
-					'position': 'absolute',
-					'top': 0,
-					'left': 0,
-					'background-color': 'white',
-					'width': '100%',
-					'height': '100%',
-					'font-size': 40,
-					'text-align': 'center',
-					'line-height': lineHeight.toString() + 'px',
-					'font-family': 'Copperplate',
-					'color': 'red',
-					'margin': '0px'
-				}));
-
-				// Absolutely positioned element needs a positioned ancestor
-				// This does not break formatting (far as I have seen)
-				elem.css({
-					'position': 'relative'
-				})
-
-				newDiv.click(function() {
-					$(this).hide()
-				});
-
-				elem.append(newDiv);
-			}
 		}
 	}
+}
 
-});
+
+function overlay(elem, listTitle) {
+	elem = $(elem[0]);
+
+	var hgt = '100%';
+
+	newDiv = $(document.createElement("div")).css({
+		'position': 'absolute',
+		'top': 0,
+		'left': 0,
+		'background-color': 'white',
+		'display': 'flex',
+		'justify-content': 'center',
+		'align-items': 'center',
+		'text-align': 'center',
+		'width': '100%',
+		'height': hgt,
+		'z-index': 7,
+		'cursor': 'pointer',
+		'font-size': 30,
+		'font-family': 'Copperplate',
+		'color': 'red'
+	});
+
+	newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+
+	// Absolutely positioned element needs a positioned ancestor
+	// This does not break formatting (far as I have seen)
+	elem.css({
+		'position': 'relative'
+	});
+
+	newDiv.click(function() {
+		$(this).hide()
+	});
+
+	elem.append(newDiv);
+}

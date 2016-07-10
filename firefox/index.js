@@ -1,31 +1,9 @@
 // "./filename" is a shortcut for 
 // require("sdk/self").data.url("filename")
 
-// Run content scripts when user is browsing facebook
-var fbPageMod = require("sdk/page-mod");
-fbPageMod.PageMod({
-	include: "*.facebook.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
-	onAttach: function(worker) {
-		worker.port.on("get-spoilers", function() {
-			worker.port.emit("sending-spoilers", ss.allTags);
-		});
-	}
-});
+// Access user preferences
+var prefs = require("sdk/simple-prefs").prefs;
 
-// Twitter scripts
-var twitterPageMod = require("sdk/page-mod");
-twitterPageMod.PageMod({
-	include: "*.twitter.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
-	onAttach: function(worker) {
-		worker.port.on("get-spoilers", function() {
-			worker.port.emit("sending-spoilers", ss.allTags);
-		});
-	}
-});
 
 // Store data across sessions
 var ss = require("sdk/simple-storage").storage;
@@ -35,17 +13,47 @@ if (!ss.allTags) {
 	{
 		"spoiler-list-name":
 		{
-			"active": true, 
+			"active": true,
+			"case-sensitive": true,
 			"tags": ["tag1", "tag2"]
 		},
 		"another-name":
 		{
-			"active": false, 
+			"active": false,
+			"case-sensitive": false,
 			"tags": ["arr2", "abb"]
 		}
-	};
+	}
 
 }
+
+
+// Run content scripts when user is browsing facebook
+var fbPageMod = require("sdk/page-mod");
+fbPageMod.PageMod({
+	include: "*.facebook.com",
+	contentScriptWhen: "ready",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb-dev.js"],
+	attachTo: "top",
+	onAttach: function(worker) {
+		worker.port.emit("spoilers", ss.allTags);
+		worker.port.emit("prefs", prefs);
+	}
+});
+
+// Twitter scripts
+var twitterPageMod = require("sdk/page-mod");
+twitterPageMod.PageMod({
+	include: "*.twitter.com",
+	contentScriptWhen: "ready",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter-dev.js"],
+	attachTo: "top",
+	onAttach: function(worker) {
+		worker.port.emit("spoilers", ss.allTags);
+		worker.port.emit("prefs", prefs);
+	}
+});
+
 
 // Create a button on the toolbar
 var { ToggleButton } = require("sdk/ui/button/toggle");
@@ -53,9 +61,9 @@ var button = ToggleButton({
 	id: "sb-button",
 	label: "Spoiler Blocker",
 	icon: {
-		"16": "./img/icon-16.png",
-		"32": "./img/icon-32.png",
-		"64": "./img/icon-64.png"
+		"16": "./img/s_icon16.png",
+		"32": "./img/s_icon32.png",
+		"64": "./img/s_icon64.png"
 	},
 	onChange: handleButtonChange,
 });
@@ -72,7 +80,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel/panel.html",
-	contentScriptFile: "./panel/panel-script.js",
+	contentScriptFile: ["./jquery.js", "./panel/panel-script.js"],
 	contentStyleFile: "./panel/panel-style.css",
 	onHide: handlePanelHide
 });
