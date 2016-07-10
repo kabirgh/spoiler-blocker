@@ -16,7 +16,7 @@ var p1 = new Promise(function(resolve, reject) {
 
 // Get user preferences
 chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
+	hidePref = prefs.prefs["hide"];
 	console.log("hide pref: " + hidePref);
 });
 
@@ -65,7 +65,6 @@ function inspectPage() {
 	}
 }
 
-
 // Callback for mutationsummary that finds tweets added after domcontentloaded event
 function newTweetsCallback(summaries) {
 	summaries[0].added.forEach( function(node) {
@@ -91,7 +90,7 @@ function hideTweet(elem) {
 			// Not actually a list or list is inactive
 			continue;
 		}
-		
+
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
 			// if tweet text contains a spoiler
 			if (tweetText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
@@ -103,7 +102,7 @@ function hideTweet(elem) {
 					overlay($elem, title);
 				}
 				else {
-					console.log("Error in loading hide preference. Found " + 
+					console.log("Error in loading hide preference. Found " +
 							hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 						overlay($elem, title);
 				}

@@ -21,7 +21,7 @@ chrome.storage.sync.get("allTags", function(allTags) {
 
 // Get user preferences
 chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
+	hidePref = prefs.prefs["hide"];
 	console.log("hide pref: " + hidePref);
 });
 
@@ -38,7 +38,7 @@ jQuery(document).ready( function($) {
 // 5 second timeout if feed is not found
 function addDomListener() {
 	domListenerRemoved = false;
-	
+
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 	console.log("Added DOMNodeInserted listener");
@@ -64,14 +64,14 @@ function observeBody() {
 		});
 	});
 
-	// trigger callback if body class changes 
+	// trigger callback if body class changes
 	bodyObserver.observe($("body")[0], {
 		attributeFilter: ["class"]
 	});
 }
 
 
-// Looks for the element with div id beginning with "feed_stream" 
+// Looks for the element with div id beginning with "feed_stream"
 // and passes it to the mutation summary
 function findFeed() {
 	var feed = $("div[id^='feed_stream']");
@@ -98,7 +98,7 @@ function findFeed() {
 		console.log("Feed found. DOMNodeInserted listener removed");
 		domListenerRemoved = true;
 
-		// Hide the posts that were loaded on document ready - 
+		// Hide the posts that were loaded on document ready -
 		// mutation summary won't detect these
 		hidePosts( $("div#substream_0") );
 		hidePosts( $("div#substream_1") );
@@ -146,7 +146,7 @@ function hidePosts(elem) {
 					overlay($elem, title);
 				}
 				else {
-					console.log("Error in loading hide preference. Found " + 
+					console.log("Error in loading hide preference. Found " +
 						hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 					overlay($elem, title);
 				}
@@ -188,7 +188,7 @@ function overlay($elem, listTitle) {
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
 	$newDiv.addClass("spoiler-overlay");
-	
+
 	// Absolutely positioned element needs a relatively positioned ancestor
 	$elem.css({
 		'position': 'relative'
