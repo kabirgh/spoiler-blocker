@@ -16,7 +16,7 @@ chrome.storage.sync.get("allTags", function(allTags) {
 
 var hidePref;
 chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
+	hidePref = prefs.prefs["hide"];
 	console.log(hidePref);
 });
 
@@ -100,7 +100,7 @@ jQuery(document).ready(function($) {
 	function hidePosts(elem) {
 		var listTitle = null;
 		if (elem.length > 0) {
-			postText = elem.text();
+			postText = elem.find('p').text();
 			console.log(postText);
 
 			for (var title in spoilersObj) {
@@ -117,6 +117,9 @@ jQuery(document).ready(function($) {
 				for (var j = 0; j < spoilersObj[title].tags.length; j++) {
 					if (postText.indexOf(spoilersObj[title].tags[j]) > -1) {
 						// tweetNode should be hidden
+						console.log(postText.indexOf(spoilersObj[title].tags[j]));
+						console.log(spoilersObj[title].tags[j]);
+						console.log(postText);
 						if (hidePref === "remove") {
 							$(elem).remove();
 						}

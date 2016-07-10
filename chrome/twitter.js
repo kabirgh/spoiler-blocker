@@ -12,7 +12,7 @@ var p1 = new Promise(function(resolve, reject) {
 
 var hidePref;
 chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
+	hidePref = prefs.prefs["hide"];
 	console.log(hidePref);
 });
 
