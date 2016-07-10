@@ -19,7 +19,7 @@ var p1 = new Promise(function(resolve, reject) {
 
 // Get user preferences
 chrome.storage.sync.get("prefs", function(prefs) {
-	hidePref = prefs["hide"];
+	hidePref = prefs.prefs["hide"];
 	console.log("hide pref: " + hidePref);
 });
 
