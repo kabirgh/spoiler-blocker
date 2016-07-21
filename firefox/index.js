@@ -1,4 +1,4 @@
-// "./filename" is a shortcut for 
+// "./filename" is a shortcut for
 // require("sdk/self").data.url("filename")
 
 // Access user preferences
@@ -9,7 +9,7 @@ var prefs = require("sdk/simple-prefs").prefs;
 var ss = require("sdk/simple-storage").storage;
 if (!ss.allTags) {
 
-	ss.allTags = 
+	ss.allTags =
 	{
 		"spoiler-list-name":
 		{
@@ -80,7 +80,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel/panel.html",
-	contentScriptFile: ["./jquery.js", "./panel/panel-script.js"],
+	contentScriptFile: ["./jquery.js", "./panel/angular.min.js", "./panel/panel-script.js"],
 	contentStyleFile: "./panel/panel-style.css",
 	onHide: handlePanelHide
 });
@@ -94,7 +94,7 @@ panel.port.on("get-spoilers", function() {
 	panel.port.emit("sending-spoilers", ss.allTags);
 });
 
-// Listen to messages from panel-script.js with tag "new-list" and store them 
+// Listen to messages from panel-script.js with tag "new-list" and store them
 // in the persistent allTags object. See ss initialisation for object structure.
 panel.port.on("new-list", function(tagObj) {
 	if (ss.allTags[tagObj["title"]]) {
