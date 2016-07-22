@@ -94,6 +94,11 @@ panel.port.on("get-spoilers", function() {
 	panel.port.emit("sending-spoilers", ss.allTags);
 });
 
+// Send user prefs to the panel
+panel.port.on("get-prefs", function() {
+	panel.port.emit("sending-prefs", prefs);
+})
+
 // Listen to messages from panel-script.js with tag "new-list" and store them
 // in the persistent allTags object. See ss initialisation for object structure.
 panel.port.on("new-list", function(tagObj) {

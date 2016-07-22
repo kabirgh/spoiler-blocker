@@ -1,5 +1,4 @@
 /* global chrome, MutationSummary */
-
 var spoilersObj = {};
 var hidePref;
 var domListenerRemoved = false;

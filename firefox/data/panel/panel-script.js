@@ -1,5 +1,17 @@
 var app = angular.module('panelApp', [])
 
+var allTags, prefs;
+
+self.port.emit("get-spoilers", true);
+self.port.on("sending-spoilers", function(obj) {
+	allTags = obj;
+});
+
+self.port.emit("get-prefs", true);
+self.port.on("sending-prefs", function(obj) {
+	prefs = obj;
+});
+
 app.controller('panelController', function($scope) {
 	$scope.titleString = "";
 	$scope.tagString = "";
@@ -40,51 +52,49 @@ app.controller('panelController', function($scope) {
 	$scope.prefs = {};
 
 
-	chrome.storage.sync.get("allTags", function(listObj) {
-		if (listObj.allTags != null) { // Does exist in storage
-			// Need to explicitly call apply since angular does not automatically
-			// apply async changes
-			$scope.$apply(function () {
-				if (listObj.allTags.length !== 0) {
-					$scope.allTags = listObj.allTags;
-					for (var title in $scope.allTags) {
-						if (!$scope.allTags.hasOwnProperty(title)) {
-						  continue;
-						}
-						if ($scope.allTags[title].active) {
-							$scope.active[title] = $scope.allTags[title];
-							$scope.numActive++;
-						} else {
-							$scope.inactive[title] = $scope.allTags[title];
-							$scope.numInactive++;
-						}
-					$scope.tagOptions[title] = {
-							display: false,
-							editing: false,
-							newTitle: "",
-							newTags: ""
-						}
+	if (allTags.allTags != null) { // Does exist in storage
+		// Need to explicitly call apply since angular does not automatically
+		// apply async changes
+		$scope.$apply(function () {
+			if (allTags.length !== 0) {
+				$scope.allTags = allTags;
+				for (var title in $scope.allTags) {
+					if (!$scope.allTags.hasOwnProperty(title)) {
+						continue;
+					}
+					if ($scope.allTags[title].active) {
+						$scope.active[title] = $scope.allTags[title];
+						$scope.numActive++;
+					} else {
+						$scope.inactive[title] = $scope.allTags[title];
+						$scope.numInactive++;
+					}
+				$scope.tagOptions[title] = {
+						display: false,
+						editing: false,
+						newTitle: "",
+						newTags: ""
 					}
 				}
-			})
-		}
-		else {
-			// chrome.storage.sync.set({'allTags': {}})
-			console.log("Something went wrong with getting lists from storage");
-		}
-
-		chrome.storage.sync.get("prefs", function(prefs) {
-			if (prefs.prefs != null) { // Does exist in storage
-				$scope.prefs = prefs.prefs;
 			}
-			else {
-				$scope.prefs["hide"] = "overlay";
-				storeOptions();
-				console.log("Something went wrong with getting preferences from storage");
-			}
-			$scope.$apply();
 		})
-	})
+	}
+	else {
+		// chrome.storage.sync.set({'allTags': {}})
+		console.log("Something went wrong with getting lists from storage");
+	}
+
+	
+	if (prefs != null) { // Does exist in storage
+		$scope.prefs = prefs;
+	}
+	else {
+		$scope.prefs["hide"] = "overlay";
+		storeOptions();
+		console.log("Something went wrong with getting preferences from storage");
+	}
+	$scope.$apply();
+
 
 	$scope.getInput = getInput;
 	$scope.editList = editList;
@@ -142,6 +152,7 @@ app.controller('panelController', function($scope) {
 		}
 	}
 
+	// TODO - discuss implementation (send title+tags or edit alltags)
 	function updateChromeStorage() {
 		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
@@ -224,6 +235,7 @@ app.controller('panelController', function($scope) {
 	}
 
 	function storeOptions() {
+		// TODO
 		chrome.storage.sync.set({prefs: $scope.prefs});
 	}
 })

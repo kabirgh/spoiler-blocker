@@ -234,7 +234,7 @@ app.controller('panelController', function($scope, $http) {
 
 	function downloadList(listID) {
 		$scope.downloadID = "";
-		$http.get('http://127.0.0.1:5000/downloadList', {
+		$http.get('https://salty-earth-11606.herokuapp.com/downloadList', {
 			params: {
 			 id: listID
 			}
