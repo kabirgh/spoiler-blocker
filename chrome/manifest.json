@@ -11,7 +11,7 @@
 		"default_popup": "panel.html"
 	},
 
-	"permissions": ["tabs", "storage"],
+	"permissions": ["activeTab", "storage"],
 
 	"content_scripts": [
 		{
