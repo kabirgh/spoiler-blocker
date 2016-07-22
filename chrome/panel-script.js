@@ -1,6 +1,6 @@
 var app = angular.module('panelApp', [])
 
-app.controller('panelController', function($scope) {
+app.controller('panelController', function($scope, $http) {
 	$scope.titleString = "";
 	$scope.tagString = "";
 
@@ -32,6 +32,9 @@ app.controller('panelController', function($scope) {
 	// Whether to display all activated/deactivated lists
 	$scope.seeMoreActive = false;
 	$scope.seeMoreInactive = false;
+
+	// Whether to show the download alert
+	$scope.showDownloadAlert = false;
 
 	// Options
 	// {
@@ -95,6 +98,8 @@ app.controller('panelController', function($scope) {
 	$scope.toggleSeeMoreActive = toggleSeeMoreActive;
 	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
 	$scope.storeOptions = storeOptions;
+	$scope.downloadList = downloadList;
+	$scope.closeDownloadAlert = closeDownloadAlert;
 
 	function getInput() {
 		processInput($scope.titleString, $scope.tagString, true);
@@ -225,5 +230,35 @@ app.controller('panelController', function($scope) {
 
 	function storeOptions() {
 		chrome.storage.sync.set({prefs: $scope.prefs});
+	}
+
+	function downloadList(listID) {
+		$scope.downloadID = "";
+		$http.get('http://127.0.0.1:5000/downloadList', {
+			params: {
+			 id: listID
+			}
+		}).then(function(response) {
+	 		if (response.data.Status == 'Success') {
+				var title = response.data.list.title.trim();
+				var tags = response.data.list.tags;
+
+				// Split tags on commas and trim
+				var tagArr = tags.split(",");
+				for (var i=0; i<tagArr.length; i++) {
+					tagArr[i] = tagArr[i].trim();
+				}
+
+				updateLocal(title, tagArr, true);
+				updateChromeStorage();
+	 		}
+			else {
+				$scope.showDownloadAlert = true;
+			}
+	 	})
+	}
+
+	function closeDownloadAlert() {
+		$scope.showDownloadAlert = false;
 	}
 })
