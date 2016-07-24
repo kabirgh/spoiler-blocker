@@ -97,15 +97,10 @@ panel.port.on("get-spoilers", function() {
 // Send user prefs to the panel
 panel.port.on("get-prefs", function() {
 	panel.port.emit("sending-prefs", prefs);
-})
+});
 
-// Listen to messages from panel-script.js with tag "new-list" and store them
-// in the persistent allTags object. See ss initialisation for object structure.
-panel.port.on("new-list", function(tagObj) {
-	if (ss.allTags[tagObj["title"]]) {
-		alert("A list with this title already exists.");
-	}
-	else {
-		ss.allTags[tagObj["title"]] = {"active":true, "tags":tagObj["tags"]};
-	}
+// Listen to messages from panel-script.js with tag "update-all-tags" and store it
+// as the persistent allTags object. See ss initialisation for object structure.
+panel.port.on("update-all-tags", function(tagObj) {
+	ss.allTags = tagObj;
 });

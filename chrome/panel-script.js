@@ -94,7 +94,7 @@ app.controller('panelController', function($scope) {
 	$scope.toggleActivate = toggleActivate;
 	$scope.toggleSeeMoreActive = toggleSeeMoreActive;
 	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
-	$scope.storeOptions = storeOptions;
+
 
 	function getInput() {
 		processInput($scope.titleString, $scope.tagString, true);
@@ -117,13 +117,9 @@ app.controller('panelController', function($scope) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		updateLocal(title, tagArr, active);
-	}
-
-	function updateLocal(title, tags, active) {
 		$scope.allTags[title] = {
-			tags: tags,
-			active: active
+			"tags": tagArr,
+			"active": active
 		};
 
 		if (active) {
