@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" href="bootstrap-paper.css">
-	<link rel="stylesheet" href="panel-style.css">
-	<script src="../jquery.js"></script>
-	<script src="angular.min.js"></script>
-	<script src="panel-script.js"></script>
+	<link rel="stylesheet" href="./bootstrap-paper.css">
+	<link rel="stylesheet" href="./panel-style.css">
+	<!-- <script src="../jquery.js"></script>
+	<script src="./angular.min.js"></script>
+	<script src="./panel-script.js"></script> -->
 </head>
 <body ng-app = "panelApp" ng-controller = "panelController">
 	<nav class="navbar navbar-default">
@@ -17,6 +17,15 @@
 	    </div>
 		</div>
 	</nav>
+	<br />
+	<div class="container" ng-if="showTitleAlert">
+		<br />
+		<div class="alert alert-danger alert-dismissible" role="alert" style="width: 200px; margin-bottom: 0px">
+			<button type="button" class="close" ng-click="closeTitleAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			Unique title required
+		</div>
+		<br />
+	</div>
 	<div class="container" ng-show="showNewForm">
 		<form role="form" ng-submit="getInput()">
 		  <div class="form-group">
@@ -106,6 +115,22 @@
         </label>
       </div>
     </div>
+		<hr>
+		<form role="form" ng-submit="downloadList(downloadID, downloadTitle)">
+			<div class="form-group">
+				<input type="text" class="form-control" style="width: 150px" placeholder="Download Code" ng-model="downloadID"></input>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="width: 150px" placeholder="New Title" ng-model="downloadTitle"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Download</button>
+			<br ng-if="showDownloadAlert" />
+			<br ng-if="showDownloadAlert" />
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-if="showDownloadAlert" style="width: 180px; margin-bottom: 0px">
+			  <button type="button" class="close" ng-click="closeDownloadAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  List doesn't exist!
+			</div>
+		</form>
 		<br>
 	</div>
 </body>
