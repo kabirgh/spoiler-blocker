@@ -4,16 +4,22 @@ self.port.emit("get-spoilers", true);
 self.port.emit("get-prefs", true);
 
 
-app.controller('panelController', function($scope) {
+app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.titleString = "";
 	$scope.tagString = "";
 
+	// allTags : {
+	//            title: {
+	//              tags: [tag1, tag2, ...],
+	//              active: true|false,
+	//            }
+	//           }
 	$scope.allTags = {};
 
 	// tagOptions : {
 	//               title: {
 	//                 display: true|false,
-	//                 editing: true|false
+	// 							   editing: true|false
 	//               }
 	//              }
 	$scope.tagOptions = {};
@@ -31,6 +37,16 @@ app.controller('panelController', function($scope) {
 	$scope.seeMoreActive = false;
 	$scope.seeMoreInactive = false;
 
+	// Whether to show the alerts
+	$scope.showDownloadAlert = false;
+	$scope.showTitleAlert = false;
+
+	// Options
+	// {
+	//   hide: overlay|remove
+	// }
+	$scope.prefs = {};
+
 
 	self.port.on("sending-spoilers", function(obj) {
 		$scope.$apply( function() {
@@ -38,7 +54,7 @@ app.controller('panelController', function($scope) {
 			if (!obj) {
 				console.log("allTags object does not exist. Initializing empty object");
 				$scope.allTags = {};
-				updateAllTags();
+				updateStorage();
 			}
 			else {
 				$scope.allTags = obj;
@@ -68,6 +84,7 @@ app.controller('panelController', function($scope) {
 		});
 	});
 
+
 	self.port.on("sending-prefs", function(obj) {
 		$scope.$apply( function() {
 			// chrome-relevant code. ff guarantees obj exists due to actions performed in index.js
@@ -82,7 +99,6 @@ app.controller('panelController', function($scope) {
 		});
 	});
 
-
 	$scope.getInput = getInput;
 	$scope.editList = editList;
 	$scope.editListSubmit = editListSubmit;
@@ -91,14 +107,24 @@ app.controller('panelController', function($scope) {
 	$scope.toggleActivate = toggleActivate;
 	$scope.toggleSeeMoreActive = toggleSeeMoreActive;
 	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
+	$scope.downloadList = downloadList;
+	$scope.closeDownloadAlert = closeDownloadAlert;
+	$scope.closeTitleAlert = closeTitleAlert;
+
 
 	function getInput() {
+		// If list with title already exists in object, display alert
+		if ($scope.allTags[$scope.titleString.trim()]) {
+			displayTitleAlert();
+			return;
+		}
+
 		processInput($scope.titleString, $scope.tagString, true);
 		$scope.titleString = "";
 		$scope.tagString = "";
 
 		// Update the lists in storage
-		updateAllTags();
+		updateStorage();
 
 		$scope.showNewForm = false;
 	}
@@ -113,13 +139,12 @@ app.controller('panelController', function($scope) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		if ($scope.allTags[title]) {
-			alert("A list with this name already exists. Please enter a new title");
-			return;
-		}
+		updateLocal(title, tagArr, active);
+	}
 
+	function updateLocal(title, tags, active) {
 		$scope.allTags[title] = {
-			"tags": tagArr,
+			"tags": tags,
 			"active": active
 		};
 
@@ -139,21 +164,32 @@ app.controller('panelController', function($scope) {
 		}
 	}
 
-	
-	// Send updated allTags obj to index.js for persistent storage
-	function updateAllTags() {
+	function updateStorage() {
 		self.port.emit("update-all-tags", $scope.allTags);
+	}
+
+	// Make alert disappear after 3 seconds
+	function displayTitleAlert() {
+		$scope.showTitleAlert = true;
+		$timeout(function () {
+			$scope.showTitleAlert = false;
+		}, 3000);
 	}
 
 	function editList(title) {
 		var options = $scope.tagOptions[title];
 		options.newTitle = title;
-		options.newTags = $scope.allTags[title]["tags"].join(', ');
+		options.newTags = $scope.allTags[title].tags.join(', ');
 		options.editing = true;
 	}
 
 	function editListSubmit(title) {
 		var newTitle = $scope.tagOptions[title].newTitle;
+		if ($scope.allTags[newTitle.trim()]) {
+			displayTitleAlert();
+			return;
+		}
+
 		var newTags = $scope.tagOptions[title].newTags;
 		var active = $scope.allTags[title].active;
 
@@ -172,7 +208,7 @@ app.controller('panelController', function($scope) {
 		processInput(newTitle, newTags, active);
 
 		// Update the lists in storage
-		updateAllTags();
+		updateStorage();
 	}
 
 	function editListCancel(title) {
@@ -195,7 +231,7 @@ app.controller('panelController', function($scope) {
 
 		delete $scope.allTags[title];
 		delete $scope.tagOptions[title];
-		updateAllTags();
+		updateStorage();
 	}
 
 	function toggleActivate(title) {
@@ -211,7 +247,7 @@ app.controller('panelController', function($scope) {
 			$scope.numActive--;
 			$scope.numInactive++;
 		}
-		updateAllTags();
+		updateStorage();
 	}
 
 	function toggleSeeMoreActive() {
@@ -220,5 +256,46 @@ app.controller('panelController', function($scope) {
 
 	function toggleSeeMoreInactive() {
 		$scope.seeMoreInactive = !$scope.seeMoreInactive;
+	}
+
+	function downloadList(listID, newTitle) {
+		$scope.downloadID = "";
+		$scope.downloadTitle = "";
+
+		if ($scope.allTags[newTitle.trim()]) {
+			displayTitleAlert();
+			return;
+		}
+
+		$http.get('https://salty-earth-11606.herokuapp.com/downloadList', {
+			params: {
+				"id": listID
+			}
+		}).then(function(response) {
+			if (response.data.Status == 'Success') {
+				var title = newTitle.trim();
+				var tags = response.data.list.tags;
+
+				// Split tags on commas and trim
+				var tagArr = tags.split(",");
+				for (var i=0; i<tagArr.length; i++) {
+					tagArr[i] = tagArr[i].trim();
+				}
+
+				updateLocal(title, tagArr, true);
+				updateStorage();
+			}
+			else {
+				$scope.showDownloadAlert = true;
+			}
+		})
+	}
+
+	function closeDownloadAlert() {
+		$scope.showDownloadAlert = false;
+	}
+
+	function closeTitleAlert() {
+		$scope.showTitleAlert = false;
 	}
 })
