@@ -81,7 +81,7 @@ function handleButtonChange(state) {
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel/panel.html",
 	contentScriptFile: ["./jquery.js", "./panel/angular.min.js", "./panel/panel-script.js"],
-	contentStyleFile: "./panel/panel-style.css",
+	// contentStyleFile: "./panel/panel-style.css",
 	onHide: handlePanelHide
 });
 

@@ -68,7 +68,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 				if ($scope.allTags[title].active) {
 					$scope.active[title] = $scope.allTags[title];
 					$scope.numActive++;
-				} 
+				}
 				else {
 					$scope.inactive[title] = $scope.allTags[title];
 					$scope.numInactive++;
