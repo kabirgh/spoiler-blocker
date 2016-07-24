@@ -45,11 +45,11 @@
 			<li class="list-group-item" ng-repeat="(title, list) in active track by $index" ng-if="$index < 2 || seeMoreActive">
 				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable activated" ng-click="toggleActivate(title)"></span>
+			  		<img src="./img/arrow-right-icon.png" class="list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></img>
+					<img src="./img/arrow-down-icon.png" class="list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></img>
+					<img src="./img/bin-icon.png" class="list-title-other list-title-arrow clickable" ng-click="deleteList(title)"></img>
+					<img src="./img/edit-icon.png" class="list-title-arrow list-title-other clickable" ng-click="editList(title)"></img>
+					<img src="./img/power-on-icon.png" class="list-title-arrow list-title-other clickable activated" ng-click="toggleActivate(title)"></img>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
@@ -75,11 +75,11 @@
 			<li class="list-group-item" ng-repeat="(title, list) in inactive track by $index" ng-if="$index < 2 || seeMoreInactive">
 				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable deactivated" ng-click="toggleActivate(title)"></span>
+					<img src="./img/arrow-right-icon.png" class="list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></img>
+					<img src="./img/arrow-down-icon.png" class="list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></img>
+					<img src="./img/bin-icon.png" class="list-title-other list-title-arrow clickable" ng-click="deleteList(title)"></img>
+					<img src="./img/edit-icon.png" class="list-title-arrow list-title-other clickable" ng-click="editList(title)"></img>
+					<img src="./img/power-on-icon.png" class="list-title-arrow list-title-other clickable" ng-click="toggleActivate(title)"></img>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}

@@ -27,10 +27,11 @@
   font-size: 12px;
   float: right;
   line-height: 23px;
+  height: 23px;
 }
 
 .list-title-other {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .list-tag-list {
