@@ -105,7 +105,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 	function getInput() {
 		if ($scope.allTags[$scope.titleString.trim()]) {
-			throwTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
@@ -129,9 +129,13 @@ app.controller('panelController', function($scope, $http, $timeout) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
+		updateLocal(title, tagArr, active);
+	}
+
+	function updateLocal(title, tags, active) {
 		$scope.allTags[title] = {
-			"tags": tagArr,
-			"active": active
+			tags: tags,
+			active: active
 		};
 
 		if (active) {
@@ -154,7 +158,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
-	function throwTitleAlert() {
+	function displayTitleAlert() {
 		$scope.showTitleAlert = true;
 		$timeout(function () {
 			$scope.showTitleAlert = false;
@@ -171,7 +175,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	function editListSubmit(title) {
 		var newTitle = $scope.tagOptions[title].newTitle;
 		if ($scope.allTags[newTitle.trim()]) {
-			throwTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
@@ -252,7 +256,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		$scope.downloadTitle = "";
 
 		if ($scope.allTags[newTitle.trim()]) {
-			throwTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
