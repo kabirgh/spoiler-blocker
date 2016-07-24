@@ -1,5 +1,9 @@
 var app = angular.module('panelApp', [])
 
+self.port.emit("get-spoilers", true);
+self.port.emit("get-prefs", true);
+
+
 app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.titleString = "";
 	$scope.tagString = "";
@@ -44,51 +48,56 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.prefs = {};
 
 
-	chrome.storage.sync.get("allTags", function(listObj) {
-		if (listObj.allTags != null) { // Does exist in storage
-			// Need to explicitly call apply since angular does not automatically
-			// apply async changes
-			$scope.$apply(function () {
-				if (listObj.allTags.length !== 0) {
-					$scope.allTags = listObj.allTags;
-					for (var title in $scope.allTags) {
-						if (!$scope.allTags.hasOwnProperty(title)) {
-						  continue;
-						}
-						if ($scope.allTags[title].active) {
-							$scope.active[title] = $scope.allTags[title];
-							$scope.numActive++;
-						} else {
-							$scope.inactive[title] = $scope.allTags[title];
-							$scope.numInactive++;
-						}
-					$scope.tagOptions[title] = {
-							display: false,
-							editing: false,
-							newTitle: "",
-							newTags: ""
-						}
-					}
-				}
-			})
-		}
-		else {
-			// chrome.storage.sync.set({'allTags': {}})
-			console.log("Something went wrong with getting lists from storage");
-		}
-
-		chrome.storage.sync.get("prefs", function(prefs) {
-			if (prefs.prefs != null) { // Does exist in storage
-				$scope.prefs = prefs.prefs;
+	self.port.on("sending-spoilers", function(obj) {
+		$scope.$apply( function() {
+			// chrome-relevant code. ff guarantees obj exists due to actions performed in index.js
+			if (!obj) {
+				console.log("allTags object does not exist. Initializing empty object");
+				$scope.allTags = {};
+				updateAllTags();
 			}
 			else {
-				$scope.prefs["hide"] = "overlay";
-				chrome.storage.sync.set({prefs: $scope.prefs});
-				console.log("Something went wrong with getting preferences from storage");
+				$scope.allTags = obj;
 			}
-			$scope.$apply();
-		})
-	})
+
+			for (var title in $scope.allTags) {
+				if (!$scope.allTags.hasOwnProperty(title)) {
+					continue;
+				}
+
+				if ($scope.allTags[title].active) {
+					$scope.active[title] = $scope.allTags[title];
+					$scope.numActive++;
+				} 
+				else {
+					$scope.inactive[title] = $scope.allTags[title];
+					$scope.numInactive++;
+				}
+
+				$scope.tagOptions[title] = {
+					display: false,
+					editing: false,
+					newTitle: "",
+					newTags: ""
+				}
+			}
+		});
+	});
+
+
+	self.port.on("sending-prefs", function(obj) {
+		$scope.$apply( function() {
+			// chrome-relevant code. ff guarantees obj exists due to actions performed in index.js
+			if (!obj) {
+				console.log("prefs object does not exist. Initializing empty object");
+				$scope.prefs = {"hide": "overlay"};
+				self.port.emit("update-prefs", $scope.prefs);
+			}
+			else {
+				$scope.prefs = obj;
+			}
+		});
+	});
 
 	$scope.getInput = getInput;
 	$scope.editList = editList;
@@ -104,8 +113,9 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 
 	function getInput() {
+		// If list with title already exists in object, display alert
 		if ($scope.allTags[$scope.titleString.trim()]) {
-			autoDismissTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
@@ -114,7 +124,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		$scope.tagString = "";
 
 		// Update the lists in storage
-		updateChromeStorage();
+		updateStorage();
 
 		$scope.showNewForm = false;
 	}
@@ -150,11 +160,12 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		}
 	}
 
-	function updateChromeStorage() {
-		chrome.storage.sync.set({"allTags": $scope.allTags});
+	function updateStorage() {
+		self.port.emit("update-all-tags", $scope.allTags);
 	}
 
-	function autoDismissTitleAlert() {
+	// Make alert disappear after 3 seconds
+	function displayTitleAlert() {
 		$scope.showTitleAlert = true;
 		$timeout(function () {
 			$scope.showTitleAlert = false;
@@ -171,7 +182,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	function editListSubmit(title) {
 		var newTitle = $scope.tagOptions[title].newTitle;
 		if ($scope.allTags[newTitle.trim()]) {
-			autoDismissTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
@@ -193,7 +204,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		processInput(newTitle, newTags, active);
 
 		// Update the lists in storage
-		updateChromeStorage();
+		updateStorage();
 	}
 
 	function editListCancel(title) {
@@ -216,7 +227,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 		delete $scope.allTags[title];
 		delete $scope.tagOptions[title];
-		updateChromeStorage();
+		updateStorage();
 	}
 
 	function toggleActivate(title) {
@@ -232,7 +243,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 			$scope.numActive--;
 			$scope.numInactive++;
 		}
-		updateChromeStorage();
+		updateStorage();
 	}
 
 	function toggleSeeMoreActive() {
@@ -243,13 +254,16 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		$scope.seeMoreInactive = !$scope.seeMoreInactive;
 	}
 
+	function storeOptions() {
+		chrome.storage.sync.set({prefs: $scope.prefs});
+	}
 
 	function downloadList(listID, newTitle) {
 		$scope.downloadID = "";
 		$scope.downloadTitle = "";
 
 		if ($scope.allTags[newTitle.trim()]) {
-			autoDismissTitleAlert();
+			displayTitleAlert();
 			return;
 		}
 
@@ -269,7 +283,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 				}
 
 				updateLocal(title, tagArr, true);
-				updateChromeStorage();
+				updateStorage();
 	 		}
 			else {
 				$scope.showDownloadAlert = true;
