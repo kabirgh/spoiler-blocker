@@ -26,8 +26,9 @@
 .list-title-arrow {
   font-size: 12px;
   float: right;
-  line-height: 23px;
-  height: 23px;
+  line-height: 16px;
+  height: 20px;
+  padding-top: 4px;
 }
 
 .list-title-other {

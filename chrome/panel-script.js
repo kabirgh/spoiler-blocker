@@ -77,8 +77,8 @@ app.controller('panelController', function($scope, $http, $timeout) {
 			}
 		});
 	});
-		
-	
+
+
 	chrome.storage.sync.get("prefs", function(obj) {
 		$scope.$apply( function() {
 			if (!obj.prefs) { // Does exist in storage
@@ -176,7 +176,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 	function editListSubmit(title) {
 		var newTitle = $scope.tagOptions[title].newTitle;
-		if ($scope.allTags[newTitle.trim()]) {
+		if ($scope.allTags[newTitle.trim()] && newTitle != title) {
 			displayTitleAlert();
 			return;
 		}

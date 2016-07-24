@@ -24,10 +24,17 @@ chrome.storage.sync.get("prefs", function(prefs) {
 	console.log("hide pref: " + hidePref);
 });
 
+document.documentElement.style.visibility = 'hidden';
 
 // On page load
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 	console.log("START");
+
+	// In case no stream found, make visible on load
+	window.onload = function () {
+		document.documentElement.style.visibility = '';
+	};
+
 	addDomListener();
 	observeBody();
 });
@@ -101,6 +108,7 @@ function findFeed() {
 		// mutation summary won't detect these
 		hidePosts( $("div#substream_0") );
 		hidePosts( $("div#substream_1") );
+		document.documentElement.style.visibility = '';
 	}
 }
 

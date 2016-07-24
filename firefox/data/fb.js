@@ -15,9 +15,17 @@ self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
 
+document.documentElement.style.visibility = 'hidden';
+
 // On page load
 jQuery(document).ready( function($) {
 	console.log("START");
+
+	// In case no stream found, make visible on load
+	window.onload = function () {
+		document.documentElement.style.visibility = '';
+	};
+
 	addDomListener();
 	observeBody();
 });
@@ -27,7 +35,7 @@ jQuery(document).ready( function($) {
 // 5 second timeout if feed is not found
 function addDomListener() {
 	domListenerRemoved = false;
-	
+
 	// Check for feed_stream's existence
 	document.addEventListener("DOMNodeInserted", findFeed);
 	console.log("Added DOMNodeInserted listener");
@@ -53,14 +61,14 @@ function observeBody() {
 		});
 	});
 
-	// trigger callback if body class changes 
+	// trigger callback if body class changes
 	bodyObserver.observe($("body")[0], {
 		attributeFilter: ["class"]
 	});
 }
 
 
-// Looks for the element with div id beginning with "feed_stream" 
+// Looks for the element with div id beginning with "feed_stream"
 // and passes it to the mutation summary
 function findFeed() {
 	var feed = $("div[id^='feed_stream']");
@@ -87,10 +95,11 @@ function findFeed() {
 		console.log("Feed found. DOMNodeInserted listener removed");
 		domListenerRemoved = true;
 
-		// Hide the posts that were loaded on document ready - 
+		// Hide the posts that were loaded on document ready -
 		// mutation summary won't detect these
 		hidePosts( $("div#substream_0") );
 		hidePosts( $("div#substream_1") );
+		document.documentElement.style.visibility = '';
 	}
 }
 
@@ -132,12 +141,12 @@ function hidePosts(elem) {
 		}
 
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
-			
+
 			var tag = spoilersObj[title]["tags"][j];
 			if (caseSens === false) {
 				tag = tag.toLowerCase();
 			}
-			
+
 			// if post text contains a spoiler
 			if (postText.indexOf(tag) > -1) {
 				// hide post
@@ -148,7 +157,7 @@ function hidePosts(elem) {
 					overlay($elem, title);
 				}
 				else {
-					console.log("Error in loading hide preference. Found " + 
+					console.log("Error in loading hide preference. Found " +
 						hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 					overlay($elem, title);
 				}

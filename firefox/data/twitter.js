@@ -14,6 +14,7 @@ self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
 
+document.documentElement.style.visibility = 'hidden';
 
 // On page load
 jQuery(document).ready( function($) {
@@ -59,7 +60,7 @@ function observeBody() {
 		});
 	});
 
-	// trigger callback if body class changes 
+	// trigger callback if body class changes
 	bodyObserver.observe($("body")[0], {
 		attributeFilter: ["class"]
 	});
@@ -98,7 +99,7 @@ function hideTweet(elem) {
 		if (caseSens === false) {
 			tweetText = tweetText.toLowerCase();
 		}
-		
+
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
 
 			var tag = spoilersObj[title]["tags"][j];
@@ -116,7 +117,7 @@ function hideTweet(elem) {
 					overlay($elem, title);
 				}
 				else {
-					console.log("Error in loading hide preference. Found " + 
+					console.log("Error in loading hide preference. Found " +
 							hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 						overlay($elem, title);
 				}
@@ -158,7 +159,7 @@ function overlay($elem, listTitle) {
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
 	$newDiv.addClass("spoiler-overlay");
-	
+
 	// Absolutely positioned element needs a positioned ancestor
 	$elem.css({
 		'position': 'relative'
