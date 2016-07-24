@@ -1,3 +1,5 @@
+/* global chrome, Promise, MutationSummary */
+
 var spoilersObj = {};
 var hidePref;
 
@@ -13,6 +15,7 @@ var p1 = new Promise(function(resolve, reject) {
 		}
 	});
 });
+
 
 // Get user preferences
 chrome.storage.sync.get("prefs", function(prefs) {
@@ -35,13 +38,14 @@ jQuery(document).ready( function($) {
 		}
 
 		console.log("START");
-		inspectPage();
+		findStream();
+		observeBody();
 	});
 });
 
 
 // Hide all tweets that were loaded when documentready fired
-function inspectPage() {
+function findStream() {
 	var target = $(".stream");
 
 	if (target.length > 0) {
@@ -65,6 +69,25 @@ function inspectPage() {
 	}
 }
 
+
+// Set mutationobserver on <body> element. Changes to its class attribute
+// indicate new twitter webpage has been loaded
+function observeBody() {
+	// Look for feed
+	var bodyObserver = new MutationObserver( function(mutationRecord) {
+		mutationRecord.forEach( function() {
+			console.log("finding stream");
+			findStream();
+		});
+	});
+
+	// trigger callback if body class changes
+	bodyObserver.observe($("body")[0], {
+		attributeFilter: ["class"]
+	});
+}
+
+
 // Callback for mutationsummary that finds tweets added after domcontentloaded event
 function newTweetsCallback(summaries) {
 	summaries[0].added.forEach( function(node) {
@@ -76,7 +99,7 @@ function newTweetsCallback(summaries) {
 // Hides tweets by overlaying or removing them, if text contains a case-sensitive keyword
 // listed in the global spoilers object (only active lists)
 function hideTweet(elem) {
-	$elem = $(elem);
+	var $elem = $(elem);
 
 	// Adblocker was hiding 'tweets', but program was detecting spoilers within
 	// These 'tweets' had very small heights, so this weeds those out
@@ -91,9 +114,22 @@ function hideTweet(elem) {
 			continue;
 		}
 
+		// Check case-sensitivity option for this list. If false (insensitive),
+		// convert both tag and tweet text to lower case before indexOf
+		var caseSens = spoilersObj[title]["case-sensitive"];
+		if (caseSens === false) {
+			tweetText = tweetText.toLowerCase();
+		}
+
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
+
+			var tag = spoilersObj[title]["tags"][j];
+			if (caseSens === false) {
+				tag = tag.toLowerCase();
+			}
+
 			// if tweet text contains a spoiler
-			if (tweetText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
+			if (tweetText.indexOf(tag) > -1) {
 				// hide tweet
 				if (hidePref === "remove") {
 					$($elem).remove();
@@ -112,10 +148,17 @@ function hideTweet(elem) {
 	}
 }
 
+
+// Adds a white, 97.5% opaque div on top of a given elem
 function overlay($elem, listTitle) {
+	// Add overlay only once
+	if ($elem.children().hasClass("spoiler-overlay") === true) {
+		return;
+	}
+
 	var hgt = '99%';
 
-	$newDiv = $(document.createElement("div")).css({
+	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
 		'top': 0,
 		'left': 0,
@@ -136,7 +179,9 @@ function overlay($elem, listTitle) {
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
-	// Absolutely positioned element needs a relatively positioned ancestor
+	$newDiv.addClass("spoiler-overlay");
+
+	// Absolutely positioned element needs a positioned ancestor
 	$elem.css({
 		'position': 'relative'
 	});

@@ -1,39 +1,80 @@
-// Get all tags in js object from index.js
+/* global self, MutationSummary */
+
 var spoilersObj = {};
+var hidePref;
+var domListenerRemoved = false;
+
+// Get all tags json object from index.js
 self.port.on("spoilers", function(allTags) {
 	// Put all tags of active lists in array
 	spoilersObj = allTags;
 });
 
-var prefs;
+// Get user preferences
 self.port.on("prefs", function(preferences) {
-	prefs = preferences;
+	hidePref = preferences["hide"];
 });
-
 
 // On page load
 jQuery(document).ready( function($) {
 	console.log("START");
-
-	// Check for feed_stream's existence
-	document.addEventListener("DOMNodeInserted", findFeed);
+	addDomListener();
+	observeBody();
 });
 
 
-// Looks for the element with div id beginning with "feed_stream" and passes it to the mutation summary
+// Add DOMNodeInserted listener with callback findFeed. Listener is removed after
+// 5 second timeout if feed is not found
+function addDomListener() {
+	domListenerRemoved = false;
+	
+	// Check for feed_stream's existence
+	document.addEventListener("DOMNodeInserted", findFeed);
+	console.log("Added DOMNodeInserted listener");
+
+	// Timeout DOMNode listener after 5 seconds so non-newsfeed facbeook pages do not lag
+	window.setTimeout( function() {
+		if (domListenerRemoved === false) {
+			document.removeEventListener("DOMNodeInserted", findFeed);
+			console.log("Feed not found. DOMNodeInserted listener removed");
+		}
+	},
+	5000);
+}
+
+
+// Set mutationobserver on <body> element. Changes to its class attribute
+// indicate new fb webpage has been loaded
+function observeBody() {
+	// Look for feed using domlistener
+	var bodyObserver = new MutationObserver( function(mutationRecord) {
+		mutationRecord.forEach( function() {
+			addDomListener();
+		});
+	});
+
+	// trigger callback if body class changes 
+	bodyObserver.observe($("body")[0], {
+		attributeFilter: ["class"]
+	});
+}
+
+
+// Looks for the element with div id beginning with "feed_stream" 
+// and passes it to the mutation summary
 function findFeed() {
 	var feed = $("div[id^='feed_stream']");
 
 	// if no feed is found
-	if ( feed.length === 0 ) {
+	if (feed.length === 0) {
 		console.log("no streams");
 	}
 
 	// if the feed is found
 	else {
-		console.log("target ID is " + $(feed[0]).attr("id"));
+		console.log("target ID is " + feed.attr("id"));
 
-		// look for new div elements
+		// look for new div elements using mutation summary
 		var postObserver = new MutationSummary({
 			callback: observeHyperFeed,
 			rootNode: feed[0],
@@ -43,87 +84,96 @@ function findFeed() {
 		});
 
 		document.removeEventListener("DOMNodeInserted", findFeed);
-		console.log("DOMNodeInserted listener removed");
+		console.log("Feed found. DOMNodeInserted listener removed");
+		domListenerRemoved = true;
 
-		// Hide the posts that were loaded on document ready - mutation summary won't detect these
-		hidePosts( $("div[id='substream_0']") );
-		hidePosts( $("div[id='substream_1']") );
+		// Hide the posts that were loaded on document ready - 
+		// mutation summary won't detect these
+		hidePosts( $("div#substream_0") );
+		hidePosts( $("div#substream_1") );
 	}
 }
 
 
 function observeHyperFeed(summaries) {
-	// Filter all <div> elements with attr id beginning with hyperfeed
-	// that have <p> elements as descendants
-	// which contain any of the spoilers in spoilerList.
-	// Give these elements the "long-string-..." attribute.
+	// Filter all <div> elements with attr id beginning with userContentWrapper
 	summaries[0].added.forEach( function(node) {
-		elem = $(node).filter("[id^='hyperfeed_story']");
-
-		if (elem.length > 0) {
-			new MutationSummary({
-				callback: hidePostsSummary,
-				rootNode: elem[0],
-				queries: [{
-					element: "div"
-				}]
-			})
+		var $elem = $(node).filter("[class^='userContentWrapper']");
+		// if the element is not a nested content wrapper
+		if ($elem.parent().closest("[class^='userContentWrapper']").length === 0) {
+			hidePosts($elem);
 		}
 	});
 }
 
-function hidePostsSummary(summaries) {
-	elem = $(summaries[0].added).filter("[class^='userContentWrapper']");
-	hidePosts(elem);
-}
 
+// Hides posts by overlaying or removing them, if text contains a case-sensitive keyword
+// listed in the global spoilers object (only active lists)
 function hidePosts(elem) {
-	var listTitle = null;
-	if (elem.length > 0) {
-		postText = elem.text();
-		console.log(postText);
+	var $elem = $(elem);
 
-		for (var title in spoilersObj) {
-			if (!spoilersObj.hasOwnProperty(title)) {
-				// Not actually a list
-				continue;
-			}
-			if (!spoilersObj[title].active) {
-				// List is not active
-				continue;
-			}
+	if ($elem.length === 0) return;
 
-			// if tweet text contains a spoiler
-			for (var j = 0; j < spoilersObj[title].tags.length; j++) {
-				if (postText.indexOf(spoilersObj[title].tags[j]) > -1) {
-					// tweetNode should be hidden
-					if (prefs["hidePref"] === "remove") {
-						$(elem).remove();
-					}
-					else if (prefs["hidePref"] === "overlay") {
-						overlay(elem, title);
-					}
-					else {
-						console.log("Error in loading hide preference")
-					}
-					break;
+	// Get all text from the post, including author, comments and content
+	var postText = $elem.text();
+	console.log(postText);
+
+	for (var title in spoilersObj) {
+		if (!spoilersObj.hasOwnProperty(title) || !spoilersObj[title]["active"]) {
+			// Not actually a list or list is inactive
+			continue;
+		}
+
+		// Check case-sensitivity option for this list. If false (insensitive),
+		// convert both tag and tweet text to lower case before indexOf
+		var caseSens = spoilersObj[title]["case-sensitive"];
+		if (caseSens === false) {
+			postText = postText.toLowerCase();
+		}
+
+		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
+			
+			var tag = spoilersObj[title]["tags"][j];
+			if (caseSens === false) {
+				tag = tag.toLowerCase();
+			}
+			
+			// if post text contains a spoiler
+			if (postText.indexOf(tag) > -1) {
+				// hide post
+				if (hidePref === "remove") {
+					$($elem).remove();
 				}
+				else if (hidePref === "overlay") {
+					overlay($elem, title);
+				}
+				else {
+					console.log("Error in loading hide preference. Found " + 
+						hidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
+					overlay($elem, title);
+				}
+				break;
 			}
 		}
 	}
 }
 
 
-function overlay(elem, listTitle) {
-	elem = $(elem[0]);
+// Adds a white, 97.5% opaque div on top of a given elem
+function overlay($elem, listTitle) {
+	// Add overlay only once
+	if ($elem.children().hasClass("spoiler-overlay") === true) {
+		return;
+	}
 
 	var hgt = '100%';
 
-	newDiv = $(document.createElement("div")).css({
+	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
 		'top': 0,
 		'left': 0,
 		'background-color': 'white',
+		'opacity': 0.975,
 		'display': 'flex',
 		'justify-content': 'center',
 		'align-items': 'center',
@@ -137,17 +187,18 @@ function overlay(elem, listTitle) {
 		'color': 'red'
 	});
 
-	newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
+	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);
 
-	// Absolutely positioned element needs a positioned ancestor
-	// This does not break formatting (far as I have seen)
-	elem.css({
+	$newDiv.addClass("spoiler-overlay");
+
+	// Absolutely positioned element needs a relatively positioned ancestor
+	$elem.css({
 		'position': 'relative'
 	});
 
-	newDiv.click(function() {
+	$newDiv.click( function() {
 		$(this).hide()
 	});
 
-	elem.append(newDiv);
+	$elem.append($newDiv);
 }
