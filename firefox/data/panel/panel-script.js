@@ -1,6 +1,5 @@
 var app = angular.module('panelApp', [])
 
-var allTags, prefs;
 self.port.emit("get-spoilers", true);
 self.port.emit("get-prefs", true);
 
@@ -75,6 +74,7 @@ app.controller('panelController', function($scope) {
 			if (!obj) {
 				console.log("prefs object does not exist. Initializing empty object");
 				$scope.prefs = {"hide": "overlay"};
+				self.port.emit("update-prefs", $scope.prefs);
 			}
 			else {
 				$scope.prefs = obj;
@@ -220,10 +220,5 @@ app.controller('panelController', function($scope) {
 
 	function toggleSeeMoreInactive() {
 		$scope.seeMoreInactive = !$scope.seeMoreInactive;
-	}
-
-	function updatePrefs() {
-		// TODO
-		chrome.storage.sync.set({prefs: $scope.prefs});
 	}
 })

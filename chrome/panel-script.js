@@ -1,6 +1,6 @@
 var app = angular.module('panelApp', [])
 
-app.controller('panelController', function($scope, $http) {
+app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.titleString = "";
 	$scope.tagString = "";
 
@@ -33,8 +33,9 @@ app.controller('panelController', function($scope, $http) {
 	$scope.seeMoreActive = false;
 	$scope.seeMoreInactive = false;
 
-	// Whether to show the download alert
+	// Whether to show the alerts
 	$scope.showDownloadAlert = false;
+	$scope.showTitleAlert = false;
 
 	// Options
 	// {
@@ -99,9 +100,15 @@ app.controller('panelController', function($scope, $http) {
 	$scope.toggleSeeMoreInactive = toggleSeeMoreInactive;
 	$scope.downloadList = downloadList;
 	$scope.closeDownloadAlert = closeDownloadAlert;
+	$scope.closeTitleAlert = closeTitleAlert;
 
 
 	function getInput() {
+		if ($scope.allTags[$scope.titleString.trim()]) {
+			autoDismissTitleAlert();
+			return;
+		}
+
 		processInput($scope.titleString, $scope.tagString, true);
 		$scope.titleString = "";
 		$scope.tagString = "";
@@ -147,6 +154,13 @@ app.controller('panelController', function($scope, $http) {
 		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
+	function autoDismissTitleAlert() {
+		$scope.showTitleAlert = true;
+		$timeout(function () {
+			$scope.showTitleAlert = false;
+		}, 3000);
+	}
+
 	function editList(title) {
 		var options = $scope.tagOptions[title];
 		options.newTitle = title;
@@ -156,6 +170,11 @@ app.controller('panelController', function($scope, $http) {
 
 	function editListSubmit(title) {
 		var newTitle = $scope.tagOptions[title].newTitle;
+		if ($scope.allTags[newTitle.trim()]) {
+			autoDismissTitleAlert();
+			return;
+		}
+
 		var newTags = $scope.tagOptions[title].newTags;
 		var active = $scope.allTags[title].active;
 
@@ -228,15 +247,22 @@ app.controller('panelController', function($scope, $http) {
 		chrome.storage.sync.set({prefs: $scope.prefs});
 	}
 
-	function downloadList(listID) {
+	function downloadList(listID, newTitle) {
 		$scope.downloadID = "";
+		$scope.downloadTitle = "";
+
+		if ($scope.allTags[newTitle.trim()]) {
+			autoDismissTitleAlert();
+			return;
+		}
+
 		$http.get('https://salty-earth-11606.herokuapp.com/downloadList', {
 			params: {
 			 id: listID
 			}
 		}).then(function(response) {
 	 		if (response.data.Status == 'Success') {
-				var title = response.data.list.title.trim();
+				var title = newTitle.trim();
 				var tags = response.data.list.tags;
 
 				// Split tags on commas and trim
@@ -256,5 +282,9 @@ app.controller('panelController', function($scope, $http) {
 
 	function closeDownloadAlert() {
 		$scope.showDownloadAlert = false;
+	}
+
+	function closeTitleAlert() {
+		$scope.showTitleAlert = false;
 	}
 })
