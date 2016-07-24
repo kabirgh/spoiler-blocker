@@ -95,19 +95,19 @@ function hideTweet(elem) {
 		// Check case-sensitivity option for this list. If false (insensitive),
 		// convert both tag and tweet text to lower case before indexOf
 		var caseSens = spoilersObj[title]["case-sensitive"];
-		if (caseSens === true) {
+		if (caseSens === false) {
 			tweetText = tweetText.toLowerCase();
 		}
 		
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
 
 			var tag = spoilersObj[title]["tags"][j];
-			if (caseSens === true) {
+			if (caseSens === false) {
 				tag = tag.toLowerCase();
 			}
 
 			// if tweet text contains a spoiler
-			if (tweetText.indexOf(spoilersObj[title]["tags"][j]) > -1) {
+			if (tweetText.indexOf(tag) > -1) {
 				// hide tweet
 				if (hidePref === "remove") {
 					$($elem).remove();

@@ -127,14 +127,14 @@ function hidePosts(elem) {
 		// Check case-sensitivity option for this list. If false (insensitive),
 		// convert both tag and tweet text to lower case before indexOf
 		var caseSens = spoilersObj[title]["case-sensitive"];
-		if (caseSens === true) {
+		if (caseSens === false) {
 			postText = postText.toLowerCase();
 		}
 
 		for (var j=0; j<spoilersObj[title]["tags"].length; j++) {
 			
 			var tag = spoilersObj[title]["tags"][j];
-			if (caseSens === true) {
+			if (caseSens === false) {
 				tag = tag.toLowerCase();
 			}
 			
