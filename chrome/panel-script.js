@@ -239,8 +239,8 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 	// Change case-sensitivity for list
 	function changeCaseSensitivity(title) {
-		if 
 		$scope.allTags[title]['case-sensitive'] = !$scope.allTags[title]['case-sensitive'];
+		updateStorage();
 	}
 
 

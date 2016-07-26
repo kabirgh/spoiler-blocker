@@ -13,6 +13,10 @@
 
 	"permissions": ["activeTab", "storage", "https://salty-earth-11606.herokuapp.com/downloadList/*"],
 
+	"background": {
+		"page": "bg.html"
+	},
+
 	"content_scripts": [
 		{
 			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],

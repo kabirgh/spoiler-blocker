@@ -105,12 +105,12 @@
 }
 
 .hidden-submit {
-    border: 0 none;
-    height: 0;
-    width: 0;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+  border: 0 none;
+  height: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 .activated {
@@ -123,4 +123,9 @@
 
 .clickable {
   cursor: pointer;
+}
+
+.fadeout {
+  transition: opacity 1s;
+  opacity: 0;
 }
