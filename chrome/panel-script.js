@@ -8,6 +8,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	//            title: {
 	//              tags: [tag1, tag2, ...],
 	//              active: true|false,
+	//				case-sensitive: true|false
 	//            }
 	//           }
 	$scope.allTags = {};
@@ -15,7 +16,7 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	// tagOptions : {
 	//               title: {
 	//                 display: true|false,
-	// 							   editing: true|false
+	// 				   editing: true|false
 	//               }
 	//              }
 	$scope.tagOptions = {};
@@ -105,13 +106,16 @@ app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.closeTitleAlert = closeTitleAlert;
 
 
+	// Store new list title and tags
 	function getInput() {
+		// If title already exists
 		if ($scope.allTags[$scope.titleString.trim()]) {
 			displayTitleAlert();
 			return;
 		}
 
-		processInput($scope.titleString, $scope.tagString, true);
+		// Defaults are active: true, caseSens: false
+		processInput($scope.titleString, $scope.tagString, true, false);
 		$scope.titleString = "";
 		$scope.tagString = "";
 
@@ -121,7 +125,9 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		$scope.showNewForm = false;
 	}
 
-	function processInput(inputTitle, inputTags, active) {
+	// Copy list title and tags into string and array. Pass to updateLocal
+	// Defaults are active: true, caseSens: false
+	function processInput(inputTitle, inputTags, active, caseSens) {
 		var title = inputTitle.trim();
 		var tags = inputTags;
 
@@ -131,13 +137,16 @@ app.controller('panelController', function($scope, $http, $timeout) {
 			tagArr[i] = tagArr[i].trim();
 		}
 
-		updateLocal(title, tagArr, active);
+		updateLocal(title, tagArr, active, caseSens);
 	}
 
-	function updateLocal(title, tags, active) {
+	// Update UI to display new list
+	// Defaults are active: true, caseSens: false
+	function updateLocal(title, tags, active, caseSens) {
 		$scope.allTags[title] = {
-			tags: tags,
-			active: active
+			"tags": tags,
+			"active": active,
+			"case-sensitive": caseSens
 		};
 
 		if (active) {
@@ -156,10 +165,12 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		}
 	}
 
+	// Overwrite allTags in chrome storage with $scope.allTags
 	function updateStorage() {
 		chrome.storage.sync.set({"allTags": $scope.allTags});
 	}
 
+	// Show alert for duplicate title for 3 seconds
 	function displayTitleAlert() {
 		$scope.showTitleAlert = true;
 		$timeout(function () {
@@ -225,6 +236,14 @@ app.controller('panelController', function($scope, $http, $timeout) {
 		updateStorage();
 	}
 
+
+	// Change case-sensitivity for list
+	function changeCaseSensitivity(title) {
+		if 
+		$scope.allTags[title]['case-sensitive'] = !$scope.allTags[title]['case-sensitive'];
+	}
+
+
 	function toggleActivate(title) {
 		$scope.allTags[title].active = !$scope.allTags[title].active;
 		if ($scope.allTags[title].active) {
@@ -261,10 +280,10 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 		$http.get('https://salty-earth-11606.herokuapp.com/downloadList', {
 			params: {
-			 id: listID
+				id: listID
 			}
 		}).then(function(response) {
-	 		if (response.data.Status == 'Success') {
+			if (response.data.Status == 'Success') {
 				var title = newTitle.trim();
 				var tags = response.data.list.tags;
 
@@ -276,11 +295,11 @@ app.controller('panelController', function($scope, $http, $timeout) {
 
 				updateLocal(title, tagArr, true);
 				updateStorage();
-	 		}
+			}
 			else {
 				$scope.showDownloadAlert = true;
 			}
-	 	})
+		})
 	}
 
 	function closeDownloadAlert() {
