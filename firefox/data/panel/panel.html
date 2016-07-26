@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" href="./bootstrap-paper.css">
-	<link rel="stylesheet" href="./panel-style.css">
-	<!-- <script src="../jquery.js"></script>
-	<script src="./angular.min.js"></script>
-	<script src="./panel-script.js"></script> -->
+	<link rel="stylesheet" href="bootstrap-paper.css">
+	<link rel="stylesheet" href="panel-style.css">
+	<!-- <script src="angular.min.js"></script>
+	<script src="panel-script.js"></script> -->
 </head>
 <body ng-app = "panelApp" ng-controller = "panelController">
 	<nav class="navbar navbar-default">
@@ -17,7 +16,6 @@
 	    </div>
 		</div>
 	</nav>
-	<br />
 	<div class="container" ng-if="showTitleAlert">
 		<br />
 		<div class="alert alert-danger alert-dismissible" role="alert" style="width: 200px; margin-bottom: 0px">
@@ -39,18 +37,19 @@
 			<button ng-click="showNewForm = false" type="button" class="btn btn-danger">Cancel</button>
 		</form>
 	</div>
+	<br />
 	<hr ng-show="showNewForm">
-	<div class="container">
+	<div class="container" style="margin-top: -11px">
 		<h5>Active lists</h5>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="(title, list) in active track by $index" ng-if="$index < 2 || seeMoreActive">
 				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable activated" ng-click="toggleActivate(title)"></span>
+			  	<img src="./img/arrow-right-icon.png" class="list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></img>
+					<img src="./img/arrow-down-icon.png" class="list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></img>
+					<img src="./img/bin-icon.png" class="list-title-other list-title-arrow clickable" ng-click="deleteList(title)"></img>
+					<img src="./img/edit-icon.png" class="list-title-arrow list-title-other clickable" ng-click="editList(title)"></img>
+					<img src="./img/power-on-icon.png" class="list-title-arrow list-title-other clickable activated" ng-click="toggleActivate(title)"></img>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
@@ -76,11 +75,11 @@
 			<li class="list-group-item" ng-repeat="(title, list) in inactive track by $index" ng-if="$index < 2 || seeMoreInactive">
 				<h6 class="list-title" ng-if="!tagOptions[title].editing">
 					{{ title }}
-			  	<span class="glyphicon glyphicon-triangle-right list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></span>
-					<span class="glyphicon glyphicon-triangle-bottom list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></span>
-					<span class="glyphicon glyphicon-trash list-title-arrow list-title-other clickable" ng-click="deleteList(title)"></span>
-					<span class="glyphicon glyphicon-pencil list-title-arrow list-title-other clickable" ng-click="editList(title)"></span>
-					<span class="glyphicon glyphicon-off list-title-arrow list-title-other clickable deactivated" ng-click="toggleActivate(title)"></span>
+					<img src="./img/arrow-right-icon.png" class="list-title-arrow clickable" ng-show="!tagOptions[title].display" ng-click="tagOptions[title].display = true"></img>
+					<img src="./img/arrow-down-icon.png" class="list-title-arrow clickable" ng-show="tagOptions[title].display" ng-click="tagOptions[title].display = false"></img>
+					<img src="./img/bin-icon.png" class="list-title-other list-title-arrow clickable" ng-click="deleteList(title)"></img>
+					<img src="./img/edit-icon.png" class="list-title-arrow list-title-other clickable" ng-click="editList(title)"></img>
+					<img src="./img/power-on-icon.png" class="list-title-arrow list-title-other clickable" ng-click="toggleActivate(title)"></img>
 				</h6>
 				<p class="list-text" ng-if="tagOptions[title].display && !tagOptions[title].editing">
 					{{ list.tags.join(', ') }}
@@ -117,13 +116,9 @@
     </div>
 		<hr>
 		<form role="form" ng-submit="downloadList(downloadID, downloadTitle)">
-			<div class="form-group">
-				<input type="text" class="form-control" style="width: 150px" placeholder="Download Code" ng-model="downloadID"></input>
-			</div>
-			<div class="form-group">
-				<input type="text" class="form-control" style="width: 150px" placeholder="New Title" ng-model="downloadTitle"></input>
-			</div>
-			<button type="submit" class="btn btn-primary">Download</button>
+			<input type="text" class="form-control" style="width: 70px; display: inline; margin-right: 30px" placeholder="List Code" ng-model="downloadID"></input>
+			<input type="text" class="form-control" style="width: 150px; display: inline" placeholder="New Title" ng-model="downloadTitle"></input>
+			<button type="submit" class="btn btn-primary" style="margin-top: 10px">Download</button>
 			<br ng-if="showDownloadAlert" />
 			<br ng-if="showDownloadAlert" />
 			<div class="alert alert-danger alert-dismissible" role="alert" ng-if="showDownloadAlert" style="width: 180px; margin-bottom: 0px">

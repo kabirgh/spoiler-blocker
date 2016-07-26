@@ -80,8 +80,7 @@ function handleButtonChange(state) {
 // Attach a panel to the button
 var panel = require("sdk/panel").Panel({
 	contentURL: "./panel/panel.html",
-	contentScriptFile: ["./jquery.js", "./panel/angular.min.js", "./panel/panel-script.js"],
-	// contentStyleFile: "./panel/panel-style.css",
+	contentScriptFile: ["./panel/angular.min.js", "./panel/panel-script.js"],
 	onHide: handlePanelHide
 });
 

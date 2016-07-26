@@ -1,3 +1,7 @@
+body {
+    min-width:300px;
+}
+
 .input-txt {
   width: 230px
 }
@@ -26,11 +30,13 @@
 .list-title-arrow {
   font-size: 12px;
   float: right;
-  line-height: 23px;
+  line-height: 16px;
+  height: 20px;
+  padding-top: 4px;
 }
 
 .list-title-other {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .list-tag-list {
@@ -75,7 +81,6 @@
 }
 
 .navbar {
-  width:260px;
   height: 30px;
   margin: 0px;
 }
