@@ -2,16 +2,17 @@
 Spoiler blocker is an open-source browser extension that removes Facebook and Twitter posts that contain spoilers on the TV shows you're currently watching.
 
 ## Installation
-The extension can be installed from the Firefox Add-ons library and Chrome Web Store.
-To install from source, clone this repo and follow the instructions at  https://developer.chrome.com/extensions/getstarted#unpacked. When prompted to select the extension, choose the 'chrome' folder.
-
-Note: The addon is not yet working in firefox.
+The extension can be installed from the Firefox Add-ons library and Chrome Web Store (Coming Soon!)<br>
+To install from source, clone this repo and follow the instructions at  https://developer.chrome.com/extensions/getstarted#unpacked. When prompted to select the extension, choose the 'chrome' folder.<br>
+Alternatively, open a bash terminal, cd into the `/firefox` folder, run `jpm init` and `jpm run`. This will run the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (Can be installed from https://nodejs.org/).
 
 ## License
 This project is MIT licensed.
 
 ## Minimum Viable Product
-Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden. See https://youtu.be/7K_C84e6hlI for a video demonstration.
+Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden.<br>
+You can also find and submit lists at https://salty-earth-1106.herokuapp.com.<br>
+See https://youtu.be/dFOZCkYJdOM for a video demonstration.
 
 ## Features / User stories
 <ol>
@@ -24,24 +25,24 @@ Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For
   <li>
     Option to overlay posts/tweets with a white rectangle or remove them from the newsfeed entirely
   </li>
+  <li>
+    Community submitted spoiler lists available online (Lists moderated by admins)
+  </li>
+  <li>
+    Download lists from website by simply typing a code into the  extension/add-on panel
+  </li>
+  <li>
+    Rate online lists to give other users an indication of their usefulness
+  </li>
 </ol>
 
-## Features for next sprint
+## Things we might look into in the future
 <ol>
   <li>
     Improve UI
   </li>
   <li>
-    Reduce lag time for loading addon panel (when button on toolbar is clicked)
-  </li>
-  <li>
-    Have a curated website of (possibly community-submitted) spoiler lists for common TV shows. Users can select these rather than creating their own
-  </li>
-  <li>
-    Allow users to submit lists of spoilers to a public community portal for anyone's use
-  </li>
-  <li>
-    Explore further uses of the addon as a keyword censor.
+    Explore further uses of the add-on as a keyword censor.
   </li>
 </ol>
 
