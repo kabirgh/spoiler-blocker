@@ -12,7 +12,7 @@ This project is MIT licensed.
 ## Minimum Viable Product
 Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden.<br>
 You can also find and submit lists at [our website](https://salty-earth-11606.herokuapp.com).<br>
-See https://youtu.be/dFOZCkYJdOM for a video demonstration.
+See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
 
 ## Features / User stories
 <ol>
