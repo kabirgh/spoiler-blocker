@@ -3,15 +3,15 @@ Spoiler blocker is an open-source browser extension that removes Facebook and Tw
 
 ## Installation
 The extension can be installed from the Firefox Add-ons library and Chrome Web Store (Coming Soon!)<br>
-To install from source, clone this repo and follow the instructions at  https://developer.chrome.com/extensions/getstarted#unpacked. When prompted to select the extension, choose the 'chrome' folder.<br>
-Alternatively, open a bash terminal, cd into the `/firefox` folder, run `jpm init` and `jpm run`. This will run the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (Can be installed from https://nodejs.org/).
+To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension, choose the 'chrome' folder.<br>
+Alternatively, open a bash terminal, cd into the `/firefox` folder, then run `jpm init` and `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (Can be installed from [the Node.js website](https://nodejs.org/)).
 
 ## License
 This project is MIT licensed.
 
 ## Minimum Viable Product
 Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden.<br>
-You can also find and submit lists at https://salty-earth-1106.herokuapp.com.<br>
+You can also find and submit lists at [our website](https://salty-earth-11606.herokuapp.com).<br>
 See https://youtu.be/dFOZCkYJdOM for a video demonstration.
 
 ## Features / User stories
