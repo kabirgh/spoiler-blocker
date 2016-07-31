@@ -4,7 +4,7 @@ Spoiler blocker is an open-source browser extension that removes Facebook and Tw
 ## Installation
 The extension can be installed from the Firefox Add-ons library and Chrome Web Store (coming soon!)<br>
 To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension, choose the 'chrome' folder.<br>
-Alternatively, open a bash terminal, cd into the `/firefox` folder, then run `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (which is packages with [Node.js](https://nodejs.org/)).
+Alternatively, open a bash terminal, cd into the `/firefox` folder, then run `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (bundled with [Node.js](https://nodejs.org/)).
 
 ## License
 This project is MIT licensed.
