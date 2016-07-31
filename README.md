@@ -2,9 +2,9 @@
 Spoiler blocker is an open-source browser extension that removes Facebook and Twitter posts that contain spoilers on the TV shows you're currently watching.
 
 ## Installation
-The extension can be installed from the Firefox Add-ons library and Chrome Web Store (Coming Soon!)<br>
+The extension can be installed from the Firefox Add-ons library and Chrome Web Store (coming soon!)<br>
 To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension, choose the 'chrome' folder.<br>
-Alternatively, open a bash terminal, cd into the `/firefox` folder, then run `jpm init` and `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (Can be installed from [the Node.js website](https://nodejs.org/)).
+Alternatively, open a bash terminal, cd into the `/firefox` folder, then run `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (which is packages with [Node.js](https://nodejs.org/)).
 
 ## License
 This project is MIT licensed.
@@ -42,7 +42,7 @@ See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
     Improve UI
   </li>
   <li>
-    Explore further uses of the add-on as a keyword censor.
+    Explore further uses of the add-on as a keyword censor
   </li>
 </ol>
 
