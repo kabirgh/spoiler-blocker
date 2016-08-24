@@ -163,7 +163,7 @@ function overlay($elem, listTitle) {
 		'top': 0,
 		'left': 0,
 		'background-color': 'white',
-		'opacity': 0.975,
+		'opacity': 0.990,
 		'display': 'flex',
 		'justify-content': 'center',
 		'align-items': 'center',
