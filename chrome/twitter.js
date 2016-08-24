@@ -149,7 +149,7 @@ function hideTweet(elem) {
 }
 
 
-// Adds a white, 97.5% opaque div on top of a given elem
+// Adds a white, translucent div on top of a given elem
 function overlay($elem, listTitle) {
 	// Add overlay only once
 	if ($elem.children().hasClass("spoiler-overlay") === true) {
