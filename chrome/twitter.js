@@ -163,7 +163,7 @@ function overlay($elem, listTitle) {
 		'top': 0,
 		'left': 0,
 		'background-color': 'white',
-		'opacity': 0.990,
+		'opacity': 0.99,
 		'display': 'flex',
 		'justify-content': 'center',
 		'align-items': 'center',
@@ -173,8 +173,8 @@ function overlay($elem, listTitle) {
 		'z-index': 7,
 		'cursor': 'pointer',
 		'font-size': 30,
-		'font-family': 'Copperplate',
-		'color': 'red'
+		'font-family': 'Eczar',
+		'color': 'black'
 	});
 
 	$newDiv.html('Spoiler!<br><br>Title: ' + listTitle);

@@ -98,6 +98,13 @@ panel.port.on("get-prefs", function() {
 	panel.port.emit("sending-prefs", prefs);
 });
 
+// Resize panel
+panel.port.on("resize", function(currSize) {
+	console.log('scroll height ' + currSize.scollHeight);
+	console.log('client height ' + currSize.clientHeight);
+	panel.resize(currSize.width, 600);
+})
+
 // Listen to messages from panel-script.js with tag "update-all-tags" and store it
 // as the persistent allTags object. See ss initialisation for object structure.
 panel.port.on("update-all-tags", function(tagObj) {

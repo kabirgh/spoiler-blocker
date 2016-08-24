@@ -2,7 +2,7 @@ var app = angular.module('panelApp', [])
 
 self.port.emit("get-spoilers", true);
 self.port.emit("get-prefs", true);
-
+self.port.emit("resize", {width: window.innerWidth, height: window.innerHeight});
 
 app.controller('panelController', function($scope, $http, $timeout) {
 	$scope.titleString = "";
