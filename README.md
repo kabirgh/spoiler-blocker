@@ -14,11 +14,8 @@ Blocks Facebook and Twitter posts that contain user-defined 'spoiler' words. For
 You can also find and submit lists at [our website](https://salty-earth-11606.herokuapp.com).<br>
 See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
 
-## Features / User stories
+## Features
 <ol>
-  <li>
-    Blocks posts using pre-defined lists of words that indicate the posts may spoil the TV show
-  </li>
   <li>
     Allow users to create their own lists of spoiler tags
   </li>
@@ -26,28 +23,25 @@ See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
     Option to overlay posts/tweets with a white rectangle or remove them from the newsfeed entirely
   </li>
   <li>
-    Community submitted spoiler lists available online (Lists moderated by admins)
+    Community submitted spoiler lists available online (lists moderated by admins)
   </li>
   <li>
-    Download lists from website by simply typing a code into the  extension/add-on panel
+    Download lists from website by simply typing a code into the extension/add-on panel
   </li>
   <li>
     Rate online lists to give other users an indication of their usefulness
   </li>
 </ol>
 
-## Things we might look into in the future
+## Goals
 <ol>
   <li>
     Improve UI
   </li>
   <li>
-    Explore further uses of the add-on as a keyword censor
+    Add option for case-sensitivity
+  </li>
+  <li>
+    Make overlay/remove option list specific
   </li>
 </ol>
-
-## Level of achievement
-Project Gemini
-
-## Audience
-This project caters to all people who watch TV shows (and don't want them spoiled).
