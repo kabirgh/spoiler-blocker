@@ -35,7 +35,7 @@ var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./utils.js", "./jquery.js", "./mutation-summary.js", "./fb-dev.js"],
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "fb-common.js", "./fb-dev.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
