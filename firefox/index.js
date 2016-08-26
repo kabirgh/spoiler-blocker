@@ -15,13 +15,15 @@ if (!ss.allTags) {
 		{
 			"active": true,
 			"case-sensitive": true,
+			"hide-pref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"another-name":
+		"the":
 		{
-			"active": false,
+			"active": true,
 			"case-sensitive": false,
-			"tags": ["arr2", "abb"]
+			"hide-pref": "overlay",
+			"tags": ["the"]
 		}
 	}
 
@@ -33,7 +35,7 @@ var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
 	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
+	contentScriptFile: ["./utils.js", "./jquery.js", "./mutation-summary.js", "./fb-dev.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
