@@ -1,23 +1,9 @@
-/* global self, MutationSummary */
-var spoilersObj = {};
-var hidePref;
 var domListenerRemoved = false;
-
-// Get all tags json object from index.js
-self.port.on("spoilers", function(allTags) {
-	// Put all tags of active lists in array
-	spoilersObj = allTags;
-});
-
-// Get user preferences
-self.port.on("prefs", function(preferences) {
-	hidePref = preferences["hide"];
-});
 
 document.documentElement.style.visibility = 'hidden';
 
 // On page load
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 	console.log("START");
 
 	// In case no stream found, make visible on load
@@ -113,6 +99,7 @@ function observeHyperFeed(summaries) {
 		}
 	});
 }
+
 
 // Hides posts by overlaying or removing them, if text contains a case-sensitive keyword
 // listed in the global spoilers object (only active lists)

@@ -18,13 +18,14 @@ document.documentElement.style.visibility = 'hidden';
 
 // On page load
 jQuery(document).ready( function($) {
+	console.log("START");
 	findStream();
 	observeBody();
 });
 
 
 // Hide all tweets that were loaded when documentready fired
-function findStream() {
+function findStream() {	
 	var target = $(".stream");
 
 	if (target.length > 0) {

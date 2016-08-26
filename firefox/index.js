@@ -102,8 +102,6 @@ panel.port.on("get-prefs", function() {
 
 // Resize panel
 panel.port.on("resize", function(currSize) {
-	console.log('scroll height ' + currSize.scollHeight);
-	console.log('client height ' + currSize.clientHeight);
 	panel.resize(currSize.width, 600);
 })
 

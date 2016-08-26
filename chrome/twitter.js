@@ -56,7 +56,7 @@ function findStream() {
 		}
 
 		// All tweets on page have been checked, make document visible
-		document.documentElement.style.visibility = '';
+		document.documentElement.style.visibility = 'visible';
 
 		// Get tweets loaded on scroll
 		var tweetObs = new MutationSummary({
