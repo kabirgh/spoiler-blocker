@@ -18,12 +18,12 @@ if (!ss.allTags) {
 			"hide-pref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"the":
+		"all-posts":
 		{
 			"active": true,
 			"case-sensitive": false,
 			"hide-pref": "overlay",
-			"tags": ["the"]
+			"tags": ["a", "b", "c"]
 		}
 	}
 
@@ -34,8 +34,8 @@ if (!ss.allTags) {
 var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "fb-common.js", "./fb-dev.js"],
+	contentScriptWhen: "start",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
@@ -47,8 +47,8 @@ fbPageMod.PageMod({
 var twitterPageMod = require("sdk/page-mod");
 twitterPageMod.PageMod({
 	include: "*.twitter.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
+	contentScriptWhen: "start",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./tw-dev.js", "./files_from_root/tw-common.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
