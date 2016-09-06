@@ -20,7 +20,7 @@ open('./firefox/data/fb-exp.js', 'w+') as fb_exp:
 # fb-chrome
 # fb-common
 # utils-common
-with open('./firefox/data/fb-chrome.js', 'r') as fb_chrome, \
+with open('./chrome/fb-chr.js', 'r') as fb_chrome, \
 open('fb-common.js', 'r') as fb_common, \
 open('utils-common.js', 'r') as utils_common, \
 open('./chrome/fb-exp.js', 'w+') as fb_exp:
