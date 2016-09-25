@@ -14,8 +14,6 @@ self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
 
-document.documentElement.style.visibility = 'hidden';
-
 // On page load
 jQuery(document).ready( function($) {
 	console.log("START");

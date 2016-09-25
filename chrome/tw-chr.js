@@ -24,9 +24,6 @@ chrome.storage.sync.get("prefs", function(prefs) {
 });
 
 
-// Hide page until alltags object is retrieved
-document.documentElement.style.visibility = 'hidden';
-
 // Call rest of code when document is ready and promise has been fulfilled
 jQuery(document).ready( function($) {
 	p1.then( function(allTags) {
