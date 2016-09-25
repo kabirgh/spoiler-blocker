@@ -9,8 +9,4 @@ To prevent code duplication, js logic files have been separated. copy_files.py c
 
 The root folder contains 3 files pertaining to the spoiler-blocking logic. utils-common contains methods used across facebook and twitter. fb-common contains methods used only for facebook and tw-common methods only for twitter. All files have methods that are used both in the firefox and chrome versions of the extension.
 
-`firefox/data` and `chrome` contain browser-specific files for both facebook and twitter (fb-ff, fb-tw, fb-chr\*, tw-chr\*).
-
-
-##Notes
-\* fb-chr and tw-chr have not been factored out of fb.js and twitter.js yet.
+`firefox/data` and `chrome` contain browser-specific files for both facebook and twitter (fb-ff, fb-tw, fb-chr, tw-chr).
