@@ -1,4 +1,4 @@
-###################### FIREFOX #####################
+##################### FIREFOX #####################
 # fb-ff
 # fb-common
 # utils-common
@@ -36,7 +36,7 @@ open('./firefox/data/tw-exp.js', 'w+') as tw_exp:
 
 	tw_exp.truncate()
 
-###################### CHROME #####################
+###################### CHROME ######################
 # fb-chrome
 # fb-common
 # utils-common

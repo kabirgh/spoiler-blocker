@@ -1,7 +1,7 @@
 ##Installation
 1. Run copy_files.py
 2. Chrome: To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension, choose the 'chrome' folder.<br>
-Firefox: Open a terminal, cd into the `/firefox` folder, then run `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (bundled with [Node.js](https://nodejs.org/)).
+Firefox: Open a terminal, cd into the `/firefox` folder, then run `jpm run`. This will open the add-on in a new firefox window. Note: jpm can be installed using the package manager npm (bundled with [Node.js](https://nodejs.org/)). Note: due to new rules regarding extension signing, an [unbranded build of firefox](https://wiki.mozilla.org/Add-ons/Extension_Signing#Unbranded_Builds) is now required.
 
 
 ##Project structure
