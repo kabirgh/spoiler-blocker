@@ -24,9 +24,6 @@ chrome.storage.sync.get("prefs", function(prefs) {
 });
 
 
-// Hide page until alltags object is retrieved
-document.documentElement.style.visibility = 'hidden';
-
 // Call rest of code when document is ready and promise has been fulfilled
 jQuery(document).ready( function($) {
 	p1.then( function(allTags) {
@@ -54,9 +51,6 @@ function findStream() {
 		for (var i=0; i<loadedTweets.length; i++) {
 			hideTweet(loadedTweets[i]);
 		}
-
-		// All tweets on page have been checked, make document visible
-		document.documentElement.style.visibility = 'visible';
 
 		// Get tweets loaded on scroll
 		var tweetObs = new MutationSummary({
