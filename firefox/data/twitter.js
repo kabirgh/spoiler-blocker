@@ -14,8 +14,6 @@ self.port.on("prefs", function(preferences) {
 	hidePref = preferences["hide"];
 });
 
-document.documentElement.style.visibility = 'hidden';
-
 // On page load
 jQuery(document).ready( function($) {
 	findStream();
@@ -33,9 +31,6 @@ function findStream() {
 		for (var i=0; i<loadedTweets.length; i++) {
 			hideTweet(loadedTweets[i]);
 		}
-
-		// All tweets on page have been checked, make document visible
-		document.documentElement.style.visibility = '';
 
 		// Get tweets loaded on scroll
 		var tweetObs = new MutationSummary({
