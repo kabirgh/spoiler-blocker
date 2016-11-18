@@ -8,8 +8,12 @@
     "dev": "webpack --debug --output-pathinfo",
     "start": "webpack-dev-server"
   },
-  "author": "kabir-plod (https://www.github.com/kabir-plod)",
-  "license": "Apache 2.0",
+  "author": "kabir-plod",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kabir-plod/spoiler-blocker.git"
+  },
   "dependencies": {
     "jquery": "^3.1.1",
     "material-ui": "^0.16.1",
@@ -17,7 +21,9 @@
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-redux": "^4.4.6",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -1,6 +1,6 @@
 import React from "react";
 const PropTypes = React.PropTypes;
-import SpoilerCard from "../components/SpoilerCard";
+import SpoilerCard from "./SpoilerCard";
 
 // Handles logic for SpoilerCard component
 const SpoilerCardContainer = React.createClass({
