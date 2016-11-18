@@ -13,7 +13,12 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 		to: __dirname + "/dist_chrome",
 		// ignored because fb.js will be transformed and copied by babel-loader
 		ignore: __dirname + "/src/src_chrome/fb.js" 
+	},
+	{
+		from: __dirname + "/src/img",
+		to: __dirname + "/dist_chrome/img/"
 	}
+
 ],
 {});
 
