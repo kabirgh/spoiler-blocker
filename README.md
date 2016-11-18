@@ -4,7 +4,10 @@ You can also find and submit lists at [our website](https://salty-earth-11606.he
 See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
 
 ## Installation
-Chrome: To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension, choose the 'src/chrome_dist' folder.<br>
+**Chrome**<br>
+To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension directory, choose the `src/chrome_dist` folder.<br>
+**Firefox**<br>
+Not available yet.
 
 
 ## Features
