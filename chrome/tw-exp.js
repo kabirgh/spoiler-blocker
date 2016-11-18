@@ -1,29 +1,51 @@
-/* global self, MutationSummary */
+/* global chrome, Promise, MutationSummary */
 
 var spoilersObj = {};
 var hidePref;
 
-// Get all tags in js object from index.js
-self.port.on("spoilers", function(allTags) {
-	// Put all tags of active lists in array
-	spoilersObj = allTags;
+// Promise for async get tags
+var p1 = new Promise(function(resolve, reject) {
+	// Get list of tags from persistent storage
+	chrome.storage.sync.get("allTags", function(allTags) {
+		if (!chrome.runtime.error) {
+			resolve(allTags);
+		}
+		else {
+			reject("runtime error");
+		}
+	});
 });
+
 
 // Get user preferences
-self.port.on("prefs", function(preferences) {
-	hidePref = preferences["hide"];
+chrome.storage.sync.get("prefs", function(prefs) {
+	hidePref = prefs.prefs["hide"];
+	console.log("hide pref: " + hidePref);
 });
 
-// On page load
+
+// Hide page until alltags object is retrieved
+// document.documentElement.style.visibility = 'hidden';
+
+// Call rest of code when document is ready and promise has been fulfilled
 jQuery(document).ready( function($) {
-	console.log("START");
-	findStream();
-	observeBody();
+	p1.then( function(allTags) {
+		if (allTags.allTags != null) {
+			spoilersObj = allTags.allTags;
+		}
+		else {
+			spoilersObj = {};
+		}
+
+		console.log("START");
+		findStream();
+		observeBody();
+	});
 });
 
 
 // Hide all tweets that were loaded when documentready fired
-function findStream() {	
+function findStream() {
 	var target = $(".stream");
 
 	if (target.length > 0) {
@@ -32,6 +54,9 @@ function findStream() {
 		for (var i=0; i<loadedTweets.length; i++) {
 			hideTweet(loadedTweets[i]);
 		}
+
+		// All tweets on page have been checked, make document visible
+		document.documentElement.style.visibility = '';
 
 		// Get tweets loaded on scroll
 		var tweetObs = new MutationSummary({

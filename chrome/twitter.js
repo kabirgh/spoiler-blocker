@@ -4,7 +4,7 @@ var spoilersObj = {};
 var hidePref;
 
 // Promise for async get tags
-var p1 = new Promise(function(resolve, reject) {
+var p1 = new Promise( function(resolve, reject) {
 	// Get list of tags from persistent storage
 	chrome.storage.sync.get("allTags", function(allTags) {
 		if (!chrome.runtime.error) {

@@ -15,13 +15,15 @@ if (!ss.allTags) {
 		{
 			"active": true,
 			"case-sensitive": true,
+			"hide-pref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"another-name":
+		"all-posts":
 		{
-			"active": false,
+			"active": true,
 			"case-sensitive": false,
-			"tags": ["arr2", "abb"]
+			"hide-pref": "overlay",
+			"tags": ["a", "b", "c"]
 		}
 	}
 
@@ -32,7 +34,7 @@ if (!ss.allTags) {
 var fbPageMod = require("sdk/page-mod");
 fbPageMod.PageMod({
 	include: "*.facebook.com",
-	contentScriptWhen: "ready",
+	contentScriptWhen: "start",
 	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./fb.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
@@ -45,8 +47,8 @@ fbPageMod.PageMod({
 var twitterPageMod = require("sdk/page-mod");
 twitterPageMod.PageMod({
 	include: "*.twitter.com",
-	contentScriptWhen: "ready",
-	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./twitter.js"],
+	contentScriptWhen: "start",
+	contentScriptFile: ["./jquery.js", "./mutation-summary.js", "./tw-dev.js", "./files_from_root/tw-common.js"],
 	attachTo: "top",
 	onAttach: function(worker) {
 		worker.port.emit("spoilers", ss.allTags);
@@ -100,8 +102,6 @@ panel.port.on("get-prefs", function() {
 
 // Resize panel
 panel.port.on("resize", function(currSize) {
-	console.log('scroll height ' + currSize.scollHeight);
-	console.log('client height ' + currSize.clientHeight);
 	panel.resize(currSize.width, 600);
 })
 

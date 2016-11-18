@@ -1,28 +1,22 @@
-/* global self, MutationSummary */
+/* global self */
 var spoilersObj = {};
-var hidePref;
-var domListenerRemoved = false;
 
 // Get all tags json object from index.js
 self.port.on("spoilers", function(allTags) {
-	// Put all tags of active lists in array
 	spoilersObj = allTags;
 });
 
-// Get user preferences
-self.port.on("prefs", function(preferences) {
-	hidePref = preferences["hide"];
-});
+var domListenerRemoved = false;
 
 document.documentElement.style.visibility = 'hidden';
 
 // On page load
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 	console.log("START");
 
 	// In case no stream found, make visible on load
 	window.onload = function () {
-		document.documentElement.style.visibility = '';
+		document.documentElement.style.visibility = 'visible';
 	};
 
 	addDomListener();
@@ -98,7 +92,7 @@ function findFeed() {
 		// mutation summary won't detect these
 		hidePosts( $("div#substream_0") );
 		hidePosts( $("div#substream_1") );
-		document.documentElement.style.visibility = '';
+		document.documentElement.style.visibility = 'visible';
 	}
 }
 
@@ -145,6 +139,8 @@ function hidePosts(elem) {
 				tag = tag.toLowerCase();
 			}
 
+			var hidePref = spoilersObj[title]["hide-pref"];
+
 			// if post text contains a spoiler
 			if (postText.indexOf(tag) > -1) {
 				// hide post
@@ -166,14 +162,12 @@ function hidePosts(elem) {
 }
 
 
-// Adds a white, 97.5% opaque div on top of a given elem
+// Adds a translucent opaque div on top of a given elem
 function overlay($elem, listTitle) {
 	// Add overlay only once
 	if ($elem.children().hasClass("spoiler-overlay") === true) {
 		return;
 	}
-
-	var hgt = '100%';
 
 	var $newDiv = $(document.createElement("div")).css({
 		'position': 'absolute',
@@ -186,8 +180,8 @@ function overlay($elem, listTitle) {
 		'align-items': 'center',
 		'text-align': 'center',
 		'width': '100%',
-		'height': hgt,
-		'z-index': 7,
+		'height': '99%',
+		'z-index': 7, // arbitrary large z-index to place overlay on top
 		'cursor': 'pointer',
 		'font-size': 30,
 		'font-family': 'Eczar',
@@ -209,3 +203,4 @@ function overlay($elem, listTitle) {
 
 	$elem.append($newDiv);
 }
+
