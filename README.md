@@ -17,3 +17,11 @@ Not available yet.
 3. Community submitted spoiler lists available online (lists moderated by admins)
 4. Download lists from website by simply typing a code into the extension/add-on panel
 5. Rate online lists to give other users an indication of their usefulness
+
+
+### Acknowledgements
+This project makes use of
+* [React](https://facebook.github.io/react/)
+* [Material-UI](http://www.material-ui.com/#/)
+* [Mutation Summary](https://github.com/rafaelw/mutation-summary)
+* [jQuery](https://jquery.com/)
