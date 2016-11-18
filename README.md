@@ -17,4 +17,3 @@ Not available yet.
 3. Community submitted spoiler lists available online (lists moderated by admins)
 4. Download lists from website by simply typing a code into the extension/add-on panel
 5. Rate online lists to give other users an indication of their usefulness
-
