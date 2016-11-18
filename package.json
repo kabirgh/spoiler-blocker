@@ -1,0 +1,35 @@
+{
+  "name": "react_ext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "webpack -p",
+    "dev": "webpack --debug --output-pathinfo",
+    "start": "webpack-dev-server"
+  },
+  "author": "kabir-plod (https://www.github.com/kabir-plod)",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "material-ui": "^0.16.1",
+    "mutation-summary": "0.0.0",
+    "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-tap-event-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^3.10.2",
+    "eslint-plugin-react": "^6.7.1",
+    "html-webpack-plugin": "^2.24.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
