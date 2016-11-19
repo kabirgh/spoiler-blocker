@@ -1,11 +1,11 @@
 import React from "react";
+// const PropTypes = React.PropTypes;
 import SpoilerCardContainer from "./SpoilerCardContainer";
-import store from "../store";
 
 // Renders list of SpoilerCardContainers
-const SpoilerCardList = () => (
+const SpoilerCardList = props => (
 	<div>
-		{store.spoilers.map((obj, index) => (
+		{props.spoilers.map((obj, index) => (
 			<div key={obj["title"]}>
 				<SpoilerCardContainer 
 					index={index}
@@ -18,5 +18,7 @@ const SpoilerCardList = () => (
 		))}
 	</div>
 );
+
+// TODO: validate props.spoilers propType
 
 export default SpoilerCardList;

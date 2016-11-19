@@ -19,7 +19,7 @@ const SpoilerCard = props => (
 				floatingLabelText="Tags"
 				onChange={props.onUpdateKeywords} // change internal state
 			/>
-			{/*TODO: right-align button*/}
+			{/*TODO: right-align button, show only when textfield is active*/}
 			<RaisedButton 
 				label="Save" 
 				primary={true} 

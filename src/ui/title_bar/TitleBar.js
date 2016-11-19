@@ -9,17 +9,15 @@ const TitleBar = props => (
 		title="Title"
 		showMenuIconButton={false}
 		iconElementRight={
-			// <div onClick={props.onAddPressCallback}>
-				<IconButton>
-					<ContentAdd />
-				</IconButton>
-			// </div>
+			<IconButton onClick={props.onAddButtonPress}>
+				<ContentAdd />
+			</IconButton>
 		}
 	/>
 );
 
-// TitleBar.propTypes = {
-// 	onAddPressCallback: PropTypes.func.isRequired
-// };
+TitleBar.propTypes = {
+	onAddButtonPress: PropTypes.func.isRequired
+};
 
 export default TitleBar;

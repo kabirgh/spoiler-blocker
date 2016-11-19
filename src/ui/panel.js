@@ -2,16 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import TitleBar from "./titlebar/TitleBar";
-import AddCard from "./add_card/AddCard";
-import SpoilerCardList from "./spoiler_card/SpoilerCardList";
+import TitleBarContainer from "./title_bar/TitleBarContainer";
+import AddCardContainer from "./add_card/AddCardContainer";
+import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
 
 const App = () => (
 	<MuiThemeProvider>
 		<div>
-			<TitleBar /><br />
-			<AddCard expanded={true} /><br />
-			<SpoilerCardList />
+			<TitleBarContainer /><br />
+			<AddCardContainer /><br />
+			<SpoilerCardListContainer />
 		</div>
 	</MuiThemeProvider>
 );

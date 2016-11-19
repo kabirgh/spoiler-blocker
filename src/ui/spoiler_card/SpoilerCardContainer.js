@@ -1,6 +1,7 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import SpoilerCard from "./SpoilerCard";
+import actions from "../actions";
 
 // Handles logic for SpoilerCard component
 class SpoilerCardContainer extends React.Component {
@@ -20,7 +21,8 @@ class SpoilerCardContainer extends React.Component {
 		});
 	}
 
-	handleSaveButtonPress(event) {
+	handleSaveButtonPress() {
+		actions.editList(this.props.index, this.props.title, this.state.keywords);
 	}
 
 	render() {

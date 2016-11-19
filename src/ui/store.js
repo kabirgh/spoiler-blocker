@@ -19,6 +19,7 @@ let defaultSpoilers = [
 
 class Store {
 	@observable spoilers;
+	@observable addListAction = false;
 	@observable duplicateTitle = false;
 	// TODO: set options to change default prefs
 	defaultHidePref = "overlay"; // or remove
