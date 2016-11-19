@@ -10610,6 +10610,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10664,6 +10665,8 @@
 					rootNode: this.node,
 					queries: queries
 				});
+
+				this.addedNodesObserver = observer;
 			}
 		}, {
 			key: "disconnectAttributesObserver",
@@ -10687,30 +10690,6 @@
 
 		return DOMObserver;
 	}();
-
-	// var observer = new MutationObserver( function(mutations) {
-	// 	mutations.forEach( function(mutation) {
-	// 		console.log("mutation target on next line");
-	// 		console.log(mutation.target);
-	// 		console.log("mutation target text content: " + mutation.target.textContent);
-
-	// 		console.log("mutation addedNodes on next line");
-	// 		console.log(mutation.addedNodes);
-	// 		for (let i=0; i<mutation.addedNodes.length; i++) {
-	// 			console.log("added node " + i + " text content" + mutation.addedNodes[i].textContent);
-	// 		}
-
-	// 		// callback(mutation.addedNodes);
-	// 	});
-	// });
-
-	// this.addedNodesObserver = observer;
-
-	// observer.observe(this.node, {
-	// 	childList: true,
-	// 	subtree: true
-	// });
-
 
 	exports.default = DOMObserver;
 

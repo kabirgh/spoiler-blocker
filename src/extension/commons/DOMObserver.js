@@ -34,6 +34,8 @@ export default class DOMObserver {
 			rootNode: this.node,
 			queries: queries
 		});
+
+		this.addedNodesObserver = observer;
 	}
 
 	disconnectAttributesObserver() {
@@ -54,26 +56,3 @@ export default class DOMObserver {
 		}
 	}
 }
-
-// var observer = new MutationObserver( function(mutations) {
-// 	mutations.forEach( function(mutation) {
-// 		console.log("mutation target on next line");
-// 		console.log(mutation.target);
-// 		console.log("mutation target text content: " + mutation.target.textContent);
-
-// 		console.log("mutation addedNodes on next line");
-// 		console.log(mutation.addedNodes);
-// 		for (let i=0; i<mutation.addedNodes.length; i++) {
-// 			console.log("added node " + i + " text content" + mutation.addedNodes[i].textContent);
-// 		}
-
-// 		// callback(mutation.addedNodes);
-// 	});
-// });
-
-// this.addedNodesObserver = observer;
-
-// observer.observe(this.node, {
-// 	childList: true,
-// 	subtree: true
-// });

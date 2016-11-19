@@ -12,11 +12,17 @@ Not available yet.
 
 
 ## Features
-1. Allow users to create their own lists of spoiler tags
+1. Create your own lists of spoiler tags
 2. Option to overlay posts/tweets with a white box or remove them from the newsfeed entirely
-3. Community submitted spoiler lists available online (lists moderated by admins)
-4. Download lists from website by simply typing a code into the extension/add-on panel
-5. Rate online lists to give other users an indication of their usefulness
+3. Submit spoiler lists to a community website (lists moderated by admins)
+4. Download lists from website simply by typing a code into the extension/add-on panel
+5. Rating system for online lists
+
+
+## In the pipeline
+<!-- TODO -->
+1. Facebook post/tweet only hidden if tag (eg. 'westworld') is surrounded by spaces (eg. ' westworld ')
+
 
 
 ### Acknowledgements

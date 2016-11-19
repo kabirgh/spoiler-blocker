@@ -1,17 +1,11 @@
 import React from "react";
-const PropTypes = React.PropTypes;
-import TitleBar from "../titlebar/TitleBar";
-import AddCard from "../add_card/AddCard";
 import SpoilerCardContainer from "./SpoilerCardContainer";
+import store from "../store";
 
 // Renders list of SpoilerCardContainers
-const SpoilerCardList = props => (
+const SpoilerCardList = () => (
 	<div>
-		<TitleBar />
-		<br />
-		<AddCard expanded={true} />
-		<br />
-		{props.spoilers.map((obj, index) => (
+		{store.spoilers.map((obj, index) => (
 			<div key={obj["title"]}>
 				<SpoilerCardContainer 
 					index={index}
@@ -24,9 +18,5 @@ const SpoilerCardList = props => (
 		))}
 	</div>
 );
-
-SpoilerCardList.propTypes = {
-	spoilers: PropTypes.array.isRequired
-};
 
 export default SpoilerCardList;

@@ -1,23 +1,40 @@
-import { createStore } from "redux";
+import {observable, computed} from "mobx";
 
-let store = 
-{
-	"spoilers": [
-		{
-			"title": "spoiler-tag1-tag2",
-			"isActive": true,
-			"isCaseSensitive": true,
-			"hidePref": "overlay",
-			"tags": ["tag1", "tag2"]
-		},
-		{
-			"title": "all-posts",
-			"isActive": true,
-			"isCaseSensitive": false,
-			"hidePref": "overlay",
-			"tags": ["a", "b", "c"]
-		}
-	],
+let defaultSpoilers = [
+	{
+		"title": "spoiler-tag1-tag2",
+		"isActive": true,
+		"isCaseSensitive": true,
+		"hidePref": "overlay",
+		"tags": ["tag1", "tag2"]
+	},
+	{
+		"title": "all-posts",
+		"isActive": true,
+		"isCaseSensitive": false,
+		"hidePref": "overlay",
+		"tags": ["a", "b", "c"]
+	}
+];
 
-	"addListButtonPressed": false
-};
+class Store {
+	@observable spoilers;
+	@observable duplicateTitle = false;
+	// TODO: set options to change default prefs
+	defaultHidePref = "overlay"; // or remove
+	defaultCaseSensitivity = false;
+
+	constructor(spoilers=defaultSpoilers) {
+		this.spoilers = spoilers;
+	}
+
+	@computed get titles() {
+		let titles = {};
+		return this.spoilers.map(obj => titles[obj]["title"] = true);
+	}
+}
+
+const store = new Store();
+
+export default store;
+export { Store };
