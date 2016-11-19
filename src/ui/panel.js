@@ -7,37 +7,37 @@ import SpoilerCardList from "./spoiler_card/SpoilerCardList";
 
 const App = props => (
 	<MuiThemeProvider>
-		<SpoilerCardList spoilersObj={props.spoilersObj} />
+		<SpoilerCardList spoilers={props.spoilers} />
 	</MuiThemeProvider>
 );
 
 App.propTypes = {
-	spoilersObj: PropTypes.object.isRequired
+	spoilers: PropTypes.array.isRequired
 };
 
 
-const testSpoilersObj = 
-	{
-		"spoiler-list-name":
+const testSpoilers = 
+	[
 		{
+			"title": "spoiler-tag1-tag2",
 			"isActive": true,
 			"isCaseSensitive": true,
 			"hidePref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"all-posts":
 		{
+			"title": "all-posts",
 			"isActive": true,
 			"isCaseSensitive": false,
 			"hidePref": "overlay",
 			"tags": ["a", "b", "c"]
 		}
-	};
+	];
 
 
 injectTapEventPlugin();
 
 ReactDOM.render(
-	<App spoilersObj={testSpoilersObj} />,
+	<App spoilers={testSpoilers} />,
 	document.getElementById("app")
 );

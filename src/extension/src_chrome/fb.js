@@ -2,36 +2,36 @@
 import $ from "jquery";
 import hideFacebookPosts from "../site_logic/fb-common";
 
-const testSpoilersObj = 
-	{
-		"spoiler-list-name":
+const testSpoilersArr = 
+	[
 		{
+			"title": "spoiler-tag1-tag2",
 			"isActive": true,
 			"isCaseSensitive": true,
 			"hidePref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"all-posts":
 		{
+			"title": "all-posts",
 			"isActive": true,
 			"isCaseSensitive": false,
 			"hidePref": "overlay",
-			"tags": ["a", "B", "c"]
+			"tags": ["a", "b", "c"]
 		}
-	};
+	];
 
-let globalSpoilersObj;
-chrome.storage.sync.get("spoilersObj", function(storage) {
-	if (storage.spoilersObj !== undefined) {
-		console.log("Received spoilersObj: " + JSON.stringify(storage.spoilersObj));
-		globalSpoilersObj = storage.spoilersObj;
+let globalSpoilersArr;
+chrome.storage.sync.get("spoilersArr", function(storage) {
+	if (storage.spoilersArr !== undefined) {
+		console.log("Received spoilersArr: " + JSON.stringify(storage.spoilersArr));
+		globalSpoilersArr = storage.spoilersArr;
 	}
 	else {
-		console.log("No spoilersObj in storage. Initialising to testSpoilersObj");
-		globalSpoilersObj = testSpoilersObj;
+		console.log("No spoilersArr in storage. Initialising to testSpoilersArr");
+		globalSpoilersArr = testSpoilersArr;
 	}
 });
 
 $(document).ready( function() {
-	hideFacebookPosts(globalSpoilersObj);
+	hideFacebookPosts(globalSpoilersArr);
 });

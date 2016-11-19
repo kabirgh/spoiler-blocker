@@ -86,20 +86,19 @@
 		spoilersObj: PropTypes.object.isRequired
 	};
 
-	var testSpoilersObj = {
-		"spoiler-list-name": {
-			"isActive": true,
-			"isCaseSensitive": true,
-			"hidePref": "overlay",
-			"tags": ["tag1", "tag2"]
-		},
-		"all-posts": {
-			"isActive": true,
-			"isCaseSensitive": false,
-			"hidePref": "overlay",
-			"tags": ["a", "b", "c"]
-		}
-	};
+	var testSpoilersObj = [{
+		"title": "spoiler-tag1-tag2",
+		"isActive": true,
+		"isCaseSensitive": true,
+		"hidePref": "overlay",
+		"tags": ["tag1", "tag2"]
+	}, {
+		"title": "all-posts",
+		"isActive": true,
+		"isCaseSensitive": false,
+		"hidePref": "overlay",
+		"tags": ["a", "b", "c"]
+	}];
 
 	(0, _reactTapEventPlugin2.default)();
 
@@ -30206,14 +30205,14 @@
 			_react2.default.createElement("br", null),
 			_react2.default.createElement(_AddCard2.default, { expanded: true }),
 			_react2.default.createElement("br", null),
-			Object.keys(props.spoilersObj).map(function (title) {
+			props.spoilers.map(function (obj) {
 				return _react2.default.createElement(
 					"div",
-					{ key: title },
+					{ key: obj["title"] },
 					_react2.default.createElement(_SpoilerCardContainer2.default, {
-						title: title,
-						isActive: props.spoilersObj[title]["isActive"],
-						keywords: props.spoilersObj[title]["tags"].join(", ")
+						title: obj["title"],
+						isActive: obj["isActive"],
+						keywords: obj["tags"].join(", ")
 					}),
 					_react2.default.createElement("br", null)
 				);
@@ -30222,7 +30221,7 @@
 	};
 
 	SpoilerCardList.propTypes = {
-		spoilersObj: PropTypes.object.isRequired
+		spoilers: PropTypes.array.isRequired
 	};
 
 	exports.default = SpoilerCardList;

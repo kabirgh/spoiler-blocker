@@ -60,34 +60,33 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/* global chrome */
-	var testSpoilersObj = {
-		"spoiler-list-name": {
-			"isActive": true,
-			"isCaseSensitive": true,
-			"hidePref": "overlay",
-			"tags": ["tag1", "tag2"]
-		},
-		"all-posts": {
-			"isActive": true,
-			"isCaseSensitive": false,
-			"hidePref": "overlay",
-			"tags": ["a", "B", "c"]
-		}
-	};
+	var testSpoilersArr = [{
+		"title": "spoiler-tag1-tag2",
+		"isActive": true,
+		"isCaseSensitive": true,
+		"hidePref": "overlay",
+		"tags": ["tag1", "tag2"]
+	}, {
+		"title": "all-posts",
+		"isActive": true,
+		"isCaseSensitive": false,
+		"hidePref": "overlay",
+		"tags": ["a", "b", "c"]
+	}];
 
-	var globalSpoilersObj = void 0;
-	chrome.storage.sync.get("spoilersObj", function (storage) {
-		if (storage.spoilersObj !== undefined) {
-			console.log("Received spoilersObj: " + JSON.stringify(storage.spoilersObj));
-			globalSpoilersObj = storage.spoilersObj;
+	var globalSpoilersArr = void 0;
+	chrome.storage.sync.get("spoilersArr", function (storage) {
+		if (storage.spoilersArr !== undefined) {
+			console.log("Received spoilersArr: " + JSON.stringify(storage.spoilersArr));
+			globalSpoilersArr = storage.spoilersArr;
 		} else {
-			console.log("No spoilersObj in storage. Initialising to testSpoilersObj");
-			globalSpoilersObj = testSpoilersObj;
+			console.log("No spoilersArr in storage. Initialising to testSpoilersArr");
+			globalSpoilersArr = testSpoilersArr;
 		}
 	});
 
 	(0, _jquery2.default)(document).ready(function () {
-		(0, _fbCommon2.default)(globalSpoilersObj);
+		(0, _fbCommon2.default)(globalSpoilersArr);
 	});
 
 /***/ },
@@ -10351,15 +10350,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var globalSpoilersObj = void 0;
+	var globalSpoilersArr = void 0;
 	/* 1. When body class changes, pollFeed is called with a timeout of 200ms.
 	 * 2. When pollFeed finds feed node, observeFeedStream is called.
 	 * 3. When observeFeedStream observes nodes added to feed, 
 	 *   i.  hideInitialPosts is called to hide fb posts present on page load. 
 	 *    ii. optionallyHidePosts is called on nodes added to the feed.
 	 */
-	function hideFacebookPosts(spoilersObj) {
-		globalSpoilersObj = spoilersObj;
+	function hideFacebookPosts(spoilersArr) {
+		globalSpoilersArr = spoilersArr;
 
 		console.log("START");
 
@@ -10412,7 +10411,7 @@
 			console.log("$post on next line");
 			console.log($post);
 
-			_CommonUtils2.default.hidePost($post, globalSpoilersObj);
+			_CommonUtils2.default.hidePost($post, globalSpoilersArr);
 		});
 	}
 
@@ -10513,66 +10512,48 @@
 
 	module.exports = { hidePost: hidePost };
 
-	function hidePost($post, spoilersObj) {
-		var activeSpoilers = removeInactiveLists(spoilersObj);
+	function hidePost($post, spoilersArr) {
+		var activeSpoilers = spoilersArr.filter(function (obj) {
+			return obj["isActive"];
+		});
 
 		var postText = $post.text();
 		console.log("Post text: " + postText);
 
-		var listHidePref = void 0;
+		var listHidePref = void 0,
+		    text = void 0; // strings
+		var tags = void 0; // array of strings
+		var spoilerObj = void 0; // object
 
-		for (var title in activeSpoilers) {
-			listHidePref = activeSpoilers[title]["hidePref"];
+		for (var i = 0; i < activeSpoilers.length; i++) {
+			spoilerObj = activeSpoilers[i];
 
-			var textAndTags = optionallyLowercaseTextAndTags(postText, activeSpoilers, title);
+			text = postText;
+			tags = spoilerObj["tags"];
+			if (!spoilerObj["isCaseSensitive"]) {
+				text = text.toLowerCase();
+				tags = tags.map(function (tag) {
+					return tag.toLowerCase();
+				});
+			}
 
-			for (var i = 0; i < textAndTags["tags"].length; i++) {
-				var tag = textAndTags["tags"][i];
-
+			// TODO: extract method
+			for (var j = 0; j < tags.length; j++) {
 				// If text contains tag
-				if (textAndTags["text"].indexOf(tag) > -1) {
+				if (text.indexOf(tags[j]) > -1) {
 					if (listHidePref === "remove") {
 						$post.remove();
 					} else if (listHidePref === "overlay") {
-						overlay($post, title);
+						overlay($post, spoilerObj["title"]);
 					} else {
 						console.log("Error in loading hide preference. Found " + listHidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 
-						overlay($post, title);
+						overlay($post, spoilerObj["title"]);
 					}
 					break;
 				}
 			}
 		}
-	}
-
-	function removeInactiveLists(spoilersObj) {
-		var activeSpoilers = {};
-
-		for (var title in spoilersObj) {
-			if (spoilersObj[title]["isActive"]) {
-				activeSpoilers[title] = spoilersObj[title];
-			}
-		}
-
-		return activeSpoilers;
-	}
-
-	function optionallyLowercaseTextAndTags(postText, spoilersObj, title) {
-		var tags = spoilersObj[title]["tags"];
-		var text = postText;
-
-		if (!spoilersObj[title]["isCaseSensitive"]) {
-			tags = tags.map(function (tag) {
-				return tag.toLowerCase();
-			});
-			text = text.toLowerCase();
-		}
-
-		return {
-			tags: tags,
-			text: text
-		};
 	}
 
 	// Adds a translucent opaque div on top of a given elem

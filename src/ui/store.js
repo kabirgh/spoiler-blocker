@@ -2,22 +2,22 @@ import { createStore } from "redux";
 
 let store = 
 {
-	"spoilers": {
-		"spoiler-list-name":
+	"spoilers": [
 		{
+			"title": "spoiler-tag1-tag2",
 			"isActive": true,
 			"isCaseSensitive": true,
 			"hidePref": "overlay",
 			"tags": ["tag1", "tag2"]
 		},
-		"all-posts":
 		{
+			"title": "all-posts",
 			"isActive": true,
 			"isCaseSensitive": false,
 			"hidePref": "overlay",
 			"tags": ["a", "b", "c"]
 		}
-	},
+	],
 
 	"addListButtonPressed": false
 };

@@ -2,67 +2,46 @@ import $ from "jquery";
 
 module.exports = { hidePost: hidePost};
 
-function hidePost($post, spoilersObj) {
-	const activeSpoilers = removeInactiveLists(spoilersObj);
+function hidePost($post, spoilersArr) {
+	const activeSpoilers = spoilersArr.filter(obj => obj["isActive"]);
 
 	const postText = $post.text();
 	console.log("Post text: " + postText);
 
-	let listHidePref;
+	let listHidePref, text; // strings
+	let tags; // array of strings
+	let spoilerObj; // object
 
-	for (let title in activeSpoilers) {
-		listHidePref = activeSpoilers[title]["hidePref"];
+	for (let i=0; i<activeSpoilers.length; i++) {
+		spoilerObj = activeSpoilers[i];
 
-		let textAndTags = optionallyLowercaseTextAndTags(postText, activeSpoilers, title);
+		text = postText;
+		tags = spoilerObj["tags"];
+		if (!spoilerObj["isCaseSensitive"]) {
+			text = text.toLowerCase();
+			tags = tags.map(tag => tag.toLowerCase());
+		}
 
-		for (let i=0; i<textAndTags["tags"].length; i++) {
-			let tag = textAndTags["tags"][i];
-
+		// TODO: extract method
+		for (let j=0; j<tags.length; j++) {
 			// If text contains tag
-			if (textAndTags["text"].indexOf(tag) > -1) {
+			if (text.indexOf(tags[j]) > -1) {
 				if (listHidePref === "remove") {
 					$post.remove();
 				}
 				else if (listHidePref === "overlay") {
-					overlay($post, title);
+					overlay($post, spoilerObj["title"]);
 				}
 				else {
 					console.log("Error in loading hide preference. Found " +
 						listHidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 
-					overlay($post, title);
+					overlay($post, spoilerObj["title"]);
 				}
 				break;
 			}
 		}
 	}
-}
-
-function removeInactiveLists(spoilersObj) {
-	let activeSpoilers = {};
-
-	for (let title in spoilersObj) {
-		if (spoilersObj[title]["isActive"]) {
-			activeSpoilers[title] = spoilersObj[title];
-		}
-	}
-
-	return activeSpoilers;
-}
-
-function optionallyLowercaseTextAndTags(postText, spoilersObj, title) {
-	let tags = spoilersObj[title]["tags"]; 
-	let text = postText;
-
-	if (!spoilersObj[title]["isCaseSensitive"]) {
-		tags = tags.map(tag => tag.toLowerCase());
-		text = text.toLowerCase();
-	}
-
-	return {
-		tags: tags,
-		text: text
-	};
 }
 
 // Adds a translucent opaque div on top of a given elem

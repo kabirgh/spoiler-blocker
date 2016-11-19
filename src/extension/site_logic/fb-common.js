@@ -4,15 +4,15 @@ import CommonUtils from "../commons/CommonUtils";
 import DOMObserver from "../commons/DOMObserver";
 
 
-let globalSpoilersObj;
+let globalSpoilersArr;
 /* 1. When body class changes, pollFeed is called with a timeout of 200ms.
  * 2. When pollFeed finds feed node, observeFeedStream is called.
  * 3. When observeFeedStream observes nodes added to feed, 
  *   i.  hideInitialPosts is called to hide fb posts present on page load. 
  *    ii. optionallyHidePosts is called on nodes added to the feed.
  */
-export default function hideFacebookPosts(spoilersObj) {
-	globalSpoilersObj = spoilersObj;
+export default function hideFacebookPosts(spoilersArr) {
+	globalSpoilersArr = spoilersArr;
 
 	console.log("START");
 
@@ -65,6 +65,6 @@ function optionallyHidePosts(elemList) {
 		console.log("$post on next line");
 		console.log($post);
 
-		CommonUtils.hidePost($post, globalSpoilersObj);
+		CommonUtils.hidePost($post, globalSpoilersArr);
 	});
 }

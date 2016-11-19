@@ -11,12 +11,12 @@ const SpoilerCardList = props => (
 		<br />
 		<AddCard expanded={true} />
 		<br />
-		{Object.keys(props.spoilersObj).map( title => (
-			<div key={title}>
+		{props.spoilers.map(obj => (
+			<div key={obj["title"]}>
 				<SpoilerCardContainer 
-					title={title} 
-					isActive={props.spoilersObj[title]["isActive"]}
-					keywords={props.spoilersObj[title]["tags"].join(", ")}
+					title={obj["title"]} 
+					isActive={obj["isActive"]}
+					keywords={obj["tags"].join(", ")}
 				/>
 				<br />
 			</div>
@@ -25,7 +25,7 @@ const SpoilerCardList = props => (
 );
 
 SpoilerCardList.propTypes = {
-	spoilersObj: PropTypes.object.isRequired
+	spoilers: PropTypes.array.isRequired
 };
 
 export default SpoilerCardList;
