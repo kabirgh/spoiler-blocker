@@ -3,27 +3,25 @@ const PropTypes = React.PropTypes;
 import SpoilerCard from "./SpoilerCard";
 
 // Handles logic for SpoilerCard component
-const SpoilerCardContainer = React.createClass({
-	propTypes: {
-		title: PropTypes.string.isRequired,
-		isActive: PropTypes.bool.isRequired,
-		keywords: PropTypes.string.isRequired
-	},
-
-	getInitialState() {
-		return {
-			keywords: this.props.keywords
+class SpoilerCardContainer extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			keywords: props.keywords,
+			index: props.index
 		};
-	},
+		this.handleUpdateKeywords = this.handleUpdateKeywords.bind(this);
+		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
+	}
 
 	handleUpdateKeywords(event) {
 		this.setState({
 			keywords: event.target.value
 		});
-	},
+	}
 
 	handleSaveButtonPress(event) {
-	},
+	}
 
 	render() {
 		return (
@@ -36,6 +34,13 @@ const SpoilerCardContainer = React.createClass({
 			/>
 		);
 	}
-});
+}
+
+SpoilerCardContainer.propTypes = {
+	index: PropTypes.number.isRequired,
+	title: PropTypes.string.isRequired,
+	isActive: PropTypes.bool.isRequired,
+	keywords: PropTypes.string.isRequired
+};
 
 export default SpoilerCardContainer;

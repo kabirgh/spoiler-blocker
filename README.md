@@ -22,7 +22,7 @@ Not available yet.
 ### Acknowledgements
 This project makes use of
 * [React](https://facebook.github.io/react/)
-* [Redux](http://redux.js.org/)
+* [MobX](https://mobxjs.github.io/mobx/)
 * [Material-UI](http://www.material-ui.com/#/)
 * [Mutation Summary](https://github.com/rafaelw/mutation-summary)
 * [jQuery](https://jquery.com/)

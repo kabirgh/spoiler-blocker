@@ -78,15 +78,15 @@
 		return _react2.default.createElement(
 			_MuiThemeProvider2.default,
 			null,
-			_react2.default.createElement(_SpoilerCardList2.default, { spoilersObj: props.spoilersObj })
+			_react2.default.createElement(_SpoilerCardList2.default, { spoilers: props.spoilers })
 		);
 	};
 
 	App.propTypes = {
-		spoilersObj: PropTypes.object.isRequired
+		spoilers: PropTypes.array.isRequired
 	};
 
-	var testSpoilersObj = [{
+	var testSpoilers = [{
 		"title": "spoiler-tag1-tag2",
 		"isActive": true,
 		"isCaseSensitive": true,
@@ -102,7 +102,7 @@
 
 	(0, _reactTapEventPlugin2.default)();
 
-	_reactDom2.default.render(_react2.default.createElement(App, { spoilersObj: testSpoilersObj }), document.getElementById("app"));
+	_reactDom2.default.render(_react2.default.createElement(App, { spoilers: testSpoilers }), document.getElementById("app"));
 
 /***/ },
 /* 1 */,
@@ -30205,11 +30205,12 @@
 			_react2.default.createElement("br", null),
 			_react2.default.createElement(_AddCard2.default, { expanded: true }),
 			_react2.default.createElement("br", null),
-			props.spoilers.map(function (obj) {
+			props.spoilers.map(function (obj, index) {
 				return _react2.default.createElement(
 					"div",
 					{ key: obj["title"] },
 					_react2.default.createElement(_SpoilerCardContainer2.default, {
+						index: index,
 						title: obj["title"],
 						isActive: obj["isActive"],
 						keywords: obj["tags"].join(", ")
@@ -37811,6 +37812,7 @@
 		displayName: "SpoilerCardContainer",
 
 		propTypes: {
+			index: PropTypes.number.isRequired,
 			title: PropTypes.string.isRequired,
 			isActive: PropTypes.bool.isRequired,
 			keywords: PropTypes.string.isRequired
@@ -37818,7 +37820,8 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				keywords: this.props.keywords
+				keywords: this.props.keywords,
+				index: this.props.index
 			};
 		},
 		handleUpdateKeywords: function handleUpdateKeywords(event) {

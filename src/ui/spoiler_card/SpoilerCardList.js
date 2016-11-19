@@ -11,9 +11,10 @@ const SpoilerCardList = props => (
 		<br />
 		<AddCard expanded={true} />
 		<br />
-		{props.spoilers.map(obj => (
+		{props.spoilers.map((obj, index) => (
 			<div key={obj["title"]}>
 				<SpoilerCardContainer 
+					index={index}
 					title={obj["title"]} 
 					isActive={obj["isActive"]}
 					keywords={obj["tags"].join(", ")}
