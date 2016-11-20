@@ -40,10 +40,11 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /*!****************************************!*\
-  !*** ./src/extension/src_chrome/fb.js ***!
+  !*** ./src/extension/src_chrome/tw.js ***!
   \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -57,7 +58,7 @@
 
 	var _logic2 = _interopRequireDefault(_logic);
 
-	var _fbConfig = __webpack_require__(/*! ../commons/site_config/fbConfig */ 7);
+	var _twConfig = __webpack_require__(/*! ../commons/site_config/twConfig */ 417);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -88,11 +89,12 @@
 	});
 
 	(0, _jquery2.default)(document).ready(function () {
-		(0, _logic2.default)(globalSpoilersArr, _fbConfig.fbConfig);
+		(0, _logic2.default)(globalSpoilersArr, _twConfig.twConfig);
 	});
 
 /***/ },
-/* 1 */
+
+/***/ 1:
 /*!*********************************!*\
   !*** ./~/jquery/dist/jquery.js ***!
   \*********************************/
@@ -10321,7 +10323,8 @@
 
 
 /***/ },
-/* 2 */
+
+/***/ 2:
 /*!****************************************!*\
   !*** ./src/extension/commons/logic.js ***!
   \****************************************/
@@ -10496,7 +10499,8 @@
 	}
 
 /***/ },
-/* 3 */
+
+/***/ 3:
 /*!****************************************************!*\
   !*** ./src/extension/commons/utils/JqueryUtils.js ***!
   \****************************************************/
@@ -10587,7 +10591,8 @@
 	}
 
 /***/ },
-/* 4 */
+
+/***/ 4:
 /*!****************************************************!*\
   !*** ./src/extension/commons/utils/CommonUtils.js ***!
   \****************************************************/
@@ -10692,7 +10697,8 @@
 	}
 
 /***/ },
-/* 5 */
+
+/***/ 5:
 /*!**********************************************!*\
   !*** ./src/extension/commons/DOMObserver.js ***!
   \**********************************************/
@@ -10787,7 +10793,8 @@
 	exports.default = DOMObserver;
 
 /***/ },
-/* 6 */
+
+/***/ 6:
 /*!****************************************************!*\
   !*** ./~/mutation-summary/src/mutation-summary.js ***!
   \****************************************************/
@@ -12462,9 +12469,10 @@
 	module.exports = MutationSummary
 
 /***/ },
-/* 7 */
+
+/***/ 417:
 /*!*******************************************************!*\
-  !*** ./src/extension/commons/site_config/fbConfig.js ***!
+  !*** ./src/extension/commons/site_config/twConfig.js ***!
   \*******************************************************/
 /***/ function(module, exports) {
 
@@ -12473,17 +12481,17 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	var fbConfig = {
-		feedSelector: "div[id^='feed_stream']",
-		elementQuery: "div",
-		initialContentSelectors: ["#substream_0", "#substream_1"],
-		newContentSelector: "[class^='userContentWrapper']",
-		containerSelector: "[id^='hyperfeed_story']",
-		textSelector: null
+	var twConfig = {
+		feedSelector: ".stream",
+		elementQuery: "li[data-item-type]",
+		initialContentSelectors: ["li[data-item-type]"],
+		newContentSelector: null,
+		containerSelector: null,
+		textSelector: "p"
 	};
 
-	// TODO: cleaner way to export?
-	exports.fbConfig = fbConfig;
+	exports.twConfig = twConfig;
 
 /***/ }
-/******/ ]);
+
+/******/ });

@@ -1,12 +1,9 @@
 import $ from "jquery";
 
-module.exports = { hidePost: hidePost};
+module.exports = { hideContent: hideContent};
 
-function hidePost($post, spoilersArr) {
+function hideContent($content, contentText, spoilersArr) {
 	const activeSpoilers = spoilersArr.filter(obj => obj["isActive"]);
-
-	const postText = $post.text();
-	console.log("Post text: " + postText);
 
 	let listHidePref, text; // strings
 	let tags; // array of strings
@@ -15,28 +12,33 @@ function hidePost($post, spoilersArr) {
 	for (let i=0; i<activeSpoilers.length; i++) {
 		spoilerObj = activeSpoilers[i];
 
-		text = postText;
+		console.log("spoilerObj on next line");
+		console.log(spoilerObj);
+
+		text = contentText;
 		tags = spoilerObj["tags"];
 		if (!spoilerObj["isCaseSensitive"]) {
 			text = text.toLowerCase();
 			tags = tags.map(tag => tag.toLowerCase());
 		}
 
+		listHidePref = spoilerObj["hidePref"];
+
 		// TODO: extract method
 		for (let j=0; j<tags.length; j++) {
 			// If text contains tag
 			if (text.indexOf(tags[j]) > -1) {
 				if (listHidePref === "remove") {
-					$post.remove();
+					$content.remove();
 				}
 				else if (listHidePref === "overlay") {
-					overlay($post, spoilerObj["title"]);
+					overlay($content, spoilerObj["title"]);
 				}
 				else {
 					console.log("Error in loading hide preference. Found " +
 						listHidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 
-					overlay($post, spoilerObj["title"]);
+					overlay($content, spoilerObj["title"]);
 				}
 				break;
 			}
@@ -52,31 +54,31 @@ function overlay($elem, listTitle) {
 	}
 
 	let $newDiv = $(document.createElement("div")).css({
-		'position': 'absolute',
-		'top': 0,
-		'left': 0,
-		'background-color': 'white',
-		'opacity': 0.99,
-		'display': 'flex',
-		'justify-content': 'center',
-		'align-items': 'center',
-		'text-align': 'center',
-		'width': '100%',
-		'height': '100%',
-		'z-index': 99, // arbitrary large z-index to place overlay on top
-		'cursor': 'pointer',
-		'font-size': 30,
-		'font-family': 'Eczar',
-		'color': 'black'
+		"position": "absolute",
+		"top": 0,
+		"left": 0,
+		"background-color": "white",
+		"opacity": 0.99,
+		"display": "flex",
+		"justify-content": "center",
+		"align-items": "center",
+		"text-align": "center",
+		"width": "100%",
+		"height": "100%",
+		"z-index": 99, // arbitrary large z-index to place overlay on top
+		"cursor": "pointer",
+		"font-size": 30,
+		"font-family": "Eczar",
+		"color": "black"
 	});
 
-	$newDiv.html("This post may contain spoilers for <br>" + listTitle);
+	$newDiv.html("This content may contain spoilers for <br><br>" + listTitle);
 
 	$newDiv.addClass("spoiler-overlay");
 
 	// Absolutely positioned element needs a relatively positioned ancestor
 	$elem.css({
-		'position': 'relative'
+		"position": "relative"
 	});
 
 	$newDiv.click( function() {

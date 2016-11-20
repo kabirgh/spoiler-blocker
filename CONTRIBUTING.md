@@ -15,9 +15,12 @@ When you're ready to submit your changes, make a pull request to the `master` br
 * Fixing code style violations
 
 ### Coding style
+* Use ES2015 when possible
+* Postfix arrays with `Arr` (eg. `stringArr = ["Targaryen", "GoT"]`)
 * Use semicolons `;`
 * Tabs for indentation
 * `"` over `'`
 * `jsonObject[property]` over `jsonObject.property`
+* 
 
-`.eslintrc.json` defines this coding style.
+`.eslintrc.json` helps lint this coding style.

@@ -9,8 +9,8 @@ import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
 const App = () => (
 	<MuiThemeProvider>
 		<div>
-			<TitleBarContainer /><br />
-			<AddCardContainer /><br />
+			<TitleBarContainer />
+			<AddCardContainer />
 			<SpoilerCardListContainer />
 		</div>
 	</MuiThemeProvider>

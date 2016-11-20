@@ -7,35 +7,43 @@ export default
 		getClosestAncestors: getClosestAncestors
 	};
 
-
+// TODO: change implementation to setTimeout?
 function pollForElem(jquerySelector, interval, timeout, callback, callbackArgs=[]) {
-	// ms since function was first called
-	var count = interval;
+	// check for elem immediately
+	if (!pollForElemHelper(jquerySelector, callback, callbackArgs)) {
+		// ms since function was first called
+		let count = interval;
+		let isElemFound = false;
 
-	var elemChecker = setInterval( function() {
-		var $elem = $(jquerySelector);
+		const elemChecker = setInterval( function() {
+			isElemFound = pollForElemHelper(jquerySelector, callback, callbackArgs);
 
-		if ($elem.length !== 0) {
-			callback($elem, ...callbackArgs);
-			clearInterval(elemChecker);
-		}
-		else {
-			count += interval;
-		}
+			if (isElemFound || count >= timeout) {
+				clearInterval(elemChecker);
+			}
+		},
+		interval);
+	}
+}
 
-		if (count == timeout) {
-			clearInterval(elemChecker);
-		}
-	},
-	interval);
+function pollForElemHelper(jquerySelector, callback, callbackArgs) {
+	const $elem = $(jquerySelector);
+
+	if ($elem.length !== 0) {
+		callback($elem, ...callbackArgs);
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 // Returns an array of jquery objects corresponding to fb posts
 function filterElems(elemList, jquerySelector) {
-	var $elemsToReturn = [];
+	let $elemsToReturn = [];
 
 	for (let i=0; i<elemList.length; i++) {
-		var $filteredList = $(elemList[i]).find(jquerySelector);
+		const $filteredList = $(elemList[i]).find(jquerySelector);
 
 		$filteredList.each( function(index, domNode) {
 			const $jqueryNode = $(domNode);

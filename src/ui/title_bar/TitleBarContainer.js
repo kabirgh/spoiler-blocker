@@ -9,9 +9,6 @@ class TitleBarContainer extends React.Component {
 	}
 
 	handleAddButtonPress(event) {
-		console.log("title bar add event on next line");
-		console.log(event);
-		console.log(titleBarActions);
 		titleBarActions.showAddCard();
 	}
 

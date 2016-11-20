@@ -22,6 +22,7 @@
 		"linebreak-style": [1, "unix"],
 		"quotes": [1, "double"],
 		"semi": [2, "always"],
-		"no-console": 0
+		"no-console": 0,
+		"eqeqeq": 1
 	}
 }

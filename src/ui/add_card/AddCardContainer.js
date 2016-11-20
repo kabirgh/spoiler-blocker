@@ -18,10 +18,16 @@ class AddCardContainer extends React.Component {
 	}
 
 	render() {
-		return <AddCard 
-			visible={store.addListAction} 
-			onSaveButtonPress={this.handleSaveButtonPress}
-		/>;
+		return (
+			<div>
+				{store.addListAction ? <br /> : <p />}
+				<AddCard 
+					visible={store.addListAction} 
+					onSaveButtonPress={this.handleSaveButtonPress}
+				/>
+				{store.addListAction ? <br /> : <p />}
+			</div>
+		);
 	}
 }
 

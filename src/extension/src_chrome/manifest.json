@@ -29,6 +29,11 @@
 			"matches": ["*://*.facebook.com/*", "*://facebook.com/*"],
 			"js": ["fb.js"],
 			"run_at": "document_start"
+		},
+		{
+			"matches": ["*://*.twitter.com/*", "*://twitter.com/*"],
+			"js": ["tw.js"],
+			"run_at": "document_start"
 		}
 	]
 }

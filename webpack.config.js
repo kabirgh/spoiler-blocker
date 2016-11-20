@@ -5,15 +5,15 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: __dirname + "/src/ui/panel.html",
 	filename: "panel.html",
 	inject: "body",
-	excludeChunks: ["fb"]
+	excludeChunks: ["fb", "tw"]
 });
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	{
 		from: __dirname + "/src/extension/src_chrome",
 		to: __dirname + "/dist_chrome",
-		// ignored because fb.js will be transformed and copied by babel-loader
-		ignore: __dirname + "/src/extension/src_chrome/fb.js" 
+		// ignored because fb.js & tw.js will be transformed and copied by babel-loader
+		ignore: [__dirname + "/src/extension/src_chrome/fb.js", __dirname + "/src/extension/src_chrome/tw.js"]
 	},
 	{
 		from: __dirname + "/src/extension/img",
@@ -25,7 +25,8 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 module.exports = {
 	entry: {
 		"panel": "./src/ui/panel.js",
-		"fb": "./src/extension/src_chrome/fb.js"
+		"fb": "./src/extension/src_chrome/fb.js",
+		"tw": "./src/extension/src_chrome/tw.js"
 	},
 	output: {
 		path: __dirname + "/dist_chrome",

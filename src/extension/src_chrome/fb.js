@@ -1,6 +1,7 @@
 /* global chrome */
 import $ from "jquery";
-import hideFacebookPosts from "../site_logic/fb-common";
+import hideContent from "../commons/logic";
+import {fbConfig} from "../commons/site_config/fbConfig";
 
 const testSpoilersArr = 
 	[
@@ -33,5 +34,5 @@ chrome.storage.sync.get("spoilersArr", function(storage) {
 });
 
 $(document).ready( function() {
-	hideFacebookPosts(globalSpoilersArr);
+	hideContent(globalSpoilersArr, fbConfig);
 });
