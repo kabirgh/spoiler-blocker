@@ -6,13 +6,15 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import TitleBarContainer from "./title_bar/TitleBarContainer";
 import AddCardContainer from "./add_card/AddCardContainer";
 import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
+import {observer} from "mobx-react";
+import store from "./store";
 
-const App = () => (
+const App = observer( () => 
 	<MuiThemeProvider>
 		<div>
 			<Devtools />
 			<TitleBarContainer />
-			<AddCardContainer />
+			{store.addListAction ? <AddCardContainer /> : <p />}			
 			<SpoilerCardListContainer />
 		</div>
 	</MuiThemeProvider>

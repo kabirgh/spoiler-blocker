@@ -40,14 +40,14 @@ class AddCardContainer extends React.Component {
 	render() {
 		return (
 			<div>
-				{store.addListAction ? <br /> : <p />}
+				<br />
 				<AddCard 
 					visible={store.addListAction}
 					onUpdateTitle={this.handleUpdateTitle}
 					onUpdateTags={this.handleUpdateTags}
 					onSaveButtonPress={this.handleSaveButtonPress}
 				/>
-				{store.addListAction ? <br /> : <p />}
+				<br />
 			</div>
 		);
 	}
