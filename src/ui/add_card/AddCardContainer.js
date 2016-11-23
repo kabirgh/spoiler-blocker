@@ -3,18 +3,38 @@ import React from "react";
 import AddCard from "./AddCard";
 import {observer} from "mobx-react";
 import store from "../store";
-// import addActions from "./addActions";
+import addActions from "./addActions";
 
 @observer
 class AddCardContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			title: "",
+			tags: ""
+		};
+
+		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
+		this.handleUpdateTags = this.handleUpdateTags.bind(this);
 		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
 	}
 
-	handleSaveButtonPress(event) {
-		console.log("add card save event on next line");
-		console.log(event);
+	handleUpdateTitle(event) {
+		this.setState({
+			title: event.target.value
+		});
+	}
+
+	handleUpdateTags(event) {
+		this.setState({
+			tags: event.target.value
+		});
+	}
+
+	handleSaveButtonPress() {
+		console.log("we at handleSaveButtonPress");
+		addActions.saveAddList(this.state.title, this.state.tags);
 	}
 
 	render() {
@@ -22,7 +42,9 @@ class AddCardContainer extends React.Component {
 			<div>
 				{store.addListAction ? <br /> : <p />}
 				<AddCard 
-					visible={store.addListAction} 
+					visible={store.addListAction}
+					onUpdateTitle={this.handleUpdateTitle}
+					onUpdateTags={this.handleUpdateTags}
 					onSaveButtonPress={this.handleSaveButtonPress}
 				/>
 				{store.addListAction ? <br /> : <p />}

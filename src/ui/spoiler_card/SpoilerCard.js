@@ -3,15 +3,20 @@ const PropTypes = React.PropTypes;
 import {Card, CardHeader, CardText} from "material-ui/Card";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
+import ContentAdd from "material-ui/svg-icons/content/add";
+import {observer} from "mobx-react";
 
-const SpoilerCard = props => (
-	<Card style={{paddingBottom: 16}}>
+const SpoilerCard = observer(props => 
+	<Card expandable={true} style={{paddingBottom: 16}}>
 		<CardHeader
 			title={props.title}
 			subtitle={props.isActive ? "Active" : "Inactive"}
 			actAsExpander={true}
 			showExpandableButton={true}
 			style={{paddingBottom: 0}}
+			openIcon={ // TODO: figure out this prop is being assigned to child <div> instead of child <CardExpandable>
+				<ContentAdd />
+			}
 		/>
 		<CardText expandable={true} style={{paddingTop: 0, paddingBottom: 0}}>
 			<TextField
@@ -19,11 +24,11 @@ const SpoilerCard = props => (
 				floatingLabelText="Tags"
 				onChange={props.onUpdateKeywords} // change internal state
 			/>
-			{/*TODO: right-align button, show only when textfield is active*/}
+			{/* TODO: right-align button, show only when textfield is active */}
 			<RaisedButton 
 				label="Save" 
 				primary={true} 
-				onClick={props.onSaveButtonPress}
+				onTouchTap={props.onSaveButtonPress}
 			/>
 			<br />
 		</CardText>

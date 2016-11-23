@@ -9,7 +9,7 @@ const TitleBar = props => (
 		title="Title"
 		showMenuIconButton={false}
 		iconElementRight={
-			<IconButton onClick={props.onAddButtonPress}>
+			<IconButton onTouchTap={props.onAddButtonPress}>
 				<ContentAdd />
 			</IconButton>
 		}

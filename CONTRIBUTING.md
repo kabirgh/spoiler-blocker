@@ -9,7 +9,7 @@ You can then run several commands:
 When you're ready to submit your changes, make a pull request to the `master` branch.
 
 ### Where to contribute
-* Creating a test suite
+* Creating a test suite with Selenium
 * Reducing lag between page load and overlay appearing. Consider:
 	- Splitting common dependencies of fb.js and tw.js into a file loaded in the background
 	- Profiling extension in browser

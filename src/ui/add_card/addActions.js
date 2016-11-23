@@ -1,18 +1,27 @@
 import store from "../store";
 
-export default function saveAddList(title, tagString) {
+// TODO: ES2015
+module.exports = {
+	saveAddList: saveAddList
+};
+
+function saveAddList(title, tagString) {
+	console.log("we at saveAddList");
 	if (isDuplicateTitle(title)) {
 		// TODO: change to false as soon as text changes
 		store.duplicateTitles = true;
 	}
 	else {
+		console.log("save list event");
 		store.spoilers.push({
 			title: title,
 			isActive: true,
 			isCaseSensitive: store.defaultCaseSensitivity,
-			hidePref: store.defaultHidePref(),
+			hidePref: store.defaultHidePref,
 			tags: tagStringToArray(tagString)
 		});
+		console.log("new spoiler list on next line");
+		console.log(store.spoilers.slice());
 	}
 }
 

@@ -1,9 +1,10 @@
 import React from "react";
 // const PropTypes = React.PropTypes;
 import SpoilerCardContainer from "./SpoilerCardContainer";
+import {observer} from "mobx-react";
 
 // Renders list of SpoilerCardContainers
-const SpoilerCardList = props => (
+const SpoilerCardList = observer(props => 
 	<div>
 		{props.spoilers.map((obj, index) => (
 			<div key={obj["title"]}>

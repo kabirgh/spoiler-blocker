@@ -1,16 +1,20 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import SpoilerCard from "./SpoilerCard";
+import {observer} from "mobx-react";
 import actions from "../actions";
 
 // Handles logic for SpoilerCard component
+@observer
 class SpoilerCardContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			keywords: props.keywords,
 			index: props.index
 		};
+
 		this.handleUpdateKeywords = this.handleUpdateKeywords.bind(this);
 		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
 	}

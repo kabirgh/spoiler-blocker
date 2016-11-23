@@ -30,8 +30,7 @@ class Store {
 	}
 
 	@computed get titles() {
-		let titles = {};
-		return this.spoilers.map(obj => titles[obj]["title"] = true);
+		return this.spoilers.map(obj => obj["title"]);
 	}
 }
 

@@ -1,5 +1,6 @@
 import store from "./store";
 
+// TODO: ES2015
 module.exports = {
 	editList: editList,
 	removeList: removeList
