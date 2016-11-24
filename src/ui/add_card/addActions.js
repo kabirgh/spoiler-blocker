@@ -5,6 +5,7 @@ module.exports = {
 	saveAddList: saveAddList
 };
 
+// TODO: error msg for empty title/tags
 function saveAddList(title, tagString) {
 	console.log("we at saveAddList");
 	if (isDuplicateTitle(title)) {

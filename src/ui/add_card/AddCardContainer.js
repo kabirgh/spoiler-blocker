@@ -17,7 +17,8 @@ class AddCardContainer extends React.Component {
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
-		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
+		this.handleSave = this.handleSave.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 
 	handleUpdateTitle(event) {
@@ -32,9 +33,13 @@ class AddCardContainer extends React.Component {
 		});
 	}
 
-	handleSaveButtonPress() {
-		console.log("we at handleSaveButtonPress");
+	handleSave() {
+		console.log("handleSave");
 		addActions.saveAddList(this.state.title, this.state.tags);
+	}
+
+	handleClose() {
+		console.log("Close signalled");
 	}
 
 	render() {
@@ -45,7 +50,8 @@ class AddCardContainer extends React.Component {
 					visible={store.addListAction}
 					onUpdateTitle={this.handleUpdateTitle}
 					onUpdateTags={this.handleUpdateTags}
-					onSaveButtonPress={this.handleSaveButtonPress}
+					onSave={this.handleSave}
+					onClose={this.handleClose}
 				/>
 				<br />
 			</div>

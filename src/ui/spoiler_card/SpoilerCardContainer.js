@@ -11,12 +11,21 @@ class SpoilerCardContainer extends React.Component {
 		super(props);
 
 		this.state = {
+			isExpanded: false,
 			tags: props.tags,
 			index: props.index
 		};
 
 		this.handleUpdatedTags = this.handleUpdatedTags.bind(this);
 		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
+		this.handleExpandCollapse = this.handleExpandCollapse.bind(this);
+	}
+
+	handleExpandCollapse() {
+		this.setState({
+			isExpanded: !this.state.isExpanded
+		});
+		console.log("new isExpanded: " + this.state.isExpanded);
 	}
 
 	handleUpdatedTags(event) {
@@ -31,7 +40,9 @@ class SpoilerCardContainer extends React.Component {
 
 	render() {
 		return (
-			<SpoilerCard 
+			<SpoilerCard
+				onExpandCollapse={this.handleExpandCollapse}
+				isExpanded={this.state.isExpanded}
 				title={this.props.title} 
 				isActive={this.props.isActive}
 				tags={this.state.tags}

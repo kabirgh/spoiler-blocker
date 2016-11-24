@@ -6,37 +6,28 @@ import RaisedButton from "material-ui/RaisedButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import {observer} from "mobx-react";
 
+import {Collapse} from "@blueprintjs/core";
+
 const SpoilerCard = observer(props => 
-	// TODO: remove top and bottom shadows (e/c for last elem?)
-	<Card expandable={true} style={{paddingBottom: 16}}>
-		<CardHeader
-			title={props.title}
-			subtitle={props.isActive ? "Active" : "Inactive"}
-			actAsExpander={true}
-			showExpandableButton={true}
-			style={{paddingBottom: 0}}
-			openIcon={ // TODO: figure out this prop is being assigned to child <div> instead of child <CardExpandable>
-				<ContentAdd />
-			}
-		/>
-		<CardText expandable={true} style={{paddingTop: 0, paddingBottom: 0}}>
-			<TextField
-				defaultValue={props.tags}
-				floatingLabelText="Tags"
-				onChange={props.onUpdateTags} // change internal state
-			/>
-			{/* TODO: right-align button, show only when textfield is active */}
-			<RaisedButton 
-				label="Save" 
-				primary={true} 
-				onTouchTap={props.onSaveButtonPress}
-			/>
-			<br />
-		</CardText>
-	</Card>
+	<div>
+		<div className="pt-card" style={{position: "relative"}}>
+			<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
+				<button className={"pt-button pt-minimal pt-icon-more"}></button>
+				<button 
+					className={"pt-button pt-minimal " + (props.isExpanded ? "pt-icon-chevron-down" : "pt-icon-chevron-right")}
+					onClick={props.onExpandCollapse}></button>
+			</div>
+			<Collapse isOpen={props.isExpanded}>
+				Dummy text.
+			</Collapse>
+		</div>
+	
+	</div>
 );
 
 SpoilerCard.propTypes = {
+	onExpandCollapse: PropTypes.func.isRequired,
+	isExpanded: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
 	tags: PropTypes.string.isRequired,
