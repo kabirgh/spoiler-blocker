@@ -1,12 +1,14 @@
 import React from "react";
+const PropTypes = React.PropTypes;
+import {observer} from "mobx-react";
 import {Menu, MenuItem, MenuDivider, Switch} from "@blueprintjs/core";
 
-const OptionsMenu = () => (
+const OptionsMenu = observer(props => 
 	<Menu>
 		<Switch 
-			checked={false}
-			label="Case-sensitive"
-			// onChange={this.onCaseSensitivityChange}
+			label="Case sensitive"
+			checked={props.isCaseSensitive}
+			onChange={props.onToggleCaseSensitivity}
 		/>
 		<MenuItem
 			iconName="new-object"
@@ -25,5 +27,10 @@ const OptionsMenu = () => (
 		/>
 	</Menu>
 );
+
+OptionsMenu.propTypes = {
+	isCaseSensitive: PropTypes.bool.isRequired,
+	onToggleCaseSensitivity: PropTypes.func.isRequired
+};
 
 export default OptionsMenu;

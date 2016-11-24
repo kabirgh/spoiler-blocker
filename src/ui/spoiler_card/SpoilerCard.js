@@ -2,7 +2,7 @@ import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {Popover, Position, Button, EditableText, Collapse} from "@blueprintjs/core";
-import OptionsMenu from "./options_menu/OptionsMenu";
+import OptionsMenuContainer from "./options_menu/OptionsMenuContainer";
 
 // TODO: extract smaller components
 const SpoilerCard = observer(props => 
@@ -18,7 +18,7 @@ const SpoilerCard = observer(props =>
 		</div>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 
-			<Popover content={<OptionsMenu />} position={Position.LEFT_TOP}>
+			<Popover content={<OptionsMenuContainer index={props.index} />} position={Position.LEFT_TOP}>
 				<Button className={"pt-minimal pt-icon-more"} />
 			</Popover>
 
