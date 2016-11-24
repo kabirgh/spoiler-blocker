@@ -7,15 +7,14 @@ import SpoilerCardContainer from "./SpoilerCardContainer";
 const SpoilerCardList = observer(props => 
 	<div>
 		{props.spoilers.map((obj, index) => (
-			<div>
+			<div key={obj["title"]}>
 				<SpoilerCardContainer 
-					key={obj["title"]}
 					index={index}
 					title={obj["title"]} 
 					isActive={obj["isActive"]}
 					tags={obj["tags"].join(", ")}
+					marginBottom={6} // TODO: should this be a mobx observable?
 				/>
-				<br />
 			</div>
 		))}
 	</div>

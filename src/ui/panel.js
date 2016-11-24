@@ -5,13 +5,15 @@ import TitleBarContainer from "./title_bar/TitleBarContainer";
 import AddCardContainer from "./add_card/AddCardContainer";
 import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
 import {observer} from "mobx-react";
-import store from "./store";
+import {FocusStyleManager} from "@blueprintjs/core";
+
+FocusStyleManager.onlyShowFocusOnTabs();
 
 const App = observer( () => 
 	<div>
 		<Devtools />
 		<TitleBarContainer />
-		{store.isAddCardVisible ? <AddCardContainer /> : <div />}			
+		<AddCardContainer />		
 		<br />
 		<SpoilerCardListContainer />
 	</div>

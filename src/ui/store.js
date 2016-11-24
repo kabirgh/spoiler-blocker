@@ -4,14 +4,14 @@ let defaultSpoilers = [
 	{
 		"title": "spoiler-tag1-tag2",
 		"isActive": true,
-		"isCaseSensitive": true,
+		"isCaseSensitive": false,
 		"hidePref": "overlay",
 		"tags": ["tag1", "tag2"]
 	},
 	{
 		"title": "all-posts",
-		"isActive": true,
-		"isCaseSensitive": false,
+		"isActive": false,
+		"isCaseSensitive": true,
 		"hidePref": "overlay",
 		"tags": ["a", "b", "c"]
 	}

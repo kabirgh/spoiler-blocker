@@ -9,7 +9,6 @@ class TitleBarContainer extends React.Component {
 	}
 
 	handleAddList() {
-		console.log("add list");
 		titleBarActions.showAddCard();
 	}
 

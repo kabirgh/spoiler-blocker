@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import store from "../store";
 import addActions from "./addActions";
 import AddCard from "./AddCard";
+import {Collapse} from "@blueprintjs/core";
 
 @observer
 class AddCardContainer extends React.Component {
@@ -36,10 +37,10 @@ class AddCardContainer extends React.Component {
 	handleSave() {
 		console.log("handleSave");
 		addActions.saveAddList(this.state.title, this.state.tags);
+		addActions.hideAddCard();
 	}
 
 	handleClose() {
-		console.log("Close signalled");
 		this.setState({
 			title: "",
 			tags: ""
@@ -49,16 +50,15 @@ class AddCardContainer extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<Collapse isOpen={store.isAddCardVisible}>
 				<br />
 				<AddCard 
-					visible={store.addListAction}
 					onUpdateTitle={this.handleUpdateTitle}
 					onUpdateTags={this.handleUpdateTags}
 					onSave={this.handleSave}
 					onClose={this.handleClose}
 				/>
-			</div>
+			</Collapse>
 		);
 	}
 }

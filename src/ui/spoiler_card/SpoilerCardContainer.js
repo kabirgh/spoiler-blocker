@@ -47,6 +47,7 @@ class SpoilerCardContainer extends React.Component {
 				tags={this.tags}
 				onUpdateTags={this.handleUpdateTags}
 				onSave={this.handleSave}
+				marginBottom={this.props.marginBottom}
 			/>
 		);
 	}
@@ -56,7 +57,8 @@ SpoilerCardContainer.propTypes = {
 	index: PropTypes.number.isRequired,
 	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
-	tags: PropTypes.string.isRequired
+	tags: PropTypes.string.isRequired,
+	marginBottom: PropTypes.number.isRequired
 };
 
 export default SpoilerCardContainer;

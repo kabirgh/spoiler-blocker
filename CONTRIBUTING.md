@@ -14,7 +14,7 @@ When you're ready to submit your changes, make a pull request to the `master` br
 	- Splitting common dependencies of fb.js and tw.js into a file loaded in the background
 	- Profiling extension in browser
 * Refactoring components to [manage local state with MobX](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#) instead of React.setState
-* Porting firefox build (see WebExtension)
+* Porting firefox build (see WebExtensions)
 * Fixing code style violations
 
 ### Coding conventions

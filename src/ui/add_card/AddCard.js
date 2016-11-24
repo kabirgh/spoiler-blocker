@@ -3,7 +3,7 @@ const PropTypes = React.PropTypes;
 import {Button} from "@blueprintjs/core";
 
 const AddNewCard = props => (
-	<div className="pt-card pt-elevation-1" style={{position: "relative"}}>
+	<div className="pt-card" style={{backgroundColor: "#EBF1F5", position: "relative"}}>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
 			<button className={"pt-button pt-minimal pt-icon-cross"} onClick={props.onClose} />
 		</div>
