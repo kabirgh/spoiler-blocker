@@ -7,6 +7,7 @@ import ContentAdd from "material-ui/svg-icons/content/add";
 import {observer} from "mobx-react";
 
 const SpoilerCard = observer(props => 
+	// TODO: remove top and bottom shadows (e/c for last elem?)
 	<Card expandable={true} style={{paddingBottom: 16}}>
 		<CardHeader
 			title={props.title}
@@ -20,9 +21,9 @@ const SpoilerCard = observer(props =>
 		/>
 		<CardText expandable={true} style={{paddingTop: 0, paddingBottom: 0}}>
 			<TextField
-				defaultValue={props.keywords}
+				defaultValue={props.tags}
 				floatingLabelText="Tags"
-				onChange={props.onUpdateKeywords} // change internal state
+				onChange={props.onUpdateTags} // change internal state
 			/>
 			{/* TODO: right-align button, show only when textfield is active */}
 			<RaisedButton 
@@ -38,8 +39,8 @@ const SpoilerCard = observer(props =>
 SpoilerCard.propTypes = {
 	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
-	keywords: PropTypes.string.isRequired,
-	onUpdateKeywords: PropTypes.func.isRequired,
+	tags: PropTypes.string.isRequired,
+	onUpdateTags: PropTypes.func.isRequired,
 	onSaveButtonPress: PropTypes.func.isRequired
 };
 

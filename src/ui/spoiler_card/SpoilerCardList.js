@@ -7,15 +7,13 @@ import {observer} from "mobx-react";
 const SpoilerCardList = observer(props => 
 	<div>
 		{props.spoilers.map((obj, index) => (
-			<div key={obj["title"]}>
-				<SpoilerCardContainer 
-					index={index}
-					title={obj["title"]} 
-					isActive={obj["isActive"]}
-					keywords={obj["tags"].join(", ")}
-				/>
-				<br />
-			</div>
+			<SpoilerCardContainer 
+				key={obj["title"]}
+				index={index}
+				title={obj["title"]} 
+				isActive={obj["isActive"]}
+				tags={obj["tags"].join(", ")}
+			/>
 		))}
 	</div>
 );

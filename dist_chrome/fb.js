@@ -10360,7 +10360,7 @@
 	 * 2. When pollFeed finds feed node, observeFeed is called.
 	 * 3. When observeFeed observes nodes added to feed, 
 	 *   i.  hideInitialContent is called to hide posts/tweets present on page load. 
-	 *    ii. optionallyHideContent is called on nodes added to the feed.
+	 *   ii. optionallyHideContent is called on nodes added to the feed in the future.
 	 */
 	function hideContent(spoilersArr, siteConfig) {
 		_spoilersArr = spoilersArr;

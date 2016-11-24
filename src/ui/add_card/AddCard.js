@@ -5,7 +5,7 @@ import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
 const AddNewCard = props => (
-	<Card>
+	<Card expandable>
 		<CardText style={{paddingTop: 2, paddingBottom: 4}}>
 			<TextField 
 				fullWidth={true} 

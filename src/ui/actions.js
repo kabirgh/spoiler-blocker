@@ -2,7 +2,7 @@ import store from "./store";
 
 // TODO: ES2015
 module.exports = {
-	editList: editList,
+	editTags: editTags,
 	removeList: removeList
 };
 
@@ -10,15 +10,19 @@ function removeList(index) {
 	store.spoilers.splice(index, 1);
 }
 
-
-function editList(index, title, tags) {
-	console.log("editList called");
+// TODO: disallow duplicate tags?
+function editTags(index, title, tags) {
+	console.log("editTags called");
 
 	store.spoilers[index]["title"] = title;
-	store.spoilers[index]["tags"] = tags;
+	store.spoilers[index]["tags"] = tagStringToArray(tags);
 
-	console.log("spoiler tags for 1st lists on next line");
+	console.log("spoiler tags for 1st list on next line");
 	console.log(store.spoilers[0]["tags"]);
 }
 
+function tagStringToArray(tagString) {
+	const tagArr = tagString.split(",");
+	return tagArr.map(tag => tag.trim());
+}
 // TODO: sync to chrome storage

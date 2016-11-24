@@ -11,22 +11,22 @@ class SpoilerCardContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			keywords: props.keywords,
+			tags: props.tags,
 			index: props.index
 		};
 
-		this.handleUpdateKeywords = this.handleUpdateKeywords.bind(this);
+		this.handleUpdatedTags = this.handleUpdatedTags.bind(this);
 		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
 	}
 
-	handleUpdateKeywords(event) {
+	handleUpdatedTags(event) {
 		this.setState({
-			keywords: event.target.value
+			tags: event.target.value
 		});
 	}
 
 	handleSaveButtonPress() {
-		actions.editList(this.props.index, this.props.title, this.state.keywords);
+		actions.editTags(this.props.index, this.props.title, this.state.tags);
 	}
 
 	render() {
@@ -34,8 +34,8 @@ class SpoilerCardContainer extends React.Component {
 			<SpoilerCard 
 				title={this.props.title} 
 				isActive={this.props.isActive}
-				keywords={this.state.keywords}
-				onUpdateKeywords={this.handleUpdateKeywords}
+				tags={this.state.tags}
+				onUpdatedTags={this.handleUpdatedTags}
 				onSaveButtonPress={this.handleSaveButtonPress}
 			/>
 		);
@@ -46,7 +46,7 @@ SpoilerCardContainer.propTypes = {
 	index: PropTypes.number.isRequired,
 	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
-	keywords: PropTypes.string.isRequired
+	tags: PropTypes.string.isRequired
 };
 
 export default SpoilerCardContainer;

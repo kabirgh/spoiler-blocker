@@ -14,7 +14,7 @@ const App = observer( () =>
 		<div>
 			<Devtools />
 			<TitleBarContainer />
-			{store.addListAction ? <AddCardContainer /> : <p />}			
+			{store.addListAction ? <AddCardContainer /> : <div />}			
 			<SpoilerCardListContainer />
 		</div>
 	</MuiThemeProvider>

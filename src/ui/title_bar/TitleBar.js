@@ -5,6 +5,7 @@ import IconButton from "material-ui/IconButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 
 const TitleBar = props => (
+	// TODO: remove bottom shadow
 	<AppBar
 		title="Title"
 		showMenuIconButton={false}
