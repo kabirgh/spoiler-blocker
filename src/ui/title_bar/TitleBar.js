@@ -11,7 +11,7 @@ const TitleBar = props => (
 		<div className="pt-navbar-group pt-align-right">
 			<button 
 				className="pt-button pt-minimal pt-icon-add"
-				onClick={props.onAddButtonPress}>
+				onClick={props.onAddList}>
 					Add a list
 			</button>
 			<span className="pt-navbar-divider"></span>
@@ -21,7 +21,7 @@ const TitleBar = props => (
 );
 
 TitleBar.propTypes = {
-	onAddButtonPress: PropTypes.func.isRequired
+	onAddList: PropTypes.func.isRequired
 };
 
 export default TitleBar;

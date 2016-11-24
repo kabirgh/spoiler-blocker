@@ -1,53 +1,52 @@
 import React from "react";
 const PropTypes = React.PropTypes;
-import SpoilerCard from "./SpoilerCard";
 import {observer} from "mobx-react";
+import {observable} from "mobx";
 import actions from "../actions";
+import SpoilerCard from "./SpoilerCard";
 
 // Handles logic for SpoilerCard component
 @observer
 class SpoilerCardContainer extends React.Component {
+	@observable isExpanded = false;
+	/* TODO: does 'tags' have to be observable? */
+	@observable tags = null;
+
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			isExpanded: false,
-			tags: props.tags,
-			index: props.index
-		};
+		this.isExpanded = false;
+		this.tags = props.tags;
 
-		this.handleUpdatedTags = this.handleUpdatedTags.bind(this);
-		this.handleSaveButtonPress = this.handleSaveButtonPress.bind(this);
+		this.handleUpdateTags = this.handleUpdateTags.bind(this);
+		this.handleSave = this.handleSave.bind(this);
 		this.handleExpandCollapse = this.handleExpandCollapse.bind(this);
 	}
 
 	handleExpandCollapse() {
-		this.setState({
-			isExpanded: !this.state.isExpanded
-		});
-		console.log("new isExpanded: " + this.state.isExpanded);
+		this.isExpanded = !this.isExpanded;
+		console.log("new isExpanded: " + this.isExpanded);
 	}
 
-	handleUpdatedTags(event) {
-		this.setState({
-			tags: event.target.value
-		});
+	handleUpdateTags(string) {
+		console.log("string: " + string);
+		this.tags = string;
 	}
 
-	handleSaveButtonPress() {
-		actions.editTags(this.props.index, this.props.title, this.state.tags);
+	handleSave() {
+		actions.editTags(this.props.index, this.props.title, this.tags);
 	}
 
 	render() {
 		return (
 			<SpoilerCard
 				onExpandCollapse={this.handleExpandCollapse}
-				isExpanded={this.state.isExpanded}
+				isExpanded={this.isExpanded}
 				title={this.props.title} 
 				isActive={this.props.isActive}
-				tags={this.state.tags}
-				onUpdateTags={this.handleUpdatedTags}
-				onSaveButtonPress={this.handleSaveButtonPress}
+				tags={this.tags}
+				onUpdateTags={this.handleUpdateTags}
+				onSave={this.handleSave}
 			/>
 		);
 	}

@@ -5,16 +5,17 @@ import titleBarActions from "./titleBarActions";
 class TitleBarContainer extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleAddButtonPress = this.handleAddButtonPress.bind(this);
+		this.handleAddList = this.handleAddList.bind(this);
 	}
 
-	handleAddButtonPress(event) {
+	handleAddList() {
+		console.log("add list");
 		titleBarActions.showAddCard();
 	}
 
 	render() {
 		return <TitleBar 
-			onAddButtonPress={this.handleAddButtonPress}
+			onAddList={this.handleAddList}
 		/>;
 	}
 }

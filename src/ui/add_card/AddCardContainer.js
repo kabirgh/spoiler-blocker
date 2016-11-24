@@ -1,9 +1,9 @@
 import React from "react";
 // const PropTypes = React.PropTypes; TODO
-import AddCard from "./AddCard";
 import {observer} from "mobx-react";
 import store from "../store";
 import addActions from "./addActions";
+import AddCard from "./AddCard";
 
 @observer
 class AddCardContainer extends React.Component {
@@ -40,6 +40,11 @@ class AddCardContainer extends React.Component {
 
 	handleClose() {
 		console.log("Close signalled");
+		this.setState({
+			title: "",
+			tags: ""
+		});
+		addActions.hideAddCard();
 	}
 
 	render() {
@@ -53,7 +58,6 @@ class AddCardContainer extends React.Component {
 					onSave={this.handleSave}
 					onClose={this.handleClose}
 				/>
-				<br />
 			</div>
 		);
 	}

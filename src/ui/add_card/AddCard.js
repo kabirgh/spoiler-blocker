@@ -11,11 +11,13 @@ const AddNewCard = props => (
 			{/* TODO: extract component, maintaing spacing */}
 			<label className="pt-label pt-inline">
 				Title  {/* 2 spaces after 'Title' */}
-				<input className="pt-input" style={{width: 200}} type="text" dir="auto" onChange={props.onUpdateTitle} />
+				<input className="pt-input" style={{width: 200}} type="text" 
+					dir="auto" onChange={props.onUpdateTitle} />
 			</label>
 			<label className="pt-label pt-inline">
 				Tags  {/* 2 spaces after 'Tags' */}
-				<input className="pt-input" style={{width: 200}} type="text" dir="auto" onChange={props.onUpdateTags} />
+				<input className="pt-input" style={{width: 200}} type="text" 
+					dir="auto" onChange={props.onUpdateTags} />
 			</label>
 		</div>
 		{/* TODO: show toast on adding */}
@@ -26,7 +28,6 @@ const AddNewCard = props => (
 );
 
 AddNewCard.propTypes = {
-	visible: PropTypes.bool.isRequired,
 	onSave: PropTypes.func.isRequired,
 	onUpdateTitle: PropTypes.func.isRequired,
 	onUpdateTags: PropTypes.func.isRequired,

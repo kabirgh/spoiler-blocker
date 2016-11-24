@@ -17,14 +17,12 @@
   "dependencies": {
     "@blueprintjs/core": "^1.1.0",
     "jquery": "^3.1.1",
-    "material-ui": "^0.16.4",
     "mobx": "^2.6.3",
     "mobx-react": "^3.5.9",
     "mutation-summary": "0.0.0",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-dom": "^15.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

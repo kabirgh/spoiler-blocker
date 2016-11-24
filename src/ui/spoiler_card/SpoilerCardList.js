@@ -1,7 +1,7 @@
 import React from "react";
 // const PropTypes = React.PropTypes;
-import SpoilerCardContainer from "./SpoilerCardContainer";
 import {observer} from "mobx-react";
+import SpoilerCardContainer from "./SpoilerCardContainer";
 
 // Renders list of SpoilerCardContainers
 const SpoilerCardList = observer(props => 

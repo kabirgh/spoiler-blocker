@@ -1,24 +1,30 @@
 import React from "react";
 const PropTypes = React.PropTypes;
-import {Card, CardHeader, CardText} from "material-ui/Card";
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
 import {observer} from "mobx-react";
-
-import {Collapse} from "@blueprintjs/core";
+import {EditableText, Collapse} from "@blueprintjs/core";
 
 const SpoilerCard = observer(props => 
 	<div>
 		<div className="pt-card" style={{position: "relative"}}>
+			{/* TODO: make editable */}
+			<div>
+				{props.title}
+			</div>
 			<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 				<button className={"pt-button pt-minimal pt-icon-more"}></button>
-				<button 
-					className={"pt-button pt-minimal " + (props.isExpanded ? "pt-icon-chevron-down" : "pt-icon-chevron-right")}
+				{props.isExpanded ? 
+					<button 
+					className="pt-button pt-minimal pt-icon-chevron-down"
 					onClick={props.onExpandCollapse}></button>
+					: 
+					<button 
+					className="pt-button pt-minimal pt-icon-chevron-right"
+					onClick={props.onExpandCollapse}></button>
+				}
 			</div>
 			<Collapse isOpen={props.isExpanded}>
-				Dummy text.
+				<br />
+				<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
 			</Collapse>
 		</div>
 	
@@ -32,7 +38,7 @@ SpoilerCard.propTypes = {
 	isActive: PropTypes.bool.isRequired,
 	tags: PropTypes.string.isRequired,
 	onUpdateTags: PropTypes.func.isRequired,
-	onSaveButtonPress: PropTypes.func.isRequired
+	onSave: PropTypes.func.isRequired
 };
 
 export default SpoilerCard;

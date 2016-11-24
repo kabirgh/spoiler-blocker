@@ -5,5 +5,5 @@ module.exports = {
 };
 
 function showAddCard() {
-	store.addListAction = true;
+	store.isAddCardVisible = true;
 }

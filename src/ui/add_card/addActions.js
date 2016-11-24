@@ -2,7 +2,8 @@ import store from "../store";
 
 // TODO: ES2015
 module.exports = {
-	saveAddList: saveAddList
+	saveAddList: saveAddList,
+	hideAddCard: hideAddCard
 };
 
 // TODO: error msg for empty title/tags
@@ -10,7 +11,7 @@ function saveAddList(title, tagString) {
 	console.log("we at saveAddList");
 	if (isDuplicateTitle(title)) {
 		// TODO: change to false as soon as text changes
-		store.duplicateTitles = true;
+		store.isDuplicateTitle = true;
 	}
 	else {
 		console.log("save list event");
@@ -39,4 +40,9 @@ function isDuplicateTitle(title) {
 function tagStringToArray(tagString) {
 	const tagArr = tagString.split(",");
 	return tagArr.map(tag => tag.trim());
+}
+
+// TODO: make addcard child of <Collapse> instead
+function hideAddCard() {
+	store.isAddCardVisible = false;
 }
