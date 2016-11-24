@@ -18,6 +18,10 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	{
 		from: __dirname + "/src/extension/img",
 		to: __dirname + "/dist_chrome/img/"
+	},
+	{
+		from: __dirname + "/node_modules/@blueprintjs/core/dist/blueprint.css",
+		to: __dirname + "/dist_chrome/"
 	}
 ],
 {});
