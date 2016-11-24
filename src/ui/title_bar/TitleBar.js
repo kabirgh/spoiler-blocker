@@ -1,20 +1,23 @@
 import React from "react";
 const PropTypes = React.PropTypes;
-import AppBar from "material-ui/AppBar";
-import IconButton from "material-ui/IconButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
 
+// TODO: convert to blueprintjs react component if possible
 const TitleBar = props => (
-	// TODO: remove bottom shadow
-	<AppBar
-		title="Title"
-		showMenuIconButton={false}
-		iconElementRight={
-			<IconButton onTouchTap={props.onAddButtonPress}>
-				<ContentAdd />
-			</IconButton>
-		}
-	/>
+	<nav className="pt-navbar pt-dark">
+		<div className="pt-navbar-group pt-align-left">
+			<div className="pt-navbar-heading">Spoiler Blocker</div>
+			<input className="pt-input" placeholder="Search lists..." type="text" />
+		</div>
+		<div className="pt-navbar-group pt-align-right">
+			<button 
+				className="pt-button pt-minimal pt-icon-add"
+				onClick={props.onAddButtonPress}>
+					Add a list
+			</button>
+			<span className="pt-navbar-divider"></span>
+			<button className="pt-button pt-minimal pt-icon-cog"></button>
+		</div>
+	</nav>
 );
 
 TitleBar.propTypes = {

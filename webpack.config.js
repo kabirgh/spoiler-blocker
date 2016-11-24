@@ -9,19 +9,27 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
+	// Copy src_chrome files except fb.js and tw.js
 	{
 		from: __dirname + "/src/extension/src_chrome",
 		to: __dirname + "/dist_chrome",
 		// ignored because fb.js & tw.js will be transformed and copied by babel-loader
 		ignore: [__dirname + "/src/extension/src_chrome/fb.js", __dirname + "/src/extension/src_chrome/tw.js"]
 	},
+	// Copy icons
 	{
 		from: __dirname + "/src/extension/img",
 		to: __dirname + "/dist_chrome/img/"
 	},
+	// Copy blueprintjs stylesheet
 	{
 		from: __dirname + "/node_modules/@blueprintjs/core/dist/blueprint.css",
 		to: __dirname + "/dist_chrome/"
+	},
+	// Copy blueprintjs icons
+	{
+		from: __dirname + "/node_modules/@blueprintjs/core/resources",
+		to: __dirname + "/dist_chrome/resources/"
 	}
 ],
 {});

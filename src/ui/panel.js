@@ -9,10 +9,7 @@ import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
 import {observer} from "mobx-react";
 import store from "./store";
 
-import {Alert} from "@blueprintjs/core";
-
 const App = observer( () => 
-	<div>
 	<MuiThemeProvider>
 		<div>
 			<Devtools />
@@ -21,12 +18,6 @@ const App = observer( () =>
 			<SpoilerCardListContainer />
 		</div>
 	</MuiThemeProvider>
-			<Alert
-                    isOpen={true}
-                    confirmButtonText="Okay">
-                    <p> fffff </p>
-                    </Alert>
-			</div>
 );
 
 injectTapEventPlugin();

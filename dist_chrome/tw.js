@@ -58,7 +58,7 @@
 
 	var _logic2 = _interopRequireDefault(_logic);
 
-	var _twConfig = __webpack_require__(/*! ../commons/site_config/twConfig */ 501);
+	var _twConfig = __webpack_require__(/*! ../commons/site_config/twConfig */ 430);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12470,7 +12470,7 @@
 
 /***/ },
 
-/***/ 501:
+/***/ 430:
 /*!*******************************************************!*\
   !*** ./src/extension/commons/site_config/twConfig.js ***!
   \*******************************************************/

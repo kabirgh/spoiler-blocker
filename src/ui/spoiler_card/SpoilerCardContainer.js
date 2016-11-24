@@ -35,7 +35,7 @@ class SpoilerCardContainer extends React.Component {
 				title={this.props.title} 
 				isActive={this.props.isActive}
 				tags={this.state.tags}
-				onUpdatedTags={this.handleUpdatedTags}
+				onUpdateTags={this.handleUpdatedTags}
 				onSaveButtonPress={this.handleSaveButtonPress}
 			/>
 		);
