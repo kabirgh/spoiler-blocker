@@ -2,7 +2,7 @@ import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {observable} from "mobx";
-import actions from "../actions";
+import spoilerCardActions from "./spoilerCardActions";
 import SpoilerCard from "./SpoilerCard";
 
 // Handles logic for SpoilerCard component
@@ -34,7 +34,7 @@ class SpoilerCardContainer extends React.Component {
 	}
 
 	handleSave() {
-		actions.editTags(this.props.index, this.props.title, this.tags);
+		spoilerCardActions.editTags(this.props.index, this.props.title, this.tags);
 	}
 
 	render() {

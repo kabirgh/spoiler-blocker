@@ -1,14 +1,9 @@
-import store from "./store";
+import store from "../store";
 
 // TODO: ES2015
 module.exports = {
-	editTags: editTags,
-	removeList: removeList
+	editTags: editTags
 };
-
-function removeList(index) {
-	store.spoilers.splice(index, 1);
-}
 
 // TODO: disallow duplicate tags?
 function editTags(index, title, tags) {

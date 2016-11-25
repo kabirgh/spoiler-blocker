@@ -11,10 +11,15 @@ class OptionsMenuContainer extends React.Component {
 		super(props);
 
 		this.handleToggleCaseSensitivity = this.handleToggleCaseSensitivity.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 
-	handleToggleCaseSensitivity(event) {
+	handleToggleCaseSensitivity() {
 		optionsMenuActions.toggleCaseSensitivity(this.props.index);
+	}
+
+	handleDelete() {
+		optionsMenuActions.removeList(this.props.index);
 	}
 
 	render() {
@@ -23,6 +28,7 @@ class OptionsMenuContainer extends React.Component {
 				index={this.props.index}
 				isCaseSensitive={store.spoilers[this.props.index]["isCaseSensitive"]}
 				onToggleCaseSensitivity={this.handleToggleCaseSensitivity}
+				onDelete={this.handleDelete}
 			/>
 		);
 	}

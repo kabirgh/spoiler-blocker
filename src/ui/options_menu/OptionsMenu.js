@@ -23,14 +23,16 @@ const OptionsMenu = observer(props =>
 		<MenuDivider />
 		<MenuItem 
 			iconName="trash"
-			text="Delete" 
+			text="Delete"
+			onClick={props.onDelete}
 		/>
 	</Menu>
 );
 
 OptionsMenu.propTypes = {
 	isCaseSensitive: PropTypes.bool.isRequired,
-	onToggleCaseSensitivity: PropTypes.func.isRequired
+	onToggleCaseSensitivity: PropTypes.func.isRequired,
+	onDelete: PropTypes.func.isRequired
 };
 
 export default OptionsMenu;
