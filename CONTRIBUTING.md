@@ -9,8 +9,10 @@ You can then run several commands:
 When you're ready to submit your changes, make a pull request to the `master` branch.
 
 ### Where to contribute
+* Implementing `TODO`s marked in codebase
 * Creating a test suite
-* Reducing lag between page load and overlay appearing. Consider:
+* [Reduce bundle size](https://lacke.mn/reduce-your-bundle-js-file-size/) by importing blueprintjs components individually
+* Reducing lag between page content load and overlay appearing. Consider:
 	- Splitting common dependencies of fb.js and tw.js into a file loaded in the background
 	- Profiling extension in browser
 * Refactoring components to [manage local state with MobX](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#) instead of React.setState
