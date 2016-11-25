@@ -10,13 +10,18 @@ class OptionsMenuContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.handleToggleCaseSensitivity = this.handleToggleCaseSensitivity.bind(this);
+		this.handleToggleActive = this.handleToggleActive.bind(this);
+		this.handleToggleCaseSensitive = this.handleToggleCaseSensitive.bind(this);
 		this.handleToggleHidePref = this.handleToggleHidePref.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 	}
 
-	handleToggleCaseSensitivity() {
-		optionsMenuActions.toggleCaseSensitivity(this.props.index);
+	handleToggleActive() {
+		optionsMenuActions.toggleActive(this.props.index);
+	}
+
+	handleToggleCaseSensitive() {
+		optionsMenuActions.toggleCaseSensitive(this.props.index);
 	}
 
 	handleToggleHidePref() {
@@ -31,10 +36,16 @@ class OptionsMenuContainer extends React.Component {
 		return (
 			<OptionsMenu
 				index={this.props.index}
+
+				isActive={store.spoilers[this.props.index]["isActive"]}
+				onToggleActive={this.handleToggleActive}
+
 				isCaseSensitive={store.spoilers[this.props.index]["isCaseSensitive"]}
-				onToggleCaseSensitivity={this.handleToggleCaseSensitivity}
+				onToggleCaseSensitive={this.handleToggleCaseSensitive}
+
 				hidePref={store.spoilers[this.props.index]["hidePref"]}
 				onToggleHidePref={this.handleToggleHidePref}
+				
 				onDelete={this.handleDelete}
 			/>
 		);

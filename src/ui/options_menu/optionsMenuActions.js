@@ -2,12 +2,17 @@ import {action} from "mobx";
 import store from "../store";
 
 module.exports = {
-	toggleCaseSensitivity: action(toggleCaseSensitivity),
+	toggleActive: action(toggleActive),
+	toggleCaseSensitive: action(toggleCaseSensitive),
 	toggleHidePref: action(toggleHidePref),
 	deleteList: action(deleteList)
 };
 
-function toggleCaseSensitivity(index) {
+function toggleActive(index) {
+	store.spoilers[index]["isActive"] = !store.spoilers[index]["isActive"];
+}
+
+function toggleCaseSensitive(index) {
 	store.spoilers[index]["isCaseSensitive"] = !store.spoilers[index]["isCaseSensitive"];
 }
 
