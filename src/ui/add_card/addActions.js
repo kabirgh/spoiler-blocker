@@ -1,9 +1,10 @@
+import {action} from "mobx";
 import store from "../store";
 
 // TODO: ES2015
 module.exports = {
-	saveAddList: saveAddList,
-	hideAddCard: hideAddCard
+	saveAddList: action(saveAddList),
+	hideAddCard: action(hideAddCard)
 };
 
 // TODO: error msg for empty title/tags

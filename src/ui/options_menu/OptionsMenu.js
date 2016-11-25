@@ -10,6 +10,11 @@ const OptionsMenu = observer(props =>
 			checked={props.isCaseSensitive}
 			onChange={props.onToggleCaseSensitivity}
 		/>
+		<Switch 
+			label="Overlay/remove"
+			checked={props.hidePref === "remove"}
+			onChange={props.onToggleHidePref}
+		/>
 		<MenuItem
 			iconName="new-object"
 			// onClick={this.handleClick}
@@ -32,6 +37,8 @@ const OptionsMenu = observer(props =>
 OptionsMenu.propTypes = {
 	isCaseSensitive: PropTypes.bool.isRequired,
 	onToggleCaseSensitivity: PropTypes.func.isRequired,
+	hidePref: PropTypes.string.isRequired,
+	onToggleHidePref: PropTypes.func.isRequired,
 	onDelete: PropTypes.func.isRequired
 };
 

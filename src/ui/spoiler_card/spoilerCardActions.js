@@ -1,8 +1,9 @@
+import {action} from "mobx";
 import store from "../store";
 
 // TODO: ES2015
 module.exports = {
-	editTags: editTags
+	editTags: action(editTags)
 };
 
 // TODO: disallow duplicate tags?

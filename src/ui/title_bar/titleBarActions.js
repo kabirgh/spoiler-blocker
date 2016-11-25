@@ -1,7 +1,8 @@
+import {action} from "mobx";
 import store from "../store";
 
 module.exports = {
-	showAddCard: showAddCard
+	showAddCard: action(showAddCard)
 };
 
 function showAddCard() {

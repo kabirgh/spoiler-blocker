@@ -1,9 +1,9 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
-import optionsMenuActions from "./optionsMenuActions";
 import OptionsMenu from "./OptionsMenu";
 import store from "../store";
+import optionsMenuActions from "./optionsMenuActions";
 
 @observer
 class OptionsMenuContainer extends React.Component {
@@ -11,6 +11,7 @@ class OptionsMenuContainer extends React.Component {
 		super(props);
 
 		this.handleToggleCaseSensitivity = this.handleToggleCaseSensitivity.bind(this);
+		this.handleToggleHidePref = this.handleToggleHidePref.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 	}
 
@@ -18,8 +19,12 @@ class OptionsMenuContainer extends React.Component {
 		optionsMenuActions.toggleCaseSensitivity(this.props.index);
 	}
 
+	handleToggleHidePref() {
+		optionsMenuActions.toggleHidePref(this.props.index);
+	}
+
 	handleDelete() {
-		optionsMenuActions.removeList(this.props.index);
+		optionsMenuActions.deleteList(this.props.index);
 	}
 
 	render() {
@@ -28,6 +33,8 @@ class OptionsMenuContainer extends React.Component {
 				index={this.props.index}
 				isCaseSensitive={store.spoilers[this.props.index]["isCaseSensitive"]}
 				onToggleCaseSensitivity={this.handleToggleCaseSensitivity}
+				hidePref={store.spoilers[this.props.index]["hidePref"]}
+				onToggleHidePref={this.handleToggleHidePref}
 				onDelete={this.handleDelete}
 			/>
 		);
