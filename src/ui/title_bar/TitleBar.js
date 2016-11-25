@@ -3,10 +3,11 @@ const PropTypes = React.PropTypes;
 
 // TODO: convert to blueprintjs react component if possible
 const TitleBar = props => (
-	<nav className="pt-navbar pt-dark">
+	<nav className="pt-navbar pt-dark pt-fixed-top">
+	<div style={{margin: "0 auto"}}>
 		<div className="pt-navbar-group pt-align-left">
-			<div className="pt-navbar-heading">Spoiler Blocker</div>
-			<input className="pt-input" placeholder="Search lists..." type="text" />
+			<div className="pt-navbar-heading">Kenzor</div>
+			<input className="pt-input" placeholder="Search lists..." type="text" style={{width:150}}/>
 		</div>
 		<div className="pt-navbar-group pt-align-right">
 			<button 
@@ -16,6 +17,7 @@ const TitleBar = props => (
 			</button>
 			<span className="pt-navbar-divider"></span>
 			<button className="pt-button pt-minimal pt-icon-cog"></button>
+		</div>
 		</div>
 	</nav>
 );

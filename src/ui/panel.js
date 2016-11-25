@@ -13,9 +13,11 @@ const App = observer( () =>
 	<div>
 		<Devtools />
 		<TitleBarContainer />
-		<AddCardContainer />		
-		<br />
-		<SpoilerCardListContainer />
+		<div style={{paddingTop: 35}}>
+			<AddCardContainer />
+			<br />
+			<SpoilerCardListContainer />
+		</div>
 	</div>
 );
 

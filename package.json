@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prod": "webpack -p",
-    "dev": "webpack --debug --output-pathinfo",
+    "dev": "webpack --debug --output-pathinfo --progress",
+    "dev -w": "webpack --debug --output-pathinfo --watch --progress",
     "start": "webpack-dev-server"
   },
   "author": "kabir-plod",
