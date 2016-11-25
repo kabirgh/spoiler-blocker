@@ -24,7 +24,8 @@ const testSpoilersArr =
 let globalSpoilersArr;
 chrome.storage.sync.get("spoilersArr", function(storage) {
 	if (storage.spoilersArr !== undefined) {
-		console.log("Received spoilersArr: " + JSON.stringify(storage.spoilersArr));
+		console.log("Received spoilersArr: " + storage.spoilersArr);
+		console.log(storage.spoilersArr === []);
 		globalSpoilersArr = storage.spoilersArr;
 	}
 	else {

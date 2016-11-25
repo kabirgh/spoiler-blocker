@@ -79,7 +79,8 @@
 	var globalSpoilersArr = void 0;
 	chrome.storage.sync.get("spoilersArr", function (storage) {
 		if (storage.spoilersArr !== undefined) {
-			console.log("Received spoilersArr: " + JSON.stringify(storage.spoilersArr));
+			console.log("Received spoilersArr: " + storage.spoilersArr);
+			console.log(storage.spoilersArr === []);
 			globalSpoilersArr = storage.spoilersArr;
 		} else {
 			console.log("No spoilersArr in storage. Initialising to testSpoilersArr");

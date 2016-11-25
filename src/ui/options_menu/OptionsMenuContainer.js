@@ -3,7 +3,7 @@ const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import optionsMenuActions from "./optionsMenuActions";
 import OptionsMenu from "./OptionsMenu";
-import store from "../../store";
+import store from "../store";
 
 @observer
 class OptionsMenuContainer extends React.Component {

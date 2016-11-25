@@ -38488,7 +38488,7 @@
 
 	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
 
-	var _OptionsMenuContainer = __webpack_require__(/*! ./options_menu/OptionsMenuContainer */ 279);
+	var _OptionsMenuContainer = __webpack_require__(/*! ../options_menu/OptionsMenuContainer */ 279);
 
 	var _OptionsMenuContainer2 = _interopRequireDefault(_OptionsMenuContainer);
 
@@ -38546,9 +38546,9 @@
 
 /***/ },
 /* 279 */
-/*!******************************************************************!*\
-  !*** ./src/ui/spoiler_card/options_menu/OptionsMenuContainer.js ***!
-  \******************************************************************/
+/*!*****************************************************!*\
+  !*** ./src/ui/options_menu/OptionsMenuContainer.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38575,7 +38575,7 @@
 
 	var _OptionsMenu2 = _interopRequireDefault(_OptionsMenu);
 
-	var _store = __webpack_require__(/*! ../../store */ 191);
+	var _store = __webpack_require__(/*! ../store */ 191);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -38628,14 +38628,14 @@
 
 /***/ },
 /* 280 */
-/*!****************************************************************!*\
-  !*** ./src/ui/spoiler_card/options_menu/optionsMenuActions.js ***!
-  \****************************************************************/
+/*!***************************************************!*\
+  !*** ./src/ui/options_menu/optionsMenuActions.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _store = __webpack_require__(/*! ../../store */ 191);
+	var _store = __webpack_require__(/*! ../store */ 191);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -38651,9 +38651,9 @@
 
 /***/ },
 /* 281 */
-/*!*********************************************************!*\
-  !*** ./src/ui/spoiler_card/options_menu/OptionsMenu.js ***!
-  \*********************************************************/
+/*!********************************************!*\
+  !*** ./src/ui/options_menu/OptionsMenu.js ***!
+  \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
