@@ -10,6 +10,8 @@ module.exports = {
 };
 
 function saveAddList(title, tagString) {
+	title = title.trim();
+
 	if (isInvalidTitleOrTags(title, tagString)) {
 		ToastStore.isInvalidTitleOrTags = true;
 	}
@@ -34,8 +36,10 @@ function saveAddList(title, tagString) {
 }
 
 function isDuplicateTitle(title) {
-	for (let i=0; i<MainStore.titles.length; i++) {
-		if (title.trim() === MainStore.titles[i].trim()) {
+	const lowerCaseTitle = title.toLowerCase();
+
+	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
+		if (lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
 			return true;
 		}
 	}

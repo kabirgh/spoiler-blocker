@@ -14,7 +14,6 @@ class Store {
 		if (this.isAddSuccess) {
 			return {
 				message: "New list added.",
-				iconName: "tick",
 				intent: Intent.SUCCESS,
 				timeout: 2000
 			};
@@ -32,6 +31,14 @@ class Store {
 			return {
 				message: "A list with the same title already exists.",
 				intent: Intent.DANGER,
+				timeout: 2000
+			};
+		}
+
+		else if (this.isListDeleted) {
+			return {
+				message: "Deleted list.",
+				intent: Intent.PRIMARY,
 				timeout: 2000
 			};
 		}

@@ -10,6 +10,7 @@ When you're ready to submit your changes, make a pull request to the `master` br
 
 ### Where to contribute
 * Implementing `TODO`s marked in codebase
+* Refactor Toast component to follow React idioms
 * Creating a test suite
 * [Reduce bundle size](https://lacke.mn/reduce-your-bundle-js-file-size/) by importing blueprintjs components individually
 * Reducing lag between page content load and overlay appearing. Consider:

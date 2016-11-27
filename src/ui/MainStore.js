@@ -27,8 +27,8 @@ class Store {
 		this.spoilers = spoilers;
 	}
 
-	@computed get titles() {
-		return this.spoilers.map(obj => obj["title"]);
+	@computed get lowerCaseTitles() {
+		return this.spoilers.map(obj => obj["title"].toLowerCase());
 	}
 }
 

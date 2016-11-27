@@ -36,7 +36,7 @@ class Toast extends React.Component {
 	render() {
 		return (
 			<div>
-				{ToastStore.shouldRenderToast === "force re-render when obj changes" ? <div /> : <div />}
+				{ToastStore.shouldRenderToast === "Force re-render when flag changes" ? null : null}
 			</div>
 		);
 	}

@@ -39,6 +39,7 @@ class AddCardContainer extends React.Component {
 	}
 
 	handleSave() {
+		// Displays different toast messages on save success and fail. See addActions for details
 		addActions.saveAddList(this.state.title, this.state.tags);
 	}
 

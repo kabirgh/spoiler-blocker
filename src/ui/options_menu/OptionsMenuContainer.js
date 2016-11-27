@@ -10,6 +10,8 @@ class OptionsMenuContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
+		optionsMenuActions.resetToastFlags();
+
 		this.handleToggleActive = this.handleToggleActive.bind(this);
 		this.handleToggleCaseSensitive = this.handleToggleCaseSensitive.bind(this);
 		this.handleToggleHidePref = this.handleToggleHidePref.bind(this);
@@ -29,6 +31,7 @@ class OptionsMenuContainer extends React.Component {
 	}
 
 	handleDelete() {
+		// Creates a toast. See optionsMenuActions and toast/Toast for details
 		optionsMenuActions.deleteList(this.props.index);
 	}
 

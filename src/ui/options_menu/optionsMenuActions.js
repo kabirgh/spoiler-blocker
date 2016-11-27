@@ -1,11 +1,13 @@
 import {action} from "mobx";
 import MainStore from "../MainStore";
+import ToastStore from "../ToastStore";
 
 module.exports = {
 	toggleActive: action(toggleActive),
 	toggleCaseSensitive: action(toggleCaseSensitive),
 	toggleHidePref: action(toggleHidePref),
-	deleteList: action(deleteList)
+	deleteList: action(deleteList),
+	resetToastFlags: action(resetToastFlags)
 };
 
 function toggleActive(index) {
@@ -31,4 +33,10 @@ function toggleHidePref(index) {
 
 function deleteList(index) {
 	MainStore.spoilers.splice(index, 1);
+	ToastStore.isListDeleted = true;
+	ToastStore.shouldRenderToast = true;
+}
+
+function resetToastFlags() {
+	ToastStore.isListDeleted = false;
 }
