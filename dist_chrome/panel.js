@@ -61,21 +61,25 @@
 
 	var _mobxReactDevtools2 = _interopRequireDefault(_mobxReactDevtools);
 
-	var _TitleBarContainer = __webpack_require__(/*! ./title_bar/TitleBarContainer */ 188);
+	var _Toast = __webpack_require__(/*! ./toast/Toast */ 188);
+
+	var _Toast2 = _interopRequireDefault(_Toast);
+
+	var _TitleBarContainer = __webpack_require__(/*! ./title_bar/TitleBarContainer */ 269);
 
 	var _TitleBarContainer2 = _interopRequireDefault(_TitleBarContainer);
 
-	var _AddCardContainer = __webpack_require__(/*! ./add_card/AddCardContainer */ 192);
+	var _AddCardContainer = __webpack_require__(/*! ./add_card/AddCardContainer */ 273);
 
 	var _AddCardContainer2 = _interopRequireDefault(_AddCardContainer);
 
-	var _SpoilerCardListContainer = __webpack_require__(/*! ./spoiler_card/SpoilerCardListContainer */ 274);
+	var _SpoilerCardListContainer = __webpack_require__(/*! ./spoiler_card/SpoilerCardListContainer */ 276);
 
 	var _SpoilerCardListContainer2 = _interopRequireDefault(_SpoilerCardListContainer);
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -86,6 +90,7 @@
 			"div",
 			null,
 			_react2.default.createElement(_mobxReactDevtools2.default, null),
+			_react2.default.createElement(_Toast2.default, null),
 			_react2.default.createElement(_TitleBarContainer2.default, null),
 			_react2.default.createElement(
 				"div",
@@ -25878,290 +25883,9 @@
 
 /***/ },
 /* 188 */
-/*!***********************************************!*\
-  !*** ./src/ui/title_bar/TitleBarContainer.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(/*! react */ 8);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _TitleBar = __webpack_require__(/*! ./TitleBar */ 189);
-
-	var _TitleBar2 = _interopRequireDefault(_TitleBar);
-
-	var _titleBarActions = __webpack_require__(/*! ./titleBarActions */ 190);
-
-	var _titleBarActions2 = _interopRequireDefault(_titleBarActions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TitleBarContainer = function (_React$Component) {
-		_inherits(TitleBarContainer, _React$Component);
-
-		function TitleBarContainer(props) {
-			_classCallCheck(this, TitleBarContainer);
-
-			var _this = _possibleConstructorReturn(this, (TitleBarContainer.__proto__ || Object.getPrototypeOf(TitleBarContainer)).call(this, props));
-
-			_this.handleAddList = _this.handleAddList.bind(_this);
-			return _this;
-		}
-
-		_createClass(TitleBarContainer, [{
-			key: "handleAddList",
-			value: function handleAddList() {
-				_titleBarActions2.default.showAddCard();
-			}
-		}, {
-			key: "render",
-			value: function render() {
-				return _react2.default.createElement(_TitleBar2.default, {
-					onAddList: this.handleAddList
-				});
-			}
-		}]);
-
-		return TitleBarContainer;
-	}(_react2.default.Component);
-
-	exports.default = TitleBarContainer;
-
-/***/ },
-/* 189 */
-/*!**************************************!*\
-  !*** ./src/ui/title_bar/TitleBar.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _react = __webpack_require__(/*! react */ 8);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var PropTypes = _react2.default.PropTypes;
-
-	// TODO: convert to blueprintjs react component if possible
-	var TitleBar = function TitleBar(props) {
-		return _react2.default.createElement(
-			"nav",
-			{ className: "pt-navbar pt-dark pt-fixed-top" },
-			_react2.default.createElement(
-				"div",
-				{ style: { margin: "0 auto" } },
-				_react2.default.createElement(
-					"div",
-					{ className: "pt-navbar-group pt-align-left" },
-					_react2.default.createElement(
-						"div",
-						{ className: "pt-navbar-heading" },
-						"Kenzor"
-					),
-					_react2.default.createElement("input", { className: "pt-input", placeholder: "Search lists...", type: "text", style: { width: 150 } })
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "pt-navbar-group pt-align-right" },
-					_react2.default.createElement(
-						"button",
-						{
-							className: "pt-button pt-minimal pt-icon-add",
-							onClick: props.onAddList },
-						"Add a list"
-					),
-					_react2.default.createElement("span", { className: "pt-navbar-divider" }),
-					_react2.default.createElement("button", { className: "pt-button pt-minimal pt-icon-cog" })
-				)
-			)
-		);
-	};
-
-	TitleBar.propTypes = {
-		onAddList: PropTypes.func.isRequired
-	};
-
-	exports.default = TitleBar;
-
-/***/ },
-/* 190 */
-/*!*********************************************!*\
-  !*** ./src/ui/title_bar/titleBarActions.js ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _store = __webpack_require__(/*! ../store */ 191);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-		showAddCard: showAddCard
-	};
-
-	function showAddCard() {
-		_store2.default.isAddCardVisible = true;
-	}
-
-/***/ },
-/* 191 */
-/*!*************************!*\
-  !*** ./src/ui/store.js ***!
-  \*************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Store = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
-
-	var _mobx = __webpack_require__(/*! mobx */ 186);
-
-	function _initDefineProp(target, property, descriptor, context) {
-		if (!descriptor) return;
-		Object.defineProperty(target, property, {
-			enumerable: descriptor.enumerable,
-			configurable: descriptor.configurable,
-			writable: descriptor.writable,
-			value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-		});
-	}
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-		var desc = {};
-		Object['ke' + 'ys'](descriptor).forEach(function (key) {
-			desc[key] = descriptor[key];
-		});
-		desc.enumerable = !!desc.enumerable;
-		desc.configurable = !!desc.configurable;
-
-		if ('value' in desc || desc.initializer) {
-			desc.writable = true;
-		}
-
-		desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-			return decorator(target, property, desc) || desc;
-		}, desc);
-
-		if (context && desc.initializer !== void 0) {
-			desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-			desc.initializer = undefined;
-		}
-
-		if (desc.initializer === void 0) {
-			Object['define' + 'Property'](target, property, desc);
-			desc = null;
-		}
-
-		return desc;
-	}
-
-	function _initializerWarningHelper(descriptor, context) {
-		throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-	}
-
-	var defaultSpoilers = [{
-		"title": "spoiler-tag1-tag2",
-		"isActive": true,
-		"isCaseSensitive": false,
-		"hidePref": "overlay",
-		"tags": ["tag1", "tag2"]
-	}, {
-		"title": "all-posts",
-		"isActive": false,
-		"isCaseSensitive": true,
-		"hidePref": "overlay",
-		"tags": ["a", "b", "c"]
-	}];
-
-	var Store = (_class = function () {
-		// TODO: set options to change default prefs
-		function Store() {
-			var spoilers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultSpoilers;
-
-			_classCallCheck(this, Store);
-
-			_initDefineProp(this, "spoilers", _descriptor, this);
-
-			_initDefineProp(this, "isAddCardVisible", _descriptor2, this);
-
-			_initDefineProp(this, "isDuplicateTitle", _descriptor3, this);
-
-			this.defaultHidePref = "overlay";
-			this.defaultCaseSensitivity = false;
-
-			this.spoilers = spoilers;
-		} // or remove
-
-
-		_createClass(Store, [{
-			key: "titles",
-			get: function get() {
-				return this.spoilers.map(function (obj) {
-					return obj["title"];
-				});
-			}
-		}]);
-
-		return Store;
-	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "spoilers", [_mobx.observable], {
-		enumerable: true,
-		initializer: null
-	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isAddCardVisible", [_mobx.observable], {
-		enumerable: true,
-		initializer: function initializer() {
-			return false;
-		}
-	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "isDuplicateTitle", [_mobx.observable], {
-		enumerable: true,
-		initializer: function initializer() {
-			return false;
-		}
-	}), _applyDecoratedDescriptor(_class.prototype, "titles", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "titles"), _class.prototype)), _class);
-
-
-	var store = new Store();
-
-	exports.default = store;
-	exports.Store = Store;
-
-/***/ },
-/* 192 */
-/*!*********************************************!*\
-  !*** ./src/ui/add_card/AddCardContainer.js ***!
-  \*********************************************/
+/*!*******************************!*\
+  !*** ./src/ui/toast/Toast.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26173,8 +25897,6 @@
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _class;
-	// const PropTypes = React.PropTypes; TODO
-
 
 	var _react = __webpack_require__(/*! react */ 8);
 
@@ -26182,19 +25904,11 @@
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _store = __webpack_require__(/*! ../store */ 191);
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
-	var _store2 = _interopRequireDefault(_store);
+	var _ToastStore = __webpack_require__(/*! ../ToastStore */ 268);
 
-	var _addActions = __webpack_require__(/*! ./addActions */ 193);
-
-	var _addActions2 = _interopRequireDefault(_addActions);
-
-	var _AddCard = __webpack_require__(/*! ./AddCard */ 194);
-
-	var _AddCard2 = _interopRequireDefault(_AddCard);
-
-	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
+	var _ToastStore2 = _interopRequireDefault(_ToastStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26204,209 +25918,50 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var AddCardContainer = (0, _mobxReact.observer)(_class = function (_React$Component) {
-		_inherits(AddCardContainer, _React$Component);
+	var Toast = (0, _mobxReact.observer)(_class = function (_React$Component) {
+		_inherits(Toast, _React$Component);
 
-		function AddCardContainer(props) {
-			_classCallCheck(this, AddCardContainer);
+		function Toast(props) {
+			_classCallCheck(this, Toast);
 
-			var _this = _possibleConstructorReturn(this, (AddCardContainer.__proto__ || Object.getPrototypeOf(AddCardContainer)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Toast.__proto__ || Object.getPrototypeOf(Toast)).call(this, props));
 
-			_this.state = {
-				title: "",
-				tags: ""
-			};
-
-			_this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
-			_this.handleUpdateTags = _this.handleUpdateTags.bind(_this);
-			_this.handleSave = _this.handleSave.bind(_this);
-			_this.handleClose = _this.handleClose.bind(_this);
+			_this.toaster = _core.Toaster.create({
+				className: "top-toaster",
+				autoFocus: false,
+				canEscapeKeyClear: true,
+				position: _core.Position.TOP
+			});
 			return _this;
 		}
 
-		_createClass(AddCardContainer, [{
-			key: "handleUpdateTitle",
-			value: function handleUpdateTitle(event) {
-				this.setState({
-					title: event.target.value
-				});
-			}
-		}, {
-			key: "handleUpdateTags",
-			value: function handleUpdateTags(event) {
-				this.setState({
-					tags: event.target.value
-				});
-			}
-		}, {
-			key: "handleSave",
-			value: function handleSave() {
-				console.log("handleSave");
-				_addActions2.default.saveAddList(this.state.title, this.state.tags);
-				_addActions2.default.hideAddCard();
-			}
-		}, {
-			key: "handleClose",
-			value: function handleClose() {
-				this.setState({
-					title: "",
-					tags: ""
-				});
-				_addActions2.default.hideAddCard();
+		_createClass(Toast, [{
+			key: "componentDidUpdate",
+			value: function componentDidUpdate() {
+				console.log(_ToastStore2.default.toastObject);
+
+				if (_ToastStore2.default.toastObject !== null) {
+					this.toaster.show(_ToastStore2.default.toastObject);
+				}
 			}
 		}, {
 			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					_core.Collapse,
-					{ isOpen: _store2.default.isAddCardVisible },
-					_react2.default.createElement("br", null),
-					_react2.default.createElement(_AddCard2.default, {
-						onUpdateTitle: this.handleUpdateTitle,
-						onUpdateTags: this.handleUpdateTags,
-						onSave: this.handleSave,
-						onClose: this.handleClose
-					})
+					"div",
+					null,
+					_ToastStore2.default.toastObject === "force re-render when obj changes" ? _react2.default.createElement("div", null) : _react2.default.createElement("div", null)
 				);
 			}
 		}]);
 
-		return AddCardContainer;
+		return Toast;
 	}(_react2.default.Component)) || _class;
 
-	exports.default = AddCardContainer;
+	exports.default = Toast;
 
 /***/ },
-/* 193 */
-/*!***************************************!*\
-  !*** ./src/ui/add_card/addActions.js ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _store = __webpack_require__(/*! ../store */ 191);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// TODO: ES2015
-	module.exports = {
-		saveAddList: saveAddList,
-		hideAddCard: hideAddCard
-	};
-
-	// TODO: error msg for empty title/tags
-	function saveAddList(title, tagString) {
-		console.log("we at saveAddList");
-		if (isDuplicateTitle(title)) {
-			// TODO: change to false as soon as text changes
-			_store2.default.isDuplicateTitle = true;
-		} else {
-			console.log("save list event");
-			_store2.default.spoilers.push({
-				title: title,
-				isActive: true,
-				isCaseSensitive: _store2.default.defaultCaseSensitivity,
-				hidePref: _store2.default.defaultHidePref,
-				tags: tagStringToArray(tagString)
-			});
-			console.log("new spoiler list on next line");
-			console.log(_store2.default.spoilers.slice());
-		}
-	}
-
-	function isDuplicateTitle(title) {
-		for (var i = 0; i < _store2.default.titles.length; i++) {
-			if (title.trim() === _store2.default.titles[i].trim()) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	function tagStringToArray(tagString) {
-		var tagArr = tagString.split(",");
-		return tagArr.map(function (tag) {
-			return tag.trim();
-		});
-	}
-
-	// TODO: make addcard child of <Collapse> instead
-	function hideAddCard() {
-		_store2.default.isAddCardVisible = false;
-	}
-
-/***/ },
-/* 194 */
-/*!************************************!*\
-  !*** ./src/ui/add_card/AddCard.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _react = __webpack_require__(/*! react */ 8);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var PropTypes = _react2.default.PropTypes;
-
-
-	var AddNewCard = function AddNewCard(props) {
-		return _react2.default.createElement(
-			"div",
-			{ className: "pt-card", style: { backgroundColor: "#EBF1F5", position: "relative" } },
-			_react2.default.createElement(
-				"div",
-				{ className: "pt-navbar-group", style: { position: "absolute", top: 0, right: 0, paddingRight: 10 } },
-				_react2.default.createElement("button", { className: "pt-button pt-minimal pt-icon-cross", onClick: props.onClose })
-			),
-			_react2.default.createElement(
-				"div",
-				null,
-				_react2.default.createElement(
-					"label",
-					{ className: "pt-label pt-inline" },
-					"Title  ",
-					_react2.default.createElement("input", { className: "pt-input", style: { width: 200 }, type: "text",
-						dir: "auto", onChange: props.onUpdateTitle })
-				),
-				_react2.default.createElement(
-					"label",
-					{ className: "pt-label pt-inline" },
-					"Tags  ",
-					_react2.default.createElement("input", { className: "pt-input", style: { width: 200 }, type: "text",
-						dir: "auto", onChange: props.onUpdateTags })
-				)
-			),
-			_react2.default.createElement(_core.Button, { className: "pt-intent-primary", text: "Add", onClick: props.onSave }),
-			"\xA0\xA0",
-			_react2.default.createElement(_core.Button, { text: "Discard", onClick: props.onClose })
-		);
-	};
-
-	AddNewCard.propTypes = {
-		onSave: PropTypes.func.isRequired,
-		onUpdateTitle: PropTypes.func.isRequired,
-		onUpdateTags: PropTypes.func.isRequired,
-		onClose: PropTypes.func.isRequired
-	};
-
-	exports.default = AddNewCard;
-
-/***/ },
-/* 195 */
+/* 189 */
 /*!*******************************************!*\
   !*** ./~/@blueprintjs/core/dist/index.js ***!
   \*******************************************/
@@ -26422,13 +25977,13 @@
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(/*! ./common */ 196));
-	__export(__webpack_require__(/*! ./components */ 206));
-	var iconClasses_1 = __webpack_require__(/*! ./generated/iconClasses */ 271);
+	__export(__webpack_require__(/*! ./common */ 190));
+	__export(__webpack_require__(/*! ./components */ 200));
+	var iconClasses_1 = __webpack_require__(/*! ./generated/iconClasses */ 265);
 	exports.IconClasses = iconClasses_1.IconClasses;
-	var iconStrings_1 = __webpack_require__(/*! ./generated/iconStrings */ 272);
+	var iconStrings_1 = __webpack_require__(/*! ./generated/iconStrings */ 266);
 	exports.IconContents = iconStrings_1.IconContents;
-	var interactionMode_1 = __webpack_require__(/*! ./common/interactionMode */ 273);
+	var interactionMode_1 = __webpack_require__(/*! ./common/interactionMode */ 267);
 	exports.FOCUS_DISABLED_CLASS = "pt-focus-disabled";
 	var focusEngine = new interactionMode_1.InteractionModeEngine(document.documentElement, exports.FOCUS_DISABLED_CLASS);
 	exports.FocusStyleManager = {
@@ -26441,7 +25996,7 @@
 
 
 /***/ },
-/* 196 */
+/* 190 */
 /*!**************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/index.js ***!
   \**************************************************/
@@ -26457,15 +26012,15 @@
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(/*! ./abstractComponent */ 197));
-	__export(__webpack_require__(/*! ./colors */ 198));
-	__export(__webpack_require__(/*! ./intent */ 199));
-	__export(__webpack_require__(/*! ./position */ 200));
-	__export(__webpack_require__(/*! ./props */ 201));
-	__export(__webpack_require__(/*! ./tetherUtils */ 203));
-	var classes = __webpack_require__(/*! ../common/classes */ 204);
-	var keys = __webpack_require__(/*! ../common/keys */ 205);
-	var utils = __webpack_require__(/*! ./utils */ 202);
+	__export(__webpack_require__(/*! ./abstractComponent */ 191));
+	__export(__webpack_require__(/*! ./colors */ 192));
+	__export(__webpack_require__(/*! ./intent */ 193));
+	__export(__webpack_require__(/*! ./position */ 194));
+	__export(__webpack_require__(/*! ./props */ 195));
+	__export(__webpack_require__(/*! ./tetherUtils */ 197));
+	var classes = __webpack_require__(/*! ../common/classes */ 198);
+	var keys = __webpack_require__(/*! ../common/keys */ 199);
+	var utils = __webpack_require__(/*! ./utils */ 196);
 	exports.Classes = classes;
 	exports.Keys = keys;
 	exports.Utils = utils;
@@ -26475,7 +26030,7 @@
 
 
 /***/ },
-/* 197 */
+/* 191 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/abstractComponent.js ***!
   \**************************************************************/
@@ -26528,7 +26083,7 @@
 
 
 /***/ },
-/* 198 */
+/* 192 */
 /*!***************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/colors.js ***!
   \***************************************************/
@@ -26635,7 +26190,7 @@
 
 
 /***/ },
-/* 199 */
+/* 193 */
 /*!***************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/intent.js ***!
   \***************************************************/
@@ -26664,7 +26219,7 @@
 
 
 /***/ },
-/* 200 */
+/* 194 */
 /*!*****************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/position.js ***!
   \*****************************************************/
@@ -26709,7 +26264,7 @@
 
 
 /***/ },
-/* 201 */
+/* 195 */
 /*!**************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/props.js ***!
   \**************************************************/
@@ -26722,7 +26277,7 @@
 	 * and https://github.com/palantir/blueprint/blob/master/PATENTS
 	 */
 	"use strict";
-	var utils_1 = __webpack_require__(/*! ./utils */ 202);
+	var utils_1 = __webpack_require__(/*! ./utils */ 196);
 	/** A collection of curated prop keys used across our Components which are not valid HTMLElement props. */
 	var INVALID_PROPS = [
 	    "containerRef",
@@ -26765,7 +26320,7 @@
 
 
 /***/ },
-/* 202 */
+/* 196 */
 /*!**************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/utils.js ***!
   \**************************************************/
@@ -26864,7 +26419,7 @@
 
 
 /***/ },
-/* 203 */
+/* 197 */
 /*!********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/tetherUtils.js ***!
   \********************************************************/
@@ -26877,7 +26432,7 @@
 	 * and https://github.com/palantir/blueprint/blob/master/PATENTS
 	 */
 	"use strict";
-	var position_1 = __webpack_require__(/*! ./position */ 200);
+	var position_1 = __webpack_require__(/*! ./position */ 194);
 	var DEFAULT_CONSTRAINTS = {
 	    attachment: "together",
 	    to: "scrollParent",
@@ -26956,7 +26511,7 @@
 
 
 /***/ },
-/* 204 */
+/* 198 */
 /*!****************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/classes.js ***!
   \****************************************************/
@@ -26969,7 +26524,7 @@
 	 * and https://github.com/palantir/blueprint/blob/master/PATENTS
 	 */
 	"use strict";
-	var intent_1 = __webpack_require__(/*! ./intent */ 199);
+	var intent_1 = __webpack_require__(/*! ./intent */ 193);
 	// modifiers
 	exports.DARK = "pt-dark";
 	exports.ACTIVE = "pt-active";
@@ -27092,7 +26647,7 @@
 
 
 /***/ },
-/* 205 */
+/* 199 */
 /*!*************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/keys.js ***!
   \*************************************************/
@@ -27117,7 +26672,7 @@
 
 
 /***/ },
-/* 206 */
+/* 200 */
 /*!******************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/index.js ***!
   \******************************************************/
@@ -27133,51 +26688,51 @@
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__webpack_require__(/*! dom4 */ 207);
-	var contextMenu = __webpack_require__(/*! ./context-menu/contextMenu */ 208);
+	__webpack_require__(/*! dom4 */ 201);
+	var contextMenu = __webpack_require__(/*! ./context-menu/contextMenu */ 202);
 	exports.ContextMenu = contextMenu;
-	__export(__webpack_require__(/*! ./alert/alert */ 231));
-	__export(__webpack_require__(/*! ./breadcrumbs/breadcrumb */ 234));
-	__export(__webpack_require__(/*! ./button/buttons */ 232));
-	__export(__webpack_require__(/*! ./collapse/collapse */ 235));
-	__export(__webpack_require__(/*! ./collapsible-list/collapsibleList */ 236));
-	__export(__webpack_require__(/*! ./context-menu/contextMenuTarget */ 239));
-	__export(__webpack_require__(/*! ./dialog/dialog */ 233));
-	__export(__webpack_require__(/*! ./editable-text/editableText */ 240));
-	__export(__webpack_require__(/*! ./forms/controls */ 241));
-	__export(__webpack_require__(/*! ./forms/inputGroup */ 242));
-	__export(__webpack_require__(/*! ./forms/radioGroup */ 243));
-	__export(__webpack_require__(/*! ./hotkeys/hotkeys */ 244));
-	__export(__webpack_require__(/*! ./menu/menu */ 237));
-	__export(__webpack_require__(/*! ./menu/menuDivider */ 251));
-	__export(__webpack_require__(/*! ./menu/menuItem */ 238));
-	__export(__webpack_require__(/*! ./non-ideal-state/nonIdealState */ 252));
-	__export(__webpack_require__(/*! ./overlay/overlay */ 214));
-	__export(__webpack_require__(/*! ./popover/popover */ 209));
-	__export(__webpack_require__(/*! ./popover/svgPopover */ 253));
-	__export(__webpack_require__(/*! ./portal/portal */ 228));
-	__export(__webpack_require__(/*! ./progress/progressBar */ 254));
-	__export(__webpack_require__(/*! ./tooltip/svgTooltip */ 255));
-	__export(__webpack_require__(/*! ./slider/rangeSlider */ 256));
-	__export(__webpack_require__(/*! ./slider/slider */ 259));
-	__export(__webpack_require__(/*! ./spinner/spinner */ 260));
-	__export(__webpack_require__(/*! ./spinner/svgSpinner */ 261));
-	__export(__webpack_require__(/*! ./tabs/tab */ 262));
-	__export(__webpack_require__(/*! ./tabs/tabs */ 263));
-	__export(__webpack_require__(/*! ./tabs/tabList */ 264));
-	__export(__webpack_require__(/*! ./tabs/tabPanel */ 265));
-	__export(__webpack_require__(/*! ./tag/tag */ 266));
-	__export(__webpack_require__(/*! ./toast/toast */ 267));
-	__export(__webpack_require__(/*! ./toast/toaster */ 268));
-	__export(__webpack_require__(/*! ./tooltip/tooltip */ 229));
-	__export(__webpack_require__(/*! ./tree/tree */ 269));
-	__export(__webpack_require__(/*! ./tree/treeNode */ 270));
+	__export(__webpack_require__(/*! ./alert/alert */ 225));
+	__export(__webpack_require__(/*! ./breadcrumbs/breadcrumb */ 228));
+	__export(__webpack_require__(/*! ./button/buttons */ 226));
+	__export(__webpack_require__(/*! ./collapse/collapse */ 229));
+	__export(__webpack_require__(/*! ./collapsible-list/collapsibleList */ 230));
+	__export(__webpack_require__(/*! ./context-menu/contextMenuTarget */ 233));
+	__export(__webpack_require__(/*! ./dialog/dialog */ 227));
+	__export(__webpack_require__(/*! ./editable-text/editableText */ 234));
+	__export(__webpack_require__(/*! ./forms/controls */ 235));
+	__export(__webpack_require__(/*! ./forms/inputGroup */ 236));
+	__export(__webpack_require__(/*! ./forms/radioGroup */ 237));
+	__export(__webpack_require__(/*! ./hotkeys/hotkeys */ 238));
+	__export(__webpack_require__(/*! ./menu/menu */ 231));
+	__export(__webpack_require__(/*! ./menu/menuDivider */ 245));
+	__export(__webpack_require__(/*! ./menu/menuItem */ 232));
+	__export(__webpack_require__(/*! ./non-ideal-state/nonIdealState */ 246));
+	__export(__webpack_require__(/*! ./overlay/overlay */ 208));
+	__export(__webpack_require__(/*! ./popover/popover */ 203));
+	__export(__webpack_require__(/*! ./popover/svgPopover */ 247));
+	__export(__webpack_require__(/*! ./portal/portal */ 222));
+	__export(__webpack_require__(/*! ./progress/progressBar */ 248));
+	__export(__webpack_require__(/*! ./tooltip/svgTooltip */ 249));
+	__export(__webpack_require__(/*! ./slider/rangeSlider */ 250));
+	__export(__webpack_require__(/*! ./slider/slider */ 253));
+	__export(__webpack_require__(/*! ./spinner/spinner */ 254));
+	__export(__webpack_require__(/*! ./spinner/svgSpinner */ 255));
+	__export(__webpack_require__(/*! ./tabs/tab */ 256));
+	__export(__webpack_require__(/*! ./tabs/tabs */ 257));
+	__export(__webpack_require__(/*! ./tabs/tabList */ 258));
+	__export(__webpack_require__(/*! ./tabs/tabPanel */ 259));
+	__export(__webpack_require__(/*! ./tag/tag */ 260));
+	__export(__webpack_require__(/*! ./toast/toast */ 261));
+	__export(__webpack_require__(/*! ./toast/toaster */ 262));
+	__export(__webpack_require__(/*! ./tooltip/tooltip */ 223));
+	__export(__webpack_require__(/*! ./tree/tree */ 263));
+	__export(__webpack_require__(/*! ./tree/treeNode */ 264));
 
 	//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9jb21wb25lbnRzL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7OztHQUtHOzs7OztBQUVILFFBQU8sTUFBTSxDQUFDLENBQUE7QUFFZCxJQUFZLFdBQVcsV0FBTSw0QkFBNEIsQ0FBQyxDQUFBO0FBQzdDLG1CQUFXLEdBQUcsV0FBVyxDQUFDO0FBRXZDLGlCQUFjLGVBQWUsQ0FBQyxFQUFBO0FBQzlCLGlCQUFjLDBCQUEwQixDQUFDLEVBQUE7QUFDekMsaUJBQWMsa0JBQWtCLENBQUMsRUFBQTtBQUNqQyxpQkFBYyxxQkFBcUIsQ0FBQyxFQUFBO0FBQ3BDLGlCQUFjLG9DQUFvQyxDQUFDLEVBQUE7QUFDbkQsaUJBQWMsa0NBQWtDLENBQUMsRUFBQTtBQUNqRCxpQkFBYyxpQkFBaUIsQ0FBQyxFQUFBO0FBQ2hDLGlCQUFjLDhCQUE4QixDQUFDLEVBQUE7QUFDN0MsaUJBQWMsa0JBQWtCLENBQUMsRUFBQTtBQUNqQyxpQkFBYyxvQkFBb0IsQ0FBQyxFQUFBO0FBQ25DLGlCQUFjLG9CQUFvQixDQUFDLEVBQUE7QUFDbkMsaUJBQWMsbUJBQW1CLENBQUMsRUFBQTtBQUNsQyxpQkFBYyxhQUFhLENBQUMsRUFBQTtBQUM1QixpQkFBYyxvQkFBb0IsQ0FBQyxFQUFBO0FBQ25DLGlCQUFjLGlCQUFpQixDQUFDLEVBQUE7QUFDaEMsaUJBQWMsaUNBQWlDLENBQUMsRUFBQTtBQUNoRCxpQkFBYyxtQkFBbUIsQ0FBQyxFQUFBO0FBQ2xDLGlCQUFjLG1CQUFtQixDQUFDLEVBQUE7QUFDbEMsaUJBQWMsc0JBQXNCLENBQUMsRUFBQTtBQUNyQyxpQkFBYyxpQkFBaUIsQ0FBQyxFQUFBO0FBQ2hDLGlCQUFjLHdCQUF3QixDQUFDLEVBQUE7QUFDdkMsaUJBQWMsc0JBQXNCLENBQUMsRUFBQTtBQUNyQyxpQkFBYyxzQkFBc0IsQ0FBQyxFQUFBO0FBQ3JDLGlCQUFjLGlCQUFpQixDQUFDLEVBQUE7QUFDaEMsaUJBQWMsbUJBQW1CLENBQUMsRUFBQTtBQUNsQyxpQkFBYyxzQkFBc0IsQ0FBQyxFQUFBO0FBQ3JDLGlCQUFjLFlBQVksQ0FBQyxFQUFBO0FBQzNCLGlCQUFjLGFBQWEsQ0FBQyxFQUFBO0FBQzVCLGlCQUFjLGdCQUFnQixDQUFDLEVBQUE7QUFDL0IsaUJBQWMsaUJBQWlCLENBQUMsRUFBQTtBQUNoQyxpQkFBYyxXQUFXLENBQUMsRUFBQTtBQUMxQixpQkFBYyxlQUFlLENBQUMsRUFBQTtBQUM5QixpQkFBYyxpQkFBaUIsQ0FBQyxFQUFBO0FBQ2hDLGlCQUFjLG1CQUFtQixDQUFDLEVBQUE7QUFDbEMsaUJBQWMsYUFBYSxDQUFDLEVBQUE7QUFDNUIsaUJBQWMsaUJBQWlCLENBQUMsRUFBQSIsImZpbGUiOiJjb21wb25lbnRzL2luZGV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIENvcHlyaWdodCAyMDE2IFBhbGFudGlyIFRlY2hub2xvZ2llcywgSW5jLiBBbGwgcmlnaHRzIHJlc2VydmVkLlxuICogTGljZW5zZWQgdW5kZXIgdGhlIEJTRC0zIExpY2Vuc2UgYXMgbW9kaWZpZWQgKHRoZSDigJxMaWNlbnNl4oCdKTsgeW91IG1heSBvYnRhaW4gYSBjb3B5XG4gKiBvZiB0aGUgbGljZW5zZSBhdCBodHRwczovL2dpdGh1Yi5jb20vcGFsYW50aXIvYmx1ZXByaW50L2Jsb2IvbWFzdGVyL0xJQ0VOU0VcbiAqIGFuZCBodHRwczovL2dpdGh1Yi5jb20vcGFsYW50aXIvYmx1ZXByaW50L2Jsb2IvbWFzdGVyL1BBVEVOVFNcbiAqL1xuXG5pbXBvcnQgXCJkb200XCI7XG5cbmltcG9ydCAqIGFzIGNvbnRleHRNZW51IGZyb20gXCIuL2NvbnRleHQtbWVudS9jb250ZXh0TWVudVwiO1xuZXhwb3J0IGNvbnN0IENvbnRleHRNZW51ID0gY29udGV4dE1lbnU7XG5cbmV4cG9ydCAqIGZyb20gXCIuL2FsZXJ0L2FsZXJ0XCI7XG5leHBvcnQgKiBmcm9tIFwiLi9icmVhZGNydW1icy9icmVhZGNydW1iXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9idXR0b24vYnV0dG9uc1wiO1xuZXhwb3J0ICogZnJvbSBcIi4vY29sbGFwc2UvY29sbGFwc2VcIjtcbmV4cG9ydCAqIGZyb20gXCIuL2NvbGxhcHNpYmxlLWxpc3QvY29sbGFwc2libGVMaXN0XCI7XG5leHBvcnQgKiBmcm9tIFwiLi9jb250ZXh0LW1lbnUvY29udGV4dE1lbnVUYXJnZXRcIjtcbmV4cG9ydCAqIGZyb20gXCIuL2RpYWxvZy9kaWFsb2dcIjtcbmV4cG9ydCAqIGZyb20gXCIuL2VkaXRhYmxlLXRleHQvZWRpdGFibGVUZXh0XCI7XG5leHBvcnQgKiBmcm9tIFwiLi9mb3Jtcy9jb250cm9sc1wiO1xuZXhwb3J0ICogZnJvbSBcIi4vZm9ybXMvaW5wdXRHcm91cFwiO1xuZXhwb3J0ICogZnJvbSBcIi4vZm9ybXMvcmFkaW9Hcm91cFwiO1xuZXhwb3J0ICogZnJvbSBcIi4vaG90a2V5cy9ob3RrZXlzXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9tZW51L21lbnVcIjtcbmV4cG9ydCAqIGZyb20gXCIuL21lbnUvbWVudURpdmlkZXJcIjtcbmV4cG9ydCAqIGZyb20gXCIuL21lbnUvbWVudUl0ZW1cIjtcbmV4cG9ydCAqIGZyb20gXCIuL25vbi1pZGVhbC1zdGF0ZS9ub25JZGVhbFN0YXRlXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9vdmVybGF5L292ZXJsYXlcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3BvcG92ZXIvcG9wb3ZlclwiO1xuZXhwb3J0ICogZnJvbSBcIi4vcG9wb3Zlci9zdmdQb3BvdmVyXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9wb3J0YWwvcG9ydGFsXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9wcm9ncmVzcy9wcm9ncmVzc0JhclwiO1xuZXhwb3J0ICogZnJvbSBcIi4vdG9vbHRpcC9zdmdUb29sdGlwXCI7XG5leHBvcnQgKiBmcm9tIFwiLi9zbGlkZXIvcmFuZ2VTbGlkZXJcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3NsaWRlci9zbGlkZXJcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3NwaW5uZXIvc3Bpbm5lclwiO1xuZXhwb3J0ICogZnJvbSBcIi4vc3Bpbm5lci9zdmdTcGlubmVyXCI7XG5leHBvcnQgKiBmcm9tIFwiLi90YWJzL3RhYlwiO1xuZXhwb3J0ICogZnJvbSBcIi4vdGFicy90YWJzXCI7XG5leHBvcnQgKiBmcm9tIFwiLi90YWJzL3RhYkxpc3RcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3RhYnMvdGFiUGFuZWxcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3RhZy90YWdcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3RvYXN0L3RvYXN0XCI7XG5leHBvcnQgKiBmcm9tIFwiLi90b2FzdC90b2FzdGVyXCI7XG5leHBvcnQgKiBmcm9tIFwiLi90b29sdGlwL3Rvb2x0aXBcIjtcbmV4cG9ydCAqIGZyb20gXCIuL3RyZWUvdHJlZVwiO1xuZXhwb3J0ICogZnJvbSBcIi4vdHJlZS90cmVlTm9kZVwiO1xuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
 
 
 /***/ },
-/* 207 */
+/* 201 */
 /*!**********************************!*\
   !*** ./~/dom4/build/dom4.max.js ***!
   \**********************************/
@@ -28168,7 +27723,7 @@
 	}(self));
 
 /***/ },
-/* 208 */
+/* 202 */
 /*!*************************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/context-menu/contextMenu.js ***!
   \*************************************************************************/
@@ -28188,10 +27743,10 @@
 	};
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 39);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var popover_1 = __webpack_require__(/*! ../popover/popover */ 209);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var popover_1 = __webpack_require__(/*! ../popover/popover */ 203);
 	var CONSTRAINTS = [{ attachment: "together", pin: true, to: "window" }];
 	var TRANSITION_DURATION = 100;
 	var ContextMenu = (function (_super) {
@@ -28273,7 +27828,7 @@
 
 
 /***/ },
-/* 209 */
+/* 203 */
 /*!****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/popover/popover.js ***!
   \****************************************************************/
@@ -28305,20 +27860,20 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
 	var react_dom_1 = __webpack_require__(/*! react-dom */ 39);
-	var Tether = __webpack_require__(/*! tether */ 212);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var PosUtils = __webpack_require__(/*! ../../common/position */ 200);
-	var TetherUtils = __webpack_require__(/*! ../../common/tetherUtils */ 203);
-	var Utils = __webpack_require__(/*! ../../common/utils */ 202);
-	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 214);
-	var tooltip_1 = __webpack_require__(/*! ../tooltip/tooltip */ 229);
-	var Arrows = __webpack_require__(/*! ./arrows */ 230);
+	var Tether = __webpack_require__(/*! tether */ 206);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var PosUtils = __webpack_require__(/*! ../../common/position */ 194);
+	var TetherUtils = __webpack_require__(/*! ../../common/tetherUtils */ 197);
+	var Utils = __webpack_require__(/*! ../../common/utils */ 196);
+	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 208);
+	var tooltip_1 = __webpack_require__(/*! ../tooltip/tooltip */ 223);
+	var Arrows = __webpack_require__(/*! ./arrows */ 224);
 	var SVG_SHADOW_PATH = "M8.11 6.302c1.015-.936 1.887-2.922 1.887-4.297v26c0-1.378" +
 	    "-.868-3.357-1.888-4.297L.925 17.09c-1.237-1.14-1.233-3.034 0-4.17L8.11 6.302z";
 	var SVG_ARROW_PATH = "M8.787 7.036c1.22-1.125 2.21-3.376 2.21-5.03V0v30-2.005" +
@@ -28665,7 +28220,7 @@
 
 
 /***/ },
-/* 210 */
+/* 204 */
 /*!*******************************!*\
   !*** ./~/classnames/index.js ***!
   \*******************************/
@@ -28722,7 +28277,7 @@
 
 
 /***/ },
-/* 211 */
+/* 205 */
 /*!******************************************!*\
   !*** ./~/pure-render-decorator/index.js ***!
   \******************************************/
@@ -28797,7 +28352,7 @@
 
 
 /***/ },
-/* 212 */
+/* 206 */
 /*!************************************!*\
   !*** ./~/tether/dist/js/tether.js ***!
   \************************************/
@@ -30613,7 +30168,7 @@
 
 
 /***/ },
-/* 213 */
+/* 207 */
 /*!***************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/errors.js ***!
   \***************************************************/
@@ -30655,7 +30210,7 @@
 
 
 /***/ },
-/* 214 */
+/* 208 */
 /*!****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/overlay/overlay.js ***!
   \****************************************************************/
@@ -30687,14 +30242,14 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var CSSTransitionGroup = __webpack_require__(/*! react-addons-css-transition-group */ 215);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Keys = __webpack_require__(/*! ../../common/keys */ 205);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var portal_1 = __webpack_require__(/*! ../portal/portal */ 228);
+	var CSSTransitionGroup = __webpack_require__(/*! react-addons-css-transition-group */ 209);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Keys = __webpack_require__(/*! ../../common/keys */ 199);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var portal_1 = __webpack_require__(/*! ../portal/portal */ 222);
 	var Overlay = (function (_super) {
 	    __extends(Overlay, _super);
 	    function Overlay(props, context) {
@@ -30875,16 +30430,16 @@
 
 
 /***/ },
-/* 215 */
+/* 209 */
 /*!******************************************************!*\
   !*** ./~/react-addons-css-transition-group/index.js ***!
   \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! react/lib/ReactCSSTransitionGroup */ 216);
+	module.exports = __webpack_require__(/*! react/lib/ReactCSSTransitionGroup */ 210);
 
 /***/ },
-/* 216 */
+/* 210 */
 /*!************************************************!*\
   !*** ./~/react/lib/ReactCSSTransitionGroup.js ***!
   \************************************************/
@@ -30912,8 +30467,8 @@
 
 	var React = __webpack_require__(/*! ./React */ 9);
 
-	var ReactTransitionGroup = __webpack_require__(/*! ./ReactTransitionGroup */ 217);
-	var ReactCSSTransitionGroupChild = __webpack_require__(/*! ./ReactCSSTransitionGroupChild */ 225);
+	var ReactTransitionGroup = __webpack_require__(/*! ./ReactTransitionGroup */ 211);
+	var ReactCSSTransitionGroupChild = __webpack_require__(/*! ./ReactCSSTransitionGroupChild */ 219);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -30996,7 +30551,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 217 */
+/* 211 */
 /*!*********************************************!*\
   !*** ./~/react/lib/ReactTransitionGroup.js ***!
   \*********************************************/
@@ -31023,8 +30578,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(/*! ./React */ 9);
-	var ReactAddonsDOMDependencies = __webpack_require__(/*! ./ReactAddonsDOMDependencies */ 218);
-	var ReactTransitionChildMapping = __webpack_require__(/*! ./ReactTransitionChildMapping */ 223);
+	var ReactAddonsDOMDependencies = __webpack_require__(/*! ./ReactAddonsDOMDependencies */ 212);
+	var ReactTransitionChildMapping = __webpack_require__(/*! ./ReactTransitionChildMapping */ 217);
 
 	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 19);
 
@@ -31254,7 +30809,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 218 */
+/* 212 */
 /*!***************************************************!*\
   !*** ./~/react/lib/ReactAddonsDOMDependencies.js ***!
   \***************************************************/
@@ -31284,8 +30839,8 @@
 	};
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactPerf = __webpack_require__(/*! react-dom/lib/ReactPerf */ 219);
-	  var ReactTestUtils = __webpack_require__(/*! react-dom/lib/ReactTestUtils */ 220);
+	  var ReactPerf = __webpack_require__(/*! react-dom/lib/ReactPerf */ 213);
+	  var ReactTestUtils = __webpack_require__(/*! react-dom/lib/ReactTestUtils */ 214);
 
 	  exports.getReactPerf = function () {
 	    return ReactPerf;
@@ -31298,7 +30853,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 219 */
+/* 213 */
 /*!**************************************!*\
   !*** ./~/react-dom/lib/ReactPerf.js ***!
   \**************************************/
@@ -31807,7 +31362,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 220 */
+/* 214 */
 /*!*******************************************!*\
   !*** ./~/react-dom/lib/ReactTestUtils.js ***!
   \*******************************************/
@@ -31828,7 +31383,7 @@
 	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 42),
 	    _assign = __webpack_require__(/*! object-assign */ 11);
 
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 221);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 215);
 	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 49);
 	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 50);
 	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 48);
@@ -31839,7 +31394,7 @@
 	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 123);
 	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 63);
 	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 60);
-	var ReactShallowRenderer = __webpack_require__(/*! ./ReactShallowRenderer */ 222);
+	var ReactShallowRenderer = __webpack_require__(/*! ./ReactShallowRenderer */ 216);
 
 	var findDOMNode = __webpack_require__(/*! ./findDOMNode */ 179);
 	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 15);
@@ -32227,7 +31782,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 221 */
+/* 215 */
 /*!*******************************************!*\
   !*** ./~/react-dom/lib/EventConstants.js ***!
   \*******************************************/
@@ -32326,7 +31881,7 @@
 	module.exports = EventConstants;
 
 /***/ },
-/* 222 */
+/* 216 */
 /*!*************************************************!*\
   !*** ./~/react-dom/lib/ReactShallowRenderer.js ***!
   \*************************************************/
@@ -32469,7 +32024,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 223 */
+/* 217 */
 /*!****************************************************!*\
   !*** ./~/react/lib/ReactTransitionChildMapping.js ***!
   \****************************************************/
@@ -32487,7 +32042,7 @@
 
 	'use strict';
 
-	var flattenChildren = __webpack_require__(/*! ./flattenChildren */ 224);
+	var flattenChildren = __webpack_require__(/*! ./flattenChildren */ 218);
 
 	var ReactTransitionChildMapping = {
 	  /**
@@ -32580,7 +32135,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 224 */
+/* 218 */
 /*!****************************************!*\
   !*** ./~/react/lib/flattenChildren.js ***!
   \****************************************/
@@ -32664,7 +32219,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 225 */
+/* 219 */
 /*!*****************************************************!*\
   !*** ./~/react/lib/ReactCSSTransitionGroupChild.js ***!
   \*****************************************************/
@@ -32683,10 +32238,10 @@
 	'use strict';
 
 	var React = __webpack_require__(/*! ./React */ 9);
-	var ReactAddonsDOMDependencies = __webpack_require__(/*! ./ReactAddonsDOMDependencies */ 218);
+	var ReactAddonsDOMDependencies = __webpack_require__(/*! ./ReactAddonsDOMDependencies */ 212);
 
-	var CSSCore = __webpack_require__(/*! fbjs/lib/CSSCore */ 226);
-	var ReactTransitionEvents = __webpack_require__(/*! ./ReactTransitionEvents */ 227);
+	var CSSCore = __webpack_require__(/*! fbjs/lib/CSSCore */ 220);
+	var ReactTransitionEvents = __webpack_require__(/*! ./ReactTransitionEvents */ 221);
 
 	var onlyChild = __webpack_require__(/*! ./onlyChild */ 38);
 
@@ -32838,7 +32393,7 @@
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 226 */
+/* 220 */
 /*!*******************************!*\
   !*** ./~/fbjs/lib/CSSCore.js ***!
   \*******************************/
@@ -32968,7 +32523,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
 
 /***/ },
-/* 227 */
+/* 221 */
 /*!**********************************************!*\
   !*** ./~/react/lib/ReactTransitionEvents.js ***!
   \**********************************************/
@@ -33048,7 +32603,7 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 228 */
+/* 222 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/portal/portal.js ***!
   \**************************************************************/
@@ -33076,9 +32631,9 @@
 	};
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 39);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var props_1 = __webpack_require__(/*! ../../common/props */ 201);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var props_1 = __webpack_require__(/*! ../../common/props */ 195);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	/**
 	 * This component detaches its contents and re-attaches them to document.body.
 	 * Use it when you need to circumvent DOM z-stacking (for dialogs, popovers, etc.).
@@ -33118,7 +32673,7 @@
 
 
 /***/ },
-/* 229 */
+/* 223 */
 /*!****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tooltip/tooltip.js ***!
   \****************************************************************/
@@ -33150,12 +32705,12 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
-	var popover_1 = __webpack_require__(/*! ../popover/popover */ 209);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
+	var popover_1 = __webpack_require__(/*! ../popover/popover */ 203);
 	var Tooltip = (function (_super) {
 	    __extends(Tooltip, _super);
 	    function Tooltip() {
@@ -33192,14 +32747,14 @@
 
 
 /***/ },
-/* 230 */
+/* 224 */
 /*!***************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/popover/arrows.js ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
 	// this value causes popover and target edges to line up on 50px targets
 	exports.MIN_ARROW_SPACING = 18;
 	function computeArrowOffset(sideLength, arrowSize, minimum) {
@@ -33276,7 +32831,7 @@
 
 
 /***/ },
-/* 231 */
+/* 225 */
 /*!************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/alert/alert.js ***!
   \************************************************************/
@@ -33294,12 +32849,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var common_1 = __webpack_require__(/*! ../../common */ 196);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var buttons_1 = __webpack_require__(/*! ../button/buttons */ 232);
-	var dialog_1 = __webpack_require__(/*! ../dialog/dialog */ 233);
+	var common_1 = __webpack_require__(/*! ../../common */ 190);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var buttons_1 = __webpack_require__(/*! ../button/buttons */ 226);
+	var dialog_1 = __webpack_require__(/*! ../dialog/dialog */ 227);
 	var Alert = (function (_super) {
 	    __extends(Alert, _super);
 	    function Alert() {
@@ -33349,7 +32904,7 @@
 
 
 /***/ },
-/* 232 */
+/* 226 */
 /*!***************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/button/buttons.js ***!
   \***************************************************************/
@@ -33377,10 +32932,10 @@
 	};
 	// HACKHACK: these components should go in separate files
 	// tslint:disable max-classes-per-file
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var props_1 = __webpack_require__(/*! ../../common/props */ 201);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var props_1 = __webpack_require__(/*! ../../common/props */ 195);
 	var Button = (function (_super) {
 	    __extends(Button, _super);
 	    function Button() {
@@ -33432,7 +32987,7 @@
 
 
 /***/ },
-/* 233 */
+/* 227 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/dialog/dialog.js ***!
   \**************************************************************/
@@ -33458,12 +33013,12 @@
 	    }
 	    return t;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 214);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 208);
 	var Dialog = (function (_super) {
 	    __extends(Dialog, _super);
 	    function Dialog() {
@@ -33524,7 +33079,7 @@
 
 
 /***/ },
-/* 234 */
+/* 228 */
 /*!***********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/breadcrumbs/breadcrumb.js ***!
   \***********************************************************************/
@@ -33537,9 +33092,9 @@
 	 * and https://github.com/palantir/blueprint/blob/master/PATENTS
 	 */
 	"use strict";
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	exports.Breadcrumb = function (breadcrumbProps) {
 	    var classes = classNames(Classes.BREADCRUMB, (_a = {},
 	        _a[Classes.DISABLED] = breadcrumbProps.disabled,
@@ -33553,7 +33108,7 @@
 
 
 /***/ },
-/* 235 */
+/* 229 */
 /*!******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/collapse/collapse.js ***!
   \******************************************************************/
@@ -33571,9 +33126,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	(function (AnimationStates) {
 	    AnimationStates[AnimationStates["CLOSED"] = 0] = "CLOSED";
 	    AnimationStates[AnimationStates["OPENING"] = 1] = "OPENING";
@@ -33718,7 +33273,7 @@
 
 
 /***/ },
-/* 236 */
+/* 230 */
 /*!*********************************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/collapsible-list/collapsibleList.js ***!
   \*********************************************************************************/
@@ -33744,14 +33299,14 @@
 	    }
 	    return t;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
-	var menu_1 = __webpack_require__(/*! ../menu/menu */ 237);
-	var menuItem_1 = __webpack_require__(/*! ../menu/menuItem */ 238);
-	var popover_1 = __webpack_require__(/*! ../popover/popover */ 209);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
+	var menu_1 = __webpack_require__(/*! ../menu/menu */ 231);
+	var menuItem_1 = __webpack_require__(/*! ../menu/menuItem */ 232);
+	var popover_1 = __webpack_require__(/*! ../popover/popover */ 203);
 	(function (CollapseFrom) {
 	    CollapseFrom[CollapseFrom["START"] = 0] = "START";
 	    CollapseFrom[CollapseFrom["END"] = 1] = "END";
@@ -33825,7 +33380,7 @@
 
 
 /***/ },
-/* 237 */
+/* 231 */
 /*!**********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/menu/menu.js ***!
   \**********************************************************/
@@ -33843,9 +33398,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var Menu = (function (_super) {
 	    __extends(Menu, _super);
 	    function Menu() {
@@ -33864,7 +33419,7 @@
 
 
 /***/ },
-/* 238 */
+/* 232 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/menu/menuItem.js ***!
   \**************************************************************/
@@ -33890,15 +33445,15 @@
 	    }
 	    return t;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 39);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
-	var popover_1 = __webpack_require__(/*! ../popover/popover */ 209);
-	var menu_1 = __webpack_require__(/*! ./menu */ 237);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
+	var popover_1 = __webpack_require__(/*! ../popover/popover */ 203);
+	var menu_1 = __webpack_require__(/*! ./menu */ 231);
 	var REACT_CONTEXT_TYPES = { alignLeft: React.PropTypes.bool };
 	var MenuItem = (function (_super) {
 	    __extends(MenuItem, _super);
@@ -34035,7 +33590,7 @@
 
 
 /***/ },
-/* 239 */
+/* 233 */
 /*!*******************************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/context-menu/contextMenuTarget.js ***!
   \*******************************************************************************/
@@ -34049,8 +33604,8 @@
 	 */
 	"use strict";
 	var React = __webpack_require__(/*! react */ 8);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var ContextMenu = __webpack_require__(/*! ./contextMenu */ 208);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var ContextMenu = __webpack_require__(/*! ./contextMenu */ 202);
 	function ContextMenuTarget(constructor) {
 	    var _a = constructor.prototype, render = _a.render, renderContextMenu = _a.renderContextMenu;
 	    if (!utils_1.isFunction(renderContextMenu)) {
@@ -34090,7 +33645,7 @@
 
 
 /***/ },
-/* 240 */
+/* 234 */
 /*!***************************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/editable-text/editableText.js ***!
   \***************************************************************************/
@@ -34122,12 +33677,12 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Keys = __webpack_require__(/*! ../../common/keys */ 205);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Keys = __webpack_require__(/*! ../../common/keys */ 199);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	var BUFFER_WIDTH = 30;
 	var EditableText = (function (_super) {
 	    __extends(EditableText, _super);
@@ -34343,7 +33898,7 @@
 
 
 /***/ },
-/* 241 */
+/* 235 */
 /*!***************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/forms/controls.js ***!
   \***************************************************************/
@@ -34371,10 +33926,10 @@
 	};
 	// HACKHACK: these components should go in separate files
 	// tslint:disable max-classes-per-file
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var props_1 = __webpack_require__(/*! ../../common/props */ 201);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var props_1 = __webpack_require__(/*! ../../common/props */ 195);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	/** Base Component class for all Controls */
 	var Control = (function (_super) {
 	    __extends(Control, _super);
@@ -34457,7 +34012,7 @@
 
 
 /***/ },
-/* 242 */
+/* 236 */
 /*!*****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/forms/inputGroup.js ***!
   \*****************************************************************/
@@ -34489,11 +34044,11 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var props_1 = __webpack_require__(/*! ../../common/props */ 201);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var props_1 = __webpack_require__(/*! ../../common/props */ 195);
 	var InputGroup = (function (_super) {
 	    __extends(InputGroup, _super);
 	    function InputGroup() {
@@ -34554,7 +34109,7 @@
 
 
 /***/ },
-/* 243 */
+/* 237 */
 /*!*****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/forms/radioGroup.js ***!
   \*****************************************************************/
@@ -34581,10 +34136,10 @@
 	    return t;
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var controls_1 = __webpack_require__(/*! ./controls */ 241);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var controls_1 = __webpack_require__(/*! ./controls */ 235);
 	var counter = 0;
 	function nextName() { return RadioGroup.displayName + "-" + counter++; }
 	var RadioGroup = (function (_super) {
@@ -34644,7 +34199,7 @@
 
 
 /***/ },
-/* 244 */
+/* 238 */
 /*!****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkeys.js ***!
   \****************************************************************/
@@ -34672,20 +34227,20 @@
 	};
 	var react_1 = __webpack_require__(/*! react */ 8);
 	var React = __webpack_require__(/*! react */ 8);
-	var common_1 = __webpack_require__(/*! ../../common */ 196);
-	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 245);
-	var hotkey_2 = __webpack_require__(/*! ./hotkey */ 245);
+	var common_1 = __webpack_require__(/*! ../../common */ 190);
+	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 239);
+	var hotkey_2 = __webpack_require__(/*! ./hotkey */ 239);
 	exports.Hotkey = hotkey_2.Hotkey;
-	var keyCombo_1 = __webpack_require__(/*! ./keyCombo */ 246);
+	var keyCombo_1 = __webpack_require__(/*! ./keyCombo */ 240);
 	exports.KeyCombo = keyCombo_1.KeyCombo;
-	var hotkeysTarget_1 = __webpack_require__(/*! ./hotkeysTarget */ 248);
+	var hotkeysTarget_1 = __webpack_require__(/*! ./hotkeysTarget */ 242);
 	exports.HotkeysTarget = hotkeysTarget_1.HotkeysTarget;
-	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 247);
+	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 241);
 	exports.comboMatches = hotkeyParser_1.comboMatches;
 	exports.getKeyCombo = hotkeyParser_1.getKeyCombo;
 	exports.getKeyComboString = hotkeyParser_1.getKeyComboString;
 	exports.parseKeyCombo = hotkeyParser_1.parseKeyCombo;
-	var hotkeysDialog_1 = __webpack_require__(/*! ./hotkeysDialog */ 250);
+	var hotkeysDialog_1 = __webpack_require__(/*! ./hotkeysDialog */ 244);
 	exports.hideHotkeysDialog = hotkeysDialog_1.hideHotkeysDialog;
 	exports.setHotkeysDialogProps = hotkeysDialog_1.setHotkeysDialogProps;
 	var Hotkeys = (function (_super) {
@@ -34736,7 +34291,7 @@
 
 
 /***/ },
-/* 245 */
+/* 239 */
 /*!***************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkey.js ***!
   \***************************************************************/
@@ -34755,8 +34310,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var common_1 = __webpack_require__(/*! ../../common */ 196);
-	var keyCombo_1 = __webpack_require__(/*! ./keyCombo */ 246);
+	var common_1 = __webpack_require__(/*! ../../common */ 190);
+	var keyCombo_1 = __webpack_require__(/*! ./keyCombo */ 240);
 	var Hotkey = (function (_super) {
 	    __extends(Hotkey, _super);
 	    function Hotkey() {
@@ -34787,7 +34342,7 @@
 
 
 /***/ },
-/* 246 */
+/* 240 */
 /*!*****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/keyCombo.js ***!
   \*****************************************************************/
@@ -34806,7 +34361,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 247);
+	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 241);
 	var KeyIcons = {
 	    alt: "pt-icon-key-option",
 	    ctrl: "pt-icon-key-control",
@@ -34852,7 +34407,7 @@
 
 
 /***/ },
-/* 247 */
+/* 241 */
 /*!*********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkeyParser.js ***!
   \*********************************************************************/
@@ -35126,7 +34681,7 @@
 
 
 /***/ },
-/* 248 */
+/* 242 */
 /*!**********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkeysTarget.js ***!
   \**********************************************************************/
@@ -35140,8 +34695,8 @@
 	 */
 	"use strict";
 	var React = __webpack_require__(/*! react */ 8);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var hotkeysEvents_1 = __webpack_require__(/*! ./hotkeysEvents */ 249);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var hotkeysEvents_1 = __webpack_require__(/*! ./hotkeysEvents */ 243);
 	function HotkeysTarget(constructor) {
 	    var _a = constructor.prototype, componentWillMount = _a.componentWillMount, componentWillUnmount = _a.componentWillUnmount, render = _a.render, renderHotkeys = _a.renderHotkeys;
 	    if (!utils_1.isFunction(renderHotkeys)) {
@@ -35202,7 +34757,7 @@
 
 
 /***/ },
-/* 249 */
+/* 243 */
 /*!**********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkeysEvents.js ***!
   \**********************************************************************/
@@ -35216,10 +34771,10 @@
 	 */
 	"use strict";
 	var react_1 = __webpack_require__(/*! react */ 8);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 245);
-	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 247);
-	var hotkeysDialog_1 = __webpack_require__(/*! ./hotkeysDialog */ 250);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 239);
+	var hotkeyParser_1 = __webpack_require__(/*! ./hotkeyParser */ 241);
+	var hotkeysDialog_1 = __webpack_require__(/*! ./hotkeysDialog */ 244);
 	var SHOW_DIALOG_KEY_COMBO = hotkeyParser_1.parseKeyCombo("?");
 	(function (HotkeyScope) {
 	    HotkeyScope[HotkeyScope["LOCAL"] = 0] = "LOCAL";
@@ -35314,7 +34869,7 @@
 
 
 /***/ },
-/* 250 */
+/* 244 */
 /*!**********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/hotkeys/hotkeysDialog.js ***!
   \**********************************************************************/
@@ -35335,13 +34890,13 @@
 	    }
 	    return t;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 39);
-	var common_1 = __webpack_require__(/*! ../../common */ 196);
-	var components_1 = __webpack_require__(/*! ../../components */ 206);
-	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 245);
-	var hotkeys_1 = __webpack_require__(/*! ./hotkeys */ 244);
+	var common_1 = __webpack_require__(/*! ../../common */ 190);
+	var components_1 = __webpack_require__(/*! ../../components */ 200);
+	var hotkey_1 = __webpack_require__(/*! ./hotkey */ 239);
+	var hotkeys_1 = __webpack_require__(/*! ./hotkeys */ 238);
 	var HotkeysDialog = (function () {
 	    function HotkeysDialog() {
 	        var _this = this;
@@ -35440,7 +34995,7 @@
 
 
 /***/ },
-/* 251 */
+/* 245 */
 /*!*****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/menu/menuDivider.js ***!
   \*****************************************************************/
@@ -35458,9 +35013,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var MenuDivider = (function (_super) {
 	    __extends(MenuDivider, _super);
 	    function MenuDivider() {
@@ -35489,7 +35044,7 @@
 
 
 /***/ },
-/* 252 */
+/* 246 */
 /*!******************************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/non-ideal-state/nonIdealState.js ***!
   \******************************************************************************/
@@ -35513,10 +35068,10 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var NonIdealState = (function (_super) {
 	    __extends(NonIdealState, _super);
 	    function NonIdealState() {
@@ -35573,7 +35128,7 @@
 
 
 /***/ },
-/* 253 */
+/* 247 */
 /*!*******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/popover/svgPopover.js ***!
   \*******************************************************************/
@@ -35600,7 +35155,7 @@
 	    return t;
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var popover_1 = __webpack_require__(/*! ./popover */ 209);
+	var popover_1 = __webpack_require__(/*! ./popover */ 203);
 	var SVGPopover = (function (_super) {
 	    __extends(SVGPopover, _super);
 	    function SVGPopover() {
@@ -35618,7 +35173,7 @@
 
 
 /***/ },
-/* 254 */
+/* 248 */
 /*!*********************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/progress/progressBar.js ***!
   \*********************************************************************/
@@ -35642,11 +35197,11 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	var ProgressBar = (function (_super) {
 	    __extends(ProgressBar, _super);
 	    function ProgressBar() {
@@ -35674,7 +35229,7 @@
 
 
 /***/ },
-/* 255 */
+/* 249 */
 /*!*******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tooltip/svgTooltip.js ***!
   \*******************************************************************/
@@ -35701,7 +35256,7 @@
 	    return t;
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var tooltip_1 = __webpack_require__(/*! ./tooltip */ 229);
+	var tooltip_1 = __webpack_require__(/*! ./tooltip */ 223);
 	var SVGTooltip = (function (_super) {
 	    __extends(SVGTooltip, _super);
 	    function SVGTooltip() {
@@ -35719,7 +35274,7 @@
 
 
 /***/ },
-/* 256 */
+/* 250 */
 /*!*******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/slider/rangeSlider.js ***!
   \*******************************************************************/
@@ -35737,13 +35292,13 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var coreSlider_1 = __webpack_require__(/*! ./coreSlider */ 257);
-	var handle_1 = __webpack_require__(/*! ./handle */ 258);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var coreSlider_1 = __webpack_require__(/*! ./coreSlider */ 251);
+	var handle_1 = __webpack_require__(/*! ./handle */ 252);
 	var RangeEnd;
 	(function (RangeEnd) {
 	    RangeEnd[RangeEnd["LEFT"] = 0] = "LEFT";
@@ -35834,7 +35389,7 @@
 
 
 /***/ },
-/* 257 */
+/* 251 */
 /*!******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/slider/coreSlider.js ***!
   \******************************************************************/
@@ -35858,12 +35413,12 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	var CoreSlider = (function (_super) {
 	    __extends(CoreSlider, _super);
 	    function CoreSlider() {
@@ -35952,7 +35507,7 @@
 
 
 /***/ },
-/* 258 */
+/* 252 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/slider/handle.js ***!
   \**************************************************************/
@@ -35976,13 +35531,13 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Keys = __webpack_require__(/*! ../../common/keys */ 205);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Keys = __webpack_require__(/*! ../../common/keys */ 199);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	// props that require number values, for validation
 	var NUMBER_PROPS = ["max", "min", "stepSize", "tickSize", "value"];
 	var Handle = (function (_super) {
@@ -36094,7 +35649,7 @@
 
 
 /***/ },
-/* 259 */
+/* 253 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/slider/slider.js ***!
   \**************************************************************/
@@ -36121,10 +35676,10 @@
 	    return t;
 	};
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var coreSlider_1 = __webpack_require__(/*! ./coreSlider */ 257);
-	var handle_1 = __webpack_require__(/*! ./handle */ 258);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var coreSlider_1 = __webpack_require__(/*! ./coreSlider */ 251);
+	var handle_1 = __webpack_require__(/*! ./handle */ 252);
 	var Slider = (function (_super) {
 	    __extends(Slider, _super);
 	    function Slider() {
@@ -36172,7 +35727,7 @@
 
 
 /***/ },
-/* 260 */
+/* 254 */
 /*!****************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/spinner/spinner.js ***!
   \****************************************************************/
@@ -36196,11 +35751,11 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
 	// see http://stackoverflow.com/a/18473154/3124288 for calculating arc path
 	var SPINNER_TRACK = "M 50,50 m 0,-44.5 a 44.5,44.5 0 1 1 0,89 a 44.5,44.5 0 1 1 0,-89";
 	// unitless total length of SVG path, to which stroke-dash* properties are relative.
@@ -36253,7 +35808,7 @@
 
 
 /***/ },
-/* 261 */
+/* 255 */
 /*!*******************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/spinner/svgSpinner.js ***!
   \*******************************************************************/
@@ -36271,11 +35826,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	// import * to avoid "cannot be named" error on factory
-	var spinner = __webpack_require__(/*! ./spinner */ 260);
+	var spinner = __webpack_require__(/*! ./spinner */ 254);
 	var SVGSpinner = (function (_super) {
 	    __extends(SVGSpinner, _super);
 	    function SVGSpinner() {
@@ -36295,7 +35850,7 @@
 
 
 /***/ },
-/* 262 */
+/* 256 */
 /*!*********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tabs/tab.js ***!
   \*********************************************************/
@@ -36319,10 +35874,10 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var Tab = (function (_super) {
 	    __extends(Tab, _super);
 	    function Tab() {
@@ -36348,7 +35903,7 @@
 
 
 /***/ },
-/* 263 */
+/* 257 */
 /*!**********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tabs/tabs.js ***!
   \**********************************************************/
@@ -36372,18 +35927,18 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
 	var react_dom_1 = __webpack_require__(/*! react-dom */ 39);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var Errors = __webpack_require__(/*! ../../common/errors */ 213);
-	var Keys = __webpack_require__(/*! ../../common/keys */ 205);
-	var Utils = __webpack_require__(/*! ../../common/utils */ 202);
-	var tab_1 = __webpack_require__(/*! ./tab */ 262);
-	var tabList_1 = __webpack_require__(/*! ./tabList */ 264);
-	var tabPanel_1 = __webpack_require__(/*! ./tabPanel */ 265);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var Errors = __webpack_require__(/*! ../../common/errors */ 207);
+	var Keys = __webpack_require__(/*! ../../common/keys */ 199);
+	var Utils = __webpack_require__(/*! ../../common/utils */ 196);
+	var tab_1 = __webpack_require__(/*! ./tab */ 256);
+	var tabList_1 = __webpack_require__(/*! ./tabList */ 258);
+	var tabPanel_1 = __webpack_require__(/*! ./tabPanel */ 259);
 	var TAB_CSS_SELECTOR = "li[role=tab]";
 	var Tabs = (function (_super) {
 	    __extends(Tabs, _super);
@@ -36674,7 +36229,7 @@
 
 
 /***/ },
-/* 264 */
+/* 258 */
 /*!*************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tabs/tabList.js ***!
   \*************************************************************/
@@ -36698,10 +36253,10 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var TabList = (function (_super) {
 	    __extends(TabList, _super);
 	    function TabList() {
@@ -36736,7 +36291,7 @@
 
 
 /***/ },
-/* 265 */
+/* 259 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tabs/tabPanel.js ***!
   \**************************************************************/
@@ -36760,10 +36315,10 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var TabPanel = (function (_super) {
 	    __extends(TabPanel, _super);
 	    function TabPanel() {
@@ -36785,7 +36340,7 @@
 
 
 /***/ },
-/* 266 */
+/* 260 */
 /*!********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tag/tag.js ***!
   \********************************************************/
@@ -36817,12 +36372,12 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var props_1 = __webpack_require__(/*! ../../common/props */ 201);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
+	var props_1 = __webpack_require__(/*! ../../common/props */ 195);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
 	var Tag = (function (_super) {
 	    __extends(Tag, _super);
 	    function Tag() {
@@ -36852,7 +36407,7 @@
 
 
 /***/ },
-/* 267 */
+/* 261 */
 /*!************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/toast/toast.js ***!
   \************************************************************/
@@ -36884,12 +36439,12 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var buttons_1 = __webpack_require__(/*! ../button/buttons */ 232);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var buttons_1 = __webpack_require__(/*! ../button/buttons */ 226);
 	var Toast = (function (_super) {
 	    __extends(Toast, _super);
 	    function Toast() {
@@ -36968,7 +36523,7 @@
 
 
 /***/ },
-/* 268 */
+/* 262 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/toast/toaster.js ***!
   \**************************************************************/
@@ -37000,17 +36555,17 @@
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
-	var PureRender = __webpack_require__(/*! pure-render-decorator */ 211);
+	var classNames = __webpack_require__(/*! classnames */ 204);
+	var PureRender = __webpack_require__(/*! pure-render-decorator */ 205);
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 39);
-	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 197);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var keys_1 = __webpack_require__(/*! ../../common/keys */ 205);
-	var position_1 = __webpack_require__(/*! ../../common/position */ 200);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 214);
-	var toast_1 = __webpack_require__(/*! ./toast */ 267);
+	var abstractComponent_1 = __webpack_require__(/*! ../../common/abstractComponent */ 191);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var keys_1 = __webpack_require__(/*! ../../common/keys */ 199);
+	var position_1 = __webpack_require__(/*! ../../common/position */ 194);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var overlay_1 = __webpack_require__(/*! ../overlay/overlay */ 208);
+	var toast_1 = __webpack_require__(/*! ./toast */ 261);
 	var Toaster = (function (_super) {
 	    __extends(Toaster, _super);
 	    function Toaster() {
@@ -37113,7 +36668,7 @@
 
 
 /***/ },
-/* 269 */
+/* 263 */
 /*!**********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tree/tree.js ***!
   \**********************************************************/
@@ -37139,11 +36694,11 @@
 	    }
 	    return t;
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var treeNode_1 = __webpack_require__(/*! ./treeNode */ 270);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var treeNode_1 = __webpack_require__(/*! ./treeNode */ 264);
 	var Tree = (function (_super) {
 	    __extends(Tree, _super);
 	    function Tree() {
@@ -37199,7 +36754,7 @@
 
 
 /***/ },
-/* 270 */
+/* 264 */
 /*!**************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/components/tree/treeNode.js ***!
   \**************************************************************/
@@ -37217,11 +36772,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var classNames = __webpack_require__(/*! classnames */ 210);
+	var classNames = __webpack_require__(/*! classnames */ 204);
 	var React = __webpack_require__(/*! react */ 8);
-	var Classes = __webpack_require__(/*! ../../common/classes */ 204);
-	var utils_1 = __webpack_require__(/*! ../../common/utils */ 202);
-	var collapse_1 = __webpack_require__(/*! ../collapse/collapse */ 235);
+	var Classes = __webpack_require__(/*! ../../common/classes */ 198);
+	var utils_1 = __webpack_require__(/*! ../../common/utils */ 196);
+	var collapse_1 = __webpack_require__(/*! ../collapse/collapse */ 229);
 	var TreeNode = (function (_super) {
 	    __extends(TreeNode, _super);
 	    function TreeNode() {
@@ -37289,7 +36844,7 @@
 
 
 /***/ },
-/* 271 */
+/* 265 */
 /*!***********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/generated/iconClasses.js ***!
   \***********************************************************/
@@ -37683,7 +37238,7 @@
 
 
 /***/ },
-/* 272 */
+/* 266 */
 /*!***********************************************************!*\
   !*** ./~/@blueprintjs/core/dist/generated/iconStrings.js ***!
   \***********************************************************/
@@ -38077,7 +37632,7 @@
 
 
 /***/ },
-/* 273 */
+/* 267 */
 /*!************************************************************!*\
   !*** ./~/@blueprintjs/core/dist/common/interactionMode.js ***!
   \************************************************************/
@@ -38143,7 +37698,691 @@
 
 
 /***/ },
+/* 268 */
+/*!******************************!*\
+  !*** ./src/ui/ToastStore.js ***!
+  \******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Store = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
+
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	function _initDefineProp(target, property, descriptor, context) {
+		if (!descriptor) return;
+		Object.defineProperty(target, property, {
+			enumerable: descriptor.enumerable,
+			configurable: descriptor.configurable,
+			writable: descriptor.writable,
+			value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+		});
+	}
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+		var desc = {};
+		Object['ke' + 'ys'](descriptor).forEach(function (key) {
+			desc[key] = descriptor[key];
+		});
+		desc.enumerable = !!desc.enumerable;
+		desc.configurable = !!desc.configurable;
+
+		if ('value' in desc || desc.initializer) {
+			desc.writable = true;
+		}
+
+		desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+			return decorator(target, property, desc) || desc;
+		}, desc);
+
+		if (context && desc.initializer !== void 0) {
+			desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+			desc.initializer = undefined;
+		}
+
+		if (desc.initializer === void 0) {
+			Object['define' + 'Property'](target, property, desc);
+			desc = null;
+		}
+
+		return desc;
+	}
+
+	function _initializerWarningHelper(descriptor, context) {
+		throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+
+	var Store = (_class = function () {
+		function Store() {
+			_classCallCheck(this, Store);
+
+			_initDefineProp(this, "isAddSuccess", _descriptor, this);
+
+			_initDefineProp(this, "isDuplicateTitle", _descriptor2, this);
+
+			_initDefineProp(this, "isInvalidTitleOrTags", _descriptor3, this);
+		}
+
+		_createClass(Store, [{
+			key: "toastObject",
+			get: function get() {
+				if (this.isAddSuccess) {
+					return {
+						message: "New list added.",
+						iconName: "tick",
+						intent: _core.Intent.SUCCESS,
+						timeout: 2000
+					};
+				}
+
+				if (this.isDuplicateTitle) {
+					return {
+						message: "A list with the same title already exists.",
+						intent: _core.Intent.DANGER,
+						timeout: 2000
+					};
+				}
+
+				if (this.isInvalidTitleOrTags) {
+					return {
+						message: "The entered title or tags are invalid.",
+						intent: _core.Intent.DANGER,
+						timeout: 2000
+					};
+				}
+
+				// Nothing to show
+				return null;
+			}
+		}]);
+
+		return Store;
+	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "isAddSuccess", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isDuplicateTitle", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "isInvalidTitleOrTags", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _applyDecoratedDescriptor(_class.prototype, "toastObject", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "toastObject"), _class.prototype)), _class);
+
+
+	var ToastStore = new Store();
+
+	exports.default = ToastStore;
+	exports.Store = Store;
+
+/***/ },
+/* 269 */
+/*!***********************************************!*\
+  !*** ./src/ui/title_bar/TitleBarContainer.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(/*! react */ 8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TitleBar = __webpack_require__(/*! ./TitleBar */ 270);
+
+	var _TitleBar2 = _interopRequireDefault(_TitleBar);
+
+	var _titleBarActions = __webpack_require__(/*! ./titleBarActions */ 271);
+
+	var _titleBarActions2 = _interopRequireDefault(_titleBarActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TitleBarContainer = function (_React$Component) {
+		_inherits(TitleBarContainer, _React$Component);
+
+		function TitleBarContainer(props) {
+			_classCallCheck(this, TitleBarContainer);
+
+			var _this = _possibleConstructorReturn(this, (TitleBarContainer.__proto__ || Object.getPrototypeOf(TitleBarContainer)).call(this, props));
+
+			_this.handleAddList = _this.handleAddList.bind(_this);
+			return _this;
+		}
+
+		_createClass(TitleBarContainer, [{
+			key: "handleAddList",
+			value: function handleAddList() {
+				_titleBarActions2.default.showAddCard();
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(_TitleBar2.default, {
+					onAddList: this.handleAddList
+				});
+			}
+		}]);
+
+		return TitleBarContainer;
+	}(_react2.default.Component);
+
+	exports.default = TitleBarContainer;
+
+/***/ },
+/* 270 */
+/*!**************************************!*\
+  !*** ./src/ui/title_bar/TitleBar.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(/*! react */ 8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PropTypes = _react2.default.PropTypes;
+
+	// TODO: convert to blueprintjs react component if possible
+	var TitleBar = function TitleBar(props) {
+		return _react2.default.createElement(
+			"nav",
+			{ className: "pt-navbar pt-dark pt-fixed-top" },
+			_react2.default.createElement(
+				"div",
+				{ style: { margin: "0 auto" } },
+				_react2.default.createElement(
+					"div",
+					{ className: "pt-navbar-group pt-align-left" },
+					_react2.default.createElement(
+						"div",
+						{ className: "pt-navbar-heading" },
+						"Kenzor"
+					),
+					_react2.default.createElement("input", { className: "pt-input", placeholder: "Search lists...", type: "text", style: { width: 150 } })
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "pt-navbar-group pt-align-right" },
+					_react2.default.createElement(
+						"button",
+						{
+							className: "pt-button pt-minimal pt-icon-add",
+							onClick: props.onAddList },
+						"Add a list"
+					),
+					_react2.default.createElement("span", { className: "pt-navbar-divider" }),
+					_react2.default.createElement("button", { className: "pt-button pt-minimal pt-icon-cog" })
+				)
+			)
+		);
+	};
+
+	TitleBar.propTypes = {
+		onAddList: PropTypes.func.isRequired
+	};
+
+	exports.default = TitleBar;
+
+/***/ },
+/* 271 */
+/*!*********************************************!*\
+  !*** ./src/ui/title_bar/titleBarActions.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		showAddCard: (0, _mobx.action)(showAddCard)
+	};
+
+	function showAddCard() {
+		_MainStore2.default.isAddCardVisible = true;
+	}
+
+/***/ },
+/* 272 */
+/*!*****************************!*\
+  !*** ./src/ui/MainStore.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Store = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	function _initDefineProp(target, property, descriptor, context) {
+		if (!descriptor) return;
+		Object.defineProperty(target, property, {
+			enumerable: descriptor.enumerable,
+			configurable: descriptor.configurable,
+			writable: descriptor.writable,
+			value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+		});
+	}
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+		var desc = {};
+		Object['ke' + 'ys'](descriptor).forEach(function (key) {
+			desc[key] = descriptor[key];
+		});
+		desc.enumerable = !!desc.enumerable;
+		desc.configurable = !!desc.configurable;
+
+		if ('value' in desc || desc.initializer) {
+			desc.writable = true;
+		}
+
+		desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+			return decorator(target, property, desc) || desc;
+		}, desc);
+
+		if (context && desc.initializer !== void 0) {
+			desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+			desc.initializer = undefined;
+		}
+
+		if (desc.initializer === void 0) {
+			Object['define' + 'Property'](target, property, desc);
+			desc = null;
+		}
+
+		return desc;
+	}
+
+	function _initializerWarningHelper(descriptor, context) {
+		throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+
+	var defaultSpoilers = [{
+		"title": "spoiler-tag1-tag2",
+		"isActive": true,
+		"isCaseSensitive": false,
+		"hidePref": "overlay",
+		"tags": ["tag1", "tag2"]
+	}, {
+		"title": "all-posts",
+		"isActive": false,
+		"isCaseSensitive": true,
+		"hidePref": "overlay",
+		"tags": ["a", "b", "c"]
+	}];
+
+	var Store = (_class = function () {
+		function Store() {
+			var spoilers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultSpoilers;
+
+			_classCallCheck(this, Store);
+
+			_initDefineProp(this, "spoilers", _descriptor, this);
+
+			_initDefineProp(this, "isAddCardVisible", _descriptor2, this);
+
+			_initDefineProp(this, "defaultHidePref", _descriptor3, this);
+
+			_initDefineProp(this, "defaultCaseSensitivity", _descriptor4, this);
+
+			this.spoilers = spoilers;
+		} // or remove
+
+
+		_createClass(Store, [{
+			key: "titles",
+			get: function get() {
+				return this.spoilers.map(function (obj) {
+					return obj["title"];
+				});
+			}
+		}]);
+
+		return Store;
+	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "spoilers", [_mobx.observable], {
+		enumerable: true,
+		initializer: null
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isAddCardVisible", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "defaultHidePref", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return "overlay";
+		}
+	}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "defaultCaseSensitivity", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _applyDecoratedDescriptor(_class.prototype, "titles", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "titles"), _class.prototype)), _class);
+
+
+	var MainStore = new Store();
+
+	exports.default = MainStore;
+	exports.Store = Store;
+
+/***/ },
+/* 273 */
+/*!*********************************************!*\
+  !*** ./src/ui/add_card/AddCardContainer.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class;
+	// const PropTypes = React.PropTypes; TODO
+
+
+	var _react = __webpack_require__(/*! react */ 8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
+
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
+	var _addActions = __webpack_require__(/*! ./addActions */ 274);
+
+	var _addActions2 = _interopRequireDefault(_addActions);
+
+	var _AddCard = __webpack_require__(/*! ./AddCard */ 275);
+
+	var _AddCard2 = _interopRequireDefault(_AddCard);
+
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddCardContainer = (0, _mobxReact.observer)(_class = function (_React$Component) {
+		_inherits(AddCardContainer, _React$Component);
+
+		function AddCardContainer(props) {
+			_classCallCheck(this, AddCardContainer);
+
+			var _this = _possibleConstructorReturn(this, (AddCardContainer.__proto__ || Object.getPrototypeOf(AddCardContainer)).call(this, props));
+
+			_this.state = {
+				title: "",
+				tags: ""
+			};
+
+			_this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
+			_this.handleUpdateTags = _this.handleUpdateTags.bind(_this);
+			_this.handleSave = _this.handleSave.bind(_this);
+			_this.handleClose = _this.handleClose.bind(_this);
+			return _this;
+		}
+
+		_createClass(AddCardContainer, [{
+			key: "handleUpdateTitle",
+			value: function handleUpdateTitle(event) {
+				this.setState({
+					title: event.target.value
+				});
+			}
+		}, {
+			key: "handleUpdateTags",
+			value: function handleUpdateTags(event) {
+				this.setState({
+					tags: event.target.value
+				});
+			}
+		}, {
+			key: "handleSave",
+			value: function handleSave() {
+				_addActions2.default.saveAddList(this.state.title, this.state.tags);
+				_addActions2.default.hideAddCard();
+			}
+		}, {
+			key: "handleClose",
+			value: function handleClose() {
+				this.setState({
+					title: "",
+					tags: ""
+				});
+				_addActions2.default.hideAddCard();
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					_core.Collapse,
+					{ isOpen: _MainStore2.default.isAddCardVisible },
+					_react2.default.createElement("br", null),
+					_react2.default.createElement(_AddCard2.default, {
+						onUpdateTitle: this.handleUpdateTitle,
+						onUpdateTags: this.handleUpdateTags,
+						onSave: this.handleSave,
+						onClose: this.handleClose
+					})
+				);
+			}
+		}]);
+
+		return AddCardContainer;
+	}(_react2.default.Component)) || _class;
+
+	exports.default = AddCardContainer;
+
+/***/ },
 /* 274 */
+/*!***************************************!*\
+  !*** ./src/ui/add_card/addActions.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
+	var _ToastStore = __webpack_require__(/*! ../ToastStore */ 268);
+
+	var _ToastStore2 = _interopRequireDefault(_ToastStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// TODO: ES2015
+	module.exports = {
+		saveAddList: (0, _mobx.action)(saveAddList),
+		hideAddCard: (0, _mobx.action)(hideAddCard)
+	};
+
+	// TODO: error msg for empty title/tags
+	function saveAddList(title, tagString) {
+		if (isDuplicateTitle(title)) {
+			// TODO: change to false as soon as text changes
+			_ToastStore2.default.isDuplicateTitle = true;
+		} else if (isInvalidTitleOrTags(title, tagString)) {
+			// TODO: change to false as soon as text changes
+			_ToastStore2.default.isInvalidTitleOrTags = true;
+		} else {
+			_MainStore2.default.spoilers.push({
+				title: title,
+				isActive: true,
+				isCaseSensitive: _MainStore2.default.defaultCaseSensitivity,
+				hidePref: _MainStore2.default.defaultHidePref,
+				tags: tagStringToArray(tagString)
+			});
+
+			_ToastStore2.default.isAddSuccess = true;
+		}
+	}
+
+	function isDuplicateTitle(title) {
+		for (var i = 0; i < _MainStore2.default.titles.length; i++) {
+			if (title.trim() === _MainStore2.default.titles[i].trim()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function isInvalidTitleOrTags(title, tagString) {
+		if (title.trim() === "" || tagString.trim() === "") {
+			console.log("invalid title/tags");
+			return true;
+		}
+
+		return false;
+	}
+
+	function tagStringToArray(tagString) {
+		var tagArr = tagString.split(",");
+		return tagArr.map(function (tag) {
+			return tag.trim();
+		});
+	}
+
+	// TODO: make addcard child of <Collapse> instead
+	function hideAddCard() {
+		_MainStore2.default.isAddCardVisible = false;
+	}
+
+/***/ },
+/* 275 */
+/*!************************************!*\
+  !*** ./src/ui/add_card/AddCard.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(/*! react */ 8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PropTypes = _react2.default.PropTypes;
+
+
+	var AddNewCard = function AddNewCard(props) {
+		return _react2.default.createElement(
+			"div",
+			{ className: "pt-card", style: { backgroundColor: "#EBF1F5", position: "relative" } },
+			_react2.default.createElement(
+				"div",
+				{ className: "pt-navbar-group", style: { position: "absolute", top: 0, right: 0, paddingRight: 10 } },
+				_react2.default.createElement("button", { className: "pt-button pt-minimal pt-icon-cross", onClick: props.onClose })
+			),
+			_react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(
+					"label",
+					{ className: "pt-label pt-inline" },
+					"Title  ",
+					_react2.default.createElement("input", { className: "pt-input", style: { width: 200 }, type: "text",
+						dir: "auto", onChange: props.onUpdateTitle })
+				),
+				_react2.default.createElement(
+					"label",
+					{ className: "pt-label pt-inline" },
+					"Tags  ",
+					_react2.default.createElement("input", { className: "pt-input", style: { width: 200 }, type: "text",
+						dir: "auto", onChange: props.onUpdateTags })
+				)
+			),
+			_react2.default.createElement(_core.Button, { className: "pt-intent-primary", text: "Add", onClick: props.onSave }),
+			"\xA0\xA0",
+			_react2.default.createElement(_core.Button, { text: "Discard", onClick: props.onClose })
+		);
+	};
+
+	AddNewCard.propTypes = {
+		onSave: PropTypes.func.isRequired,
+		onUpdateTitle: PropTypes.func.isRequired,
+		onUpdateTags: PropTypes.func.isRequired,
+		onClose: PropTypes.func.isRequired
+	};
+
+	exports.default = AddNewCard;
+
+/***/ },
+/* 276 */
 /*!*********************************************************!*\
   !*** ./src/ui/spoiler_card/SpoilerCardListContainer.js ***!
   \*********************************************************/
@@ -38163,15 +38402,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SpoilerCardList = __webpack_require__(/*! ./SpoilerCardList */ 275);
+	var _SpoilerCardList = __webpack_require__(/*! ./SpoilerCardList */ 277);
 
 	var _SpoilerCardList2 = _interopRequireDefault(_SpoilerCardList);
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _store = __webpack_require__(/*! ../store */ 191);
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
 
-	var _store2 = _interopRequireDefault(_store);
+	var _MainStore2 = _interopRequireDefault(_MainStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38195,7 +38434,7 @@
 		_createClass(SpoilerCardListContainer, [{
 			key: "render",
 			value: function render() {
-				return _react2.default.createElement(_SpoilerCardList2.default, { spoilers: _store2.default.spoilers });
+				return _react2.default.createElement(_SpoilerCardList2.default, { spoilers: _MainStore2.default.spoilers });
 			}
 		}]);
 
@@ -38205,7 +38444,7 @@
 	exports.default = SpoilerCardListContainer;
 
 /***/ },
-/* 275 */
+/* 277 */
 /*!************************************************!*\
   !*** ./src/ui/spoiler_card/SpoilerCardList.js ***!
   \************************************************/
@@ -38223,7 +38462,7 @@
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _SpoilerCardContainer = __webpack_require__(/*! ./SpoilerCardContainer */ 276);
+	var _SpoilerCardContainer = __webpack_require__(/*! ./SpoilerCardContainer */ 278);
 
 	var _SpoilerCardContainer2 = _interopRequireDefault(_SpoilerCardContainer);
 
@@ -38257,7 +38496,7 @@
 	exports.default = SpoilerCardList;
 
 /***/ },
-/* 276 */
+/* 278 */
 /*!*****************************************************!*\
   !*** ./src/ui/spoiler_card/SpoilerCardContainer.js ***!
   \*****************************************************/
@@ -38281,11 +38520,11 @@
 
 	var _mobx = __webpack_require__(/*! mobx */ 186);
 
-	var _actions = __webpack_require__(/*! ../actions */ 277);
+	var _spoilerCardActions = __webpack_require__(/*! ./spoilerCardActions */ 279);
 
-	var _actions2 = _interopRequireDefault(_actions);
+	var _spoilerCardActions2 = _interopRequireDefault(_spoilerCardActions);
 
-	var _SpoilerCard = __webpack_require__(/*! ./SpoilerCard */ 278);
+	var _SpoilerCard = __webpack_require__(/*! ./SpoilerCard */ 280);
 
 	var _SpoilerCard2 = _interopRequireDefault(_SpoilerCard);
 
@@ -38381,7 +38620,7 @@
 		}, {
 			key: "handleSave",
 			value: function handleSave() {
-				_actions2.default.editTags(this.props.index, this.props.title, this.tags);
+				_spoilerCardActions2.default.editTags(this.props.index, this.props.title, this.tags);
 			}
 		}, {
 			key: "render",
@@ -38424,39 +38663,36 @@
 	exports.default = SpoilerCardContainer;
 
 /***/ },
-/* 277 */
-/*!***************************!*\
-  !*** ./src/ui/actions.js ***!
-  \***************************/
+/* 279 */
+/*!***************************************************!*\
+  !*** ./src/ui/spoiler_card/spoilerCardActions.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _store = __webpack_require__(/*! ./store */ 191);
+	var _mobx = __webpack_require__(/*! mobx */ 186);
 
-	var _store2 = _interopRequireDefault(_store);
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// TODO: ES2015
 	module.exports = {
-		editTags: editTags,
-		removeList: removeList
+		editTags: (0, _mobx.action)(editTags)
 	};
-
-	function removeList(index) {
-		_store2.default.spoilers.splice(index, 1);
-	}
 
 	// TODO: disallow duplicate tags?
 	function editTags(index, title, tags) {
 		console.log("editTags called");
 
-		_store2.default.spoilers[index]["title"] = title;
-		_store2.default.spoilers[index]["tags"] = tagStringToArray(tags);
+		_MainStore2.default.spoilers[index]["title"] = title;
+		_MainStore2.default.spoilers[index]["tags"] = tagStringToArray(tags);
 
 		console.log("spoiler tags for 1st list on next line");
-		console.log(_store2.default.spoilers[0]["tags"]);
+		console.log(_MainStore2.default.spoilers[0]["tags"]);
 	}
 
 	function tagStringToArray(tagString) {
@@ -38468,7 +38704,7 @@
 	// TODO: sync to chrome storage
 
 /***/ },
-/* 278 */
+/* 280 */
 /*!********************************************!*\
   !*** ./src/ui/spoiler_card/SpoilerCard.js ***!
   \********************************************/
@@ -38486,9 +38722,9 @@
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
-	var _OptionsMenuContainer = __webpack_require__(/*! ../options_menu/OptionsMenuContainer */ 279);
+	var _OptionsMenuContainer = __webpack_require__(/*! ../options_menu/OptionsMenuContainer */ 281);
 
 	var _OptionsMenuContainer2 = _interopRequireDefault(_OptionsMenuContainer);
 
@@ -38545,7 +38781,7 @@
 	exports.default = SpoilerCard;
 
 /***/ },
-/* 279 */
+/* 281 */
 /*!*****************************************************!*\
   !*** ./src/ui/options_menu/OptionsMenuContainer.js ***!
   \*****************************************************/
@@ -38567,17 +38803,17 @@
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _optionsMenuActions = __webpack_require__(/*! ./optionsMenuActions */ 280);
-
-	var _optionsMenuActions2 = _interopRequireDefault(_optionsMenuActions);
-
-	var _OptionsMenu = __webpack_require__(/*! ./OptionsMenu */ 281);
+	var _OptionsMenu = __webpack_require__(/*! ./OptionsMenu */ 282);
 
 	var _OptionsMenu2 = _interopRequireDefault(_OptionsMenu);
 
-	var _store = __webpack_require__(/*! ../store */ 191);
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
 
-	var _store2 = _interopRequireDefault(_store);
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
+	var _optionsMenuActions = __webpack_require__(/*! ./optionsMenuActions */ 283);
+
+	var _optionsMenuActions2 = _interopRequireDefault(_optionsMenuActions);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38597,22 +38833,49 @@
 
 			var _this = _possibleConstructorReturn(this, (OptionsMenuContainer.__proto__ || Object.getPrototypeOf(OptionsMenuContainer)).call(this, props));
 
-			_this.handleToggleCaseSensitivity = _this.handleToggleCaseSensitivity.bind(_this);
+			_this.handleToggleActive = _this.handleToggleActive.bind(_this);
+			_this.handleToggleCaseSensitive = _this.handleToggleCaseSensitive.bind(_this);
+			_this.handleToggleHidePref = _this.handleToggleHidePref.bind(_this);
+			_this.handleDelete = _this.handleDelete.bind(_this);
 			return _this;
 		}
 
 		_createClass(OptionsMenuContainer, [{
-			key: "handleToggleCaseSensitivity",
-			value: function handleToggleCaseSensitivity(event) {
-				_optionsMenuActions2.default.toggleCaseSensitivity(this.props.index);
+			key: "handleToggleActive",
+			value: function handleToggleActive() {
+				_optionsMenuActions2.default.toggleActive(this.props.index);
+			}
+		}, {
+			key: "handleToggleCaseSensitive",
+			value: function handleToggleCaseSensitive() {
+				_optionsMenuActions2.default.toggleCaseSensitive(this.props.index);
+			}
+		}, {
+			key: "handleToggleHidePref",
+			value: function handleToggleHidePref() {
+				_optionsMenuActions2.default.toggleHidePref(this.props.index);
+			}
+		}, {
+			key: "handleDelete",
+			value: function handleDelete() {
+				_optionsMenuActions2.default.deleteList(this.props.index);
 			}
 		}, {
 			key: "render",
 			value: function render() {
 				return _react2.default.createElement(_OptionsMenu2.default, {
 					index: this.props.index,
-					isCaseSensitive: _store2.default.spoilers[this.props.index]["isCaseSensitive"],
-					onToggleCaseSensitivity: this.handleToggleCaseSensitivity
+
+					isActive: _MainStore2.default.spoilers[this.props.index]["isActive"],
+					onToggleActive: this.handleToggleActive,
+
+					isCaseSensitive: _MainStore2.default.spoilers[this.props.index]["isCaseSensitive"],
+					onToggleCaseSensitive: this.handleToggleCaseSensitive,
+
+					hidePref: _MainStore2.default.spoilers[this.props.index]["hidePref"],
+					onToggleHidePref: this.handleToggleHidePref,
+
+					onDelete: this.handleDelete
 				});
 			}
 		}]);
@@ -38627,30 +38890,7 @@
 	exports.default = OptionsMenuContainer;
 
 /***/ },
-/* 280 */
-/*!***************************************************!*\
-  !*** ./src/ui/options_menu/optionsMenuActions.js ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _store = __webpack_require__(/*! ../store */ 191);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-		toggleCaseSensitivity: toggleCaseSensitivity
-	};
-
-	function toggleCaseSensitivity(index) {
-		_store2.default.spoilers[index]["isCaseSensitive"] = !_store2.default.spoilers[index]["isCaseSensitive"];
-	}
-
-/***/ },
-/* 281 */
+/* 282 */
 /*!********************************************!*\
   !*** ./src/ui/options_menu/OptionsMenu.js ***!
   \********************************************/
@@ -38668,7 +38908,7 @@
 
 	var _mobxReact = __webpack_require__(/*! mobx-react */ 187);
 
-	var _core = __webpack_require__(/*! @blueprintjs/core */ 195);
+	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38679,35 +38919,95 @@
 		return _react2.default.createElement(
 			_core.Menu,
 			null,
-			_react2.default.createElement(_core.Switch, {
-				label: "Case sensitive",
-				checked: props.isCaseSensitive,
-				onChange: props.onToggleCaseSensitivity
-			}),
-			_react2.default.createElement(_core.MenuItem, {
-				iconName: "new-object"
-				// onClick={this.handleClick}
-				, text: "New object"
-			}),
-			_react2.default.createElement(_core.MenuItem, {
-				iconName: "new-link"
-				// onClick={this.handleClick}
-				, text: "New link"
-			}),
-			_react2.default.createElement(_core.MenuDivider, null),
-			_react2.default.createElement(_core.MenuItem, {
-				iconName: "trash",
-				text: "Delete"
-			})
+			_react2.default.createElement(
+				"div",
+				{ style: { paddingTop: 4, paddingLeft: 2 } },
+				_react2.default.createElement(_core.Switch // TODO: should isActive control be here?
+				, { label: "Active",
+					checked: props.isActive,
+					onChange: props.onToggleActive
+				}),
+				_react2.default.createElement(_core.Switch, {
+					label: "Case sensitive",
+					checked: props.isCaseSensitive,
+					onChange: props.onToggleCaseSensitive
+				}),
+				_react2.default.createElement(_core.Switch, {
+					label: "Overlay/remove" // TODO: clearer label
+					, checked: props.hidePref === "remove",
+					onChange: props.onToggleHidePref
+				}),
+				_react2.default.createElement(_core.MenuDivider, null),
+				_react2.default.createElement(_core.MenuItem, {
+					iconName: "trash",
+					text: "Delete",
+					onClick: props.onDelete
+				})
+			)
 		);
 	});
 
 	OptionsMenu.propTypes = {
+		isActive: PropTypes.bool.isRequired,
+		onToggleActive: PropTypes.func.isRequired,
+
 		isCaseSensitive: PropTypes.bool.isRequired,
-		onToggleCaseSensitivity: PropTypes.func.isRequired
+		onToggleCaseSensitive: PropTypes.func.isRequired,
+
+		hidePref: PropTypes.string.isRequired,
+		onToggleHidePref: PropTypes.func.isRequired,
+
+		onDelete: PropTypes.func.isRequired
 	};
 
 	exports.default = OptionsMenu;
+
+/***/ },
+/* 283 */
+/*!***************************************************!*\
+  !*** ./src/ui/options_menu/optionsMenuActions.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		toggleActive: (0, _mobx.action)(toggleActive),
+		toggleCaseSensitive: (0, _mobx.action)(toggleCaseSensitive),
+		toggleHidePref: (0, _mobx.action)(toggleHidePref),
+		deleteList: (0, _mobx.action)(deleteList)
+	};
+
+	function toggleActive(index) {
+		_MainStore2.default.spoilers[index]["isActive"] = !_MainStore2.default.spoilers[index]["isActive"];
+	}
+
+	function toggleCaseSensitive(index) {
+		_MainStore2.default.spoilers[index]["isCaseSensitive"] = !_MainStore2.default.spoilers[index]["isCaseSensitive"];
+	}
+
+	function toggleHidePref(index) {
+		if (_MainStore2.default.spoilers[index]["hidePref"] === "overlay") {
+			_MainStore2.default.spoilers[index]["hidePref"] = "remove";
+		} else if (_MainStore2.default.spoilers[index]["hidePref"] === "remove") {
+			_MainStore2.default.spoilers[index]["hidePref"] = "overlay";
+		} else {
+			console.log("Error in loading hidePref. Defaulting to overlay");
+			_MainStore2.default.spoilers[index]["hidePref"] = "overlay";
+		}
+	}
+
+	function deleteList(index) {
+		_MainStore2.default.spoilers.splice(index, 1);
+	}
 
 /***/ }
 /******/ ]);

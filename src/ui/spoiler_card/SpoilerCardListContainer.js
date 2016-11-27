@@ -1,7 +1,7 @@
 import React from "react";
 import SpoilerCardList from "./SpoilerCardList";
 import {observer} from "mobx-react";
-import store from "../store";
+import MainStore from "../MainStore";
 
 @observer
 class SpoilerCardListContainer extends React.Component {
@@ -13,7 +13,7 @@ class SpoilerCardListContainer extends React.Component {
 
 	render() {
 		return (
-			<SpoilerCardList spoilers={store.spoilers} />
+			<SpoilerCardList spoilers={MainStore.spoilers} />
 		);
 	}
 }

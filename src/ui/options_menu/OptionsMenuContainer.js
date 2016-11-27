@@ -2,7 +2,7 @@ import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import OptionsMenu from "./OptionsMenu";
-import store from "../store";
+import MainStore from "../MainStore";
 import optionsMenuActions from "./optionsMenuActions";
 
 @observer
@@ -37,13 +37,13 @@ class OptionsMenuContainer extends React.Component {
 			<OptionsMenu
 				index={this.props.index}
 
-				isActive={store.spoilers[this.props.index]["isActive"]}
+				isActive={MainStore.spoilers[this.props.index]["isActive"]}
 				onToggleActive={this.handleToggleActive}
 
-				isCaseSensitive={store.spoilers[this.props.index]["isCaseSensitive"]}
+				isCaseSensitive={MainStore.spoilers[this.props.index]["isCaseSensitive"]}
 				onToggleCaseSensitive={this.handleToggleCaseSensitive}
 
-				hidePref={store.spoilers[this.props.index]["hidePref"]}
+				hidePref={MainStore.spoilers[this.props.index]["hidePref"]}
 				onToggleHidePref={this.handleToggleHidePref}
 				
 				onDelete={this.handleDelete}

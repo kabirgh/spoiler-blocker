@@ -1,20 +1,13 @@
 import React from "react";
 // const PropTypes = React.PropTypes; TODO
 import {observer} from "mobx-react";
-import store from "../store";
+import MainStore from "../MainStore";
 import addActions from "./addActions";
 import AddCard from "./AddCard";
-import {Toaster, Position, Intent, Collapse} from "@blueprintjs/core";
+import {Collapse} from "@blueprintjs/core";
 
 @observer
 class AddCardContainer extends React.Component {
-	toaster = Toaster.create({
-		className: "top-toaster",
-		autoFocus: false,
-		canEscapeKeyClear: true,
-		position: Position.TOP,
-	});
-
 	constructor(props) {
 		super(props);
 
@@ -30,12 +23,16 @@ class AddCardContainer extends React.Component {
 	}
 
 	handleUpdateTitle(event) {
+		addActions.resetToastFlags();
+
 		this.setState({
 			title: event.target.value
 		});
 	}
 
 	handleUpdateTags(event) {
+		addActions.resetToastFlags();
+
 		this.setState({
 			tags: event.target.value
 		});
@@ -43,17 +40,6 @@ class AddCardContainer extends React.Component {
 
 	handleSave() {
 		addActions.saveAddList(this.state.title, this.state.tags);
-		addActions.hideAddCard();
-
-		// TODO: "Warning: _renderNewRootComponent(): Render methods should be a pure function 
-		// of props and state; triggering nested component updates from render is not allowed. 
-		// If necessary, trigger nested updates in componentDidUpdate."
-		this.toaster.show({
-			message: "New list added.",
-			iconName: "tick",
-			intent: Intent.SUCCESS,
-			timeout: 2000
-		});
 	}
 
 	handleClose() {
@@ -66,7 +52,7 @@ class AddCardContainer extends React.Component {
 
 	render() {
 		return (
-			<Collapse isOpen={store.isAddCardVisible}>
+			<Collapse isOpen={MainStore.isAddCardVisible}>
 				<br />
 				<AddCard 
 					onUpdateTitle={this.handleUpdateTitle}

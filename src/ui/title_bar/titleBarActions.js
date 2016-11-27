@@ -1,10 +1,10 @@
 import {action} from "mobx";
-import store from "../store";
+import MainStore from "../MainStore";
 
 module.exports = {
 	showAddCard: action(showAddCard)
 };
 
 function showAddCard() {
-	store.isAddCardVisible = true;
+	MainStore.isAddCardVisible = true;
 }

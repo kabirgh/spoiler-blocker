@@ -20,10 +20,8 @@ let defaultSpoilers = [
 class Store {
 	@observable spoilers;
 	@observable isAddCardVisible = false;
-	@observable isDuplicateTitle = false;
-	// TODO: set options to change default prefs
-	defaultHidePref = "overlay"; // or remove
-	defaultCaseSensitivity = false;
+	@observable defaultHidePref = "overlay"; // or remove
+	@observable defaultCaseSensitivity = false;
 
 	constructor(spoilers=defaultSpoilers) {
 		this.spoilers = spoilers;
@@ -34,7 +32,7 @@ class Store {
 	}
 }
 
-const store = new Store();
+const MainStore = new Store();
 
-export default store;
+export default MainStore;
 export { Store };

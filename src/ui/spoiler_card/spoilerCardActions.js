@@ -1,5 +1,5 @@
 import {action} from "mobx";
-import store from "../store";
+import MainStore from "../MainStore";
 
 // TODO: ES2015
 module.exports = {
@@ -10,11 +10,11 @@ module.exports = {
 function editTags(index, title, tags) {
 	console.log("editTags called");
 
-	store.spoilers[index]["title"] = title;
-	store.spoilers[index]["tags"] = tagStringToArray(tags);
+	MainStore.spoilers[index]["title"] = title;
+	MainStore.spoilers[index]["tags"] = tagStringToArray(tags);
 
 	console.log("spoiler tags for 1st list on next line");
-	console.log(store.spoilers[0]["tags"]);
+	console.log(MainStore.spoilers[0]["tags"]);
 }
 
 function tagStringToArray(tagString) {

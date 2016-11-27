@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Devtools from "mobx-react-devtools";
+import Toast from "./toast/Toast";
 import TitleBarContainer from "./title_bar/TitleBarContainer";
 import AddCardContainer from "./add_card/AddCardContainer";
 import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
@@ -12,6 +13,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 const App = observer( () => 
 	<div>
 		<Devtools />
+		<Toast />
 		<TitleBarContainer />
 		<div style={{paddingTop: 35}}>
 			<AddCardContainer />
