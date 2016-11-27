@@ -2,13 +2,16 @@ import {Intent} from "@blueprintjs/core";
 import {observable, computed} from "mobx";
 
 class Store {
-	@observable shouldRenderToast = false;
 	@observable isAddSuccess = false;
 	@observable isInvalidTitleOrTags = false;
 	@observable isDuplicateTitle = false;
 	@observable isListDeleted = false;
 
 	constructor() {}
+
+	@computed get allFlags() {
+		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle, this.isListDeleted];
+	}
 
 	@computed get toastObject() {
 		if (this.isAddSuccess) {

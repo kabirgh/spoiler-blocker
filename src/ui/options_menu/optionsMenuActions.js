@@ -34,7 +34,6 @@ function toggleHidePref(index) {
 function deleteList(index) {
 	MainStore.spoilers.splice(index, 1);
 	ToastStore.isListDeleted = true;
-	ToastStore.shouldRenderToast = true;
 }
 
 function resetToastFlags() {

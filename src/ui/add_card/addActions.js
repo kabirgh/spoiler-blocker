@@ -31,8 +31,6 @@ function saveAddList(title, tagString) {
 
 		hideAddCard();
 	}
-
-	ToastStore.shouldRenderToast = true;
 }
 
 function isDuplicateTitle(title) {
