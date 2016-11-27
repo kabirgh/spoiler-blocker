@@ -1,6 +1,6 @@
 import {action} from "mobx";
 import MainStore from "../MainStore";
-import ToastStore from "../ToastStore";
+import ToastStore from "../toast/ToastStore";
 
 module.exports = {
 	toggleActive: action(toggleActive),

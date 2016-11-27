@@ -1,6 +1,6 @@
 import {action} from "mobx";
 import MainStore from "../MainStore";
-import ToastStore from "../ToastStore";
+import ToastStore from "../toast/ToastStore";
 
 // TODO: ES2015
 module.exports = {
@@ -11,8 +11,9 @@ module.exports = {
 
 function saveAddList(title, tagString) {
 	title = title.trim();
+	const tagArr = tagStringToArray(tagString);
 
-	if (isInvalidTitleOrTags(title, tagString)) {
+	if (isInvalidTitleOrTags(title, tagArr)) {
 		ToastStore.isInvalidTitleOrTags = true;
 	}
 	else if (isDuplicateTitle(title)) {
@@ -24,7 +25,7 @@ function saveAddList(title, tagString) {
 			isActive: true,
 			isCaseSensitive: MainStore.defaultCaseSensitivity,
 			hidePref: MainStore.defaultHidePref,
-			tags: tagStringToArray(tagString)
+			tags: tagArr
 		});
 
 		ToastStore.isAddSuccess = true;
@@ -45,10 +46,17 @@ function isDuplicateTitle(title) {
 	return false;
 }
 
-function isInvalidTitleOrTags(title, tagString) {
-	if (title.trim() === "" || tagString.trim() === "") {
-		console.log("invalid title/tags");
+function isInvalidTitleOrTags(title, tagArr) {
+	if (title.trim() === "") {
+		console.log("invalid title");
 		return true;
+	}
+
+	for (let i=0; i<tagArr.length; i++) {
+		if (tagArr[i] === "") {
+			console.log("invalid tag");
+			return true;
+		}
 	}
 
 	return false;

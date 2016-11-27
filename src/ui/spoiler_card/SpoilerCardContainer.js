@@ -5,6 +5,7 @@ import {observable} from "mobx";
 import spoilerCardActions from "./spoilerCardActions";
 import SpoilerCard from "./SpoilerCard";
 
+// TODO: editable title
 // Handles logic for SpoilerCard component
 @observer
 class SpoilerCardContainer extends React.Component {
@@ -25,11 +26,9 @@ class SpoilerCardContainer extends React.Component {
 
 	handleExpandCollapse() {
 		this.isExpanded = !this.isExpanded;
-		console.log("new isExpanded: " + this.isExpanded);
 	}
 
 	handleUpdateTags(string) {
-		console.log("string: " + string);
 		this.tags = string;
 	}
 

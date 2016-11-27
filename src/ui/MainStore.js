@@ -1,4 +1,4 @@
-import {observable, computed} from "mobx";
+import {observable, computed, autorun} from "mobx";
 
 let defaultSpoilers = [
 	{
@@ -17,6 +17,8 @@ let defaultSpoilers = [
 	}
 ];
 
+// TODO: get spoilers from chrome storage
+
 class Store {
 	@observable spoilers;
 	@observable isAddCardVisible = false;
@@ -34,5 +36,9 @@ class Store {
 
 const MainStore = new Store();
 
+autorun(() => {
+	console.log("autorun, new spoilers arr on next line");
+	console.log(MainStore.spoilers);
+});
+
 export default MainStore;
-export { Store };

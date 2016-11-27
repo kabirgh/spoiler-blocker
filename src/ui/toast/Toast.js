@@ -1,8 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {Toaster, Position} from "@blueprintjs/core";
-import ToastStore from "../ToastStore";
-import toastActions from "./toastActions";
+import ToastStore from "./ToastStore";
 
 @observer
 class Toast extends React.Component {
@@ -25,8 +24,6 @@ class Toast extends React.Component {
 		if (ToastStore.toastObject !== null) {
 			this.toaster.show(ToastStore.toastObject);
 		}
-
-		toastActions.markToastAsRendered();
 	}
 
 	// TODO
