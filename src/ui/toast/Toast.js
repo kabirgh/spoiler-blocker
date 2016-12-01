@@ -16,11 +16,7 @@ class Toast extends React.Component {
 		});
 	}
 
-	shouldComponentUpdate() {
-		return ToastStore.shouldRenderToast === true;
-	}
-
-	componentWillUpdate() {
+	componentDidUpdate() {
 		if (ToastStore.toastObject !== null) {
 			this.toaster.show(ToastStore.toastObject);
 		}

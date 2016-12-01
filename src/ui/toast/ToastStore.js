@@ -16,8 +16,8 @@ class Store {
 	@computed get toastObject() {
 		if (this.isAddSuccess) {
 			return {
-				message: "New list added.",
-				intent: Intent.SUCCESS,
+				message: "New list added. Refresh page to see changes.",
+				intent: Intent.PRIMARY,
 				timeout: 2000
 			};
 		}
@@ -40,7 +40,7 @@ class Store {
 
 		else if (this.isListDeleted) {
 			return {
-				message: "Deleted list.",
+				message: "Deleted list. Refresh page to see changes.",
 				intent: Intent.PRIMARY,
 				timeout: 2000
 			};

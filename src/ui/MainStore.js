@@ -1,4 +1,5 @@
-import {observable, computed, autorun} from "mobx";
+/* global chrome */
+import {observable, computed, autorun, toJS} from "mobx";
 
 let defaultSpoilers = [
 	{
@@ -17,17 +18,13 @@ let defaultSpoilers = [
 	}
 ];
 
-// TODO: get spoilers from chrome storage
-
 class Store {
-	@observable spoilers;
+	@observable spoilers = [];
 	@observable isAddCardVisible = false;
 	@observable defaultHidePref = "overlay"; // or remove
-	@observable defaultCaseSensitivity = false;
+	@observable defaultCaseSensitivity = false; // TODO: provide global option to change this
 
-	constructor(spoilers=defaultSpoilers) {
-		this.spoilers = spoilers;
-	}
+	constructor() {	}
 
 	@computed get lowerCaseTitles() {
 		return this.spoilers.map(obj => obj["title"].toLowerCase());
@@ -36,9 +33,19 @@ class Store {
 
 const MainStore = new Store();
 
+chrome.storage.local.get("spoilersArr", function(obj) {
+	if (obj["spoilersArr"] === undefined) {
+		MainStore.spoilers = [];
+	}
+	else {
+		MainStore.spoilers = obj["spoilersArr"];
+	}
+});
+
 autorun(() => {
-	console.log("autorun, new spoilers arr on next line");
-	console.log(MainStore.spoilers);
+	// Accesses all properties recursively, triggering autorun when any change is made
+	JSON.stringify(MainStore.spoilers);
+	chrome.storage.local.set({"spoilersArr": toJS(MainStore.spoilers)});
 });
 
 export default MainStore;

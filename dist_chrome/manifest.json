@@ -7,7 +7,10 @@
 
 	"browser_action": {
 		"default_title": "Spoiler Blocker",
-		"default_icon": "img/icon128.png",
+		"default_icon": {
+			"16": "img/icon16.png",
+			"32": "img/icon32.png"
+		},
 		"default_popup": "panel.html"
 	},
 

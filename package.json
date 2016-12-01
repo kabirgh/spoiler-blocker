@@ -4,7 +4,7 @@
   "description": "A browser extension that blocks spoilers on your Facebook and Twitter feed.",
   "main": "index.js",
   "scripts": {
-    "prod": "webpack -p",
+    "prod": "set NODE_ENV=production & webpack -p",
     "dev": "webpack --debug --output-pathinfo --watch --progress",
     "start": "webpack-dev-server"
   },

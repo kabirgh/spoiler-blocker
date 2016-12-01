@@ -62,29 +62,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var testSpoilersArr = [{
-		"title": "spoiler-tag1-tag2",
-		"isActive": true,
-		"isCaseSensitive": true,
-		"hidePref": "overlay",
-		"tags": ["tag1", "tag2"]
-	}, {
-		"title": "all-posts",
-		"isActive": true,
-		"isCaseSensitive": false,
-		"hidePref": "overlay",
-		"tags": ["a", "b", "c"]
-	}]; /* global chrome */
+	var globalSpoilersArr = void 0; /* global chrome */
 
-
-	var globalSpoilersArr = void 0;
-	chrome.storage.sync.get("spoilersArr", function (storage) {
+	chrome.storage.local.get("spoilersArr", function (storage) {
 		if (storage.spoilersArr !== undefined) {
 			console.log("Received spoilersArr: " + JSON.stringify(storage.spoilersArr));
 			globalSpoilersArr = storage.spoilersArr;
 		} else {
-			console.log("No spoilersArr in storage. Initialising to testSpoilersArr");
-			globalSpoilersArr = testSpoilersArr;
+			console.log("No spoilersArr in storage. Initialising to empty array");
+			globalSpoilersArr = [];
 		}
 	});
 

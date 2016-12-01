@@ -25906,7 +25906,7 @@
 
 	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
-	var _ToastStore = __webpack_require__(/*! ../ToastStore */ 268);
+	var _ToastStore = __webpack_require__(/*! ./ToastStore */ 268);
 
 	var _ToastStore2 = _interopRequireDefault(_ToastStore);
 
@@ -25938,19 +25938,23 @@
 		_createClass(Toast, [{
 			key: "componentDidUpdate",
 			value: function componentDidUpdate() {
-				console.log(_ToastStore2.default.toastObject);
-
 				if (_ToastStore2.default.toastObject !== null) {
 					this.toaster.show(_ToastStore2.default.toastObject);
 				}
 			}
+
+			// TODO
+			// Warning: _renderNewRootComponent(): Render methods should be a pure function of 
+			// props and state; triggering nested component updates from render is not allowed. 
+			// If necessary, trigger nested updates in componentDidUpdate. Check the render method of Toast.
+
 		}, {
 			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
 					"div",
 					null,
-					_ToastStore2.default.toastObject === "force re-render when obj changes" ? _react2.default.createElement("div", null) : _react2.default.createElement("div", null)
+					_ToastStore2.default.allFlags === "Force re-render when any flag changes" ? null : null
 				);
 			}
 		}]);
@@ -37699,9 +37703,9 @@
 
 /***/ },
 /* 268 */
-/*!******************************!*\
-  !*** ./src/ui/ToastStore.js ***!
-  \******************************/
+/*!************************************!*\
+  !*** ./src/ui/toast/ToastStore.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37713,7 +37717,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
+	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
 	var _core = __webpack_require__(/*! @blueprintjs/core */ 189);
 
@@ -37770,41 +37774,51 @@
 
 			_initDefineProp(this, "isAddSuccess", _descriptor, this);
 
-			_initDefineProp(this, "isDuplicateTitle", _descriptor2, this);
+			_initDefineProp(this, "isInvalidTitleOrTags", _descriptor2, this);
 
-			_initDefineProp(this, "isInvalidTitleOrTags", _descriptor3, this);
+			_initDefineProp(this, "isDuplicateTitle", _descriptor3, this);
+
+			_initDefineProp(this, "isListDeleted", _descriptor4, this);
 		}
 
 		_createClass(Store, [{
+			key: "allFlags",
+			get: function get() {
+				return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle, this.isListDeleted];
+			}
+		}, {
 			key: "toastObject",
 			get: function get() {
 				if (this.isAddSuccess) {
 					return {
-						message: "New list added.",
-						iconName: "tick",
-						intent: _core.Intent.SUCCESS,
+						message: "New list added. Refresh page to see changes.",
+						intent: _core.Intent.PRIMARY,
 						timeout: 2000
 					};
-				}
-
-				if (this.isDuplicateTitle) {
-					return {
-						message: "A list with the same title already exists.",
-						intent: _core.Intent.DANGER,
-						timeout: 2000
-					};
-				}
-
-				if (this.isInvalidTitleOrTags) {
+				} else if (this.isInvalidTitleOrTags) {
 					return {
 						message: "The entered title or tags are invalid.",
 						intent: _core.Intent.DANGER,
 						timeout: 2000
 					};
+				} else if (this.isDuplicateTitle) {
+					return {
+						message: "A list with the same title already exists.",
+						intent: _core.Intent.DANGER,
+						timeout: 2000
+					};
+				} else if (this.isListDeleted) {
+					return {
+						message: "Deleted list. Refresh page to see changes.",
+						intent: _core.Intent.PRIMARY,
+						timeout: 2000
+					};
 				}
 
 				// Nothing to show
-				return null;
+				else {
+						return null;
+					}
 			}
 		}]);
 
@@ -37814,17 +37828,22 @@
 		initializer: function initializer() {
 			return false;
 		}
-	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isDuplicateTitle", [_mobx.observable], {
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isInvalidTitleOrTags", [_mobx.observable], {
 		enumerable: true,
 		initializer: function initializer() {
 			return false;
 		}
-	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "isInvalidTitleOrTags", [_mobx.observable], {
+	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "isDuplicateTitle", [_mobx.observable], {
 		enumerable: true,
 		initializer: function initializer() {
 			return false;
 		}
-	}), _applyDecoratedDescriptor(_class.prototype, "toastObject", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "toastObject"), _class.prototype)), _class);
+	}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "isListDeleted", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
+		}
+	}), _applyDecoratedDescriptor(_class.prototype, "allFlags", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "allFlags"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "toastObject", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "toastObject"), _class.prototype)), _class);
 
 
 	var ToastStore = new Store();
@@ -37997,11 +38016,11 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Store = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4; /* global chrome */
+
 
 	var _mobx = __webpack_require__(/*! mobx */ 186);
 
@@ -38065,9 +38084,9 @@
 	}];
 
 	var Store = (_class = function () {
-		function Store() {
-			var spoilers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultSpoilers;
+		// TODO: provide global option to change this
 
+		function Store() {
 			_classCallCheck(this, Store);
 
 			_initDefineProp(this, "spoilers", _descriptor, this);
@@ -38077,16 +38096,14 @@
 			_initDefineProp(this, "defaultHidePref", _descriptor3, this);
 
 			_initDefineProp(this, "defaultCaseSensitivity", _descriptor4, this);
-
-			this.spoilers = spoilers;
 		} // or remove
 
 
 		_createClass(Store, [{
-			key: "titles",
+			key: "lowerCaseTitles",
 			get: function get() {
 				return this.spoilers.map(function (obj) {
-					return obj["title"];
+					return obj["title"].toLowerCase();
 				});
 			}
 		}]);
@@ -38094,7 +38111,9 @@
 		return Store;
 	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "spoilers", [_mobx.observable], {
 		enumerable: true,
-		initializer: null
+		initializer: function initializer() {
+			return [];
+		}
 	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "isAddCardVisible", [_mobx.observable], {
 		enumerable: true,
 		initializer: function initializer() {
@@ -38110,13 +38129,26 @@
 		initializer: function initializer() {
 			return false;
 		}
-	}), _applyDecoratedDescriptor(_class.prototype, "titles", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "titles"), _class.prototype)), _class);
+	}), _applyDecoratedDescriptor(_class.prototype, "lowerCaseTitles", [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, "lowerCaseTitles"), _class.prototype)), _class);
 
 
 	var MainStore = new Store();
 
+	chrome.storage.local.get("spoilersArr", function (obj) {
+		if (obj["spoilersArr"] === undefined) {
+			MainStore.spoilers = [];
+		} else {
+			MainStore.spoilers = obj["spoilersArr"];
+		}
+	});
+
+	(0, _mobx.autorun)(function () {
+		// Accesses all properties recursively, triggering autorun when any change is made
+		JSON.stringify(MainStore.spoilers);
+		chrome.storage.local.set({ "spoilersArr": (0, _mobx.toJS)(MainStore.spoilers) });
+	});
+
 	exports.default = MainStore;
-	exports.Store = Store;
 
 /***/ },
 /* 273 */
@@ -38188,6 +38220,8 @@
 		_createClass(AddCardContainer, [{
 			key: "handleUpdateTitle",
 			value: function handleUpdateTitle(event) {
+				_addActions2.default.resetToastFlags();
+
 				this.setState({
 					title: event.target.value
 				});
@@ -38195,6 +38229,8 @@
 		}, {
 			key: "handleUpdateTags",
 			value: function handleUpdateTags(event) {
+				_addActions2.default.resetToastFlags();
+
 				this.setState({
 					tags: event.target.value
 				});
@@ -38202,8 +38238,8 @@
 		}, {
 			key: "handleSave",
 			value: function handleSave() {
+				// Displays different toast messages on save success and fail. See addActions for details
 				_addActions2.default.saveAddList(this.state.title, this.state.tags);
-				_addActions2.default.hideAddCard();
 			}
 		}, {
 			key: "handleClose",
@@ -38251,7 +38287,7 @@
 
 	var _MainStore2 = _interopRequireDefault(_MainStore);
 
-	var _ToastStore = __webpack_require__(/*! ../ToastStore */ 268);
+	var _ToastStore = __webpack_require__(/*! ../toast/ToastStore */ 268);
 
 	var _ToastStore2 = _interopRequireDefault(_ToastStore);
 
@@ -38260,33 +38296,38 @@
 	// TODO: ES2015
 	module.exports = {
 		saveAddList: (0, _mobx.action)(saveAddList),
-		hideAddCard: (0, _mobx.action)(hideAddCard)
+		hideAddCard: (0, _mobx.action)(hideAddCard),
+		resetToastFlags: (0, _mobx.action)(resetToastFlags)
 	};
 
-	// TODO: error msg for empty title/tags
 	function saveAddList(title, tagString) {
-		if (isDuplicateTitle(title)) {
-			// TODO: change to false as soon as text changes
-			_ToastStore2.default.isDuplicateTitle = true;
-		} else if (isInvalidTitleOrTags(title, tagString)) {
-			// TODO: change to false as soon as text changes
+		title = title.trim();
+		var tagArr = tagStringToArray(tagString);
+
+		if (isInvalidTitleOrTags(title, tagArr)) {
 			_ToastStore2.default.isInvalidTitleOrTags = true;
+		} else if (isDuplicateTitle(title)) {
+			_ToastStore2.default.isDuplicateTitle = true;
 		} else {
 			_MainStore2.default.spoilers.push({
 				title: title,
 				isActive: true,
 				isCaseSensitive: _MainStore2.default.defaultCaseSensitivity,
 				hidePref: _MainStore2.default.defaultHidePref,
-				tags: tagStringToArray(tagString)
+				tags: tagArr
 			});
 
 			_ToastStore2.default.isAddSuccess = true;
+
+			hideAddCard();
 		}
 	}
 
 	function isDuplicateTitle(title) {
-		for (var i = 0; i < _MainStore2.default.titles.length; i++) {
-			if (title.trim() === _MainStore2.default.titles[i].trim()) {
+		var lowerCaseTitle = title.toLowerCase();
+
+		for (var i = 0; i < _MainStore2.default.lowerCaseTitles.length; i++) {
+			if (lowerCaseTitle === _MainStore2.default.lowerCaseTitles[i]) {
 				return true;
 			}
 		}
@@ -38294,10 +38335,17 @@
 		return false;
 	}
 
-	function isInvalidTitleOrTags(title, tagString) {
-		if (title.trim() === "" || tagString.trim() === "") {
-			console.log("invalid title/tags");
+	function isInvalidTitleOrTags(title, tagArr) {
+		if (title.trim() === "") {
+			console.log("invalid title");
 			return true;
+		}
+
+		for (var i = 0; i < tagArr.length; i++) {
+			if (tagArr[i] === "") {
+				console.log("invalid tag");
+				return true;
+			}
 		}
 
 		return false;
@@ -38310,9 +38358,14 @@
 		});
 	}
 
-	// TODO: make addcard child of <Collapse> instead
 	function hideAddCard() {
 		_MainStore2.default.isAddCardVisible = false;
+	}
+
+	function resetToastFlags() {
+		_ToastStore2.default.isInvalidTitleOrTags = false;
+		_ToastStore2.default.isDuplicateTitle = false;
+		_ToastStore2.default.isAddSuccess = false;
 	}
 
 /***/ },
@@ -38581,6 +38634,7 @@
 
 	var PropTypes = _react2.default.PropTypes;
 
+	// TODO: editable title
 	// Handles logic for SpoilerCard component
 	var SpoilerCardContainer = (0, _mobxReact.observer)(_class = (_class2 = function (_React$Component) {
 		_inherits(SpoilerCardContainer, _React$Component);
@@ -38609,12 +38663,10 @@
 			key: "handleExpandCollapse",
 			value: function handleExpandCollapse() {
 				this.isExpanded = !this.isExpanded;
-				console.log("new isExpanded: " + this.isExpanded);
 			}
 		}, {
 			key: "handleUpdateTags",
 			value: function handleUpdateTags(string) {
-				console.log("string: " + string);
 				this.tags = string;
 			}
 		}, {
@@ -38728,6 +38780,10 @@
 
 	var _OptionsMenuContainer2 = _interopRequireDefault(_OptionsMenuContainer);
 
+	var _MainStore = __webpack_require__(/*! ../MainStore */ 272);
+
+	var _MainStore2 = _interopRequireDefault(_MainStore);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var PropTypes = _react2.default.PropTypes;
@@ -38753,7 +38809,10 @@
 				{ className: "pt-navbar-group", style: { position: "absolute", top: 0, right: 0, paddingRight: 10 } },
 				_react2.default.createElement(
 					_core.Popover,
-					{ content: _react2.default.createElement(_OptionsMenuContainer2.default, { index: props.index }), position: _core.Position.LEFT_TOP },
+					{
+						content: _react2.default.createElement(_OptionsMenuContainer2.default, { index: props.index }),
+						position: _core.Position.LEFT_TOP,
+						onClick: props.onOptionsMenuClick },
 					_react2.default.createElement(_core.Button, { className: "pt-minimal pt-icon-more" })
 				),
 				props.isExpanded ? _react2.default.createElement(_core.Button, { className: "pt-minimal pt-icon-chevron-down", onClick: props.onExpandCollapse }) : _react2.default.createElement(_core.Button, { className: "pt-minimal pt-icon-chevron-right", onClick: props.onExpandCollapse })
@@ -38833,6 +38892,8 @@
 
 			var _this = _possibleConstructorReturn(this, (OptionsMenuContainer.__proto__ || Object.getPrototypeOf(OptionsMenuContainer)).call(this, props));
 
+			_optionsMenuActions2.default.resetToastFlags();
+
 			_this.handleToggleActive = _this.handleToggleActive.bind(_this);
 			_this.handleToggleCaseSensitive = _this.handleToggleCaseSensitive.bind(_this);
 			_this.handleToggleHidePref = _this.handleToggleHidePref.bind(_this);
@@ -38858,6 +38919,7 @@
 		}, {
 			key: "handleDelete",
 			value: function handleDelete() {
+				// Creates a toast. See optionsMenuActions and toast/Toast for details
 				_optionsMenuActions2.default.deleteList(this.props.index);
 			}
 		}, {
@@ -38977,13 +39039,18 @@
 
 	var _MainStore2 = _interopRequireDefault(_MainStore);
 
+	var _ToastStore = __webpack_require__(/*! ../toast/ToastStore */ 268);
+
+	var _ToastStore2 = _interopRequireDefault(_ToastStore);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 		toggleActive: (0, _mobx.action)(toggleActive),
 		toggleCaseSensitive: (0, _mobx.action)(toggleCaseSensitive),
 		toggleHidePref: (0, _mobx.action)(toggleHidePref),
-		deleteList: (0, _mobx.action)(deleteList)
+		deleteList: (0, _mobx.action)(deleteList),
+		resetToastFlags: (0, _mobx.action)(resetToastFlags)
 	};
 
 	function toggleActive(index) {
@@ -39007,6 +39074,11 @@
 
 	function deleteList(index) {
 		_MainStore2.default.spoilers.splice(index, 1);
+		_ToastStore2.default.isListDeleted = true;
+	}
+
+	function resetToastFlags() {
+		_ToastStore2.default.isListDeleted = false;
 	}
 
 /***/ }
