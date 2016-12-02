@@ -1,0 +1,12 @@
+{
+	// runs first to last
+	"plugins": [
+		"transform-decorators-legacy",
+		"transform-class-properties"
+	],
+	// runs last to first
+	"presets": [
+		"react",
+		"es2015"
+	]
+}

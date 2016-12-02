@@ -1,12 +1,28 @@
 {
+	"parser": "babel-eslint",
 	"env": {
 		"browser": true,
-		"jquery": true
+		"es6": true,
+		"node": true
 	},
-	"extends": "eslint:recommended",
+	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"installedESLint": true,
+	"parserOptions": {
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"jsx": true
+		},
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react"
+	],
 	"rules": {
-		"linebreak-style": 0,
+		"indent": [1, "tab"],
+		"linebreak-style": [1, "unix"],
+		"quotes": [1, "double"],
+		"semi": [2, "always"],
 		"no-console": 0,
-		"no-unused-vars": 1
+		"eqeqeq": 1
 	}
 }
