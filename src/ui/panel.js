@@ -12,7 +12,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 
 const App = observer( () => 
 	<div>
-		<Devtools />
+		{process.env.NODE_ENV === "production" ? null : <Devtools />}
 		<Toast />
 		<TitleBarContainer />
 		<div style={{paddingTop: 35}}>

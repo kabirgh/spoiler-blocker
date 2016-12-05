@@ -39,14 +39,12 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 ],
 {});
 
-var UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
-	compress: {
-		drop_console: true
+var DefinePluginConfig = new webpack.DefinePlugin({
+	"process.env": {
+		"NODE_ENV": JSON.stringify("development")
 	}
 });
 
-var devPluginConfigArr = [HtmlWebpackPluginConfig, CopyWebpackPluginConfig];
-var prodPluginConfigArr = [HtmlWebpackPluginConfig, CopyWebpackPluginConfig, UglifyJsPluginConfig];
 
 module.exports = {
 	entry: {
@@ -63,7 +61,11 @@ module.exports = {
 			{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
 		]
 	},
-	plugins: process.env.NODE_ENV === "production" ? prodPluginConfigArr : devPluginConfigArr,
+	plugins: [
+		HtmlWebpackPluginConfig, 
+		CopyWebpackPluginConfig,
+		DefinePluginConfig
+	],
 	devServer: {
 		outputPath: path.join(__dirname, "./dist"),
 		contentBase: "./dist/",

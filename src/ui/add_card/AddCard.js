@@ -20,7 +20,6 @@ const AddNewCard = props => (
 					dir="auto" onChange={props.onUpdateTags} />
 			</label>
 		</div>
-		{/* TODO: show toast on adding */}
 		<Button className="pt-intent-primary" text="Add" onClick={props.onSave} />
 		&nbsp;&nbsp;
 		<Button text="Discard" onClick={props.onClose}/>
