@@ -7,9 +7,9 @@ See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
 
 ## Installation
 **Chrome:**<br>
-To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension directory, choose the `chrome_dist` folder.<br>
+To install from source, clone this repo and follow the instructions [here](https://developer.chrome.com/extensions/getstarted#unpacked). When prompted to select the extension directory, choose the `/dist` folder.<br>
 **Firefox:**<br>
-Not available yet.
+Follow the instrutions [here](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox), choosing a file in `/dist` when prompted.
 
 
 ## In the pipeline
