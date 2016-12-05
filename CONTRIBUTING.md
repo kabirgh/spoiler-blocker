@@ -3,8 +3,10 @@
 ## Development Workflow
 Fork the repo and clone to your local machine. Run `npm install` to install all required dependencies.<br>
 You can then run several commands: 
-* `npm run dev` bundles and copies files to `/dist_chrome`. You can load this folder [as an unpacked extension](https://developer.chrome.com/extensions/getstarted#unpacked) into Chrome. If you make any changes to the source code, press <kbd>Ctrl+R</kbd> on the `chrome://extensions` page to reload the extension.
 * `npm run start` launches webpack-dev-server for the UI component only at `http://localhost:8080/panel.html`. Any changes made to files will be watched - refresh the page to see changes.
+* `npm run dev` bundles and copies files to `/dist`. You can load this folder [as an unpacked extension](https://developer.chrome.com/extensions/getstarted#unpacked) into Chrome. If you make any changes to the source code, press <kbd>Ctrl+R</kbd> on the `chrome://extensions` page to reload the extension. 
+You can also load it as a [temporary add-on](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) into Firefox. The extension can be reloaded from `about:debugging`.
+* `npm run dist` bundles a production build into `/dist`. It strips all console.* statements and minifies output files.
 
 When you're ready to submit your changes, make a pull request to the `master` branch.
 
