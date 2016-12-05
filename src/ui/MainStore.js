@@ -18,7 +18,7 @@ const MainStore = new Store();
 
 console.log("ENV: " + process.env.NODE_ENV);
 
-// devServer is set in webpack config file. Only reference chrome namespace if build is not webpack-dev-server
+// NODE_ENV is set in webpack config file. Only reference chrome namespace if build is not webpack-dev-server
 if (process.env.NODE_ENV !== "devServer") {
 	chrome.storage.local.get("spoilersArr", function(obj) {
 		if (obj["spoilersArr"] === undefined) {

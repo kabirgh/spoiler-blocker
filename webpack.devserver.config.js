@@ -48,6 +48,7 @@ module.exports = {
 		CopyWebpackPluginConfig,
 		DefinePluginConfig
 	],
+	// TODO: find output folder location
 	devServer: {
 		outputPath: path.join(__dirname, "./devserver"),
 		contentBase: "./devserver/",
