@@ -16,19 +16,24 @@ class Store {
 
 const MainStore = new Store();
 
-chrome.storage.local.get("spoilersArr", function(obj) {
-	if (obj["spoilersArr"] === undefined) {
-		MainStore.spoilers = [];
-	}
-	else {
-		MainStore.spoilers = obj["spoilersArr"];
-	}
-});
+console.log("ENV: " + process.env.NODE_ENV);
 
-autorun(() => {
-	// Accesses all properties recursively, triggering autorun when any change is made
-	JSON.stringify(MainStore.spoilers);
-	chrome.storage.local.set({"spoilersArr": toJS(MainStore.spoilers)});
-});
+// devServer is set in webpack config file. Only reference chrome namespace if build is not webpack-dev-server
+if (process.env.NODE_ENV !== "devServer") {
+	chrome.storage.local.get("spoilersArr", function(obj) {
+		if (obj["spoilersArr"] === undefined) {
+			MainStore.spoilers = [];
+		}
+		else {
+			MainStore.spoilers = obj["spoilersArr"];
+		}
+	});
+
+	autorun(() => {
+		// Accesses all properties recursively, triggering autorun when any change is made
+		JSON.stringify(MainStore.spoilers);
+		chrome.storage.local.set({"spoilersArr": toJS(MainStore.spoilers)});
+	});
+}
 
 export default MainStore;
