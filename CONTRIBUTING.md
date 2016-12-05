@@ -14,7 +14,7 @@ When you're ready to submit your changes, make a pull request to the `master` br
 ## Where to contribute
 
 ### Performance
-* [Reducing bundle size](https://lacke.mn/reduce-your-bundle-js-file-size/) by importing blueprintjs components individually
+* [Reducing bundle size](https://lacke.mn/reduce-your-bundle-js-file-size/) by importing Blueprint components individually
 * Reducing lag between button click and popup showing
 * Reducing lag between page content load and overlay appearing. Consider splitting common dependencies of fb.js and tw.js into a file loaded in the background
 
@@ -26,7 +26,6 @@ When you're ready to submit your changes, make a pull request to the `master` br
 * Refactoring Toast component to follow React idioms
 
 ### Miscellaneous
-* Porting firefox build (see WebExtensions)
 * Implementing `TODO`s marked in codebase
 * Fixing code style violations
 
