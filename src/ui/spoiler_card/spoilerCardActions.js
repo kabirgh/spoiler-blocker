@@ -21,4 +21,3 @@ function tagStringToArray(tagString) {
 	const tagArr = tagString.split(",");
 	return tagArr.map(tag => tag.trim());
 }
-// TODO: sync to chrome storage
