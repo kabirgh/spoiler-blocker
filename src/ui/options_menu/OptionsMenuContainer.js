@@ -10,8 +10,6 @@ class OptionsMenuContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
-		optionsMenuActions.resetToastFlags();
-
 		this.handleToggleActive = this.handleToggleActive.bind(this);
 		this.handleToggleCaseSensitive = this.handleToggleCaseSensitive.bind(this);
 		this.handleToggleHidePref = this.handleToggleHidePref.bind(this);

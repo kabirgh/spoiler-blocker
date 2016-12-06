@@ -25837,6 +25837,10 @@
 
 	var _ToastStore2 = _interopRequireDefault(_ToastStore);
 
+	var _toastActions = __webpack_require__(/*! ./toastActions */ 285);
+
+	var _toastActions2 = _interopRequireDefault(_toastActions);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25868,6 +25872,8 @@
 				if (_ToastStore2.default.toastObject !== null) {
 					this.toaster.show(_ToastStore2.default.toastObject);
 				}
+
+				_toastActions2.default.resetToastObject();
 			}
 
 			// TODO
@@ -38801,8 +38807,6 @@
 
 			var _this = _possibleConstructorReturn(this, (OptionsMenuContainer.__proto__ || Object.getPrototypeOf(OptionsMenuContainer)).call(this, props));
 
-			_optionsMenuActions2.default.resetToastFlags();
-
 			_this.handleToggleActive = _this.handleToggleActive.bind(_this);
 			_this.handleToggleCaseSensitive = _this.handleToggleCaseSensitive.bind(_this);
 			_this.handleToggleHidePref = _this.handleToggleHidePref.bind(_this);
@@ -38958,8 +38962,7 @@
 		toggleActive: (0, _mobx.action)(toggleActive),
 		toggleCaseSensitive: (0, _mobx.action)(toggleCaseSensitive),
 		toggleHidePref: (0, _mobx.action)(toggleHidePref),
-		deleteList: (0, _mobx.action)(deleteList),
-		resetToastFlags: (0, _mobx.action)(resetToastFlags)
+		deleteList: (0, _mobx.action)(deleteList)
 	};
 
 	function toggleActive(index) {
@@ -38986,7 +38989,32 @@
 		_ToastStore2.default.isListDeleted = true;
 	}
 
-	function resetToastFlags() {
+/***/ },
+/* 284 */,
+/* 285 */
+/*!**************************************!*\
+  !*** ./src/ui/toast/toastActions.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mobx = __webpack_require__(/*! mobx */ 186);
+
+	var _ToastStore = __webpack_require__(/*! ./ToastStore */ 268);
+
+	var _ToastStore2 = _interopRequireDefault(_ToastStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		resetToastObject: (0, _mobx.action)(resetToastObject)
+	};
+
+	function resetToastObject() {
+		_ToastStore2.default.isAddSuccess = false;
+		_ToastStore2.default.isInvalidTitleOrTags = false;
+		_ToastStore2.default.isDuplicateTitle = false;
 		_ToastStore2.default.isListDeleted = false;
 	}
 

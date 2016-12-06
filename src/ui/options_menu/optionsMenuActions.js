@@ -6,8 +6,7 @@ module.exports = {
 	toggleActive: action(toggleActive),
 	toggleCaseSensitive: action(toggleCaseSensitive),
 	toggleHidePref: action(toggleHidePref),
-	deleteList: action(deleteList),
-	resetToastFlags: action(resetToastFlags)
+	deleteList: action(deleteList)
 };
 
 function toggleActive(index) {
@@ -34,8 +33,4 @@ function toggleHidePref(index) {
 function deleteList(index) {
 	MainStore.spoilers.splice(index, 1);
 	ToastStore.isListDeleted = true;
-}
-
-function resetToastFlags() {
-	ToastStore.isListDeleted = false;
 }
