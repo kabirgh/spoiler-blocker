@@ -20,7 +20,10 @@ const SpoilerCard = observer(props =>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 
 			<Popover 
-				content={<OptionsMenuContainer index={props.index} />} 
+				content={
+					<OptionsMenuContainer index={props.index} />
+				}
+				inline={true}
 				position={Position.LEFT_TOP}
 				onClick={props.onOptionsMenuClick}>
 
