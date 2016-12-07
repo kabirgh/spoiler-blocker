@@ -19,12 +19,12 @@ class SpoilerCardListContainer extends React.Component {
 		}
 	}
 
-	@computed get SeeMoreOrLessButton() {
+	@computed get SeeButton() {
 		if (MainStore.spoilers.length > this.numListsToShow && this.isShowingLess) { 
-			return <Button className="pt-intent-primary" text="See More" onClick={this.handleSeeMore} />;
+			return <Button className="pt-intent-primary" text="See More" onClick={this.handleSeeMoreLess} />;
 		}
 		else if (!this.isShowingLess) {
-			return <Button className="pt-intent-primary" text="See Less" onClick={this.handleSeeMore} />;
+			return <Button className="pt-intent-primary" text="See Less" onClick={this.handleSeeMoreLess} />;
 		}
 		else {
 			return null;
@@ -34,20 +34,18 @@ class SpoilerCardListContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.handleSeeMore = this.handleSeeMore.bind(this);
+		this.handleSeeMoreLess = this.handleSeeMoreLess.bind(this);
 	}
 
-	handleSeeMore() {
+	handleSeeMoreLess() {
 		this.isShowingLess = !this.isShowingLess;
 	}
 
 	render() {
 		return (
 			<div>
-				<SpoilerCardList spoilers={
-						MainStore.spoilers.slice(0, this.numListsToShow)
-					} />
-				{this.SeeMoreOrLessButton}				
+				<SpoilerCardList spoilers={MainStore.spoilers.slice(0, this.numListsToShow)} />
+				{this.SeeButton}				
 			</div>
 		);
 	}
