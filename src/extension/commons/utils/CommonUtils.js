@@ -2,7 +2,7 @@ import $ from "jquery";
 
 module.exports = { hideContent: hideContent};
 
-function hideContent($content, contentText, spoilersArr) {
+function hideContent($content, contentText, spoilersArr, siteConfig) {
 	// Ignore tweets that have been hidden by adblock
 	if ($content.height() <= 2) return;
 
@@ -35,13 +35,13 @@ function hideContent($content, contentText, spoilersArr) {
 					$content.remove();
 				}
 				else if (listHidePref === "overlay") {
-					overlay($content, spoilerObj["title"]);
+					overlay($content, spoilerObj["title"], siteConfig["overlayHeight"]);
 				}
 				else {
 					console.log("Error in loading hide preference. Found " +
 						listHidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 
-					overlay($content, spoilerObj["title"]);
+					overlay($content, spoilerObj["title"], siteConfig["overlayHeight"]);
 				}
 				break;
 			}
@@ -50,7 +50,7 @@ function hideContent($content, contentText, spoilersArr) {
 }
 
 // Adds a translucent opaque div on top of a given elem
-function overlay($elem, listTitle) {
+function overlay($elem, listTitle, overlayHeight) {
 	// Add overlay only once
 	if ($elem.children().hasClass("spoiler-overlay") === true) {
 		return;
@@ -67,7 +67,7 @@ function overlay($elem, listTitle) {
 		"align-items": "center",
 		"text-align": "center",
 		"width": "100%",
-		"height": "100%",
+		"height": overlayHeight,
 		"z-index": 99, // arbitrary large z-index to place overlay on top
 		"cursor": "pointer",
 		"font-size": 30,
