@@ -4,7 +4,8 @@ const twConfig = {
 	initialContentSelectors: ["li[data-item-type]"],
 	newContentSelector: null,
 	containerSelector: null,
-	textSelector: "p"
+	textSelector: "p",
+	overlayHeight: "99%"
 };
 
 export {twConfig as twConfig};
