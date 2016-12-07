@@ -3,6 +3,9 @@ import $ from "jquery";
 module.exports = { hideContent: hideContent};
 
 function hideContent($content, contentText, spoilersArr) {
+	// Ignore tweets that have been hidden by adblock
+	if ($content.height() <= 2) return;
+
 	const activeSpoilers = spoilersArr.filter(obj => obj["isActive"]);
 
 	let listHidePref, text; // strings
