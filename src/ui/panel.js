@@ -10,7 +10,7 @@ import {FocusStyleManager} from "@blueprintjs/core";
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
-const App = observer( () => 
+const App = observer( () =>
 	<div>
 		{process.env.NODE_ENV === "production" ? null : <Devtools />}
 		<Toast />
