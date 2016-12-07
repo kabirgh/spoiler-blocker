@@ -8,7 +8,7 @@ import SpoilerCardList from "./SpoilerCardList";
 @observer
 class SpoilerCardListContainer extends React.Component {
 	@observable isShowingLess = true;
-	@observable SHOW_LESS_NUM = 2; // TODO: move this out in the global options store (where all defaults are set)
+	@observable SHOW_LESS_NUM = 5; // TODO: move this out in the global options store (where all defaults are set)
 	
 	@computed get numListsToShow() {
 		if (this.isShowingLess) {
@@ -16,6 +16,18 @@ class SpoilerCardListContainer extends React.Component {
 		}
 		else {
 			return MainStore.spoilers.length;
+		}
+	}
+
+	@computed get SeeMoreOrLessButton() {
+		if (MainStore.spoilers.length > this.numListsToShow && this.isShowingLess) { 
+			return <Button className="pt-intent-primary" text="See More" onClick={this.handleSeeMore} />;
+		}
+		else if (!this.isShowingLess) {
+			return <Button className="pt-intent-primary" text="See Less" onClick={this.handleSeeMore} />;
+		}
+		else {
+			return null;
 		}
 	}
 
@@ -35,9 +47,7 @@ class SpoilerCardListContainer extends React.Component {
 				<SpoilerCardList spoilers={
 						MainStore.spoilers.slice(0, this.numListsToShow)
 					} />
-				{(MainStore.spoilers.length > this.numListsToShow) // Only show button if there are more lists to show
-					? <Button className="pt-intent-primary" text="See More" onClick={this.handleSeeMore} />
-					: null}
+				{this.SeeMoreOrLessButton}				
 			</div>
 		);
 	}
