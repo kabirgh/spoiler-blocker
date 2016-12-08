@@ -4,26 +4,26 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-	template: path.join(__dirname, "/src/ui/panel.html"),
+	template: path.join(__dirname, "/src/panel/panel.html"),
 	filename: "panel.html",
 	inject: "body",
 	excludeChunks: ["fb", "tw"]
 });
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
-	// Copy src_chrome files except fb.js and tw.js
+	// Copy manifest
 	{
-		from: path.join(__dirname, "/src/extension/src_chrome"),
+		from: path.join(__dirname, "/src/manifest.json"),
 		to: path.join(__dirname, "/dist"),
-		// ignored because fb.js & tw.js will be transformed and copied by babel-loader
-		ignore: [
-			path.join(__dirname, "/src/extension/src_chrome/fb.js"), 
-			path.join(__dirname, "/src/extension/src_chrome/tw.js")
-		]
+	},
+	// Copy background page
+	{
+		from: path.join(__dirname, "/src/bg.html"),
+		to: path.join(__dirname, "/dist"),
 	},
 	// Copy icons
 	{
-		from: path.join(__dirname, "/src/extension/img"),
+		from: path.join(__dirname, "/src/img"),
 		to: path.join(__dirname, "/dist/img/")
 	},
 	// Copy blueprintjs stylesheet
@@ -48,9 +48,9 @@ var DefinePluginConfig = new webpack.DefinePlugin({
 
 module.exports = {
 	entry: {
-		"panel": "./src/ui/panel.js",
-		"fb": "./src/extension/src_chrome/fb.js",
-		"tw": "./src/extension/src_chrome/tw.js"
+		"panel": "./src/panel/panel.js",
+		"fb": "./src/logic/fb.js",
+		"tw": "./src/logic/tw.js"
 	},
 	output: {
 		path: path.join(__dirname, "/dist"),
@@ -65,10 +65,5 @@ module.exports = {
 		HtmlWebpackPluginConfig, 
 		CopyWebpackPluginConfig,
 		DefinePluginConfig
-	],
-	devServer: {
-		outputPath: path.join(__dirname, "./dist"),
-		contentBase: "./dist/",
-		hot: true
-	}
+	]
 };

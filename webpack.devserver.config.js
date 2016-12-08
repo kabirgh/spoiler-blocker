@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-	template: path.join(__dirname, "/src/ui/panel.html"),
+	template: path.join(__dirname, "/src/panel/panel.html"),
 	filename: "panel.html",
 	inject: "body"
 });
@@ -32,7 +32,7 @@ var DefinePluginConfig = new webpack.DefinePlugin({
 
 module.exports = {
 	entry: {
-		"panel": "./src/ui/panel.js"
+		"panel": "./src/panel/panel.js"
 	},
 	output: {
 		path: path.join(__dirname, "/devserver"),
