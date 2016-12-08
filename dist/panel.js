@@ -39173,7 +39173,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
+	var _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
 	var _react = __webpack_require__(/*! react */ 8);
 
@@ -39249,6 +39249,7 @@
 	var SpoilerCardContainer = (0, _mobxReact.observer)(_class = (_class2 = function (_React$Component) {
 		_inherits(SpoilerCardContainer, _React$Component);
 
+		/* TODO: does 'tags' have to be observable? */
 		function SpoilerCardContainer(props) {
 			_classCallCheck(this, SpoilerCardContainer);
 
@@ -39260,25 +39261,33 @@
 
 			_initDefineProp(_this, "tags", _descriptor3, _this);
 
+			_initDefineProp(_this, "editing", _descriptor4, _this);
+
 			_this.isExpanded = false;
 			_this.title = props.title;
 			_this.tags = props.tags;
 			_this.oldTitle = props.title;
+			_this.editing = false;
 
 			_this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
 			_this.handleUpdateTags = _this.handleUpdateTags.bind(_this);
 			_this.handleSaveTitle = _this.handleSaveTitle.bind(_this);
 			_this.handleSaveTags = _this.handleSaveTags.bind(_this);
 			_this.handleExpandCollapse = _this.handleExpandCollapse.bind(_this);
+			_this.handleCancelTitleEdit = _this.handleCancelTitleEdit.bind(_this);
+			_this.handleEditingTitle = _this.handleEditingTitle.bind(_this);
 			return _this;
 		}
-		/* TODO: does 'tags' have to be observable? */
-
 
 		_createClass(SpoilerCardContainer, [{
 			key: "handleExpandCollapse",
 			value: function handleExpandCollapse() {
 				this.isExpanded = !this.isExpanded;
+			}
+		}, {
+			key: "handleEditingTitle",
+			value: function handleEditingTitle() {
+				this.editing = true;
 			}
 		}, {
 			key: "handleUpdateTitle",
@@ -39291,6 +39300,11 @@
 				this.tags = string;
 			}
 		}, {
+			key: "handleCancelTitleEdit",
+			value: function handleCancelTitleEdit() {
+				this.editing = false;
+			}
+		}, {
 			key: "handleSaveTitle",
 			value: function handleSaveTitle() {
 				if (_spoilerCardActions2.default.isValidTitle(this.title)) {
@@ -39299,6 +39313,7 @@
 				} else {
 					this.title = this.oldTitle;
 				}
+				this.editing = false;
 			}
 		}, {
 			key: "handleSaveTags",
@@ -39313,10 +39328,13 @@
 					onExpandCollapse: this.handleExpandCollapse,
 					isExpanded: this.isExpanded,
 					isActive: this.props.isActive,
+					editing: this.editing,
 					title: this.title,
 					tags: this.tags,
+					onEditTitle: this.handleEditingTitle,
 					onUpdateTitle: this.handleUpdateTitle,
 					onUpdateTags: this.handleUpdateTags,
+					onCancelTitleEdit: this.handleCancelTitleEdit,
 					onSaveTitle: this.handleSaveTitle,
 					onSaveTags: this.handleSaveTags,
 					marginBottom: this.props.marginBottom
@@ -39339,6 +39357,11 @@
 		enumerable: true,
 		initializer: function initializer() {
 			return null;
+		}
+	}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "editing", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return false;
 		}
 	})), _class2)) || _class;
 
@@ -39467,7 +39490,7 @@
 			_react2.default.createElement(
 				"div",
 				null,
-				_react2.default.createElement(_core.EditableText, { value: props.title, onChange: props.onUpdateTitle, onConfirm: props.onSaveTitle })
+				_react2.default.createElement(_core.EditableText, { value: props.title + (props.editing || props.isActive ? "" : " (Inactive)"), onChange: props.onUpdateTitle, onConfirm: props.onSaveTitle, onEdit: props.onEditTitle, onCancel: props.onCancelTitleEdit })
 			),
 			_react2.default.createElement(
 				"div",
@@ -39496,6 +39519,7 @@
 		onExpandCollapse: PropTypes.func.isRequired,
 		isExpanded: PropTypes.bool.isRequired,
 		isActive: PropTypes.bool.isRequired,
+		editing: PropTypes.bool.isRequired,
 		title: PropTypes.string.isRequired,
 		tags: PropTypes.string.isRequired,
 		onUpdateTitle: PropTypes.func.isRequired,

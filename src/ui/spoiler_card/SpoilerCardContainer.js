@@ -1,7 +1,7 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
-import {observable} from "mobx";
+import {observable, computed} from "mobx";
 import spoilerCardActions from "./spoilerCardActions";
 import SpoilerCard from "./SpoilerCard";
 
@@ -13,6 +13,7 @@ class SpoilerCardContainer extends React.Component {
 	@observable title = null;
 	/* TODO: does 'tags' have to be observable? */
 	@observable tags = null;
+	@observable editing = false;
 
 	constructor(props) {
 		super(props);
@@ -21,16 +22,23 @@ class SpoilerCardContainer extends React.Component {
 		this.title = props.title;
 		this.tags = props.tags;
 		this.oldTitle = props.title;
+		this.editing = false;
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
 		this.handleSaveTitle = this.handleSaveTitle.bind(this);
 		this.handleSaveTags = this.handleSaveTags.bind(this);
 		this.handleExpandCollapse = this.handleExpandCollapse.bind(this);
+		this.handleCancelTitleEdit = this.handleCancelTitleEdit.bind(this);
+		this.handleEditingTitle = this.handleEditingTitle.bind(this);
 	}
 
 	handleExpandCollapse() {
 		this.isExpanded = !this.isExpanded;
+	}
+
+	handleEditingTitle() {
+		this.editing = true;
 	}
 
 	handleUpdateTitle(string) {
@@ -41,6 +49,10 @@ class SpoilerCardContainer extends React.Component {
 		this.tags = string;
 	}
 
+	handleCancelTitleEdit() {
+		this.editing = false;
+	}
+
 	handleSaveTitle() {
 		if (spoilerCardActions.isValidTitle(this.title)) {
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
@@ -48,6 +60,7 @@ class SpoilerCardContainer extends React.Component {
 		} else {
 			this.title = this.oldTitle;
 		}
+		this.editing = false;
 	}
 
 	handleSaveTags() {
@@ -61,10 +74,13 @@ class SpoilerCardContainer extends React.Component {
 				onExpandCollapse={this.handleExpandCollapse}
 				isExpanded={this.isExpanded}
 				isActive={this.props.isActive}
+				editing={this.editing}
 				title={this.title}
 				tags={this.tags}
+				onEditTitle={this.handleEditingTitle}
 				onUpdateTitle={this.handleUpdateTitle}
 				onUpdateTags={this.handleUpdateTags}
+				onCancelTitleEdit={this.handleCancelTitleEdit}
 				onSaveTitle={this.handleSaveTitle}
 				onSaveTags={this.handleSaveTags}
 				marginBottom={this.props.marginBottom}

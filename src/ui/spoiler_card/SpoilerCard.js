@@ -15,7 +15,7 @@ const SpoilerCard = observer(props =>
 				marginBottom: props.marginBottom}}>
 		{/* TODO: make editable */}
 		<div>
-			<EditableText value={props.title} onChange={props.onUpdateTitle} onConfirm={props.onSaveTitle} />
+			<EditableText value={props.title + ((props.editing || props.isActive) ? "" : " (Inactive)")} onChange={props.onUpdateTitle} onConfirm={props.onSaveTitle} onEdit={props.onEditTitle} onCancel={props.onCancelTitleEdit} />
 		</div>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 
@@ -48,6 +48,7 @@ SpoilerCard.propTypes = {
 	onExpandCollapse: PropTypes.func.isRequired,
 	isExpanded: PropTypes.bool.isRequired,
 	isActive: PropTypes.bool.isRequired,
+	editing: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	tags: PropTypes.string.isRequired,
 	onUpdateTitle: PropTypes.func.isRequired,
