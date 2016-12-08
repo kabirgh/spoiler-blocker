@@ -3,9 +3,7 @@ import {observable, computed, autorun, toJS} from "mobx";
 
 class Store {
 	@observable spoilers = [];
-	@observable isAddCardVisible = false;
-	@observable defaultHidePref = "overlay"; // or remove
-	@observable defaultCaseSensitivity = false; // TODO: provide global option to change this
+	@observable isAddCardVisible = false; // TODO: move into another store?
 
 	constructor() {	}
 
