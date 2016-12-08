@@ -29,12 +29,12 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	// Copy blueprintjs stylesheet
 	{
 		from: path.join(__dirname, "/node_modules/@blueprintjs/core/dist/blueprint.css"),
-		to: path.join(__dirname, "/dist/")
+		to: path.join(__dirname, "/dist/style/")
 	},
 	// Copy blueprintjs icons
 	{
 		from: path.join(__dirname, "/node_modules/@blueprintjs/core/resources"),
-		to: path.join(__dirname, "/dist/resources/")
+		to: path.join(__dirname, "/dist/style/resources/")
 	}
 ],
 {});
