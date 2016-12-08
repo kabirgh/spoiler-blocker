@@ -10,6 +10,7 @@ import SpoilerCard from "./SpoilerCard";
 @observer
 class SpoilerCardContainer extends React.Component {
 	@observable isExpanded = false;
+	@observable title = null;
 	/* TODO: does 'tags' have to be observable? */
 	@observable tags = null;
 
@@ -17,10 +18,14 @@ class SpoilerCardContainer extends React.Component {
 		super(props);
 
 		this.isExpanded = false;
+		this.title = props.title;
 		this.tags = props.tags;
+		this.oldTitle = props.title;
 
+		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
-		this.handleSave = this.handleSave.bind(this);
+		this.handleSaveTitle = this.handleSaveTitle.bind(this);
+		this.handleSaveTags = this.handleSaveTags.bind(this);
 		this.handleExpandCollapse = this.handleExpandCollapse.bind(this);
 	}
 
@@ -28,12 +33,25 @@ class SpoilerCardContainer extends React.Component {
 		this.isExpanded = !this.isExpanded;
 	}
 
+	handleUpdateTitle(string) {
+		this.title = string;
+	}
+
 	handleUpdateTags(string) {
 		this.tags = string;
 	}
 
-	handleSave() {
-		spoilerCardActions.editTags(this.props.index, this.props.title, this.tags);
+	handleSaveTitle() {
+		if (spoilerCardActions.isValidTitle(this.title)) {
+			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
+			this.oldTitle = this.title;
+		} else {
+			this.title = this.oldTitle;
+		}
+	}
+
+	handleSaveTags() {
+		spoilerCardActions.editTags(this.props.index, this.title, this.tags);
 	}
 
 	render() {
@@ -42,11 +60,13 @@ class SpoilerCardContainer extends React.Component {
 				index={this.props.index}
 				onExpandCollapse={this.handleExpandCollapse}
 				isExpanded={this.isExpanded}
-				title={this.props.title} 
 				isActive={this.props.isActive}
+				title={this.title}
 				tags={this.tags}
+				onUpdateTitle={this.handleUpdateTitle}
 				onUpdateTags={this.handleUpdateTags}
-				onSave={this.handleSave}
+				onSaveTitle={this.handleSaveTitle}
+				onSaveTags={this.handleSaveTags}
 				marginBottom={this.props.marginBottom}
 			/>
 		);
@@ -55,8 +75,8 @@ class SpoilerCardContainer extends React.Component {
 
 SpoilerCardContainer.propTypes = {
 	index: PropTypes.number.isRequired,
-	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
+	title: PropTypes.string.isRequired,
 	tags: PropTypes.string.isRequired,
 	marginBottom: PropTypes.number.isRequired
 };

@@ -6,14 +6,18 @@ import ToastStore from "../toast/ToastStore";
 module.exports = {
 	saveAddList: action(saveAddList),
 	hideAddCard: action(hideAddCard),
-	resetToastFlags: action(resetToastFlags)
+	resetToastFlags: action(resetToastFlags),
+	tagStringToArray: tagStringToArray,
+	isDuplicateTitle: isDuplicateTitle,
+	isInvalidTitle: isInvalidTitle,
+	isInvalidTags: isInvalidTags
 };
 
 function saveAddList(title, tagString) {
 	title = title.trim();
 	const tagArr = tagStringToArray(tagString);
 
-	if (isInvalidTitleOrTags(title, tagArr)) {
+	if (isInvalidTitle(title) || isInvalidTags(tagArr)) {
 		ToastStore.isInvalidTitleOrTags = true;
 	}
 	else if (isDuplicateTitle(title)) {
@@ -46,12 +50,16 @@ function isDuplicateTitle(title) {
 	return false;
 }
 
-function isInvalidTitleOrTags(title, tagArr) {
+function isInvalidTitle(title) {
 	if (title.trim() === "") {
 		console.log("invalid title");
 		return true;
+	} else {
+		return false;
 	}
+}
 
+function isInvalidTags(tagArr) {
 	for (let i=0; i<tagArr.length; i++) {
 		if (tagArr[i] === "") {
 			console.log("invalid tag");

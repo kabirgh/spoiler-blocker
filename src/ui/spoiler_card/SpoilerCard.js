@@ -6,8 +6,8 @@ import OptionsMenuContainer from "../options_menu/OptionsMenuContainer";
 import MainStore from "../MainStore";
 
 // TODO: extract smaller components
-const SpoilerCard = observer(props => 
-	<div className="pt-card" 
+const SpoilerCard = observer(props =>
+	<div className="pt-card"
 		style={{position: "relative",
 				backgroundColor: "#F5F8FA",
 				color: props.isActive ? "#000000" : "#5C7080",
@@ -15,11 +15,11 @@ const SpoilerCard = observer(props =>
 				marginBottom: props.marginBottom}}>
 		{/* TODO: make editable */}
 		<div>
-			{props.title + (props.isActive ? "" : " (Inactive)")}
+			<EditableText value={props.title} onChange={props.onUpdateTitle} onConfirm={props.onSaveTitle} />
 		</div>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 
-			<Popover 
+			<Popover
 				content={
 					<OptionsMenuContainer index={props.index} />
 				}
@@ -31,15 +31,15 @@ const SpoilerCard = observer(props =>
 
 			</Popover>
 
-			{props.isExpanded ? 
+			{props.isExpanded ?
 				<Button className="pt-minimal pt-icon-chevron-down" onClick={props.onExpandCollapse} />
-				: 
+				:
 				<Button className="pt-minimal pt-icon-chevron-right" onClick={props.onExpandCollapse} />
 			}
 		</div>
 		<Collapse isOpen={props.isExpanded}>
 			<br />
-			<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
+			<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSaveTags} />
 		</Collapse>
 	</div>
 );
@@ -47,11 +47,13 @@ const SpoilerCard = observer(props =>
 SpoilerCard.propTypes = {
 	onExpandCollapse: PropTypes.func.isRequired,
 	isExpanded: PropTypes.bool.isRequired,
-	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
+	title: PropTypes.string.isRequired,
 	tags: PropTypes.string.isRequired,
+	onUpdateTitle: PropTypes.func.isRequired,
 	onUpdateTags: PropTypes.func.isRequired,
-	onSave: PropTypes.func.isRequired,
+	onSaveTitle: PropTypes.func.isRequired,
+	onSaveTags: PropTypes.func.isRequired,
 	marginBottom: PropTypes.number.isRequired
 };
 

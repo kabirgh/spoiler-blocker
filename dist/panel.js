@@ -38897,14 +38897,18 @@
 	module.exports = {
 		saveAddList: (0, _mobx.action)(saveAddList),
 		hideAddCard: (0, _mobx.action)(hideAddCard),
-		resetToastFlags: (0, _mobx.action)(resetToastFlags)
+		resetToastFlags: (0, _mobx.action)(resetToastFlags),
+		tagStringToArray: tagStringToArray,
+		isDuplicateTitle: isDuplicateTitle,
+		isInvalidTitle: isInvalidTitle,
+		isInvalidTags: isInvalidTags
 	};
 
 	function saveAddList(title, tagString) {
 		title = title.trim();
 		var tagArr = tagStringToArray(tagString);
 
-		if (isInvalidTitleOrTags(title, tagArr)) {
+		if (isInvalidTitle(title) || isInvalidTags(tagArr)) {
 			_ToastStore2.default.isInvalidTitleOrTags = true;
 		} else if (isDuplicateTitle(title)) {
 			_ToastStore2.default.isDuplicateTitle = true;
@@ -38935,12 +38939,16 @@
 		return false;
 	}
 
-	function isInvalidTitleOrTags(title, tagArr) {
+	function isInvalidTitle(title) {
 		if (title.trim() === "") {
 			console.log("invalid title");
 			return true;
+		} else {
+			return false;
 		}
+	}
 
+	function isInvalidTags(tagArr) {
 		for (var i = 0; i < tagArr.length; i++) {
 			if (tagArr[i] === "") {
 				console.log("invalid tag");
@@ -39121,24 +39129,26 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// Renders list of SpoilerCardContainers
-
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	// const PropTypes = React.PropTypes;
+
+
+	// Renders list of SpoilerCardContainers
 	var SpoilerCardList = (0, _mobxReact.observer)(function (props) {
 		return _react2.default.createElement(
 			"div",
 			null,
 			props.spoilers.map(function (obj, index) {
+				var _React$createElement;
+
 				return _react2.default.createElement(
 					"div",
 					{ key: obj["title"] },
-					_react2.default.createElement(_SpoilerCardContainer2.default, {
+					_react2.default.createElement(_SpoilerCardContainer2.default, (_React$createElement = {
 						index: index,
 						title: obj["title"],
-						isActive: obj["isActive"],
-						tags: obj["tags"].join(", "),
-						marginBottom: 6 // TODO: should this be a mobx observable?
-					})
+						isActive: obj["isActive"]
+					}, _defineProperty(_React$createElement, "title", obj["title"]), _defineProperty(_React$createElement, "tags", obj["tags"].join(", ")), _defineProperty(_React$createElement, "marginBottom", 6), _React$createElement))
 				);
 			})
 		);
@@ -39163,7 +39173,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _desc, _value, _class2, _descriptor, _descriptor2;
+	var _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3;
 
 	var _react = __webpack_require__(/*! react */ 8);
 
@@ -39246,13 +39256,19 @@
 
 			_initDefineProp(_this, "isExpanded", _descriptor, _this);
 
-			_initDefineProp(_this, "tags", _descriptor2, _this);
+			_initDefineProp(_this, "title", _descriptor2, _this);
+
+			_initDefineProp(_this, "tags", _descriptor3, _this);
 
 			_this.isExpanded = false;
+			_this.title = props.title;
 			_this.tags = props.tags;
+			_this.oldTitle = props.title;
 
+			_this.handleUpdateTitle = _this.handleUpdateTitle.bind(_this);
 			_this.handleUpdateTags = _this.handleUpdateTags.bind(_this);
-			_this.handleSave = _this.handleSave.bind(_this);
+			_this.handleSaveTitle = _this.handleSaveTitle.bind(_this);
+			_this.handleSaveTags = _this.handleSaveTags.bind(_this);
 			_this.handleExpandCollapse = _this.handleExpandCollapse.bind(_this);
 			return _this;
 		}
@@ -39265,14 +39281,29 @@
 				this.isExpanded = !this.isExpanded;
 			}
 		}, {
+			key: "handleUpdateTitle",
+			value: function handleUpdateTitle(string) {
+				this.title = string;
+			}
+		}, {
 			key: "handleUpdateTags",
 			value: function handleUpdateTags(string) {
 				this.tags = string;
 			}
 		}, {
-			key: "handleSave",
-			value: function handleSave() {
-				_spoilerCardActions2.default.editTags(this.props.index, this.props.title, this.tags);
+			key: "handleSaveTitle",
+			value: function handleSaveTitle() {
+				if (_spoilerCardActions2.default.isValidTitle(this.title)) {
+					_spoilerCardActions2.default.editTitle(this.props.index, this.title, this.tags);
+					this.oldTitle = this.title;
+				} else {
+					this.title = this.oldTitle;
+				}
+			}
+		}, {
+			key: "handleSaveTags",
+			value: function handleSaveTags() {
+				_spoilerCardActions2.default.editTags(this.props.index, this.title, this.tags);
 			}
 		}, {
 			key: "render",
@@ -39281,11 +39312,13 @@
 					index: this.props.index,
 					onExpandCollapse: this.handleExpandCollapse,
 					isExpanded: this.isExpanded,
-					title: this.props.title,
 					isActive: this.props.isActive,
+					title: this.title,
 					tags: this.tags,
+					onUpdateTitle: this.handleUpdateTitle,
 					onUpdateTags: this.handleUpdateTags,
-					onSave: this.handleSave,
+					onSaveTitle: this.handleSaveTitle,
+					onSaveTags: this.handleSaveTags,
 					marginBottom: this.props.marginBottom
 				});
 			}
@@ -39297,7 +39330,12 @@
 		initializer: function initializer() {
 			return false;
 		}
-	}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "tags", [_mobx.observable], {
+	}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "title", [_mobx.observable], {
+		enumerable: true,
+		initializer: function initializer() {
+			return null;
+		}
+	}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "tags", [_mobx.observable], {
 		enumerable: true,
 		initializer: function initializer() {
 			return null;
@@ -39306,8 +39344,8 @@
 
 	SpoilerCardContainer.propTypes = {
 		index: PropTypes.number.isRequired,
-		title: PropTypes.string.isRequired,
 		isActive: PropTypes.bool.isRequired,
+		title: PropTypes.string.isRequired,
 		tags: PropTypes.string.isRequired,
 		marginBottom: PropTypes.number.isRequired
 	};
@@ -39329,29 +39367,57 @@
 
 	var _MainStore2 = _interopRequireDefault(_MainStore);
 
+	var _ToastStore = __webpack_require__(/*! ../toast/ToastStore */ 277);
+
+	var _ToastStore2 = _interopRequireDefault(_ToastStore);
+
+	var _addActions = __webpack_require__(/*! ../add_card/addActions */ 284);
+
+	var _addActions2 = _interopRequireDefault(_addActions);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// TODO: ES2015
 	module.exports = {
+		isValidTitle: (0, _mobx.action)(isValidTitle),
+		editTitle: (0, _mobx.action)(editTitle),
 		editTags: (0, _mobx.action)(editTags)
 	};
+
+	function isValidTitle(title) {
+		if (_addActions2.default.isInvalidTitle(title)) {
+			_ToastStore2.default.isInvalidTitleOrTags = true;
+			return false;
+		} else if (_addActions2.default.isDuplicateTitle(title)) {
+			_ToastStore2.default.isDuplicateTitle = true;
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function editTitle(index, title, tags) {
+		console.log("editTitle called");
+
+		_MainStore2.default.spoilers[index]["title"] = title;
+		_MainStore2.default.spoilers[index]["tags"] = _addActions2.default.tagStringToArray(tags);
+
+		console.log("new title on next line");
+		console.log(title);
+
+		console.log("spoiler tags for 1st list on next line");
+		console.log(_MainStore2.default.spoilers[0]["tags"]);
+	}
 
 	// TODO: disallow duplicate tags?
 	function editTags(index, title, tags) {
 		console.log("editTags called");
 
 		_MainStore2.default.spoilers[index]["title"] = title;
-		_MainStore2.default.spoilers[index]["tags"] = tagStringToArray(tags);
+		_MainStore2.default.spoilers[index]["tags"] = _addActions2.default.tagStringToArray(tags);
 
 		console.log("spoiler tags for 1st list on next line");
 		console.log(_MainStore2.default.spoilers[0]["tags"]);
-	}
-
-	function tagStringToArray(tagString) {
-		var tagArr = tagString.split(",");
-		return tagArr.map(function (tag) {
-			return tag.trim();
-		});
 	}
 
 /***/ },
@@ -39401,7 +39467,7 @@
 			_react2.default.createElement(
 				"div",
 				null,
-				props.title + (props.isActive ? "" : " (Inactive)")
+				_react2.default.createElement(_core.EditableText, { value: props.title, onChange: props.onUpdateTitle, onConfirm: props.onSaveTitle })
 			),
 			_react2.default.createElement(
 				"div",
@@ -39421,7 +39487,7 @@
 				_core.Collapse,
 				{ isOpen: props.isExpanded },
 				_react2.default.createElement("br", null),
-				_react2.default.createElement(_core.EditableText, { value: props.tags, onChange: props.onUpdateTags, onConfirm: props.onSave })
+				_react2.default.createElement(_core.EditableText, { value: props.tags, onChange: props.onUpdateTags, onConfirm: props.onSaveTags })
 			)
 		);
 	});
@@ -39429,11 +39495,13 @@
 	SpoilerCard.propTypes = {
 		onExpandCollapse: PropTypes.func.isRequired,
 		isExpanded: PropTypes.bool.isRequired,
-		title: PropTypes.string.isRequired,
 		isActive: PropTypes.bool.isRequired,
+		title: PropTypes.string.isRequired,
 		tags: PropTypes.string.isRequired,
+		onUpdateTitle: PropTypes.func.isRequired,
 		onUpdateTags: PropTypes.func.isRequired,
-		onSave: PropTypes.func.isRequired,
+		onSaveTitle: PropTypes.func.isRequired,
+		onSaveTags: PropTypes.func.isRequired,
 		marginBottom: PropTypes.number.isRequired
 	};
 
