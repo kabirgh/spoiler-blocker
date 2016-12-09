@@ -1,5 +1,6 @@
 import {action} from "mobx";
 import MainStore from "../MainStore";
+import OptionStore from "../OptionStore";
 import ToastStore from "../toast/ToastStore";
 
 // TODO: ES2015
@@ -27,8 +28,8 @@ function saveAddList(title, tagString) {
 		MainStore.spoilers.push({
 			title: title,
 			isActive: true,
-			isCaseSensitive: MainStore.defaultCaseSensitivity,
-			hidePref: MainStore.defaultHidePref,
+			isCaseSensitive: OptionStore.defaultCaseSensitivity,
+			hidePref: OptionStore.defaultHidePref,
 			tags: tagArr
 		});
 
