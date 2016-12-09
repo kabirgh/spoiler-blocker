@@ -1,7 +1,7 @@
 import {action} from "mobx";
 import MainStore from "../MainStore";
 import ToastStore from "../toast/ToastStore";
-import addActions from "../add_card/addActions";
+import commonActions from "../common/commonActions";
 
 // TODO: ES2015
 module.exports = {
@@ -11,12 +11,7 @@ module.exports = {
 };
 
 function isValidTitle(title) {
-	if (addActions.isInvalidTitle(title)) {
-		ToastStore.isInvalidTitleOrTags = true;
-		return false;
-	}
-	else if (addActions.isDuplicateTitle(title)) {
-		ToastStore.isDuplicateTitle = true;
+	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitle(title)) {
 		return false;
 	} else {
 		return true;
