@@ -5,6 +5,7 @@ import ToastStore from "../toast/ToastStore";
 module.exports = {
   tagStringToArray: tagStringToArray,
 	isDuplicateTitle: isDuplicateTitle,
+  isDuplicateTitleSkipIndex: isDuplicateTitleSkipIndex,
 	isInvalidTitle: isInvalidTitle,
 	isInvalidTags: isInvalidTags
 };
@@ -15,10 +16,14 @@ function tagStringToArray(tagString) {
 }
 
 function isDuplicateTitle(title) {
+  return isDuplicateTitleSkipIndex(title, -1);
+}
+
+function isDuplicateTitleSkipIndex(title, index) {
 	const lowerCaseTitle = title.toLowerCase();
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
-		if (lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
+		if (i != index && lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
       indicateDuplicateTitle()
 			return true;
 		}

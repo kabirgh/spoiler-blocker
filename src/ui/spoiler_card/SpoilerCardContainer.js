@@ -1,11 +1,10 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
-import {observable, computed} from "mobx";
+import {observable} from "mobx";
 import spoilerCardActions from "./spoilerCardActions";
 import SpoilerCard from "./SpoilerCard";
 
-// TODO: editable title
 // Handles logic for SpoilerCard component
 @observer
 class SpoilerCardContainer extends React.Component {
@@ -13,7 +12,7 @@ class SpoilerCardContainer extends React.Component {
 	@observable title = null;
 	/* TODO: does 'tags' have to be observable? */
 	@observable tags = null;
-	@observable editing = false;
+	@observable isBeingEdited = false;
 
 	constructor(props) {
 		super(props);
@@ -22,7 +21,7 @@ class SpoilerCardContainer extends React.Component {
 		this.title = props.title;
 		this.tags = props.tags;
 		this.oldTitle = props.title;
-		this.editing = false;
+		this.isBeingEdited = false;
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
@@ -38,7 +37,7 @@ class SpoilerCardContainer extends React.Component {
 	}
 
 	handleEditingTitle() {
-		this.editing = true;
+		this.isBeingEdited = true;
 	}
 
 	handleUpdateTitle(string) {
@@ -50,17 +49,17 @@ class SpoilerCardContainer extends React.Component {
 	}
 
 	handleCancelTitleEdit() {
-		this.editing = false;
+		this.isBeingEdited = false;
 	}
 
 	handleSaveTitle() {
-		if (spoilerCardActions.isValidTitle(this.title)) {
+		if (spoilerCardActions.isValidTitle(this.title, this.props.index)) {
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
 			this.oldTitle = this.title;
 		} else {
 			this.title = this.oldTitle;
 		}
-		this.editing = false;
+		this.isBeingEdited = false;
 	}
 
 	handleSaveTags() {
@@ -75,7 +74,7 @@ class SpoilerCardContainer extends React.Component {
 				isExpanded={this.isExpanded}
 				title={this.props.title}
 				isActive={this.props.isActive}
-				editing={this.editing}
+				isBeingEdited={this.isBeingEdited}
 				title={this.title}
 				tags={this.tags}
 				onEditTitle={this.handleEditingTitle}

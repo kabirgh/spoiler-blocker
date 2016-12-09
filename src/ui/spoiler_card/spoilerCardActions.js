@@ -10,8 +10,8 @@ module.exports = {
 	editTags: action(editTags)
 };
 
-function isValidTitle(title) {
-	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitle(title)) {
+function isValidTitle(title, index) {
+	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(title, index)) {
 		return false;
 	} else {
 		return true;

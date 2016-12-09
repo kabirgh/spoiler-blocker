@@ -13,9 +13,14 @@ const SpoilerCard = observer(props =>
 				color: props.isActive ? "#000000" : "#5C7080",
 				borderLeft: props.isActive ? "8px solid #29A634" : "8px solid #738694",
 				marginBottom: props.marginBottom}}>
-		{/* TODO: make editable */}
 		<div>
-			<EditableText value={props.title + ((props.editing || props.isActive) ? "" : " (Inactive)")} onChange={props.onUpdateTitle} onConfirm={props.onSaveTitle} onEdit={props.onEditTitle} onCancel={props.onCancelTitleEdit} />
+			<EditableText
+				value={props.title + ((props.isBeingEdited || props.isActive) ? "" : " (Inactive)")}
+				onChange={props.onUpdateTitle}
+				onConfirm={props.onSaveTitle}
+				onEdit={props.onEditTitle}
+				onCancel={props.onCancelTitleEdit}
+			/>
 		</div>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
 
@@ -48,7 +53,7 @@ SpoilerCard.propTypes = {
 	onExpandCollapse: PropTypes.func.isRequired,
 	isExpanded: PropTypes.bool.isRequired,
 	isActive: PropTypes.bool.isRequired,
-	editing: PropTypes.bool.isRequired,
+	isBeingEdited: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	tags: PropTypes.string.isRequired,
 	onUpdateTitle: PropTypes.func.isRequired,
