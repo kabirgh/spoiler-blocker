@@ -1,7 +1,7 @@
 /* global chrome */
 import $ from "jquery";
-import hideContent from "../commons/logic";
-import {fbConfig} from "../commons/site_config/fbConfig";
+import hideContent from "./common/mainLogic";
+import {fbConfig} from "./common/site_config/fbConfig";
 
 
 let globalSpoilersArr;
