@@ -22,7 +22,7 @@ function editTitle(index, title, tags) {
 	console.log("editTitle called");
 
 	MainStore.spoilers[index]["title"] = title;
-	MainStore.spoilers[index]["tags"] = addActions.tagStringToArray(tags);
+	MainStore.spoilers[index]["tags"] = commonActions.tagStringToArray(tags);
 
 	console.log("new title on next line");
 	console.log(title);
@@ -36,7 +36,7 @@ function editTags(index, title, tags) {
 	console.log("editTags called");
 
 	MainStore.spoilers[index]["title"] = title;
-	MainStore.spoilers[index]["tags"] = addActions.tagStringToArray(tags);
+	MainStore.spoilers[index]["tags"] = commonActions.tagStringToArray(tags);
 
 	console.log("spoiler tags for 1st list on next line");
 	console.log(MainStore.spoilers[0]["tags"]);

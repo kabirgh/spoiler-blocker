@@ -13,7 +13,7 @@ module.exports = {
 
 function saveAddList(title, tagString) {
 	title = title.trim();
-	const tagArr = tagStringToArray(tagString);
+	const tagArr = commonActions.tagStringToArray(tagString);
 
 	if (commonActions.isInvalidTitle(title) ||
 			commonActions.isInvalidTags(tagArr) ||
