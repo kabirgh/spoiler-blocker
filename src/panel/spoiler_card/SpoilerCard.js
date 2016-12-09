@@ -3,7 +3,6 @@ const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {Popover, Position, Button, EditableText, Collapse} from "@blueprintjs/core";
 import OptionsMenuContainer from "../options_menu/OptionsMenuContainer";
-import MainStore from "../MainStore";
 
 // TODO: extract smaller components
 const SpoilerCard = observer(props => 
@@ -17,7 +16,7 @@ const SpoilerCard = observer(props =>
 		<div>
 			{props.title + (props.isActive ? "" : " (Inactive)")}
 		</div>
-		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight:10}}>
+		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
 
 			<Popover 
 				content={
@@ -39,8 +38,12 @@ const SpoilerCard = observer(props =>
 		</div>
 		<Collapse isOpen={props.isExpanded}>
 			<br />
-			<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
-			<div className="pt-icon-tick" style={{color: "green"}} />
+			{/* Make child elements appear in the same line */} 
+			<div style={{display: "flex", flexDirection: "row"}}>
+				<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
+				{/* TODO: add space b/w text and tick icon */}
+				{props.shouldShowTagsTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : null}
+			</div>
 		</Collapse>
 	</div>
 );
@@ -51,6 +54,7 @@ SpoilerCard.propTypes = {
 	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
 	tags: PropTypes.string.isRequired,
+	shouldShowTagsTick: PropTypes.bool.isRequired,
 	onUpdateTags: PropTypes.func.isRequired,
 	onSave: PropTypes.func.isRequired,
 	marginBottom: PropTypes.number.isRequired

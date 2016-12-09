@@ -12,12 +12,14 @@ class SpoilerCardContainer extends React.Component {
 	@observable isExpanded = false;
 	/* TODO: does 'tags' have to be observable? */
 	@observable tags = null;
+	@observable shouldShowTagsTick = false;
 
 	constructor(props) {
 		super(props);
 
 		this.isExpanded = false;
 		this.tags = props.tags;
+		this.shouldShowTagsTick = false;
 
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
 		this.handleSave = this.handleSave.bind(this);
@@ -34,6 +36,13 @@ class SpoilerCardContainer extends React.Component {
 
 	handleSave() {
 		spoilerCardActions.editTags(this.props.index, this.props.title, this.tags);
+		
+		// Show tick for 2 seconds as save confirmation
+		this.shouldShowTagsTick = true;
+		setTimeout( () => {
+			this.shouldShowTagsTick = false;
+		}, 
+		2000);
 	}
 
 	render() {
@@ -45,6 +54,7 @@ class SpoilerCardContainer extends React.Component {
 				title={this.props.title}
 				isActive={this.props.isActive}
 				tags={this.tags}
+				shouldShowTagsTick={this.shouldShowTagsTick}
 				onUpdateTags={this.handleUpdateTags}
 				onSave={this.handleSave}
 				marginBottom={this.props.marginBottom}
