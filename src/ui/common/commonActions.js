@@ -3,11 +3,11 @@ import MainStore from "../MainStore";
 import ToastStore from "../toast/ToastStore";
 
 module.exports = {
-  tagStringToArray: tagStringToArray,
-	isDuplicateTitle: isDuplicateTitle,
-  isDuplicateTitleSkipIndex: isDuplicateTitleSkipIndex,
-	isInvalidTitle: isInvalidTitle,
-	isInvalidTags: isInvalidTags
+	tagStringToArray: action(tagStringToArray),
+	isDuplicateTitle: action(isDuplicateTitle),
+	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
+	isInvalidTitle: action(isInvalidTitle),
+	isInvalidTags: action(isInvalidTags)
 };
 
 function tagStringToArray(tagString) {
@@ -24,7 +24,7 @@ function isDuplicateTitleSkipIndex(title, index) {
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
 		if (i != index && lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
-      indicateDuplicateTitle()
+      indicateDuplicateTitle();
 			return true;
 		}
 	}
