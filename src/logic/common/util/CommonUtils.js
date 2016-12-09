@@ -9,8 +9,8 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 	const activeSpoilers = spoilersArr.filter(obj => obj["isActive"]);
 
 	let listHidePref, text; // strings
-	let tags; // array of strings
-	let spoilerObj; // object
+	let tagArr;
+	let spoilerObj;
 
 	for (let i=0; i<activeSpoilers.length; i++) {
 		spoilerObj = activeSpoilers[i];
@@ -19,18 +19,18 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 		console.log(spoilerObj);
 
 		text = contentText;
-		tags = spoilerObj["tags"];
+		tagArr = spoilerObj["tags"];
 		if (!spoilerObj["isCaseSensitive"]) {
 			text = text.toLowerCase();
-			tags = tags.map(tag => tag.toLowerCase());
+			tagArr = tagArr.map(tag => tag.toLowerCase());
 		}
 
 		listHidePref = spoilerObj["hidePref"];
 
 		// TODO: extract method
-		for (let j=0; j<tags.length; j++) {
+		for (let j=0; j<tagArr.length; j++) {
 			// If text contains tag
-			if (text.indexOf(tags[j]) > -1) {
+			if (text.indexOf(tagArr[j]) > -1) {
 				if (listHidePref === "remove") {
 					$content.remove();
 				}

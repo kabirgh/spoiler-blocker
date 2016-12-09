@@ -1,6 +1,6 @@
 import $ from "jquery";
-import JqueryUtils from "./utils/JqueryUtils";
-import CommonUtils from "./utils/CommonUtils";
+import JqueryUtils from "./util/JqueryUtils";
+import CommonUtils from "./util/CommonUtils";
 import DOMObserver from "./DOMObserver";
 
 // TODO: refactor into modules to follow separation of concerns

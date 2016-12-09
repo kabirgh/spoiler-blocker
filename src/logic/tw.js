@@ -1,7 +1,8 @@
 /* global chrome */
 import $ from "jquery";
-import hideContent from "../commons/logic";
-import {twConfig} from "../commons/site_config/twConfig";
+import hideContent from "./common/mainLogic";
+import {twConfig} from "./common/site_config/twConfig";
+
 
 let globalSpoilersArr;
 chrome.storage.local.get("spoilersArr", function(storage) {
