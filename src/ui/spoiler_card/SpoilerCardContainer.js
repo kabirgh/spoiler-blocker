@@ -42,7 +42,7 @@ class SpoilerCardContainer extends React.Component {
 				index={this.props.index}
 				onExpandCollapse={this.handleExpandCollapse}
 				isExpanded={this.isExpanded}
-				title={this.props.title} 
+				title={this.props.title}
 				isActive={this.props.isActive}
 				tags={this.tags}
 				onUpdateTags={this.handleUpdateTags}
