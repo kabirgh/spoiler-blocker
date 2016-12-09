@@ -4,7 +4,8 @@ const fbConfig = {
 	initialContentSelectors: ["#substream_0", "#substream_1"],
 	newContentSelector: "[class^='userContentWrapper']",
 	containerSelector: "[id^='hyperfeed_story']",
-	textSelector: null
+	textSelector: null,
+	overlayHeight: "100%"
 };
 
 // TODO: cleaner way to export?

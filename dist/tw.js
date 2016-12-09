@@ -58,7 +58,7 @@
 
 	var _logic2 = _interopRequireDefault(_logic);
 
-	var _twConfig = __webpack_require__(/*! ../commons/site_config/twConfig */ 287);
+	var _twConfig = __webpack_require__(/*! ../commons/site_config/twConfig */ 294);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10347,8 +10347,8 @@
 	var _siteConfig = void 0;
 	/* 1. When body class changes, pollFeed is called with a timeout of 200ms.
 	 * 2. When pollFeed finds feed node, observeFeed is called.
-	 * 3. When observeFeed observes nodes added to feed, 
-	 *   i.  hideInitialContent is called to hide posts/tweets present on page load. 
+	 * 3. When observeFeed observes nodes added to feed,
+	 *   i.  hideInitialContent is called to hide posts/tweets present on page load.
 	 *   ii. optionallyHideContent is called on nodes added to the feed in the future.
 	 */
 	function hideContent(spoilersArr, siteConfig) {
@@ -10429,7 +10429,7 @@
 			contentText = getText($contentContainerArr[i]);
 			console.log("Content text: " + contentText);
 
-			_CommonUtils2.default.hideContent($contentContainerArr[i], contentText, _spoilersArr);
+			_CommonUtils2.default.hideContent($contentContainerArr[i], contentText, _spoilersArr, _siteConfig);
 		}
 	}
 
@@ -10594,7 +10594,7 @@
 
 	module.exports = { hideContent: hideContent };
 
-	function hideContent($content, contentText, spoilersArr) {
+	function hideContent($content, contentText, spoilersArr, siteConfig) {
 		// Ignore tweets that have been hidden by adblock
 		if ($content.height() <= 2) return;
 
@@ -10631,11 +10631,11 @@
 					if (listHidePref === "remove") {
 						$content.remove();
 					} else if (listHidePref === "overlay") {
-						overlay($content, spoilerObj["title"]);
+						overlay($content, spoilerObj["title"], siteConfig["overlayHeight"]);
 					} else {
 						console.log("Error in loading hide preference. Found " + listHidePref + " instead of 'overlay' or 'remove'. Defaulting to overlay");
 
-						overlay($content, spoilerObj["title"]);
+						overlay($content, spoilerObj["title"], siteConfig["overlayHeight"]);
 					}
 					break;
 				}
@@ -10644,7 +10644,7 @@
 	}
 
 	// Adds a translucent opaque div on top of a given elem
-	function overlay($elem, listTitle) {
+	function overlay($elem, listTitle, overlayHeight) {
 		// Add overlay only once
 		if ($elem.children().hasClass("spoiler-overlay") === true) {
 			return;
@@ -10661,7 +10661,7 @@
 			"align-items": "center",
 			"text-align": "center",
 			"width": "100%",
-			"height": "100%",
+			"height": overlayHeight,
 			"z-index": 99, // arbitrary large z-index to place overlay on top
 			"cursor": "pointer",
 			"font-size": 30,
@@ -12459,7 +12459,7 @@
 
 /***/ },
 
-/***/ 287:
+/***/ 294:
 /*!*******************************************************!*\
   !*** ./src/extension/commons/site_config/twConfig.js ***!
   \*******************************************************/
@@ -12476,7 +12476,8 @@
 		initialContentSelectors: ["li[data-item-type]"],
 		newContentSelector: null,
 		containerSelector: null,
-		textSelector: "p"
+		textSelector: "p",
+		overlayHeight: "99%"
 	};
 
 	exports.twConfig = twConfig;

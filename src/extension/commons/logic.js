@@ -9,8 +9,8 @@ let _spoilersArr;
 let _siteConfig;
 /* 1. When body class changes, pollFeed is called with a timeout of 200ms.
  * 2. When pollFeed finds feed node, observeFeed is called.
- * 3. When observeFeed observes nodes added to feed, 
- *   i.  hideInitialContent is called to hide posts/tweets present on page load. 
+ * 3. When observeFeed observes nodes added to feed,
+ *   i.  hideInitialContent is called to hide posts/tweets present on page load.
  *   ii. optionallyHideContent is called on nodes added to the feed in the future.
  */
 export default function hideContent(spoilersArr, siteConfig) {
@@ -42,7 +42,7 @@ function pollFeed() {
 function observeFeed($feed) {
 	console.log("Feed element on next line");
 	console.log($feed[0]);
-	
+
 	hideInitialContent();
 
 	const feedObserver = new DOMObserver($feed[0]);
@@ -88,7 +88,7 @@ function optionallyHideContent(list) {
 		contentText = getText($contentContainerArr[i]);
 		console.log("Content text: " + contentText);
 
-		CommonUtils.hideContent($contentContainerArr[i], contentText, _spoilersArr);
+		CommonUtils.hideContent($contentContainerArr[i], contentText, _spoilersArr, _siteConfig);
 	}
 }
 
@@ -117,7 +117,7 @@ function optionallyGetContentContainers($contentArr) {
 	console.log($contentArr);
 
 	const containerSelector = _siteConfig["containerSelector"];
-	
+
 	let $contentContainerArr = [];
 	if (containerSelector !== null) {
 		$contentContainerArr = JqueryUtils.getClosestAncestors($contentArr, containerSelector);
