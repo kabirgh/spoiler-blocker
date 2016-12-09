@@ -40,6 +40,7 @@ const SpoilerCard = observer(props =>
 		<Collapse isOpen={props.isExpanded}>
 			<br />
 			<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
+			<div className="pt-icon-tick" style={{color: "green"}} />
 		</Collapse>
 	</div>
 );
