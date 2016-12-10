@@ -36,7 +36,7 @@ class SpoilerCardContainer extends React.Component {
 
 	handleSave() {
 		spoilerCardActions.editTags(this.props.index, this.props.title, this.tags);
-		
+
 		// Show tick for 2 seconds as save confirmation
 		this.shouldShowTagsTick = true;
 		setTimeout( () => {
