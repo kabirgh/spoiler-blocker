@@ -3,11 +3,18 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
-var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+var PanelHtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: path.join(__dirname, "/src/panel/panel.html"),
 	filename: "panel.html",
 	inject: "body",
-	excludeChunks: ["fb", "tw"]
+	excludeChunks: ["options", "fb", "tw"]
+});
+
+var OptionHtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+	template: path.join(__dirname, "/src/options/options.html"),
+	filename: "options.html",
+	inject: "body",
+	excludeChunks: ["panel", "fb", "tw"]
 });
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
@@ -69,7 +76,8 @@ module.exports = {
 		]
 	},
 	plugins: [
-		HtmlWebpackPluginConfig, 
+		PanelHtmlWebpackPluginConfig,
+		OptionHtmlWebpackPluginConfig,
 		CopyWebpackPluginConfig, 
 		UglifyJsPluginConfig,
 		DefinePluginConfig
