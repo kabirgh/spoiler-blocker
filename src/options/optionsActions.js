@@ -7,18 +7,18 @@ module.exports = {
 };
 
 function toggleCaseSensitivity() {
-	OptionStore.defaultCaseSensitivity = !OptionStore.defaultCaseSensitivity;
+	OptionStore.prefs.defaultCaseSensitivity = !OptionStore.prefs.defaultCaseSensitivity;
 }
 
 function toggleHidePref() {
-	if (OptionStore.defaultHidePref === "overlay") {
-		OptionStore.defaultHidePref = "remove";
+	if (OptionStore.prefs.defaultHidePref === "overlay") {
+		OptionStore.prefs.defaultHidePref = "remove";
 	}
-	else if (OptionStore.defaultHidePref === "remove") {
-		OptionStore.defaultHidePref = "overlay";
+	else if (OptionStore.prefs.defaultHidePref === "remove") {
+		OptionStore.prefs.defaultHidePref = "overlay";
 	}
 	else {
 		console.log("Error in loading hidePref. Defaulting to overlay");
-		OptionStore.defaultHidePref = "overlay";
+		OptionStore.prefs.defaultHidePref = "overlay";
 	}
 }

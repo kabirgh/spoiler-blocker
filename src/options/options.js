@@ -32,17 +32,17 @@ class App extends React.Component {
 				{"New lists created will have the following default preferences."}
 				<br /><br/>
 
-				{console.log("def cs: " + OptionStore.defaultCaseSensitivity)}
-				{console.log("def hp: " + OptionStore.defaultHidePref)}
+				{console.log("def cs: " + OptionStore.prefs.defaultCaseSensitivity)}
+				{console.log("def hp: " + OptionStore.prefs.defaultHidePref)}
 
 				<Switch
 					label="Case sensitive"
-					checked={OptionStore.defaultCaseSensitivity}
+					checked={OptionStore.prefs.defaultCaseSensitivity}
 					onChange={this.handleToggleCaseSensitivity}
 				/>
 				<Switch
 					label="Overlay/remove" // TODO: clearer label
-					checked={OptionStore.defaultHidePref === "remove"}
+					checked={OptionStore.prefs.defaultHidePref === "remove"}
 					onChange={this.handleToggleHidePref}
 				/>
 			</div>
