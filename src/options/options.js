@@ -28,11 +28,9 @@ class App extends React.Component {
 
 			<div>
 				{process.env.NODE_ENV === "production" ? null : <Devtools />}
-
-				{"Default preferences"}
-				<br />
+				<h3>{"Default preferences"}</h3>
 				{"New lists created will have the following default preferences."}
-				<br />
+				<br /><br/>
 
 				<Switch
 					label="Case sensitive"
