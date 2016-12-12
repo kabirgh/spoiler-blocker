@@ -3,7 +3,6 @@ const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {Popover, Position, Button, EditableText, Collapse} from "@blueprintjs/core";
 import OptionsMenuContainer from "../options_menu/OptionsMenuContainer";
-import MainStore from "../common/MainStore";
 
 // TODO: extract smaller components
 const SpoilerCard = observer(props =>
@@ -13,7 +12,8 @@ const SpoilerCard = observer(props =>
 				color: props.isActive ? "#000000" : "#5C7080",
 				borderLeft: props.isActive ? "8px solid #29A634" : "8px solid #738694",
 				marginBottom: props.marginBottom}}>
-		<div>
+
+		<div style={{display: "flex", flexDirection: "row"}}>
 			<EditableText
 				value={props.title + ((props.isBeingEdited || props.isActive) ? "" : " (Inactive)")}
 				onChange={props.onUpdateTitle}
@@ -21,7 +21,9 @@ const SpoilerCard = observer(props =>
 				onEdit={props.onEditTitle}
 				onCancel={props.onCancelTitleEdit}
 			/>
+			{props.shouldShowTitleTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : "title tick false"}
 		</div>
+
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
 
 			<Popover
@@ -45,32 +47,31 @@ const SpoilerCard = observer(props =>
 		<Collapse isOpen={props.isExpanded}>
 
 			<br />
-			{/* Make child elements appear in the same line */} 
 			<div style={{display: "flex", flexDirection: "row"}}>
-				<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSave} />
+				<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSaveTags} />
 				{/* TODO: add space b/w text and tick icon */}
 				{props.shouldShowTagsTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : null}
 			</div>
-			
+
 		</Collapse>
 	</div>
 );
 
 SpoilerCard.propTypes = {
-	onExpandCollapse: PropTypes.func.isRequired,
+	title: PropTypes.string.isRequired,
+	tags: PropTypes.string.isRequired,
+
 	isExpanded: PropTypes.bool.isRequired,
 	isActive: PropTypes.bool.isRequired,
 	isBeingEdited: PropTypes.bool.isRequired,
-	title: PropTypes.string.isRequired,
-	tags: PropTypes.string.isRequired,
-<<<<<<< HEAD
 	shouldShowTagsTick: PropTypes.bool.isRequired,
-=======
+
+	onExpandCollapse: PropTypes.func.isRequired,
 	onUpdateTitle: PropTypes.func.isRequired,
->>>>>>> master
 	onUpdateTags: PropTypes.func.isRequired,
 	onSaveTitle: PropTypes.func.isRequired,
 	onSaveTags: PropTypes.func.isRequired,
+
 	marginBottom: PropTypes.number.isRequired
 };
 

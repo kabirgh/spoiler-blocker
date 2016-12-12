@@ -1,19 +1,20 @@
 import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
-import {observable} from "mobx";
+import {observable, action} from "mobx";
 import spoilerCardActions from "./spoilerCardActions";
 import SpoilerCard from "./SpoilerCard";
 
 // Handles logic for SpoilerCard component
 @observer
 class SpoilerCardContainer extends React.Component {
-	@observable isExpanded = false;
 	@observable title = null;
-	/* TODO: does 'tags' have to be observable? */
-	@observable tags = null;
-	@observable shouldShowTagsTick = false;
+	@observable tags = null; /* TODO: does 'tags' have to be observable? */
+
+	@observable isExpanded = false;
 	@observable isBeingEdited = false;
+	@observable shouldShowTitleTick = false;
+	@observable shouldShowTagsTick = false;
 
 	constructor(props) {
 		super(props);
@@ -23,8 +24,9 @@ class SpoilerCardContainer extends React.Component {
 		this.tags = props.tags;
 
 		this.isExpanded = false;
-		this.shouldShowTagsTick = false;
 		this.isBeingEdited = false;
+		this.shouldShowTitleTick = false;
+		this.shouldShowTagsTick = false;
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateTags = this.handleUpdateTags.bind(this);
@@ -52,6 +54,7 @@ class SpoilerCardContainer extends React.Component {
 	}
 
 	handleCancelTitleEdit() {
+		console.log("cancel title edit");
 		this.isBeingEdited = false;
 	}
 
@@ -59,10 +62,13 @@ class SpoilerCardContainer extends React.Component {
 		if (spoilerCardActions.isValidTitle(this.title, this.props.index)) {
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
 			this.oldTitle = this.title;
+
+			this.shouldShowTitleTick = true;
 		} 
 		else {
 			this.title = this.oldTitle;
 		}
+
 		this.isBeingEdited = false;
 	}
 
@@ -87,6 +93,7 @@ class SpoilerCardContainer extends React.Component {
 				isActive={this.props.isActive}
 				isExpanded={this.isExpanded}
 				isBeingEdited={this.isBeingEdited}
+				shouldShowTitleTick={this.shouldShowTitleTick}
 				shouldShowTagsTick={this.shouldShowTagsTick}
 
 				onExpandCollapse={this.handleExpandCollapse}
