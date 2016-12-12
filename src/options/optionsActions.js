@@ -1,5 +1,5 @@
 import {action} from "mobx";
-import OptionStore from "../panel/OptionStore";
+import OptionStore from "../panel/common/OptionStore";
 
 module.exports = {
 	toggleCaseSensitivity: action(toggleCaseSensitivity),

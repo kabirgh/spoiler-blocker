@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Devtools from "mobx-react-devtools";
 import {observer} from "mobx-react";
-import OptionStore from "../panel/OptionStore";
+import OptionStore from "../panel/common/OptionStore";
 import optionsActions from "./optionsActions";
 import {FocusStyleManager} from "@blueprintjs/core";
 import {Switch} from "@blueprintjs/core";
@@ -31,6 +31,9 @@ class App extends React.Component {
 				<h3>{"Default preferences"}</h3>
 				{"New lists created will have the following default preferences."}
 				<br /><br/>
+
+				{console.log("def cs: " + OptionStore.defaultCaseSensitivity)}
+				{console.log("def hp: " + OptionStore.defaultHidePref)}
 
 				<Switch
 					label="Case sensitive"

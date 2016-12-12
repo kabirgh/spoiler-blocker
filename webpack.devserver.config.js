@@ -10,13 +10,6 @@ var PanelHtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	excludeChunks: ["options", "fb", "tw"]
 });
 
-var OptionHtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-	template: path.join(__dirname, "/src/options/options.html"),
-	filename: "options.html",
-	inject: "body",
-	excludeChunks: ["panel", "fb", "tw"]
-});
-
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	// Copy blueprintjs stylesheet
 	{
@@ -53,7 +46,6 @@ module.exports = {
 	},
 	plugins: [
 		PanelHtmlWebpackPluginConfig,
-		OptionHtmlWebpackPluginConfig,
 		CopyWebpackPluginConfig,
 		DefinePluginConfig
 	],
