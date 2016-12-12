@@ -1,7 +1,8 @@
 import {action} from "mobx";
-import MainStore from "../MainStore";
-import OptionStore from "../OptionStore";
+import MainStore from "../common/MainStore";
+import OptionStore from "../common/OptionStore";
 import ToastStore from "../toast/ToastStore";
+import commonActions from "../common/commonActions";
 
 // TODO: ES2015
 module.exports = {
@@ -12,60 +13,26 @@ module.exports = {
 
 function saveAddList(title, tagString) {
 	title = title.trim();
-	const tagArr = tagStringToArray(tagString);
+	const tagArr = commonActions.tagStringToArray(tagString);
 
-	if (isInvalidTitleOrTags(title, tagArr)) {
-		ToastStore.isInvalidTitleOrTags = true;
-	}
-	else if (isDuplicateTitle(title)) {
-		ToastStore.isDuplicateTitle = true;
-	}
-	else {
-		MainStore.spoilers.push({
-			title: title,
-			isActive: true,
-			isCaseSensitive: OptionStore.defaultCaseSensitivity,
-			hidePref: OptionStore.defaultHidePref,
-			tags: tagArr
-		});
-
-		ToastStore.isAddSuccess = true;
-
-		hideAddCard();
-	}
-}
-
-function isDuplicateTitle(title) {
-	const lowerCaseTitle = title.toLowerCase();
-
-	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
-		if (lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
-			return true;
-		}
+	if (commonActions.isInvalidTitle(title) ||
+			commonActions.isInvalidTags(tagArr) ||
+			commonActions.isDuplicateTitle(title)
+		  ) {
+		return;
 	}
 
-	return false;
-}
+	MainStore.spoilers.push({
+		title: title,
+		isActive: true,
+		isCaseSensitive: MainStore.defaultCaseSensitivity,
+		hidePref: OptionStore.defaultHidePref,
+		tags: tagArr
+	})
 
-function isInvalidTitleOrTags(title, tagArr) {
-	if (title.trim() === "") {
-		console.log("invalid title");
-		return true;
-	}
+	ToastStore.isAddSuccess = true;
 
-	for (let i=0; i<tagArr.length; i++) {
-		if (tagArr[i] === "") {
-			console.log("invalid tag");
-			return true;
-		}
-	}
-
-	return false;
-}
-
-function tagStringToArray(tagString) {
-	const tagArr = tagString.split(",");
-	return tagArr.map(tag => tag.trim());
+	hideAddCard();
 }
 
 function hideAddCard() {
