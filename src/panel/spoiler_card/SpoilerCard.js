@@ -3,22 +3,28 @@ const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {Popover, Position, Button, EditableText, Collapse} from "@blueprintjs/core";
 import OptionsMenuContainer from "../options_menu/OptionsMenuContainer";
+import MainStore from "../common/MainStore";
 
 // TODO: extract smaller components
-const SpoilerCard = observer(props => 
-	<div className="pt-card" 
+const SpoilerCard = observer(props =>
+	<div className="pt-card"
 		style={{position: "relative",
 				backgroundColor: "#F5F8FA",
 				color: props.isActive ? "#000000" : "#5C7080",
 				borderLeft: props.isActive ? "8px solid #29A634" : "8px solid #738694",
 				marginBottom: props.marginBottom}}>
-		{/* TODO: make editable */}
 		<div>
-			{props.title + (props.isActive ? "" : " (Inactive)")}
+			<EditableText
+				value={props.title + ((props.isBeingEdited || props.isActive) ? "" : " (Inactive)")}
+				onChange={props.onUpdateTitle}
+				onConfirm={props.onSaveTitle}
+				onEdit={props.onEditTitle}
+				onCancel={props.onCancelTitleEdit}
+			/>
 		</div>
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
 
-			<Popover 
+			<Popover
 				content={
 					<OptionsMenuContainer index={props.index} />
 				}
@@ -30,13 +36,14 @@ const SpoilerCard = observer(props =>
 
 			</Popover>
 
-			{props.isExpanded ? 
+			{props.isExpanded ?
 				<Button className="pt-minimal pt-icon-chevron-down" onClick={props.onExpandCollapse} />
-				: 
+				:
 				<Button className="pt-minimal pt-icon-chevron-right" onClick={props.onExpandCollapse} />
 			}
 		</div>
 		<Collapse isOpen={props.isExpanded}>
+
 			<br />
 			{/* Make child elements appear in the same line */} 
 			<div style={{display: "flex", flexDirection: "row"}}>
@@ -44,6 +51,7 @@ const SpoilerCard = observer(props =>
 				{/* TODO: add space b/w text and tick icon */}
 				{props.shouldShowTagsTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : null}
 			</div>
+			
 		</Collapse>
 	</div>
 );
@@ -51,12 +59,18 @@ const SpoilerCard = observer(props =>
 SpoilerCard.propTypes = {
 	onExpandCollapse: PropTypes.func.isRequired,
 	isExpanded: PropTypes.bool.isRequired,
-	title: PropTypes.string.isRequired,
 	isActive: PropTypes.bool.isRequired,
+	isBeingEdited: PropTypes.bool.isRequired,
+	title: PropTypes.string.isRequired,
 	tags: PropTypes.string.isRequired,
+<<<<<<< HEAD
 	shouldShowTagsTick: PropTypes.bool.isRequired,
+=======
+	onUpdateTitle: PropTypes.func.isRequired,
+>>>>>>> master
 	onUpdateTags: PropTypes.func.isRequired,
-	onSave: PropTypes.func.isRequired,
+	onSaveTitle: PropTypes.func.isRequired,
+	onSaveTags: PropTypes.func.isRequired,
 	marginBottom: PropTypes.number.isRequired
 };
 

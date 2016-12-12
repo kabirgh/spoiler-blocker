@@ -11,8 +11,10 @@ const SpoilerCardList = observer(props =>
 				<SpoilerCardContainer
 					index={index}
 					title={obj["title"]}
-					isActive={obj["isActive"]}
 					tags={obj["tags"].join(", ")}
+
+					isActive={obj["isActive"]}
+					
 					marginBottom={6} // TODO: should this be a mobx observable?
 				/>
 			</div>
