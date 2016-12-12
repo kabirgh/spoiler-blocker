@@ -1,7 +1,7 @@
 import React from "react";
 // const PropTypes = React.PropTypes; TODO
 import {observer} from "mobx-react";
-import MainStore from "../MainStore";
+import MainStore from "../common/MainStore";
 import addActions from "./addActions";
 import AddCard from "./AddCard";
 import {Collapse} from "@blueprintjs/core";
@@ -55,7 +55,7 @@ class AddCardContainer extends React.Component {
 		return (
 			<Collapse isOpen={MainStore.isAddCardVisible}>
 				<br />
-				<AddCard 
+				<AddCard
 					onUpdateTitle={this.handleUpdateTitle}
 					onUpdateTags={this.handleUpdateTags}
 					onSave={this.handleSave}

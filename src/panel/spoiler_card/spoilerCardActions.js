@@ -1,5 +1,5 @@
 import {action} from "mobx";
-import MainStore from "../MainStore";
+import MainStore from "../common/MainStore";
 import ToastStore from "../toast/ToastStore";
 import commonActions from "../common/commonActions";
 

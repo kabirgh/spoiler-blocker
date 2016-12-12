@@ -3,7 +3,7 @@ const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import {Popover, Position, Button, EditableText, Collapse} from "@blueprintjs/core";
 import OptionsMenuContainer from "../options_menu/OptionsMenuContainer";
-import MainStore from "../MainStore";
+import MainStore from "../common/MainStore";
 
 // TODO: extract smaller components
 const SpoilerCard = observer(props =>

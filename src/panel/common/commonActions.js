@@ -1,5 +1,5 @@
 import {action} from "mobx";
-import MainStore from "../MainStore";
+import MainStore from "./MainStore";
 import ToastStore from "../toast/ToastStore";
 
 module.exports = {
