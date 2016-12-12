@@ -2,7 +2,7 @@ import React from "react";
 const PropTypes = React.PropTypes;
 import {observer} from "mobx-react";
 import OptionsMenu from "./OptionsMenu";
-import MainStore from "../MainStore";
+import MainStore from "../common/MainStore";
 import optionsMenuActions from "./optionsMenuActions";
 
 @observer
@@ -46,7 +46,7 @@ class OptionsMenuContainer extends React.Component {
 
 				hidePref={MainStore.spoilers[this.props.index]["hidePref"]}
 				onToggleHidePref={this.handleToggleHidePref}
-				
+
 				onDelete={this.handleDelete}
 			/>
 		);
