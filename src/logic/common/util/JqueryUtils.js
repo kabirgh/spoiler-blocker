@@ -59,11 +59,11 @@ function filterElems(elemList, jquerySelector) {
 }
 
 
-function getClosestAncestors(elemList, selector) {
+function getClosestAncestors(elemList, jquerySelector) {
 	let $parents = [];
 	
 	elemList.map( function($elem) {
-		$parents.push($elem.closest(selector));
+		$parents.push($elem.closest(jquerySelector));
 	});
 
 	return $parents;
