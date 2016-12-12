@@ -29,7 +29,7 @@ class OptionsMenuContainer extends React.Component {
 	}
 
 	handleDelete() {
-		// Creates a toast. See optionsMenuActions and toast/Toast for details
+		// Creates a toast. See optionsMenuActions and Toast for details
 		optionsMenuActions.deleteList(this.props.index);
 	}
 

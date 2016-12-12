@@ -7,7 +7,14 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: path.join(__dirname, "/src/panel/panel.html"),
 	filename: "panel.html",
 	inject: "body",
-	excludeChunks: ["fb", "tw"]
+	excludeChunks: ["options", "fb", "tw"]
+});
+
+var HtmlWebpackPluginConfig2 = new HtmlWebpackPlugin({
+	template: path.join(__dirname, "/src/options/options.html"),
+	filename: "options.html",
+	inject: "body",
+	excludeChunks: ["panel", "fb", "tw"]
 });
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
@@ -49,6 +56,7 @@ var DefinePluginConfig = new webpack.DefinePlugin({
 module.exports = {
 	entry: {
 		"panel": "./src/panel/panel.js",
+		"options": "./src/options/options.js",
 		"fb": "./src/logic/fb.js",
 		"tw": "./src/logic/tw.js"
 	},
@@ -62,7 +70,8 @@ module.exports = {
 		]
 	},
 	plugins: [
-		HtmlWebpackPluginConfig, 
+		HtmlWebpackPluginConfig,
+		HtmlWebpackPluginConfig2,
 		CopyWebpackPluginConfig,
 		DefinePluginConfig
 	]
