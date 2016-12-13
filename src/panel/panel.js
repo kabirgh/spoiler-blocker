@@ -4,6 +4,7 @@ import Devtools from "mobx-react-devtools";
 import Toast from "./toast/Toast";
 import TitleBarContainer from "./title_bar/TitleBarContainer";
 import AddCardContainer from "./add_card/AddCardContainer";
+import DownloadCardContainer from "./download_card/DownloadCardContainer";
 import SpoilerCardListContainer from "./spoiler_card/SpoilerCardListContainer";
 import {observer} from "mobx-react";
 import {FocusStyleManager} from "@blueprintjs/core";
@@ -19,6 +20,8 @@ const App = observer( () =>
 			<AddCardContainer />
 			<br />
 			<SpoilerCardListContainer />
+			<br />
+			<DownloadCardContainer />
 		</div>
 	</div>
 );
