@@ -11,6 +11,7 @@ module.exports = {
 };
 
 function tagStringToArray(tagString) {
+	tagString = tagString.trim();
 	const tagArr = tagString.split(",");
 	return tagArr.map(tag => tag.trim());
 }
@@ -20,7 +21,7 @@ function isDuplicateTitle(title) {
 }
 
 function isDuplicateTitleSkipIndex(title, index) {
-	const lowerCaseTitle = title.toLowerCase();
+	const lowerCaseTitle = title.trim().toLowerCase();
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
 		if (i != index && lowerCaseTitle === MainStore.lowerCaseTitles[i]) {

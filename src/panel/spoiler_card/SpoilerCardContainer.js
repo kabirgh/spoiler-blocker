@@ -55,6 +55,7 @@ class SpoilerCardContainer extends React.Component {
 	handleSaveTitle() {
 		if (spoilerCardActions.isValidTitle(this.title, this.props.index)) {
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
+			this.title = this.title.trim();
 			this.oldTitle = this.title;
 		} else {
 			this.title = this.oldTitle;
@@ -64,6 +65,7 @@ class SpoilerCardContainer extends React.Component {
 
 	handleSaveTags() {
 		spoilerCardActions.editTags(this.props.index, this.title, this.tags);
+		this.tags = this.tags.trim();
 	}
 
 	render() {
