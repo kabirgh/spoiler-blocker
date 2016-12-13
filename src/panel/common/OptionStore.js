@@ -1,12 +1,34 @@
-import {observable} from "mobx";
+/* global chrome */
+import {observable, autorun, toJS} from "mobx";
 
 class Store {
-	@observable defaultHidePref = "overlay"; // or remove
-	@observable defaultCaseSensitivity = false; // TODO: create options page to change this
+	@observable prefs = {};
 
 	constructor() {	}
 }
 
 const OptionStore = new Store();
+
+chrome.storage.local.get("prefs", function(obj) {
+	console.log("prefs get: " + JSON.stringify(obj["prefs"]));
+
+	if (obj["prefs"] === undefined || obj["prefs"] === {}) {
+		console.log("if block");
+		OptionStore.prefs = {
+			defaultHidePref: "overlay", // or remove
+			defaultCaseSensitivity: false
+		};
+	}
+	else {
+		OptionStore.prefs = obj["prefs"];
+	}
+});
+
+autorun(() => {
+	// Accesses all properties recursively, triggering autorun when any change is made
+	JSON.stringify(OptionStore.prefs);
+	console.log("autorun optionstore set prefs: " + JSON.stringify(OptionStore.prefs));
+	chrome.storage.local.set({"prefs": toJS(OptionStore.prefs)});
+});
 
 export default OptionStore;
