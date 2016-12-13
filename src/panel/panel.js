@@ -18,10 +18,9 @@ const App = observer( () =>
 		<TitleBarContainer />
 		<div style={{paddingTop: 35}}>
 			<AddCardContainer />
+			<DownloadCardContainer />
 			<br />
 			<SpoilerCardListContainer />
-			<br />
-			<DownloadCardContainer />
 		</div>
 	</div>
 );
