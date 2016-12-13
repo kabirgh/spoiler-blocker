@@ -24,3 +24,4 @@ This project makes use of
 * [MobX](https://mobxjs.github.io/mobx/)
 * [Mutation Summary](https://github.com/rafaelw/mutation-summary)
 * [jQuery](https://jquery.com/)
+* [fetch](https://fetch.spec.whatwg.org/)
