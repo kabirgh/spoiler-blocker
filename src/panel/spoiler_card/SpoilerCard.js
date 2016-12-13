@@ -48,6 +48,7 @@ const SpoilerCard = observer(props =>
 			<br />
 			<div style={{display: "flex", flexDirection: "row"}}>
 				<EditableText value={props.tags} onChange={props.onUpdateTags} onConfirm={props.onSaveTags} />
+				&nbsp;
 				{/* TODO: add space b/w text and tick icon */}
 				{props.shouldShowTagsTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : null}
 			</div>
