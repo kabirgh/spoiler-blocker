@@ -8,8 +8,8 @@
 	"browser_action": {
 		"default_title": "Spoiler Blocker",
 		"default_icon": {
-			"16": "img/icon16.png",
-			"32": "img/icon32.png"
+			"16": "resources/img/icon16.png",
+			"32": "resources/img/icon32.png"
 		},
 		"default_popup": "panel.html"
 	},
@@ -19,10 +19,10 @@
 	},
 
 	"icons": {
-		"16": "img/icon16.png",
-		"32": "img/icon32.png",
-		"64": "img/icon64.png",
-		"128": "img/icon128.png"
+		"16": "resources/img/icon16.png",
+		"32": "resources/img/icon32.png",
+		"64": "resources/img/icon64.png",
+		"128": "resources/img/icon128.png"
 	},
 
 	"permissions": ["activeTab", "storage"],

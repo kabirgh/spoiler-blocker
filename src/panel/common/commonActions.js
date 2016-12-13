@@ -16,10 +16,10 @@ function tagStringToArray(tagString) {
 }
 
 function isDuplicateTitle(title) {
-  return isDuplicateTitleSkipIndex(title, -1);
+  return isDuplicateTitleSkipIndex(-1, title);
 }
 
-function isDuplicateTitleSkipIndex(title, index) {
+function isDuplicateTitleSkipIndex(index, title) {
 	const lowerCaseTitle = title.toLowerCase();
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
