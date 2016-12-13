@@ -1,14 +1,34 @@
 import {action} from "mobx";
 import MainStore from "./MainStore";
 import ToastStore from "../toast/ToastStore";
+import OptionStore from "./OptionStore";
 
 module.exports = {
+	addNewList: action(addNewList),
 	tagStringToArray: action(tagStringToArray),
 	isDuplicateTitle: action(isDuplicateTitle),
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
 	isInvalidTags: action(isInvalidTags)
 };
+
+function addNewList(title, tagArr) {
+	title = title.trim();
+
+	if (isInvalidTitle(title) || isInvalidTags(tagArr) || isDuplicateTitle(title)) {
+		return;
+	}
+
+	MainStore.spoilers.push({
+		title: title,
+		isActive: true,
+		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
+		hidePref: OptionStore.prefs.defaultHidePref,
+		tags: tagArr
+	});
+
+	ToastStore.isAddSuccess = true;
+}
 
 function tagStringToArray(tagString) {
 	tagString = tagString.trim();

@@ -12,25 +12,8 @@ module.exports = {
 };
 
 function saveAddList(title, tagString) {
-	title = title.trim();
 	const tagArr = commonActions.tagStringToArray(tagString);
-
-	if (commonActions.isInvalidTitle(title) ||
-		commonActions.isInvalidTags(tagArr) ||
-		commonActions.isDuplicateTitle(title)) {
-		
-		return;
-	}
-
-	MainStore.spoilers.push({
-		title: title,
-		isActive: true,
-		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
-		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagArr
-	});
-
-	ToastStore.isAddSuccess = true;
+	commonActions.addNewList(title, tagArr);
 
 	hideAddCard();
 }

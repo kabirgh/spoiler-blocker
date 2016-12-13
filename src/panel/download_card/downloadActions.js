@@ -13,40 +13,29 @@ module.exports = {
 };
 
 function saveDownloadList(title, id) {
+	// TODO: Verify title and id valid
+
 	fetch("https://salty-earth-11606.herokuapp.com/downloadList?id=" + id, {
 		method: "get",
   	credentials: "include"
 	}).then(function(response) {
 		return response.json();
 	}).then(function(data) {
-		console.log(data);
+		if (data.Status !== "Success") {
+			// TODO: Display toast indicating list not found
+			return;
+		}
+
+		const tagArr = commonActions.tagStringToArray(data.list.tags);
+
+		if (commonActions.isInvalidTags(tagArr)) {
+			ToastStore.indicateInvalidTitleOrTags();
+			return;
+		}
+
+		commonActions.addNewList(title, tagArr);
+		hideDownloadCard();
 	});
-
-	saveList(title, tags);
-}
-
-function saveList(title, tags) {
-	title = title.trim();
-	const tagArr = commonActions.tagStringToArray(tagString);
-
-	if (commonActions.isInvalidTitle(title) ||
-		commonActions.isInvalidTags(tagArr) ||
-		commonActions.isDuplicateTitle(title)) {
-
-		return;
-	}
-
-	MainStore.spoilers.push({
-		title: title,
-		isActive: true,
-		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
-		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagArr
-	});
-
-	ToastStore.isAddSuccess = true;
-
-	hideDownloadCard();
 }
 
 function hideDownloadCard() {
