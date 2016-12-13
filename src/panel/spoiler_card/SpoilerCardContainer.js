@@ -13,7 +13,6 @@ class SpoilerCardContainer extends React.Component {
 
 	@observable isExpanded = false;
 	@observable isBeingEdited = false;
-	@observable shouldShowTitleTick = false;
 	@observable shouldShowTagsTick = false;
 
 	constructor(props) {
@@ -25,7 +24,6 @@ class SpoilerCardContainer extends React.Component {
 
 		this.isExpanded = false;
 		this.isBeingEdited = false;
-		this.shouldShowTitleTick = false;
 		this.shouldShowTagsTick = false;
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
@@ -62,8 +60,6 @@ class SpoilerCardContainer extends React.Component {
 		if (spoilerCardActions.isValidTitle(this.title, this.props.index)) {
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
 			this.oldTitle = this.title;
-
-			this.shouldShowTitleTick = true;
 		} 
 		else {
 			this.title = this.oldTitle;
@@ -93,7 +89,6 @@ class SpoilerCardContainer extends React.Component {
 				isActive={this.props.isActive}
 				isExpanded={this.isExpanded}
 				isBeingEdited={this.isBeingEdited}
-				shouldShowTitleTick={this.shouldShowTitleTick}
 				shouldShowTagsTick={this.shouldShowTagsTick}
 
 				onExpandCollapse={this.handleExpandCollapse}

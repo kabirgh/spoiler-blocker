@@ -21,7 +21,6 @@ const SpoilerCard = observer(props =>
 				onEdit={props.onEditTitle}
 				onCancel={props.onCancelTitleEdit}
 			/>
-			{props.shouldShowTitleTick ? <div className="pt-icon-tick" style={{color: "green"}} /> : "title tick false"}
 		</div>
 
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
