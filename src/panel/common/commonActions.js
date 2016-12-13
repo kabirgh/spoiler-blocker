@@ -9,7 +9,8 @@ module.exports = {
 	isDuplicateTitle: action(isDuplicateTitle),
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
-	isInvalidTags: action(isInvalidTags)
+	isInvalidTags: action(isInvalidTags),
+	isInvalidID: action(isInvalidID)
 };
 
 function addNewList(title, tagArr) {
@@ -75,10 +76,27 @@ function isInvalidTags(tagArr) {
 	return false;
 }
 
+function isInvalidID(id) {
+	// Checks whether id is a number and an integer
+	const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+	for (var i = 0; i < id.length; i++) {
+		if (numbers.indexOf(id[i]) == -1) {
+			indicateInvalidID();
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function indicateInvalidTitleOrTags() {
   ToastStore.isInvalidTitleOrTags = true;
 }
 
 function indicateDuplicateTitle() {
   ToastStore.isDuplicateTitle = true;
+}
+
+function indicateInvalidID() {
+	ToastStore.isInvalidID = true;
 }

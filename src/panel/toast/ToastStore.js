@@ -5,12 +5,14 @@ class Store {
 	@observable isAddSuccess = false;
 	@observable isInvalidTitleOrTags = false;
 	@observable isDuplicateTitle = false;
+	@observable isInvalidID = false;
 	@observable isListDeleted = false;
 
 	constructor() {}
 
 	@computed get allFlags() {
-		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle, this.isListDeleted];
+		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle,
+						this.isInvalidID, this.isListDeleted];
 	}
 
 	@computed get toastObject() {
@@ -33,6 +35,14 @@ class Store {
 		else if (this.isDuplicateTitle) {
 			return {
 				message: "A list with the same title already exists.",
+				intent: Intent.DANGER,
+				timeout: 2000
+			};
+		}
+
+		else if (this.isInvalidID) {
+			return {
+				message: "The given ID is invalid.",
 				intent: Intent.DANGER,
 				timeout: 2000
 			};

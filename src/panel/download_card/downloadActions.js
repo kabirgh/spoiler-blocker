@@ -13,7 +13,12 @@ module.exports = {
 };
 
 function saveDownloadList(title, id) {
-	// TODO: Verify title and id valid
+	if (commonActions.isInvalidTitle(title) ||
+			commonActions.isDuplicateTitle(title) ||
+		  commonActions.isInvalidID(id)
+		 ) {
+			 return;
+	}
 
 	fetch("https://salty-earth-11606.herokuapp.com/downloadList?id=" + id, {
 		method: "get",
@@ -29,7 +34,7 @@ function saveDownloadList(title, id) {
 		const tagArr = commonActions.tagStringToArray(data.list.tags);
 
 		if (commonActions.isInvalidTags(tagArr)) {
-			ToastStore.indicateInvalidTitleOrTags();
+			// Ideally, should never happen, as tags on website should be valid
 			return;
 		}
 
