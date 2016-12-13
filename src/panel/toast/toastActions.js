@@ -10,5 +10,6 @@ function resetToastObject() {
 	ToastStore.isInvalidTitleOrTags = false;
 	ToastStore.isDuplicateTitle = false;
 	ToastStore.isInvalidID = false;
+	ToastStore.isMissingList = false;
 	ToastStore.isListDeleted = false;
 }

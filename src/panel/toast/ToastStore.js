@@ -6,13 +6,14 @@ class Store {
 	@observable isInvalidTitleOrTags = false;
 	@observable isDuplicateTitle = false;
 	@observable isInvalidID = false;
+	@observable isMissingList = false;
 	@observable isListDeleted = false;
 
 	constructor() {}
 
 	@computed get allFlags() {
 		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle,
-						this.isInvalidID, this.isListDeleted];
+						this.isInvalidID, this.isMissingList, this.isListDeleted];
 	}
 
 	@computed get toastObject() {
@@ -43,6 +44,14 @@ class Store {
 		else if (this.isInvalidID) {
 			return {
 				message: "The given ID is invalid.",
+				intent: Intent.DANGER,
+				timeout: 2000
+			};
+		}
+
+		else if (this.isMissingList) {
+			return {
+				message: "The list could not be found.",
 				intent: Intent.DANGER,
 				timeout: 2000
 			};

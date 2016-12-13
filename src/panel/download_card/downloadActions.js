@@ -27,7 +27,7 @@ function saveDownloadList(title, id) {
 		return response.json();
 	}).then(function(data) {
 		if (data.Status !== "Success") {
-			// TODO: Display toast indicating list not found
+			ToastStore.isMissingList = true;
 			return;
 		}
 
