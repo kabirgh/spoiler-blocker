@@ -10,7 +10,7 @@ module.exports = {
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
 	isInvalidTags: action(isInvalidTags),
-	isInvalidID: action(isInvalidID)
+	isInvalidId: action(isInvalidId)
 };
 
 function addNewList(title, tagArr) {
@@ -38,15 +38,15 @@ function tagStringToArray(tagString) {
 }
 
 function isDuplicateTitle(title) {
-  return isDuplicateTitleSkipIndex(-1, title);
+	return isDuplicateTitleSkipIndex(title, -1);
 }
 
 function isDuplicateTitleSkipIndex(title, index) {
 	const lowerCaseTitle = title.trim().toLowerCase();
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
-		if (i != index && lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
-      indicateDuplicateTitle();
+		if (i !== index && lowerCaseTitle === MainStore.lowerCaseTitles[i]) {
+			indicateDuplicateTitle();
 			return true;
 		}
 	}
@@ -57,7 +57,7 @@ function isDuplicateTitleSkipIndex(title, index) {
 function isInvalidTitle(title) {
 	if (title.trim() === "") {
 		console.log("invalid title");
-    indicateInvalidTitleOrTags();
+		indicateInvalidTitleOrTags();
 		return true;
 	} else {
 		return false;
@@ -68,7 +68,7 @@ function isInvalidTags(tagArr) {
 	for (let i=0; i<tagArr.length; i++) {
 		if (tagArr[i] === "") {
 			console.log("invalid tag");
-      indicateInvalidTitleOrTags();
+			indicateInvalidTitleOrTags();
 			return true;
 		}
 	}
@@ -76,27 +76,24 @@ function isInvalidTags(tagArr) {
 	return false;
 }
 
-function isInvalidID(id) {
+function isInvalidId(id) {
 	// Checks whether id is a number and an integer
-	const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-	for (var i = 0; i < id.length; i++) {
-		if (numbers.indexOf(id[i]) == -1) {
-			indicateInvalidID();
-			return true;
-		}
+	if (Number.isInteger(parseFloat(id))) {
+		return true;
+	} else {
+		indicateInvalidId();
+		return false;
 	}
-
-	return false;
 }
 
 function indicateInvalidTitleOrTags() {
-  ToastStore.isInvalidTitleOrTags = true;
+	ToastStore.isInvalidTitleOrTags = true;
 }
 
 function indicateDuplicateTitle() {
-  ToastStore.isDuplicateTitle = true;
+	ToastStore.isDuplicateTitle = true;
 }
 
-function indicateInvalidID() {
-	ToastStore.isInvalidID = true;
+function indicateInvalidId() {
+	ToastStore.isInvalidId = true;
 }

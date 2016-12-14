@@ -15,14 +15,14 @@ module.exports = {
 function saveDownloadList(title, id) {
 	if (commonActions.isInvalidTitle(title) ||
 			commonActions.isDuplicateTitle(title) ||
-		  commonActions.isInvalidID(id)
+			commonActions.isInvalidId(id)
 		 ) {
 			 return;
 	}
 
 	fetch("https://salty-earth-11606.herokuapp.com/downloadList?id=" + id, {
 		method: "get",
-  	credentials: "include"
+		credentials: "include"
 	}).then(function(response) {
 		return response.json();
 	}).then(function(data) {

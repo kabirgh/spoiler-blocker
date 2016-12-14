@@ -5,7 +5,7 @@ class Store {
 	@observable isAddSuccess = false;
 	@observable isInvalidTitleOrTags = false;
 	@observable isDuplicateTitle = false;
-	@observable isInvalidID = false;
+	@observable isInvalidId = false;
 	@observable isMissingList = false;
 	@observable isListDeleted = false;
 
@@ -13,7 +13,7 @@ class Store {
 
 	@computed get allFlags() {
 		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle,
-						this.isInvalidID, this.isMissingList, this.isListDeleted];
+						this.isInvalidId, this.isMissingList, this.isListDeleted];
 	}
 
 	@computed get toastObject() {
@@ -41,7 +41,7 @@ class Store {
 			};
 		}
 
-		else if (this.isInvalidID) {
+		else if (this.isInvalidId) {
 			return {
 				message: "The given ID is invalid.",
 				intent: Intent.DANGER,
