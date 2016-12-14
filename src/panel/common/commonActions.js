@@ -38,7 +38,7 @@ function tagStringToArray(tagString) {
 }
 
 function isDuplicateTitle(title) {
-  return isDuplicateTitleSkipIndex(title, -1);
+  return isDuplicateTitleSkipIndex(-1, title);
 }
 
 function isDuplicateTitleSkipIndex(title, index) {

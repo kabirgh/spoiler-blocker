@@ -23,6 +23,8 @@ if (process.env.NODE_ENV !== "devServer") {
 		}
 		else {
 			MainStore.spoilers = obj["spoilersArr"];
+
+			console.log(JSON.stringify(obj["spoilersArr"]));
 		}
 	});
 
@@ -31,6 +33,25 @@ if (process.env.NODE_ENV !== "devServer") {
 		JSON.stringify(MainStore.spoilers);
 		chrome.storage.local.set({"spoilersArr": toJS(MainStore.spoilers)});
 	});
+}
+// Populate dummy data
+else {
+	MainStore.spoilers = [
+		{
+			"hidePref":"overlay",
+			"isActive":true,
+			"isCaseSensitive":false,
+			"tags":["a","b","c"],
+			"title":"all"
+		},
+		{
+			"hidePref":"remove",
+			"isActive":false,
+			"isCaseSensitive":false,
+			"tags":["spoiler", "alert", "unilad", "gibberish ksjbdg; kjagbel"],
+			"title":"list the second"
+		}
+	];
 }
 
 export default MainStore;
