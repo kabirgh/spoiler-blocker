@@ -34,7 +34,7 @@ function saveDownloadList(title, id) {
 		const tagArr = commonActions.tagStringToArray(data.list.tags);
 
 		if (commonActions.isInvalidTags(tagArr)) {
-			// Ideally, should never happen, as tags on website should be valid
+			// Ideally should never happen, as tags on website should be valid
 			return;
 		}
 

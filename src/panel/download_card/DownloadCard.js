@@ -10,12 +10,12 @@ const DownloadNewCard = props => (
 		<div>
 			{/* TODO: extract component, maintaing spacing */}
 			<label className="pt-label pt-inline">
-				Title  {/* 2 spaces after 'Title' */}
+				Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* 5 spaces after 'Title' */}
 				<input className="pt-input" style={{width: 100}} type="text"
 					dir="auto" onChange={props.onUpdateTitle} />
 			</label>
 			<label className="pt-label pt-inline">
-				List ID  {/* 2 spaces after 'List ID' */}
+				List ID&nbsp;&nbsp;{/* 2 spaces after 'List ID' */}
 				<input className="pt-input" style={{width: 100}} type="text"
 					dir="auto" onChange={props.onUpdateID} />
 			</label>

@@ -10,13 +10,13 @@ const AddNewCard = props => (
 		<div>
 			{/* TODO: extract component, maintaing spacing */}
 			<label className="pt-label pt-inline">
-				Title  {/* 2 spaces after 'Title' */}
-				<input className="pt-input" style={{width: 200}} type="text" 
+				Title&nbsp;&nbsp;&nbsp;{/* 3 spaces after 'Title' */}
+				<input className="pt-input" style={{width: 200}} type="text"
 					dir="auto" onChange={props.onUpdateTitle} />
 			</label>
 			<label className="pt-label pt-inline">
-				Tags  {/* 2 spaces after 'Tags' */}
-				<input className="pt-input" style={{width: 200}} type="text" 
+				Tags&nbsp;&nbsp;{/* 2 spaces after 'Tags' */}
+				<input className="pt-input" style={{width: 200}} type="text"
 					dir="auto" onChange={props.onUpdateTags} />
 			</label>
 		</div>

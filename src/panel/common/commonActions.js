@@ -79,10 +79,10 @@ function isInvalidTags(tagArr) {
 function isInvalidId(id) {
 	// Checks whether id is a number and an integer
 	if (Number.isInteger(parseFloat(id))) {
-		return true;
+		return false;
 	} else {
 		indicateInvalidId();
-		return false;
+		return true;
 	}
 }
 

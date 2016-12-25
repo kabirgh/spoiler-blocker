@@ -1,6 +1,7 @@
 import React from "react";
 // const PropTypes = React.PropTypes; TODO
 import {observer} from "mobx-react";
+import {observable} from "mobx";
 import MainStore from "../common/MainStore";
 import downloadActions from "./downloadActions";
 import DownloadCard from "./DownloadCard";
@@ -8,13 +9,14 @@ import {Collapse} from "@blueprintjs/core";
 
 @observer
 class DownloadCardContainer extends React.Component {
+	@observable title = "";
+	@observable id = "";
+
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			title: "",
-			id: ""
-		};
+		this.title = "";
+		this.id = "";
 
 		this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
 		this.handleUpdateID = this.handleUpdateID.bind(this);
@@ -25,29 +27,23 @@ class DownloadCardContainer extends React.Component {
 	handleUpdateTitle(event) {
 		downloadActions.resetToastFlags();
 
-		this.setState({
-			title: event.target.value
-		});
+		this.title = event.target.value;
 	}
 
 	handleUpdateID(event) {
 		downloadActions.resetToastFlags();
 
-		this.setState({
-			id: event.target.value
-		});
+		this.id = event.target.value;
 	}
 
 	handleDownload() {
 		// Displays different toast messages on save success and fail. See downloadActions for details
-		downloadActions.saveDownloadList(this.state.title, this.state.id);
+		downloadActions.saveDownloadList(this.title, this.id);
 	}
 
 	handleClose() {
-		this.setState({
-			title: "",
-			id: ""
-		});
+		this.title = "";
+		this.id = "";
 		downloadActions.hideDownloadCard();
 	}
 
