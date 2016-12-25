@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function isValidTitle(index, title) {
-	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(index, title)) {
+	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(title, index)) {
 		return false;
 	}
 	else {

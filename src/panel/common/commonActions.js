@@ -42,6 +42,7 @@ function isDuplicateTitle(title) {
 }
 
 function isDuplicateTitleSkipIndex(title, index) {
+	console.log(title);
 	const lowerCaseTitle = title.trim().toLowerCase();
 
 	for (let i=0; i<MainStore.lowerCaseTitles.length; i++) {
