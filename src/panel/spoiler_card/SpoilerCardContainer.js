@@ -31,7 +31,6 @@ class SpoilerCardContainer extends React.Component {
 		this.handleSaveTitle = this.handleSaveTitle.bind(this);
 		this.handleSaveTags = this.handleSaveTags.bind(this);
 		this.handleExpandCollapse = this.handleExpandCollapse.bind(this);
-		this.handleCancelTitleEdit = this.handleCancelTitleEdit.bind(this);
 		this.handleEditingTitle = this.handleEditingTitle.bind(this);
 	}
 
@@ -49,11 +48,6 @@ class SpoilerCardContainer extends React.Component {
 
 	handleUpdateTags(string) {
 		this.tags = string;
-	}
-
-	handleCancelTitleEdit() {
-		console.log("cancel title edit");
-		this.isBeingEdited = false;
 	}
 
 	handleSaveTitle() {
@@ -97,7 +91,6 @@ class SpoilerCardContainer extends React.Component {
 				onEditTitle={this.handleEditingTitle}
 				onUpdateTitle={this.handleUpdateTitle}
 				onUpdateTags={this.handleUpdateTags}
-				onCancelTitleEdit={this.handleCancelTitleEdit}
 				onSaveTitle={this.handleSaveTitle}
 				onSaveTags={this.handleSaveTags}
 

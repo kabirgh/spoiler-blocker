@@ -19,7 +19,6 @@ const SpoilerCard = observer(props =>
 				onChange={props.onUpdateTitle}
 				onConfirm={props.onSaveTitle}
 				onEdit={props.onEditTitle}
-				onCancel={props.onCancelTitleEdit}
 			/>
 		</div>
 
