@@ -33,11 +33,8 @@ const TitleBar = props => (
 
 TitleBar.propTypes = {
 	onAddList: PropTypes.func.isRequired,
-<<<<<<< HEAD
-	onDownloadList: PropTypes.func.isRequired
-=======
+	onDownloadList: PropTypes.func.isRequired,
 	onOptions: PropTypes.func.isRequired
->>>>>>> master
 };
 
 export default TitleBar;

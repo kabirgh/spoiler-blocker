@@ -7,6 +7,7 @@ class TitleBarContainer extends React.Component {
 		super(props);
 		this.handleAddList = this.handleAddList.bind(this);
 		this.handleDownloadList = this.handleDownloadList.bind(this);
+		this.handleOptions = this.handleOptions.bind(this);
 	}
 
 	handleAddList() {
