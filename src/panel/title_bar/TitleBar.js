@@ -10,14 +10,14 @@ const TitleBar = props => (
 		</div>
 		<div className="pt-navbar-group pt-align-right">
 			<button
-				className="pt-button pt-minimal pt-icon-add"
+				className="pt-button pt-minimal pt-icon-download"
 				onClick={props.onDownloadList}>
-					Download a list
+					Download
 			</button>
 			<button
 				className="pt-button pt-minimal pt-icon-add"
 				onClick={props.onAddList}>
-					Add a list
+					Create
 			</button>
 			<span className="pt-navbar-divider"></span>
 			<button className="pt-button pt-minimal pt-icon-cog"></button>
@@ -27,7 +27,8 @@ const TitleBar = props => (
 );
 
 TitleBar.propTypes = {
-	onAddList: PropTypes.func.isRequired
+	onAddList: PropTypes.func.isRequired,
+	onDownloadList: PropTypes.func.isRequired
 };
 
 export default TitleBar;
