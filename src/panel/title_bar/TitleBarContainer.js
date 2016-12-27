@@ -12,9 +12,14 @@ class TitleBarContainer extends React.Component {
 		titleBarActions.showAddCard();
 	}
 
+	handleOptions() {
+		titleBarActions.openOptionsPage();
+	}
+
 	render() {
 		return <TitleBar 
 			onAddList={this.handleAddList}
+			onOptions={this.handleOptions}
 		/>;
 	}
 }
