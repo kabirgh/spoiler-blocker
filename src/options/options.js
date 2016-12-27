@@ -46,7 +46,6 @@ class App extends React.Component {
 					onChange={this.handleToggleHidePref}
 				/>
 			</div>
-
 		);
 	}
 }

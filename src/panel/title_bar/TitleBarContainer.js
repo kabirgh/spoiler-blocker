@@ -13,6 +13,10 @@ class TitleBarContainer extends React.Component {
 		titleBarActions.showAddCard();
 	}
 
+	handleOptions() {
+		titleBarActions.openOptionsPage();
+	}
+
 	handleDownloadList() {
 		titleBarActions.showDownloadCard();
 	}
@@ -20,6 +24,7 @@ class TitleBarContainer extends React.Component {
 	render() {
 		return <TitleBar
 			onAddList={this.handleAddList}
+			onOptions={this.handleOptions}
 			onDownloadList={this.handleDownloadList}
 		/>;
 	}
