@@ -6,7 +6,7 @@ const TitleBar = props => (
 	<nav className="pt-navbar pt-dark pt-fixed-top">
 	<div style={{margin: "0 auto"}}>
 		<div className="pt-navbar-group pt-align-left">
-			<div className="pt-navbar-heading">Kenzor</div>
+			<div className="pt-navbar-heading">Spoiler Blocker</div>
 		</div>
 		<div className="pt-navbar-group pt-align-right">
 			<button
