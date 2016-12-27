@@ -19,8 +19,13 @@ const TitleBar = props => (
 				onClick={props.onAddList}>
 					Create
 			</button>
+
 			<span className="pt-navbar-divider"></span>
-			<button className="pt-button pt-minimal pt-icon-cog"></button>
+
+			<button 
+				className="pt-button pt-minimal pt-icon-cog"
+				onClick={props.onOptions}>
+			</button>
 		</div>
 		</div>
 	</nav>
@@ -28,7 +33,8 @@ const TitleBar = props => (
 
 TitleBar.propTypes = {
 	onAddList: PropTypes.func.isRequired,
-	onDownloadList: PropTypes.func.isRequired
+	onDownloadList: PropTypes.func.isRequired,
+	onOptions: PropTypes.func.isRequired
 };
 
 export default TitleBar;
