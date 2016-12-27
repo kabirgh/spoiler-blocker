@@ -12,7 +12,6 @@ module.exports = {
 };
 
 function saveAddList(title, tagString) {
-	title = title.trim();
 	const tagArr = commonActions.tagStringToArray(tagString);
 
 	if (commonActions.isInvalidTitle(title) ||
@@ -31,6 +30,7 @@ function saveAddList(title, tagString) {
 	});
 
 	ToastStore.isAddSuccess = true;
+	commonActions.addNewList(title, tagArr);
 
 	hideAddCard();
 }

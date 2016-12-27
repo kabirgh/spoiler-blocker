@@ -6,6 +6,7 @@ class TitleBarContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleAddList = this.handleAddList.bind(this);
+		this.handleDownloadList = this.handleDownloadList.bind(this);
 	}
 
 	handleAddList() {
@@ -16,10 +17,15 @@ class TitleBarContainer extends React.Component {
 		titleBarActions.openOptionsPage();
 	}
 
+	handleDownloadList() {
+		titleBarActions.showDownloadCard();
+	}
+
 	render() {
-		return <TitleBar 
+		return <TitleBar
 			onAddList={this.handleAddList}
 			onOptions={this.handleOptions}
+			onDownloadList={this.handleDownloadList}
 		/>;
 	}
 }

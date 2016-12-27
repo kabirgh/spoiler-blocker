@@ -4,7 +4,8 @@ import MainStore from "../common/MainStore";
 
 module.exports = {
 	showAddCard: action(showAddCard),
-	openOptionsPage: action(openOptionsPage)
+	openOptionsPage: action(openOptionsPage),
+	showDownloadCard: action(showDownloadCard)
 };
 
 function showAddCard() {
@@ -22,4 +23,8 @@ function openOptionsPage() {
 			window.open(chrome.runtime.getURL("options.html"));
 		}
 	}
+}
+
+function showDownloadCard() {
+	MainStore.isDownloadCardVisible = true;
 }
