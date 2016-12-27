@@ -4,6 +4,7 @@ import {observable, computed, autorun, toJS} from "mobx";
 class Store {
 	@observable spoilers = [];
 	@observable isAddCardVisible = false; // TODO: move into another store?
+	@observable isDownloadCardVisible = false;
 
 	constructor() {	}
 

@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function isValidTitle(index, title) {
-	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(index, title)) {
+	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(title, index)) {
 		return false;
 	}
 	else {
@@ -21,23 +21,21 @@ function isValidTitle(index, title) {
 
 function editTitle(index, title, tags) {
 	console.log("editTitle called");
-
-	MainStore.spoilers[index]["title"] = title;
-	MainStore.spoilers[index]["tags"] = commonActions.tagStringToArray(tags);
-
-	console.log("new title on next line");
-	console.log(title);
-
-	console.log("spoiler tags for 1st list on next line");
-	console.log(MainStore.spoilers[0]["tags"]);
+	editList(index, title, tags);
 }
 
 // TODO: disallow duplicate tags?
 function editTags(index, title, tags) {
 	console.log("editTags called");
+	editList(index, title, tags);
+}
 
-	MainStore.spoilers[index]["title"] = title;
+function editList(index, title, tags) {
+	MainStore.spoilers[index]["title"] = title.trim();
 	MainStore.spoilers[index]["tags"] = commonActions.tagStringToArray(tags);
+
+	console.log("new title on next line");
+	console.log(title);
 
 	console.log("spoiler tags for 1st list on next line");
 	console.log(MainStore.spoilers[0]["tags"]);

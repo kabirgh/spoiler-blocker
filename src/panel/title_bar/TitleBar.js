@@ -7,10 +7,14 @@ const TitleBar = props => (
 	<div style={{margin: "0 auto"}}>
 		<div className="pt-navbar-group pt-align-left">
 			<div className="pt-navbar-heading">Kenzor</div>
-			<input className="pt-input" placeholder="Search lists..." type="text" style={{width:150}}/>
 		</div>
 		<div className="pt-navbar-group pt-align-right">
-			<button 
+			<button
+				className="pt-button pt-minimal pt-icon-add"
+				onClick={props.onDownloadList}>
+					Download a list
+			</button>
+			<button
 				className="pt-button pt-minimal pt-icon-add"
 				onClick={props.onAddList}>
 					Add a list
