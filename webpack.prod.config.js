@@ -63,6 +63,7 @@ var DefinePluginConfig = new webpack.DefinePlugin({
 module.exports = {
 	entry: {
 		"panel": "./src/panel/panel.js",
+		"options": "./src/options/options.js",
 		"fb": "./src/logic/fb.js",
 		"tw": "./src/logic/tw.js"
 	},
@@ -78,7 +79,7 @@ module.exports = {
 	plugins: [
 		PanelHtmlWebpackPluginConfig,
 		OptionHtmlWebpackPluginConfig,
-		CopyWebpackPluginConfig, 
+		CopyWebpackPluginConfig,
 		UglifyJsPluginConfig,
 		DefinePluginConfig
 	]
