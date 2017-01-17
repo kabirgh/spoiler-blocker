@@ -3,7 +3,7 @@
 
 	"name": "Spoiler Blocker",
 	"description": "Blocks spoilers on your Facebook and Twitter feed.",
-	"version": "0.2.2",
+	"version": "0.2.3",
 
 	"browser_action": {
 		"default_title": "Spoiler Blocker",

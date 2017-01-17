@@ -1,6 +1,6 @@
 {
   "name": "spoiler-blocker",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A browser extension that blocks spoilers on your Facebook and Twitter feed.",
   "main": "index.js",
   "scripts": {
