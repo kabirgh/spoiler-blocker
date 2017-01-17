@@ -15,11 +15,11 @@ function saveDownloadList(title, id) {
 	if (commonActions.isInvalidTitle(title) ||
 			commonActions.isDuplicateTitle(title) ||
 			commonActions.isInvalidId(id)) {
-		
+
 		return;
 	}
 
-	fetch("https://salty-earth-11606.herokuapp.com/downloadList?id=" + id, {
+	fetch("https://spoilerblocker.herokuapp.com/downloadList?id=" + id, {
 		method: "get",
 		credentials: "include"
 	}).then(function(response) {
