@@ -4,7 +4,7 @@
   "description": "A browser extension that blocks spoilers on your Facebook and Twitter feed.",
   "main": "index.js",
   "scripts": {
-    "prod": "webpack --config webpack.prod.config.js --optimize-occurrence-order --progress",
+    "prod": "webpack --config webpack.prod.config.js --progress",
     "dev": "webpack --config webpack.dev.config.js --debug --output-pathinfo --watch --progress",
     "start": "webpack-dev-server --config webpack.devserver.config.js"
   },
@@ -39,7 +39,7 @@
     "eslint-plugin-react": "^6.7.1",
     "html-webpack-plugin": "^2.24.1",
     "mobx-react-devtools": "^4.2.10",
-    "webpack": "^1.13.3",
+    "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.2"
   }
 }
