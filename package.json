@@ -15,10 +15,10 @@
     "url": "https://github.com/kabir-plod/spoiler-blocker.git"
   },
   "dependencies": {
-    "@blueprintjs/core": "^1.1.0",
+    "@blueprintjs/core": "^1.8.0",
     "jquery": "^3.1.1",
-    "mobx": "^2.6.3",
-    "mobx-react": "^3.5.9",
+    "mobx": "^3.1.0",
+    "mobx-react": "^4.1.0",
     "mutation-summary": "^0.1.1",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
