@@ -13,8 +13,8 @@ module.exports = {
 
 function saveDownloadList(title, id) {
 	if (commonActions.isInvalidTitle(title) ||
-			commonActions.isDuplicateTitle(title) ||
-			commonActions.isInvalidId(id)) {
+		commonActions.isDuplicateTitle(title) ||
+		commonActions.isInvalidId(id)) {
 
 		return;
 	}
