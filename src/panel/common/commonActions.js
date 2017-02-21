@@ -10,7 +10,8 @@ module.exports = {
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
 	isInvalidTags: action(isInvalidTags),
-	isInvalidId: action(isInvalidId)
+	isInvalidId: action(isInvalidId),
+	resetToastObject: action(resetToastObject)
 };
 
 function addNewList(title, tagArr) {
@@ -97,4 +98,14 @@ function indicateDuplicateTitle() {
 
 function indicateInvalidId() {
 	ToastStore.isInvalidId = true;
+}
+
+
+function resetToastObject() {
+	ToastStore.isAddSuccess = false;
+	ToastStore.isInvalidTitleOrTags = false;
+	ToastStore.isDuplicateTitle = false;
+	ToastStore.isInvalidId = false;
+	ToastStore.isMissingList = false;
+	ToastStore.isListDeleted = false;
 }

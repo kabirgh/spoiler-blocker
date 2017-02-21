@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import {observable} from "mobx";
 import MainStore from "../common/MainStore";
 import downloadActions from "./downloadActions";
+import commonActions from "../common/commonActions";
 import DownloadCard from "./DownloadCard";
 import {Collapse} from "@blueprintjs/core";
 
@@ -25,13 +26,13 @@ class DownloadCardContainer extends React.Component {
 	}
 
 	handleUpdateTitle(event) {
-		downloadActions.resetToastFlags();
+		commonActions.resetToastObject();
 
 		this.title = event.target.value;
 	}
 
 	handleUpdateID(event) {
-		downloadActions.resetToastFlags();
+		commonActions.resetToastObject();
 
 		this.id = event.target.value;
 	}

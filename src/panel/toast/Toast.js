@@ -2,7 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import {Toaster, Position} from "@blueprintjs/core";
 import ToastStore from "./ToastStore";
-import toastActions from "./toastActions";
+import commonActions from "../common/commonActions";
 
 @observer
 class Toast extends React.Component {
@@ -22,7 +22,7 @@ class Toast extends React.Component {
 			this.toaster.show(ToastStore.toastObject);
 		}
 
-		toastActions.resetToastObject();
+		commonActions.resetToastObject();
 	}
 
 	// TODO

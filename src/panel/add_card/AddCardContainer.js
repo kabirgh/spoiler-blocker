@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import {observable} from "mobx";
 import MainStore from "../common/MainStore";
 import addActions from "./addActions";
+import commonActions from "../common/commonActions";
 import AddCard from "./AddCard";
 import {Collapse} from "@blueprintjs/core";
 
@@ -25,13 +26,13 @@ class AddCardContainer extends React.Component {
 	}
 
 	handleUpdateTitle(event) {
-		addActions.resetToastFlags();
+		commonActions.resetToastObject();
 
 		this.title = event.target.value;
 	}
 
 	handleUpdateTags(event) {
-		addActions.resetToastFlags();
+		commonActions.resetToastObject();
 
 		this.tags = event.target.value;
 	}
