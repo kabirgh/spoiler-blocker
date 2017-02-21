@@ -1,6 +1,6 @@
 # Spoiler Blocker
 An open-source browser extension that removes Facebook and Twitter posts that contain user-defined 'spoiler' words. For example, a post containing the words 'GoT' and 'Daenerys' may be a spoiler for Game of Thrones. If any of these words are defined as 'spoiler' words, the post will be hidden.<br>
-You can also find and submit lists at the [companion website](https://salty-earth-11606.herokuapp.com).<br>
+You can also find and submit lists at the [companion website](https://spoilerblocker.herokuapp.com).<br>
 See [this YouTube video](https://youtu.be/dFOZCkYJdOM) for a demonstration.
 
 <!-- TODO: add demo gif/screenshot -->
