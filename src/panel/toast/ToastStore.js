@@ -1,5 +1,6 @@
 import {Intent} from "@blueprintjs/core";
 import {observable, computed} from "mobx";
+import toastActions from "./toastActions";
 
 class Store {
 	@observable isAddSuccess = false;
@@ -13,7 +14,7 @@ class Store {
 
 	@computed get allFlags() {
 		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle,
-						this.isInvalidId, this.isMissingList, this.isListDeleted];
+			this.isInvalidId, this.isMissingList, this.isListDeleted];
 	}
 
 	@computed get toastObject() {
@@ -61,7 +62,11 @@ class Store {
 			return {
 				message: "Deleted list. Refresh page to see changes.",
 				intent: Intent.PRIMARY,
-				timeout: 2000
+				timeout: 2000,
+				action: {
+					text: "Undo",
+					onClick: toastActions.undoLastDelete
+				}
 			};
 		}
 

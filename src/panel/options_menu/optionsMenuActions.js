@@ -31,6 +31,13 @@ function toggleHidePref(index) {
 }
 
 function deleteList(index) {
+	MainStore.deletedStack.push(
+		{
+			obj: MainStore.spoilers[index],
+			index: index
+		}
+	);
+
 	MainStore.spoilers.splice(index, 1);
 	ToastStore.isListDeleted = true;
 }
