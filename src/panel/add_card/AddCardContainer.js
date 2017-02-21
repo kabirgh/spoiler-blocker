@@ -38,12 +38,12 @@ class AddCardContainer extends React.Component {
 
 	handleSave() {
 		// Displays different toast messages on save success and fail. See addActions for details
-		addActions.saveAddList(this.title, this.tags);
+		addActions.saveAddList(this.title.trim(), this.tags);
 	}
 
 	handleClose() {
 		this.title = "";
-		this.tags = ""
+		this.tags = "";
 		addActions.hideAddCard();
 	}
 
