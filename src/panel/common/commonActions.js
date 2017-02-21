@@ -18,7 +18,7 @@ function addNewList(title, tagArr) {
 	title = title.trim();
 
 	if (isInvalidTitle(title) || isInvalidTags(tagArr) || isDuplicateTitle(title)) {
-		return;
+		return false;
 	}
 
 	MainStore.spoilers.push({
@@ -30,6 +30,8 @@ function addNewList(title, tagArr) {
 	});
 
 	ToastStore.isAddSuccess = true;
+
+	return true;
 }
 
 function tagStringToArray(tagString) {

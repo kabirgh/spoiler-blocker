@@ -7,7 +7,7 @@ const AddNewCard = props => (
 		<div className="pt-navbar-group" style={{position: "absolute", top: 0, right: 0, paddingRight: 10}}>
 			<button className={"pt-button pt-minimal pt-icon-cross"} onClick={props.onClose} />
 		</div>
-		<div>
+		<div>			
 			{/* TODO: extract component, maintaing spacing */}
 			<label className="pt-label pt-inline">
 				Title&nbsp;&nbsp;&nbsp;{/* 3 spaces after 'Title' */}
@@ -20,7 +20,7 @@ const AddNewCard = props => (
 					dir="auto" onChange={props.onUpdateTags} />
 			</label>
 		</div>
-		<Button className="pt-intent-primary" text="Create" onClick={props.onSave} />
+		<Button type="submit" className="pt-intent-primary" text="Create" onClick={props.onSave} />
 		&nbsp;&nbsp;
 		<Button text="Discard" onClick={props.onClose}/>
 	</div>

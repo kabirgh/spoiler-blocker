@@ -39,7 +39,13 @@ class AddCardContainer extends React.Component {
 
 	handleSave() {
 		// Displays different toast messages on save success and fail. See addActions for details
-		addActions.saveAddList(this.title.trim(), this.tags);
+		const isSuccess = addActions.saveAddList(this.title.trim(), this.tags);
+
+		if (isSuccess) {
+			addActions.hideAddCard();
+		}
+		// TODO: if not success, focus on title input element
+		// TODO: allow enter key to submit
 	}
 
 	handleClose() {
