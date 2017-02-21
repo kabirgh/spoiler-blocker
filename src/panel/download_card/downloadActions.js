@@ -7,8 +7,7 @@ import "whatwg-fetch";
 // TODO: ES2015
 module.exports = {
 	saveDownloadList: action(saveDownloadList),
-	hideDownloadCard: action(hideDownloadCard),
-	resetToastFlags: action(resetToastFlags)
+	hideDownloadCard: action(hideDownloadCard)
 };
 
 function saveDownloadList(title, id) {
@@ -44,10 +43,4 @@ function saveDownloadList(title, id) {
 
 function hideDownloadCard() {
 	MainStore.isDownloadCardVisible = false;
-}
-
-function resetToastFlags() {
-	ToastStore.isInvalidTitleOrTags = false;
-	ToastStore.isDuplicateTitle = false;
-	ToastStore.isDownloadSuccess = false;
 }

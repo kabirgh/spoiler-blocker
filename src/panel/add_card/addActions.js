@@ -7,8 +7,7 @@ import commonActions from "../common/commonActions";
 // TODO: ES2015
 module.exports = {
 	saveAddList: action(saveAddList),
-	hideAddCard: action(hideAddCard),
-	resetToastFlags: action(resetToastFlags)
+	hideAddCard: action(hideAddCard)
 };
 
 function saveAddList(title, tagString) {
@@ -20,10 +19,4 @@ function saveAddList(title, tagString) {
 
 function hideAddCard() {
 	MainStore.isAddCardVisible = false;
-}
-
-function resetToastFlags() {
-	ToastStore.isInvalidTitleOrTags = false;
-	ToastStore.isDuplicateTitle = false;
-	ToastStore.isAddSuccess = false;
 }
