@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== "devServer") {
 			console.log("if block");
 			OptionStore.prefs = {
 				defaultHidePref: "overlay", // or remove
-				defaultCaseSensitivity: false
+				defaultCaseSensitivity: false,
+				showMoreNum: 1
 			};
 		}
 		else {

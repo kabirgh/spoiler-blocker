@@ -3,22 +3,23 @@ import {observer} from "mobx-react";
 import {observable, computed} from "mobx";
 import {Button} from "@blueprintjs/core";
 import MainStore from "../common/MainStore";
+import OptionStore from "../common/OptionStore";
 import SpoilerCardList from "./SpoilerCardList";
 
 @observer
 class SpoilerCardListContainer extends React.Component {
 	@observable isShowingLess = true;
-	@observable SHOW_LESS_NUM = 5; // TODO: move this out in the global options store (where all defaults are set)
 
 	@computed get numListsToShow() {
 		if (this.isShowingLess) {
-			return Math.min(this.SHOW_LESS_NUM, MainStore.spoilers.length);
+			return Math.min(OptionStore.prefs["showMoreNum"], MainStore.spoilers.length);
 		}
 		else {
 			return MainStore.spoilers.length;
 		}
 	}
 
+	// React component
 	@computed get SeeButton() {
 		if (MainStore.spoilers.length > this.numListsToShow && this.isShowingLess) {
 			return <Button className="pt-intent-primary" text="See More" onClick={this.handleSeeMoreLess} />;
