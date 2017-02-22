@@ -41,10 +41,6 @@ class App extends React.Component {
 				<h4>{"Default preferences"}</h4>
 				{"New lists created will have the following default preferences."}
 				<br /><br/>
-
-				{console.log("def cs: " + OptionStore.prefs.defaultCaseSensitivity)}
-				{console.log("def hp: " + OptionStore.prefs.defaultHidePref)}
-
 				<Switch
 					label="Case sensitive"
 					checked={OptionStore.prefs["defaultCaseSensitivity"]}
