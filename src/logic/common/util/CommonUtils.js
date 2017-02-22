@@ -83,9 +83,6 @@ function evaluateTokenArr(text, arr) {
 
 	}
 
-	console.log("____________");
-	console.log("evaluates to: " + stack[stack.length - 1]);
-
 	return stack.pop();
 }
 

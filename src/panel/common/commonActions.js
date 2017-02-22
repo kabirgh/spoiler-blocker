@@ -18,8 +18,9 @@ module.exports = {
 
 function addNewList(title, tagString) {
 	title = title.trim();
+	const tokenArr = parser.buildExpressionArray(tagString);
 
-	if (isInvalidTitle(title) || isInvalidTags(tagString) || isDuplicateTitle(title)) {
+	if (isInvalidTitle(title) || isInvalidTags(tokenArr) || isDuplicateTitle(title)) {
 		return;
 	}
 
@@ -29,7 +30,7 @@ function addNewList(title, tagString) {
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
 		tags: tagString,
-		tokenArr: parser.buildExpressionArray(tagString)
+		tokenArr: tokenArr
 	});
 
 	ToastStore.isAddSuccess = true;
@@ -69,17 +70,11 @@ function isInvalidTitle(title) {
 	}
 }
 
-function tagStringToArray(tagString) {
-	tagString = tagString.trim();
-	const tagArr = tagString.split(",");
-	return tagArr.map(tag => tag.trim());
-}
 
-function isInvalidTags(tagString) {
-	const tagArr = tagStringToArray(tagString);
-
-	for (let i=0; i<tagArr.length; i++) {
-		if (tagArr[i] === "") {
+function isInvalidTags(tokenArr) {
+	for (let i=1; i<tokenArr.length; i++) {
+		// Tags are invalid if there are two consecutive operators
+		if (tokenArr[i-1]["tokenType"] === "BINARY_OP" && tokenArr[i]["tokenType"] === "BINARY_OP") {
 			console.log("invalid tag");
 			indicateInvalidTitleOrTags();
 			return true;
