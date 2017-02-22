@@ -23,7 +23,12 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 		tokenArr = spoilerObj["tokenArr"];
 		if (!spoilerObj["isCaseSensitive"]) {
 			text = text.toLowerCase();
-			tokenArr = tokenArr.map(token => token["value"].toLowerCase());
+			
+			for (let idx=0; idx<tokenArr.length; idx++) {
+				if (tokenArr[idx]["tokenType"] === "LITERAL") {
+					tokenArr[idx]["value"] = tokenArr[idx]["value"].toLowerCase();
+				}
+			}
 		}
 
 		listHidePref = spoilerObj["hidePref"];
