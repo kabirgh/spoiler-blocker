@@ -5,7 +5,7 @@ import OptionStore from "./OptionStore";
 
 module.exports = {
 	addNewList: action(addNewList),
-	tagStringToArray: action(tagStringToArray),
+	editList: action(editList),
 	isDuplicateTitle: action(isDuplicateTitle),
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
@@ -16,9 +16,8 @@ module.exports = {
 
 function addNewList(title, tagString) {
 	title = title.trim();
-	const tagArr = tagStringToArray(tagString);
 
-	if (isInvalidTitle(title) || isInvalidTags(tagArr) || isDuplicateTitle(title)) {
+	if (isInvalidTitle(title) || isInvalidTags(tagString) || isDuplicateTitle(title)) {
 		return;
 	}
 
@@ -27,16 +26,15 @@ function addNewList(title, tagString) {
 		isActive: true,
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagArr
+		tags: tagString
 	});
 
 	ToastStore.isAddSuccess = true;
 }
 
-function tagStringToArray(tagString) {
-	tagString = tagString.trim();
-	const tagArr = tagString.split(",");
-	return tagArr.map(tag => tag.trim());
+function editList(index, title, tagString) {
+	MainStore.spoilers[index]["title"] = title.trim();
+	MainStore.spoilers[index]["tags"] = tagStringToArray(tagString);
 }
 
 function isDuplicateTitle(title) {
@@ -67,7 +65,15 @@ function isInvalidTitle(title) {
 	}
 }
 
-function isInvalidTags(tagArr) {
+function tagStringToArray(tagString) {
+	tagString = tagString.trim();
+	const tagArr = tagString.split(",");
+	return tagArr.map(tag => tag.trim());
+}
+
+function isInvalidTags(tagString) {
+	const tagArr = tagStringToArray(tagString);
+
 	for (let i=0; i<tagArr.length; i++) {
 		if (tagArr[i] === "") {
 			console.log("invalid tag");

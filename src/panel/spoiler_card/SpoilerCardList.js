@@ -11,7 +11,7 @@ const SpoilerCardList = observer(props =>
 				<SpoilerCardContainer
 					index={index}
 					title={obj["title"]}
-					tags={obj["tags"].join(", ")}
+					tags={obj["tags"]}
 
 					isActive={obj["isActive"]}
 					

@@ -45,13 +45,20 @@ function tokenize(string) {
 		}
 	}
 
+	console.log("Infix tokenArr on next line");
+	prettyPrintTokenArr(tokenArr);
+
 	return tokenArr;
 }
 
 function isInputValid(string) {
 	const input = string.trim();
+	const firstChar = input.charAt(0), lastChar = input.charAt(input.length - 1);
 
-	if (input.charAt(0) in tokenDict || input.charAt(input.length - 1) in tokenDict) {
+	if (firstChar === "&" || firstChar === "|" || firstChar === ",") {
+		return false;
+	}
+	if (lastChar === "&" || lastChar === "|" || lastChar === ",") {
 		return false;
 	}
 
@@ -76,7 +83,7 @@ function convertTokenArrToPostfix(tokenArr) {
 				stack.push(tokenArr[i]);
 			}
 			// If operator has higher precedence than the one on the stack
-			else if (tokenArr[i]["precedence"] < peek(stack)["precedence"]) {
+			else if (tokenArr[i]["precedence"] <= peek(stack)["precedence"]) {
 				stack.push(tokenArr[i]);
 			}
 			// If operator has lower precedence than the one on the stack
@@ -110,6 +117,9 @@ function convertTokenArrToPostfix(tokenArr) {
 
 		postfixArr.push(token);
 	}
+
+	console.log("Postfix tokenArr on next line");
+	prettyPrintTokenArr(postfixArr);
 
 	return postfixArr;
 }
@@ -160,9 +170,9 @@ const tokenDict = {
 };
 
 
-// function prettyPrintTokenArr(tokenArr) {
-// 	console.log(tokenArr.map(token => token["value"]));
-// }
+function prettyPrintTokenArr(tokenArr) {
+	console.log(tokenArr.map(token => token["value"]));
+}
 
 // const infixArr = tokenize("kabir, khandpur )& guitar &");
 // prettyPrintTokenArr(infixArr);
