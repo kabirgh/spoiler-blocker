@@ -12,7 +12,7 @@ class SpoilerCardListContainer extends React.Component {
 
 	@computed get numListsToShow() {
 		if (this.isShowingLess) {
-			return Math.min(OptionStore.prefs["showMoreNum"], MainStore.spoilers.length);
+			return Math.min(OptionStore.prefs["seeMoreNum"], MainStore.spoilers.length);
 		}
 		else {
 			return MainStore.spoilers.length;

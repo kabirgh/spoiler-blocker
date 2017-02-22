@@ -10,7 +10,7 @@ module.exports = {
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
 	isInvalidTags: action(isInvalidTags),
-	isInvalidId: action(isInvalidId),
+	isInteger: action(isInteger),
 	resetToastObject: action(resetToastObject)
 };
 
@@ -78,13 +78,13 @@ function isInvalidTags(tagArr) {
 	return false;
 }
 
-function isInvalidId(id) {
+function isInteger(id) {
 	// Checks whether id is a number and an integer
 	if (Number.isInteger(parseFloat(id))) {
-		return false;
+		return true;
 	} else {
 		indicateInvalidId();
-		return true;
+		return false;
 	}
 }
 
@@ -97,7 +97,7 @@ function indicateDuplicateTitle() {
 }
 
 function indicateInvalidId() {
-	ToastStore.isInvalidId = true;
+	ToastStore.isInteger = true;
 }
 
 
@@ -105,7 +105,7 @@ function resetToastObject() {
 	ToastStore.isAddSuccess = false;
 	ToastStore.isInvalidTitleOrTags = false;
 	ToastStore.isDuplicateTitle = false;
-	ToastStore.isInvalidId = false;
+	ToastStore.isInteger = false;
 	ToastStore.isMissingList = false;
 	ToastStore.isListDeleted = false;
 }
