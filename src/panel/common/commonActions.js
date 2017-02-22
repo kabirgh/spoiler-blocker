@@ -2,6 +2,8 @@ import {action} from "mobx";
 import MainStore from "./MainStore";
 import ToastStore from "../toast/ToastStore";
 import OptionStore from "./OptionStore";
+import parser from "./internal/parser";
+
 
 module.exports = {
 	addNewList: action(addNewList),
@@ -26,7 +28,8 @@ function addNewList(title, tagString) {
 		isActive: true,
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagString
+		tags: tagString,
+		tokenArr: parser.buildExpressionArray(tagString)
 	});
 
 	ToastStore.isAddSuccess = true;

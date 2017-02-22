@@ -1,10 +1,7 @@
 /* global chrome */
 import {observable, computed, autorun, toJS} from "mobx";
-import parser from "./internal/parser";
 
 class Store {
-	@observable tokenArr = [];
-
 	@observable spoilers = [];
 	@observable isAddCardVisible = false; // TODO: move into another store?
 	@observable isDownloadCardVisible = false;
@@ -13,15 +10,6 @@ class Store {
 
 	@computed get lowerCaseTitles() {
 		return this.spoilers.map(obj => obj["title"].toLowerCase());
-	}
-
-	@computed get tokenArr() {
-		let obj;
-		for (let i=0; i<this.spoilers.length; i++) {
-			obj = this.spoilers[i];
-			
-			obj["tags"] = parser.buildExpressionArray(obj["tags"]);
-		}
 	}
 }
 
@@ -54,13 +42,15 @@ else {
 			"isActive":true,
 			"isCaseSensitive":false,
 			"tags":"a, b, c",
+			"tokenArr": [{"tokenType":"LITERAL","value":"a","precedence":9},{"tokenType":"LITERAL","value":"b","precedence":9},{"tokenType":"LITERAL","value":"c","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
 			"title":"all"
 		},
 		{
 			"hidePref":"remove",
 			"isActive":false,
 			"isCaseSensitive":false,
-			"tags":"spoiler alert, unilad, gibberish ksjbdg; kjagbel",
+			"tags":"(spoiler alert, unilad), gibberish & ksjbdg",
+			"tokenArr": [{"tokenType":"LITERAL","value":"spoiler alert","precedence":9},{"tokenType":"LITERAL","value":"unilad","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2},{"tokenType":"LITERAL","value":"gibberish","precedence":9},{"tokenType":"LITERAL","value":"ksjbdg","precedence":9},{"tokenType":"BINARY_OP","value":"AND","precedence":1},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
 			"title":"list the second"
 		}
 	];

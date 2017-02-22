@@ -171,10 +171,12 @@ function prettyPrintTokenArr(tokenArr) {
 	console.log(tokenArr.map(token => token["value"]));
 }
 
-const infixArr = tokenize("monkey, dog man & tl");
+const infixArr = tokenize("(spoiler alert, unilad), gibberish & ksjbdg");
 prettyPrintTokenArr(infixArr);
 
 const postfixArr = convertTokenArrToPostfix(infixArr);
 prettyPrintTokenArr(postfixArr);
+
+console.log(JSON.stringify(postfixArr));
 
 console.log(evaluatePostfixArr("text does tl dog mancontain", postfixArr));
