@@ -37,7 +37,8 @@ function addNewList(title, tagString) {
 
 function editList(index, title, tagString) {
 	MainStore.spoilers[index]["title"] = title.trim();
-	MainStore.spoilers[index]["tags"] = tagStringToArray(tagString);
+	MainStore.spoilers[index]["tags"] = tagString;
+	MainStore.spoilers[index]["tokenArr"] = parser.buildExpressionArray(tagString);
 }
 
 function isDuplicateTitle(title) {

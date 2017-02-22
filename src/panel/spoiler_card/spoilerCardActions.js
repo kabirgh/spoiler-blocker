@@ -12,9 +12,8 @@ function isValidTitle(index, title) {
 	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(title, index)) {
 		return false;
 	}
-	else {
-		return true;
-	}
+	
+	return true;
 }
 
 function editTitle(index, title, tagString) {

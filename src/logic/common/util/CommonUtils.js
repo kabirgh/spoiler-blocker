@@ -51,13 +51,15 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 }
 
 function evaluateTokenArr(text, arr) {
+	console.log("TOKEN ARR: " + JSON.stringify(arr));
+ 
 	let stack = [];
 	let bool1, bool2;
 
 	for (let i=0; i<arr.length; i++) {
 		
 		if (arr[i]["tokenType"] === "LITERAL") {
-			stack.push(text.indexOf(arr[i]["value"]) > -1);
+			stack.push(text.indexOf(arr[i]["value"]) !== -1);
 		}
 		else {
 			bool1 = stack.pop();
@@ -75,6 +77,9 @@ function evaluateTokenArr(text, arr) {
 		}
 
 	}
+
+	console.log("____________");
+	console.log("evaluates to: " + stack[stack.length - 1]);
 
 	return stack.pop();
 }
