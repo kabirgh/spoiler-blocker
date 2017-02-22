@@ -28,15 +28,8 @@ function saveDownloadList(title, id) {
 			ToastStore.isMissingList = true;
 			return;
 		}
-
-		const tagArr = commonActions.tagStringToArray(data.list.tags);
-
-		if (commonActions.isInvalidTags(tagArr)) {
-			// Ideally should never happen, as tags on website should be valid
-			return;
-		}
-
-		commonActions.addNewList(title, tagArr);
+		
+		commonActions.addNewList(title, data.list.tags);
 		hideDownloadCard();
 	});
 }

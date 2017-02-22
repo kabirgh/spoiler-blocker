@@ -14,8 +14,9 @@ module.exports = {
 	resetToastObject: action(resetToastObject)
 };
 
-function addNewList(title, tagArr) {
+function addNewList(title, tagString) {
 	title = title.trim();
+	const tagArr = tagStringToArray(tagString);
 
 	if (isInvalidTitle(title) || isInvalidTags(tagArr) || isDuplicateTitle(title)) {
 		return;
