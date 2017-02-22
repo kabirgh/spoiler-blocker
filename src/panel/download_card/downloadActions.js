@@ -11,10 +11,7 @@ module.exports = {
 };
 
 function saveDownloadList(title, id) {
-	if (commonActions.isInvalidTitle(title) ||
-		commonActions.isDuplicateTitle(title) ||
-		commonActions.isInvalidId(id)) {
-
+	if (!commonActions.isInteger(id)) {
 		return;
 	}
 
@@ -30,12 +27,7 @@ function saveDownloadList(title, id) {
 		}
 
 		const tagArr = commonActions.tagStringToArray(data.list.tags);
-
-		if (commonActions.isInvalidTags(tagArr)) {
-			// Ideally should never happen, as tags on website should be valid
-			return;
-		}
-
+		
 		commonActions.addNewList(title, tagArr);
 		hideDownloadCard();
 	});

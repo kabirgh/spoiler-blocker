@@ -1,7 +1,5 @@
 import {action} from "mobx";
 import MainStore from "../common/MainStore";
-import OptionStore from "../common/OptionStore";
-import ToastStore from "../toast/ToastStore";
 import commonActions from "../common/commonActions";
 
 // TODO: ES2015
