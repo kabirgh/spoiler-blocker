@@ -9,6 +9,8 @@ class Store {
 	@observable isMissingList = false;
 	@observable isListDeleted = false;
 	@observable isTagParseError = false;
+	// TODO: change tagParseMessage to a variable used by all toast-worthy notifications
+	// ie use a single message variable that all toasts will reference
 	@observable tagParseMessage = "";
 
 	constructor() {}

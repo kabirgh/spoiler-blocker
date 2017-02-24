@@ -30,7 +30,7 @@ function addNewList(title, tagString) {
 		isActive: true,
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagString,
+		tags: prettifyTagString(tagString),
 		tokenArr: tokenArr
 	});
 
@@ -45,8 +45,36 @@ function editList(index, title, tagString) {
 	}
 
 	MainStore.spoilers[index]["title"] = trimmedTitle;
-	MainStore.spoilers[index]["tags"] = tagString;
+	MainStore.spoilers[index]["tags"] = prettifyTagString(tagString);
 	MainStore.spoilers[index]["tokenArr"] = parser.buildExpressionArray(tagString);
+}
+
+function prettifyTagString(tagString) {
+	let pretty = "";
+	let char;
+
+	for (let i=0; i<tagString.length; i++) {
+		char = tagString.charAt(i);
+
+		// Whitespace
+		if (/\s/.test(char)) {
+			continue;
+		}
+		// Comma
+		else if (char === ",") {
+			pretty += char + " ";
+		}
+		// Other operators
+		else if (char === "|" || char === "&") {
+			pretty += " " + char + " ";
+		}
+		// Alphanumeric, brackets
+		else {
+			pretty += char;
+		}
+	}
+
+	return pretty;
 }
 
 function isDuplicateTitle(title) {

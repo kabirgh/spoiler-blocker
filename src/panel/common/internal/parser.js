@@ -20,7 +20,8 @@ function tokenize(string) {
 	while (i < string.length) {
 		char = string.charAt(i);
 
-		if (char === " ") {
+		// If char is whitespace
+		if (/\s/.test(char)) {
 			i += 1;
 		}
 		else if (char in tokenDict) {
