@@ -99,6 +99,10 @@ function convertTokenArrToPostfix(tokenArr) {
 			break;
 
 		case TokenType.CLOSE_PAREN:
+			if (stack.length === 0) {
+				throw new Error("There are unbalanced brackets in the expression.");
+			}
+
 			while (peek(stack)["tokenType"] !== TokenType.OPEN_PAREN) {
 				postfixArr.push(stack.pop());
 			}
@@ -112,7 +116,7 @@ function convertTokenArrToPostfix(tokenArr) {
 		const token = stack.pop();
 
 		if (token["tokenType"] === TokenType.OPEN_PAREN) {
-			throw new Error("Brackets in the expression are not balanced.");
+			throw new Error("There are unbalanced brackets in the expression.");
 		}
 
 		postfixArr.push(token);

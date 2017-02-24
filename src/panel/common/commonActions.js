@@ -17,15 +17,16 @@ module.exports = {
 };
 
 function addNewList(title, tagString) {
-	title = title.trim();
-	const tokenArr = parser.buildExpressionArray(tagString);
-
-	if (isInvalidTitle(title) || isInvalidTags(tokenArr) || isDuplicateTitle(title)) {
+	const trimmedTitle = title.trim();
+	if (isInvalidTitle(trimmedTitle) || isDuplicateTitle(trimmedTitle) || isInvalidTags(tagString)) {
 		return;
 	}
 
+	// TODO: reuse token array created in isInvalidTags?
+	const tokenArr = parser.buildExpressionArray(tagString);
+
 	MainStore.spoilers.push({
-		title: title,
+		title: trimmedTitle,
 		isActive: true,
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
@@ -37,7 +38,13 @@ function addNewList(title, tagString) {
 }
 
 function editList(index, title, tagString) {
-	MainStore.spoilers[index]["title"] = title.trim();
+	// TODO: extract repeated code from addNewList?
+	const trimmedTitle = title.trim();
+	if (isInvalidTitle(trimmedTitle) || isDuplicateTitle(trimmedTitle) || isInvalidTags(tagString)) {
+		return;
+	}
+
+	MainStore.spoilers[index]["title"] = trimmedTitle;
 	MainStore.spoilers[index]["tags"] = tagString;
 	MainStore.spoilers[index]["tokenArr"] = parser.buildExpressionArray(tagString);
 }
@@ -46,6 +53,7 @@ function isDuplicateTitle(title) {
 	return isDuplicateTitleSkipIndex(title, -1);
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isDuplicateTitleSkipIndex(title, index) {
 	console.log(title);
 	const lowerCaseTitle = title.trim().toLowerCase();
@@ -60,38 +68,46 @@ function isDuplicateTitleSkipIndex(title, index) {
 	return false;
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isInvalidTitle(title) {
 	if (title.trim() === "") {
-		console.log("invalid title");
+		console.log("Invalid title");
 		indicateInvalidTitleOrTags();
 		return true;
-	} else {
+	} 
+	else {
 		return false;
 	}
 }
 
-
-function isInvalidTags(tokenArr) {
-	for (let i=1; i<tokenArr.length; i++) {
-		// Tags are invalid if there are two consecutive operators
-		if (tokenArr[i-1]["tokenType"] === "BINARY_OP" && tokenArr[i]["tokenType"] === "BINARY_OP") {
-			console.log("invalid tag");
-			indicateInvalidTitleOrTags();
-			return true;
-		}
+// TODO: make side-effect free. Currently updates ToastStore
+function isInvalidTags(tagString) {
+	try {
+		parser.buildExpressionArray(tagString);
+		return false;
 	}
-
-	return false;
+	catch (err) {
+		console.log("Tag parse error: " + err.message);
+		indicateParseError(err.message);
+		return true;
+	}
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isInvalidId(id) {
 	// Checks whether id is a number and an integer
 	if (Number.isInteger(parseFloat(id))) {
 		return false;
-	} else {
+	} 
+	else {
 		indicateInvalidId();
 		return true;
 	}
+}
+
+function indicateParseError(message) {
+	ToastStore.tagParseMessage = message;
+	ToastStore.isTagParseError = true;
 }
 
 function indicateInvalidTitleOrTags() {
@@ -114,4 +130,6 @@ function resetToastObject() {
 	ToastStore.isInvalidId = false;
 	ToastStore.isMissingList = false;
 	ToastStore.isListDeleted = false;
+	ToastStore.isTagParseError = false;
+	ToastStore.tagParseMessage = "";
 }
