@@ -42,7 +42,7 @@ else {
 			"isActive":true,
 			"isCaseSensitive":false,
 			"tags":"a, b, c",
-			"tokenArr": [{"tokenType":"LITERAL","value":"a","precedence":9},{"tokenType":"LITERAL","value":"b","precedence":9},{"tokenType":"LITERAL","value":"c","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
+			"tokenArr": [{"tokenType":"LITERAL","value":"a","precedence":9},{"tokenType":"LITERAL","value":"b","precedence":9},{"tokenType":"LITERAL","value":"c","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
 			"title":"all"
 		},
 		{

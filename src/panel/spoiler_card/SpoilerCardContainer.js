@@ -55,12 +55,12 @@ class SpoilerCardContainer extends React.Component {
 			this.title = this.title.trim();
 			spoilerCardActions.editTitle(this.props.index, this.title, this.tags);
 			this.oldTitle = this.title;
+			
+			this.isBeingEdited = false;
 		}
 		else {
 			this.title = this.oldTitle;
 		}
-
-		this.isBeingEdited = false;
 	}
 
 	handleSaveTags() {

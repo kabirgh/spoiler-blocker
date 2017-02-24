@@ -125,6 +125,10 @@ function convertTokenArrToPostfix(tokenArr) {
 	console.log("Postfix tokenArr on next line");
 	prettyPrintTokenArr(postfixArr);
 
+	if (!isPostfixArrValid(postfixArr)) {
+		throw new Error("Unable to parse tags input.")
+	}
+
 	return postfixArr;
 }
 
@@ -132,6 +136,25 @@ function peek(stack) {
 	return stack[stack.length - 1];
 }
 
+function isPostfixArrValid(arr) {
+	let stackCount = 0;
+
+	for (let i=0; i<arr.length; i++) {
+		if (arr[i]["tokenType"] === TokenType.LITERAL) {
+			stackCount += 1;
+		}
+		// If token is operator
+		else {
+			stackCount -= 1;
+		}
+	}
+
+	if (stackCount !== 1) {
+		return false;
+	}
+
+	return true;
+}
 
 const TokenType = {
 	OPEN_PAREN: "OPEN_PAREN",
@@ -170,7 +193,7 @@ const tokenDict = {
 			tokenType: TokenType.BINARY_OP, 
 			value: "OR", 
 			precedence: 2
-		},
+		}
 };
 
 

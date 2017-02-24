@@ -40,7 +40,7 @@ function addNewList(title, tagString) {
 function editList(index, title, tagString) {
 	// TODO: extract repeated code from addNewList?
 	const trimmedTitle = title.trim();
-	if (isInvalidTitle(trimmedTitle) || isDuplicateTitle(trimmedTitle) || isInvalidTags(tagString)) {
+	if (isInvalidTitle(trimmedTitle) || isDuplicateTitleSkipIndex(trimmedTitle, index) || isInvalidTags(tagString)) {
 		return;
 	}
 
