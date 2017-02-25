@@ -1,6 +1,10 @@
+import TokenType from "./TokenType";
+
+
 module.exports = {
 	buildExpressionArray: buildExpressionArray
 };
+
 
 function buildExpressionArray(string) {
 	const infixArr = tokenize(string);
@@ -127,7 +131,7 @@ function convertTokenArrToPostfix(tokenArr) {
 	prettyPrintTokenArr(postfixArr);
 
 	if (!isPostfixArrValid(postfixArr)) {
-		throw new Error("Unable to parse tags input.")
+		throw new Error("Unable to parse tags input.");
 	}
 
 	return postfixArr;
@@ -156,13 +160,6 @@ function isPostfixArrValid(arr) {
 
 	return true;
 }
-
-const TokenType = {
-	OPEN_PAREN: "OPEN_PAREN",
-	CLOSE_PAREN: "CLOSE_PAREN",
-	BINARY_OP: "BINARY_OP",
-	LITERAL: "LITERAL"
-};
 
 const tokenDict = {
 	"(": 

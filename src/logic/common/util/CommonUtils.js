@@ -1,4 +1,6 @@
 import $ from "jquery";
+import TokenType from "../../../panel/tag_parser/TokenType";
+
 
 module.exports = { hideContent: hideContent};
 
@@ -63,7 +65,7 @@ function evaluateTokenArr(text, arr) {
 
 	for (let i=0; i<arr.length; i++) {
 		
-		if (arr[i]["tokenType"] === "LITERAL") {
+		if (arr[i]["tokenType"] === TokenType.LITERAL) {
 			stack.push(text.indexOf(arr[i]["value"]) !== -1);
 		}
 		else {

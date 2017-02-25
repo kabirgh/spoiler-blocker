@@ -2,7 +2,7 @@ import {action} from "mobx";
 import MainStore from "./MainStore";
 import ToastStore from "../toast/ToastStore";
 import OptionStore from "./OptionStore";
-import parser from "./internal/parser";
+import parser from "../tag_parser/parser";
 
 
 module.exports = {
@@ -123,7 +123,7 @@ function isInvalidTags(tagString) {
 
 // TODO: make side-effect free. Currently updates ToastStore
 function isInvalidId(id) {
-	// Checks whether id is a number and an integer
+	// Checks whether id is an integer
 	if (Number.isInteger(parseFloat(id))) {
 		return false;
 	} 
