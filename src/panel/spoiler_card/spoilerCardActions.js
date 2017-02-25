@@ -9,11 +9,7 @@ module.exports = {
 };
 
 function isValidTitle(index, title) {
-	if (commonActions.isInvalidTitle(title) || commonActions.isDuplicateTitleSkipIndex(title, index)) {
-		return false;
-	}
-	
-	return true;
+	return !commonActions.isInvalidTitle(title) && !commonActions.isDuplicateTitleSkipIndex(title, index)
 }
 
 function editTitle(index, title, tagString) {
