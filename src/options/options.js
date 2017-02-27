@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Devtools from "mobx-react-devtools";
 import {observer} from "mobx-react";
 import OptionStore from "../panel/common/OptionStore";
 import optionsActions from "./optionsActions";
 import {FocusStyleManager} from "@blueprintjs/core";
 import {Switch} from "@blueprintjs/core";
+if (process.env.NODE_ENV !== "production") {
+	const Devtools = require("mobx-react-devtools");
+}
 
 FocusStyleManager.onlyShowFocusOnTabs();
 

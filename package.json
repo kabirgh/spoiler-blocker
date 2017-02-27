@@ -6,7 +6,8 @@
   "scripts": {
     "prod": "webpack --config webpack.prod.config.js --progress",
     "dev": "webpack --config webpack.dev.config.js --debug --output-pathinfo --watch --progress",
-    "start": "webpack-dev-server --config webpack.devserver.config.js"
+    "start": "webpack-dev-server --config webpack.devserver.config.js",
+    "stats": "webpack --config webpack.prod.config.js --json > stats.json"
   },
   "author": "kabir-plod",
   "license": "Apache-2.0",
