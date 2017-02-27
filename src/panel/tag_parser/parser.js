@@ -150,6 +150,10 @@ function isPostfixArrValid(arr) {
 		}
 		// If token is operator
 		else {
+			if (arr.length < 2) {
+				return false;
+			}
+
 			stackCount -= 1;
 		}
 	}
