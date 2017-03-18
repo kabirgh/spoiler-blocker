@@ -5,9 +5,8 @@ import OptionStore from "../panel/common/OptionStore";
 import optionsActions from "./optionsActions";
 import {FocusStyleManager} from "@blueprintjs/core";
 import {Switch} from "@blueprintjs/core";
-if (process.env.NODE_ENV !== "production") {
-	const Devtools = require("mobx-react-devtools");
-}
+import DevTools from "mobx-react-devtools";
+
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -29,7 +28,7 @@ class App extends React.Component {
 		return (
 
 			<div>
-				{process.env.NODE_ENV === "production" ? null : <Devtools />}
+				{process.env.NODE_ENV === "production" ? null : <DevTools />}
 				<h3>{"Default preferences"}</h3>
 				{"New lists created will have the following default preferences."}
 				<br /><br/>
