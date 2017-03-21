@@ -11,8 +11,7 @@ module.exports = {
 };
 
 function saveAddList(title, tagString) {
-	const tagArr = commonActions.tagStringToArray(tagString);
-	commonActions.addNewList(title, tagArr);
+	commonActions.addNewList(title, tagString);
 
 	hideAddCard();
 }

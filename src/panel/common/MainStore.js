@@ -41,14 +41,16 @@ else {
 			"hidePref":"overlay",
 			"isActive":true,
 			"isCaseSensitive":false,
-			"tags":["a","b","c"],
+			"tags":"a, b, c",
+			"tokenArr": [{"tokenType":"LITERAL","value":"a","precedence":9},{"tokenType":"LITERAL","value":"b","precedence":9},{"tokenType":"LITERAL","value":"c","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
 			"title":"all"
 		},
 		{
 			"hidePref":"remove",
 			"isActive":false,
 			"isCaseSensitive":false,
-			"tags":["spoiler", "alert", "unilad", "gibberish ksjbdg; kjagbel"],
+			"tags":"(spoiler alert, unilad), gibberish & ksjbdg",
+			"tokenArr": [{"tokenType":"LITERAL","value":"spoiler alert","precedence":9},{"tokenType":"LITERAL","value":"unilad","precedence":9},{"tokenType":"BINARY_OP","value":"OR","precedence":2},{"tokenType":"LITERAL","value":"gibberish","precedence":9},{"tokenType":"LITERAL","value":"ksjbdg","precedence":9},{"tokenType":"BINARY_OP","value":"AND","precedence":1},{"tokenType":"BINARY_OP","value":"OR","precedence":2}],
 			"title":"list the second"
 		}
 	];

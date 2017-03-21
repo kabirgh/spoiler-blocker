@@ -1,4 +1,6 @@
 import $ from "jquery";
+import TokenType from "../../../panel/tag_parser/TokenType";
+
 
 module.exports = { hideContent: hideContent};
 
@@ -9,7 +11,7 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 	const activeSpoilers = spoilersArr.filter(obj => obj["isActive"]);
 
 	let listHidePref, text; // strings
-	let tagArr;
+	let tokenArr;
 	let spoilerObj;
 
 	for (let i=0; i<activeSpoilers.length; i++) {
@@ -19,18 +21,24 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 		console.log(spoilerObj);
 
 		text = contentText;
-		tagArr = spoilerObj["tags"];
+		// Examine postfix token array
+		tokenArr = spoilerObj["tokenArr"];
 		if (!spoilerObj["isCaseSensitive"]) {
 			text = text.toLowerCase();
-			tagArr = tagArr.map(tag => tag.toLowerCase());
+			
+			for (let idx=0; idx<tokenArr.length; idx++) {
+				if (tokenArr[idx]["tokenType"] === "LITERAL") {
+					tokenArr[idx]["value"] = tokenArr[idx]["value"].toLowerCase();
+				}
+			}
 		}
 
 		listHidePref = spoilerObj["hidePref"];
 
 		// TODO: extract method
-		for (let j=0; j<tagArr.length; j++) {
+		for (let j=0; j<tokenArr.length; j++) {
 			// If text contains tag
-			if (text.indexOf(tagArr[j]) > -1) {
+			if (evaluateTokenArr(text, tokenArr)) {
 				if (listHidePref === "remove") {
 					$content.remove();
 				}
@@ -47,6 +55,37 @@ function hideContent($content, contentText, spoilersArr, siteConfig) {
 			}
 		}
 	}
+}
+
+function evaluateTokenArr(text, arr) {
+	console.log("TOKEN ARR: " + JSON.stringify(arr));
+ 
+	let stack = [];
+	let bool1, bool2;
+
+	for (let i=0; i<arr.length; i++) {
+		
+		if (arr[i]["tokenType"] === TokenType.LITERAL) {
+			stack.push(text.indexOf(arr[i]["value"]) !== -1);
+		}
+		else {
+			bool1 = stack.pop();
+			bool2 = stack.pop();
+
+			if (arr[i]["value"] === "AND") {
+				stack.push(bool1 && bool2);
+			}
+			else if (arr[i]["value"] === "OR") {
+				stack.push(bool1 || bool2);
+			}
+			else {
+				throw new Error("Internal error: BINARY_OP does not have value AND or OR");
+			}
+		}
+
+	}
+
+	return stack.pop();
 }
 
 // Adds a translucent opaque div on top of a given elem

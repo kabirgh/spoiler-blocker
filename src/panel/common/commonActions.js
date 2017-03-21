@@ -2,10 +2,12 @@ import {action} from "mobx";
 import MainStore from "./MainStore";
 import ToastStore from "../toast/ToastStore";
 import OptionStore from "./OptionStore";
+import parser from "../tag_parser/parser";
+
 
 module.exports = {
 	addNewList: action(addNewList),
-	tagStringToArray: action(tagStringToArray),
+	editList: action(editList),
 	isDuplicateTitle: action(isDuplicateTitle),
 	isDuplicateTitleSkipIndex: action(isDuplicateTitleSkipIndex),
 	isInvalidTitle: action(isInvalidTitle),
@@ -14,34 +16,72 @@ module.exports = {
 	resetToastObject: action(resetToastObject)
 };
 
-function addNewList(title, tagArr) {
-	title = title.trim();
-
-	if (isInvalidTitle(title) || isInvalidTags(tagArr) || isDuplicateTitle(title)) {
+function addNewList(title, tagString) {
+	const trimmedTitle = title.trim();
+	if (isInvalidTitle(trimmedTitle) || isDuplicateTitle(trimmedTitle) || isInvalidTags(tagString)) {
 		return;
 	}
 
+	// TODO: reuse token array created in isInvalidTags?
+	const tokenArr = parser.buildExpressionArray(tagString);
+
 	MainStore.spoilers.push({
-		title: title,
+		title: trimmedTitle,
 		isActive: true,
 		isCaseSensitive: OptionStore.prefs.defaultCaseSensitivity,
 		hidePref: OptionStore.prefs.defaultHidePref,
-		tags: tagArr
+		tags: prettifyTagString(tagString),
+		tokenArr: tokenArr
 	});
 
 	ToastStore.isAddSuccess = true;
 }
 
-function tagStringToArray(tagString) {
-	tagString = tagString.trim();
-	const tagArr = tagString.split(",");
-	return tagArr.map(tag => tag.trim());
+function editList(index, title, tagString) {
+	// TODO: extract repeated code from addNewList?
+	const trimmedTitle = title.trim();
+	if (isInvalidTitle(trimmedTitle) || isDuplicateTitleSkipIndex(trimmedTitle, index) || isInvalidTags(tagString)) {
+		return;
+	}
+
+	MainStore.spoilers[index]["title"] = trimmedTitle;
+	MainStore.spoilers[index]["tags"] = prettifyTagString(tagString);
+	MainStore.spoilers[index]["tokenArr"] = parser.buildExpressionArray(tagString);
+}
+
+function prettifyTagString(tagString) {
+	let pretty = "";
+	let char;
+
+	for (let i=0; i<tagString.length; i++) {
+		char = tagString.charAt(i);
+
+		// Whitespace
+		if (/\s/.test(char)) {
+			continue;
+		}
+		// Comma
+		else if (char === ",") {
+			pretty += char + " ";
+		}
+		// Other operators
+		else if (char === "|" || char === "&") {
+			pretty += " " + char + " ";
+		}
+		// Alphanumeric, brackets
+		else {
+			pretty += char;
+		}
+	}
+
+	return pretty;
 }
 
 function isDuplicateTitle(title) {
 	return isDuplicateTitleSkipIndex(title, -1);
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isDuplicateTitleSkipIndex(title, index) {
 	console.log(title);
 	const lowerCaseTitle = title.trim().toLowerCase();
@@ -56,36 +96,46 @@ function isDuplicateTitleSkipIndex(title, index) {
 	return false;
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isInvalidTitle(title) {
 	if (title.trim() === "") {
-		console.log("invalid title");
+		console.log("Invalid title");
 		indicateInvalidTitleOrTags();
 		return true;
-	} else {
+	} 
+	else {
 		return false;
 	}
 }
 
-function isInvalidTags(tagArr) {
-	for (let i=0; i<tagArr.length; i++) {
-		if (tagArr[i] === "") {
-			console.log("invalid tag");
-			indicateInvalidTitleOrTags();
-			return true;
-		}
+// TODO: make side-effect free. Currently updates ToastStore
+function isInvalidTags(tagString) {
+	try {
+		parser.buildExpressionArray(tagString);
+		return false;
 	}
-
-	return false;
+	catch (err) {
+		console.log("Tag parse error: " + err.message);
+		indicateParseError(err.message);
+		return true;
+	}
 }
 
+// TODO: make side-effect free. Currently updates ToastStore
 function isInvalidId(id) {
-	// Checks whether id is a number and an integer
+	// Checks whether id is an integer
 	if (Number.isInteger(parseFloat(id))) {
 		return false;
-	} else {
+	} 
+	else {
 		indicateInvalidId();
 		return true;
 	}
+}
+
+function indicateParseError(message) {
+	ToastStore.tagParseMessage = message;
+	ToastStore.isTagParseError = true;
 }
 
 function indicateInvalidTitleOrTags() {
@@ -108,4 +158,6 @@ function resetToastObject() {
 	ToastStore.isInvalidId = false;
 	ToastStore.isMissingList = false;
 	ToastStore.isListDeleted = false;
+	ToastStore.isTagParseError = false;
+	ToastStore.tagParseMessage = "";
 }

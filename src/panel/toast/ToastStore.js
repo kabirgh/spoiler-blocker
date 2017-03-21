@@ -8,12 +8,16 @@ class Store {
 	@observable isInvalidId = false;
 	@observable isMissingList = false;
 	@observable isListDeleted = false;
+	@observable isTagParseError = false;
+	// TODO: change tagParseMessage to a variable used by all toast-worthy notifications
+	// ie use a single message variable that all toasts will reference
+	@observable tagParseMessage = "";
 
 	constructor() {}
 
 	@computed get allFlags() {
 		return [this.isAddSuccess, this.isInvalidTitleOrTags, this.isDuplicateTitle,
-						this.isInvalidId, this.isMissingList, this.isListDeleted];
+						this.isInvalidId, this.isMissingList, this.isListDeleted, this.isTagParseError];
 	}
 
 	@computed get toastObject() {
@@ -61,6 +65,14 @@ class Store {
 			return {
 				message: "Deleted list. Refresh page to see changes.",
 				intent: Intent.PRIMARY,
+				timeout: 2000
+			};
+		}
+
+		else if (this.isTagParseError) {
+			return {
+				message: this.tagParseMessage,
+				intent: Intent.DANGER,
 				timeout: 2000
 			};
 		}
